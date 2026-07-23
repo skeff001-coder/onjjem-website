@@ -1,25 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>ONJJEM Shop</title>
-    <meta name="description" content="ONJJEM Shop — built on Replit. Update this description to reflect the app." />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="ONJJEM Shop" />
-    <meta property="og:description" content="ONJJEM Shop — built on Replit. Update this description to reflect the app." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ONJJEM Shop" />
-    <meta name="twitter:description" content="ONJJEM Shop — built on Replit. Update this description to reflect the app." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-Bm4a7mCV.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Dwvduj-H.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONJJEM - Personalised Photo Gifts</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0A0804;
+    color: #F5EDD8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    padding: 40px 20px 80px;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; text-align: center; }
+  h1 {
+    color: #C9960C;
+    font-size: clamp(48px, 12vw, 80px);
+    letter-spacing: 6px;
+    margin-bottom: 10px;
+    font-weight: 800;
+  }
+  .tagline { color: #F5D78E; font-size: 18px; margin-bottom: 4px; }
+  .subtagline { color: rgba(245,215,142,0.5); font-size: 14px; margin-bottom: 50px; }
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    text-align: left;
+    margin-bottom: 50px;
+  }
+  .card {
+    background: #1C1A14;
+    border: 1px solid rgba(201,150,12,0.2);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .card h3 { color: #F5EDD8; font-size: 16px; margin-bottom: 6px; }
+  .card p.price { color: #C9960C; font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+  .card p.desc { color: rgba(245,237,216,0.6); font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
+  .buy-btn {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg,#8B6200,#C9960C,#F5E098,#C9960C);
+    color: #1a0a00;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .buy-btn:disabled { opacity: 0.6; }
+  .status { font-size: 12px; margin-top: 8px; text-align: center; min-height: 16px; }
+  .status.error { color: #ff8080; }
+  .status.loading { color: #F5D78E; }
+  footer { text-align: center; margin-top: 40px; }
+  footer a { color: #C9960C; text-decoration: none; margin: 0 10px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ONJJEM</h1>
+    <p class="tagline">Personalised Photo Gift Specialists</p>
+    <p class="subtagline">Made in Britain &nbsp;|&nbsp; Delivered to Your Door</p>
+
+    <div class="products" id="products"></div>
+
+    <footer>
+      <a href="/delivery.html">Delivery Info</a>
+      <a href="/terms.html">Terms &amp; Conditions</a>
+    </footer>
+  </div>
+
+<script>
+const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+
+const PRODUCTS = [
+  { sku: "magic-mug", name: "Magic Photo Mug", price: "£18.99", desc: "Starts black, photo appears when you pour a hot drink." },
+  { sku: "mug-11oz", name: "Photo Mug 11oz", price: "£11.99", desc: "Classic ceramic mug with your photo." },
+  { sku: "magnet-fridge-3x2", name: "Photo Fridge Magnet 3x2", price: "£6.99", desc: "Small personalised fridge magnet." },
+  { sku: "magnet-fridge-6x4", name: "Photo Fridge Magnet 6x4", price: "£7.99", desc: "Larger personalised fridge magnet." },
+  { sku: "canvas-stretched-8x10", name: "Stretched Canvas 8x10", price: "£39.95", desc: "Your photo on a stretched canvas, ready to hang." },
+  { sku: "canvas-stretched-12x16", name: "Stretched Canvas 12x16", price: "£45.95", desc: "Larger stretched canvas print." },
+  { sku: "jigsaw-500", name: "Photo Jigsaw 500pc", price: "£29.95", desc: "500-piece jigsaw made from your photo." },
+  { sku: "photo-tile-8x8", name: "Framed Photo Tile 8x8", price: "£23.99", desc: "Framed photo tile, ready to display." },
+  { sku: "playing-cards", name: "Playing Cards", price: "£15.95", desc: "Full deck of 54 cards personalised with your photo." },
+  { sku: "keyring-3x3", name: "Photo Keyring", price: "£9.99", desc: "Personalised photo keyring." },
+  { sku: "tea-towel", name: "Photo Tea Towel", price: "£20.99", desc: "Personalised tea towel for the kitchen." },
+  { sku: "coaster-4pk", name: "Photo Coasters (4 pack)", price: "£16.99", desc: "Set of 4 personalised coasters." },
+];
+
+const grid = document.getElementById("products");
+
+PRODUCTS.forEach(p => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <h3>${p.name}</h3>
+    <p class="price">${p.price}</p>
+    <p class="desc">${p.desc}</p>
+    <input type="file" accept="image/*" style="margin-bottom:10px;width:100%;font-size:12px;color:#F5D78E;" data-sku="${p.sku}">
+    <button class="buy-btn" data-sku="${p.sku}">Buy Now</button>
+    <p class="status" data-status="${p.sku}"></p>
+  `;
+  grid.appendChild(card);
+});
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+document.querySelectorAll(".buy-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const sku = btn.dataset.sku;
+    const fileInput = document.querySelector(`input[data-sku="${sku}"]`);
+    const statusEl = document.querySelector(`[data-status="${sku}"]`);
+    const file = fileInput.files[0];
+
+    if (!file) {
+      statusEl.textContent = "Please choose a photo first";
+      statusEl.className = "status error";
+      return;
+    }
+
+    btn.disabled = true;
+    statusEl.textContent = "Preparing checkout...";
+    statusEl.className = "status loading";
+
+    try {
+      const photoBase64 = await toBase64(file);
+      const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sku,
+          photoBase64,
+          successUrl: window.location.origin + "/?order=success",
+          cancelUrl: window.location.href,
+        }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        statusEl.textContent = data.error || "Something went wrong";
+        statusEl.className = "status error";
+        btn.disabled = false;
+      }
+    } catch (err) {
+      statusEl.textContent = "Could not connect. Please try again.";
+      statusEl.className = "status error";
+      btn.disabled = false;
+    }
+  });
+});
+</script>
+</body>
 </html>
