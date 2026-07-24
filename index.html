@@ -13,7 +13,16 @@
     padding: 40px 20px 80px;
   }
   .wrap { max-width: 1000px; margin: 0 auto; }
-  .hero { text-align: center; margin-bottom: 40px; }
+  .hero {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding: 30px 20px 10px;
+    border-radius: 24px;
+    background: radial-gradient(ellipse 70% 60% at 50% 15%, rgba(255,183,94,0.22) 0%, rgba(255,183,94,0.08) 40%, transparent 75%),
+                radial-gradient(ellipse 60% 50% at 20% 60%, rgba(126,211,177,0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(127,196,239,0.18) 0%, transparent 70%);
+  }
   h1 {
     font-family: Georgia, 'Times New Roman', serif;
     font-weight: 900;
@@ -22,28 +31,28 @@
     margin-bottom: 6px;
     background: linear-gradient(180deg,
       #FFFFFF 0%,
-      #E3F4FF 8%,
-      #B8E2FA 18%,
-      #7FC4EF 32%,
-      #4FA8DE 45%,
-      #3E9BD6 58%,
-      #1B6FA8 72%,
-      #6BC0F0 85%,
-      #1B6FA8 100%
+      #FFE0E0 8%,
+      #FFADAD 18%,
+      #FF6B6B 30%,
+      #E8283C 42%,
+      #C41230 55%,
+      #9B0F28 70%,
+      #E8506A 85%,
+      #9B0F28 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(15,60,90,0.4);
+    -webkit-text-stroke: 1.5px rgba(90,10,20,0.45);
     text-shadow:
-      0 1px 0 #4FA8DE,
-      0 2px 0 #2E85BE,
-      0 3px 0 #1B6FA8,
-      0 4px 0 #145080,
-      0 5px 0 #0d3a5c,
-      0 6px 10px rgba(0,0,0,0.15),
-      0 0 25px rgba(79,168,222,0.4),
-      0 0 50px rgba(127,196,239,0.25);
+      0 1px 0 #C41230,
+      0 2px 0 #A50E28,
+      0 3px 0 #8B0C20,
+      0 4px 0 #6b0918,
+      0 5px 0 #4a0610,
+      0 6px 10px rgba(0,0,0,0.2),
+      0 0 25px rgba(228,20,50,0.45),
+      0 0 50px rgba(232,80,106,0.28);
     animation: shine 4s ease-in-out infinite;
   }
   @keyframes shine {
@@ -96,6 +105,27 @@
     font-size: 15px;
     line-height: 1.8;
   }
+
+  .reviews-section { max-width: 900px; margin: 40px auto 0; }
+  .reviews-title { color: #1B6FA8; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 6px; }
+  .reviews-sub { text-align: center; color: rgba(43,58,74,0.55); font-size: 13px; margin-bottom: 20px; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .review-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(27,111,168,0.18);
+    box-shadow: 0 2px 12px rgba(27,111,168,0.06);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: left;
+  }
+  .review-stars { color: #F5A623; font-size: 15px; letter-spacing: 2px; margin-bottom: 8px; }
+  .review-product { color: #1B6FA8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .review-text { color: rgba(43,58,74,0.8); font-size: 13px; line-height: 1.6; font-style: italic; margin-bottom: 10px; }
+  .review-name { color: #2B3A4A; font-size: 12px; font-weight: 700; }
 
   .ideas-section {
     max-width: 800px;
@@ -321,6 +351,49 @@
 
     <h2 class="section-title" id="sectionTitle">Magic Photo Mug</h2>
     <div class="products" id="products"></div>
+
+    <div class="reviews-section">
+      <p class="reviews-title">What Our Customers Say</p>
+      <p class="reviews-sub">Trusted by families across the UK</p>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-product">Canvas Print</p>
+          <p class="review-text">"Got a canvas of my daughter for my husband and he cried when he opened it. Absolutely beautiful quality."</p>
+          <p class="review-name">Claire M, Birmingham</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-product">Magic Photo Mug</p>
+          <p class="review-text">"Ordered a magic mug with my son's favourite footballer on it. He could not believe it when he opened it — his face was a picture!"</p>
+          <p class="review-name">James T, Manchester</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-product">Photo Jigsaw</p>
+          <p class="review-text">"The jigsaw of our family holiday photo was stunning. Every piece perfect. Arrived so quickly. Brilliant company."</p>
+          <p class="review-name">Sarah K, Edinburgh</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-product">Framed Photo Tile</p>
+          <p class="review-text">"Framed print of my dog arrived beautifully packaged. Far better quality than anything I have ordered online before."</p>
+          <p class="review-name">David R, London</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-product">Photo Coasters</p>
+          <p class="review-text">"Bought these as a housewarming gift and they were such a hit. Lovely quality, arrived really quickly too."</p>
+          <p class="review-name">Priya N, Leicester</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-product">Photo Magnets</p>
+          <p class="review-text">"Ordered a set with photos of our cat and they look brilliant on the fridge. Great value and lovely quality."</p>
+          <p class="review-name">Michael O, Bristol</p>
+        </div>
+      </div>
+    </div>
 
     <div class="why-section" style="margin-top: 40px;">
       <h2>Why Choose ONJJEM</h2>
