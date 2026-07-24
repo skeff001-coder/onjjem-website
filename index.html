@@ -33,8 +33,16 @@
     background: #1C1A14;
     border: 1px solid rgba(201,150,12,0.2);
     border-radius: 12px;
-    padding: 20px;
+    overflow: hidden;
   }
+  .card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    background: #0A0804;
+  }
+  .card .card-body { padding: 16px; }
   .card h3 { color: #F5EDD8; font-size: 16px; margin-bottom: 6px; }
   .card p.price { color: #C9960C; font-size: 15px; font-weight: 700; margin-bottom: 14px; }
   .card p.desc { color: rgba(245,237,216,0.6); font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
@@ -77,18 +85,18 @@
 const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
 
 const PRODUCTS = [
-  { sku: "magic-mug", name: "Magic Photo Mug", price: "£18.99", desc: "Starts black, photo appears when you pour a hot drink." },
-  { sku: "mug-11oz", name: "Photo Mug 11oz", price: "£11.99", desc: "Classic ceramic mug with your photo." },
-  { sku: "magnet-fridge-3x2", name: "Photo Fridge Magnet 3x2", price: "£6.99", desc: "Small personalised fridge magnet." },
-  { sku: "magnet-fridge-6x4", name: "Photo Fridge Magnet 6x4", price: "£7.99", desc: "Larger personalised fridge magnet." },
-  { sku: "canvas-stretched-8x10", name: "Stretched Canvas 8x10", price: "£39.95", desc: "Your photo on a stretched canvas, ready to hang." },
-  { sku: "canvas-stretched-12x16", name: "Stretched Canvas 12x16", price: "£45.95", desc: "Larger stretched canvas print." },
-  { sku: "jigsaw-500", name: "Photo Jigsaw 500pc", price: "£29.95", desc: "500-piece jigsaw made from your photo." },
-  { sku: "photo-tile-8x8", name: "Framed Photo Tile 8x8", price: "£23.99", desc: "Framed photo tile, ready to display." },
-  { sku: "playing-cards", name: "Playing Cards", price: "£15.95", desc: "Full deck of 54 cards personalised with your photo." },
-  { sku: "keyring-3x3", name: "Photo Keyring", price: "£9.99", desc: "Personalised photo keyring." },
-  { sku: "tea-towel", name: "Photo Tea Towel", price: "£20.99", desc: "Personalised tea towel for the kitchen." },
-  { sku: "coaster-4pk", name: "Photo Coasters (4 pack)", price: "£16.99", desc: "Set of 4 personalised coasters." },
+  { sku: "magic-mug", name: "Magic Photo Mug", price: "£18.99", desc: "Starts black, photo appears when you pour a hot drink.", img: "/products/photo-mugs.jpg" },
+  { sku: "mug-11oz", name: "Photo Mug 11oz", price: "£11.99", desc: "Classic ceramic mug with your photo.", img: "/products/photo-mugs.png" },
+  { sku: "magnet-fridge-3x2", name: "Photo Fridge Magnet 3x2", price: "£6.99", desc: "Small personalised fridge magnet.", img: "/products/photo-magnets.webp" },
+  { sku: "magnet-fridge-6x4", name: "Photo Fridge Magnet 6x4", price: "£7.99", desc: "Larger personalised fridge magnet.", img: "/products/photo-magnets.webp" },
+  { sku: "canvas-stretched-8x10", name: "Stretched Canvas 8x10", price: "£39.95", desc: "Your photo on a stretched canvas, ready to hang.", img: "/products/stretched-canvas.webp" },
+  { sku: "canvas-stretched-12x16", name: "Stretched Canvas 12x16", price: "£45.95", desc: "Larger stretched canvas print.", img: "/products/framed-canvas.webp" },
+  { sku: "jigsaw-500", name: "Photo Jigsaw 500pc", price: "£29.95", desc: "500-piece jigsaw made from your photo.", img: "/products/jigsaw-500pc.webp" },
+  { sku: "photo-tile-8x8", name: "Framed Photo Tile 8x8", price: "£23.99", desc: "Framed photo tile, ready to display.", img: "/products/framed-photo-tiles.jpg" },
+  { sku: "playing-cards", name: "Playing Cards", price: "£15.95", desc: "Full deck of 54 cards personalised with your photo.", img: "/products/playing-cards.webp" },
+  { sku: "keyring-3x3", name: "Photo Keyring", price: "£9.99", desc: "Personalised photo keyring.", img: "/products/tough-case.png" },
+  { sku: "tea-towel", name: "Photo Tea Towel", price: "£20.99", desc: "Personalised tea towel for the kitchen.", img: "/products/tea-towels.jpg" },
+  { sku: "coaster-4pk", name: "Photo Coasters (4 pack)", price: "£16.99", desc: "Set of 4 personalised coasters.", img: "/products/wooden-coasters.jpg" },
 ];
 
 const grid = document.getElementById("products");
@@ -97,12 +105,15 @@ PRODUCTS.forEach(p => {
   const card = document.createElement("div");
   card.className = "card";
   card.innerHTML = `
-    <h3>${p.name}</h3>
-    <p class="price">${p.price}</p>
-    <p class="desc">${p.desc}</p>
-    <input type="file" accept="image/*" style="margin-bottom:10px;width:100%;font-size:12px;color:#F5D78E;" data-sku="${p.sku}">
-    <button class="buy-btn" data-sku="${p.sku}">Buy Now</button>
-    <p class="status" data-status="${p.sku}"></p>
+    <img src="${p.img}" alt="${p.name}" loading="lazy">
+    <div class="card-body">
+      <h3>${p.name}</h3>
+      <p class="price">${p.price}</p>
+      <p class="desc">${p.desc}</p>
+      <input type="file" accept="image/*" style="margin-bottom:10px;width:100%;font-size:12px;color:#F5D78E;" data-sku="${p.sku}">
+      <button class="buy-btn" data-sku="${p.sku}">Buy Now</button>
+      <p class="status" data-status="${p.sku}"></p>
+    </div>
   `;
   grid.appendChild(card);
 });
