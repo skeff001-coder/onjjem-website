@@ -7,52 +7,51 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    background: linear-gradient(180deg, #EAF6FF 0%, #FFFFFF 40%);
-    color: #2B3A4A;
+    background: linear-gradient(180deg, #1A0F2E 0%, #120A22 45%, #0D0719 100%);
+    color: #F3EAFF;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     padding: 40px 20px 80px;
   }
   .wrap { max-width: 1000px; margin: 0 auto; }
   .hero {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
     position: relative;
-    padding: 30px 20px 10px;
+    padding: 44px 20px 24px;
     border-radius: 24px;
-    background: radial-gradient(ellipse 70% 60% at 50% 15%, rgba(255,183,94,0.22) 0%, rgba(255,183,94,0.08) 40%, transparent 75%),
-                radial-gradient(ellipse 60% 50% at 20% 60%, rgba(126,211,177,0.15) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(127,196,239,0.18) 0%, transparent 70%);
+    background: radial-gradient(ellipse 70% 60% at 50% 15%, rgba(212,168,67,0.14) 0%, rgba(212,168,67,0.05) 40%, transparent 75%),
+                radial-gradient(ellipse 60% 50% at 20% 60%, rgba(126,90,211,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(90,60,160,0.2) 0%, transparent 70%);
   }
   h1 {
     font-family: Georgia, 'Times New Roman', serif;
     font-weight: 900;
     font-size: clamp(52px, 13vw, 92px);
     letter-spacing: 8px;
-    margin-bottom: 6px;
+    margin-bottom: 18px;
     background: linear-gradient(180deg,
-      #FFFFFF 0%,
-      #FFE0E0 8%,
-      #FFADAD 18%,
-      #FF6B6B 30%,
-      #E8283C 42%,
-      #C41230 55%,
-      #9B0F28 70%,
-      #E8506A 85%,
-      #9B0F28 100%
+      #FFFDF5 0%,
+      #FDF0C8 10%,
+      #F5D77E 22%,
+      #E8C04A 36%,
+      #D4A843 50%,
+      #C79A2E 65%,
+      #E8C04A 80%,
+      #F5D77E 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(90,10,20,0.45);
+    -webkit-text-stroke: 1.5px rgba(120,90,10,0.4);
     text-shadow:
-      0 1px 0 #C41230,
-      0 2px 0 #A50E28,
-      0 3px 0 #8B0C20,
-      0 4px 0 #6b0918,
-      0 5px 0 #4a0610,
-      0 6px 10px rgba(0,0,0,0.2),
-      0 0 25px rgba(228,20,50,0.45),
-      0 0 50px rgba(232,80,106,0.28);
+      0 1px 0 #C79A2E,
+      0 2px 0 #B08A28,
+      0 3px 0 #997520,
+      0 4px 0 #7a5e18,
+      0 5px 0 #5c4712,
+      0 6px 10px rgba(0,0,0,0.35),
+      0 0 25px rgba(232,192,74,0.45),
+      0 0 50px rgba(245,215,126,0.28);
     animation: shine 4s ease-in-out infinite;
   }
   @keyframes shine {
@@ -63,24 +62,52 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 14px;
   }
   .three-words span {
-    color: #1B6FA8;
+    color: #D4B14A;
     font-size: clamp(13px, 2.2vw, 16px);
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
   }
-  .three-words .dot { color: #1B6FA8; opacity: 0.5; }
-  .tagline { color: #1B6FA8; font-size: 18px; margin-bottom: 4px; }
-  .subtagline { color: rgba(43,58,74,0.55); font-size: 14px; margin-bottom: 24px; }
+  .three-words .dot { color: #D4B14A; opacity: 0.5; }
+  .tagline { color: #E8D9A8; font-size: 18px; margin-bottom: 8px; }
+  .subtagline { color: rgba(243,234,255,0.55); font-size: 14px; margin-bottom: 28px; }
   .intro-text {
     max-width: 640px;
     margin: 0 auto;
-    color: rgba(43,58,74,0.75);
+    color: rgba(243,234,255,0.78);
     font-size: 15px;
     line-height: 1.8;
+  }
+
+  .ticker-wrap {
+    margin: 28px auto 0;
+    max-width: 100%;
+    overflow: hidden;
+    border-top: 1px solid rgba(212,168,67,0.25);
+    border-bottom: 1px solid rgba(212,168,67,0.25);
+    padding: 12px 0;
+  }
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    gap: 40px;
+    animation: tickerScroll 38s linear infinite;
+  }
+  .ticker-track span {
+    color: #D4B14A;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.85;
+  }
+  @keyframes tickerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   .why-section {
@@ -154,16 +181,34 @@
   .idea-card .emoji { font-size: 26px; margin-bottom: 8px; display: block; }
   .idea-card h3 { color: #1B6FA8; font-size: 15px; margin-bottom: 6px; }
   .idea-card p { color: rgba(43,58,74,0.7); font-size: 13px; line-height: 1.6; }
+  .idea-card.pressable {
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border: 1px solid rgba(212,168,67,0.4);
+  }
+  .idea-card.pressable:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212,168,67,0.2);
+  }
+  .idea-card.pressable:active { transform: translateY(-1px); }
+  .idea-card .cta {
+    display: inline-block;
+    margin-top: 10px;
+    color: #B8892A;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+  }
 
   /* Category nav bar */
   .cat-nav-wrap {
     position: sticky;
     top: 0;
-    background: linear-gradient(180deg, #EAF6FF 0%, #FFFFFF 40%);
+    background: linear-gradient(180deg, #1A0F2E 0%, #150C28 60%, rgba(21,12,40,0.97) 100%);
     padding: 20px 0 16px;
     margin-top: 40px;
     z-index: 10;
-    border-bottom: 1px solid rgba(27,111,168,0.15);
+    border-bottom: 1px solid rgba(212,168,67,0.2);
   }
   .cat-nav {
     display: flex;
@@ -323,13 +368,21 @@
         Upload any photo and we turn it into a beautiful, personalised gift — canvas prints, magic mugs, jigsaws, photo frames and much more. Every order is made just for you, printed to the highest standard, and delivered straight to your door.
       </p>
 
+      <div class="ticker-wrap">
+        <div class="ticker-track">
+          <span>Canvas Prints</span><span>Magic Mugs</span><span>Box Frames</span><span>Photo Jigsaws</span><span>Pet Tags</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Temporary Tattoos</span>
+          <span>Canvas Prints</span><span>Magic Mugs</span><span>Box Frames</span><span>Photo Jigsaws</span><span>Pet Tags</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Temporary Tattoos</span>
+        </div>
+      </div>
+
       <div class="ideas-section">
         <p class="ideas-title">Gift Inspiration</p>
         <div class="ideas-grid">
-          <div class="idea-card">
+          <div class="idea-card pressable" onclick="goToCategory('frames')" role="button" tabindex="0" aria-label="Shop Box Frames">
             <span class="emoji">⚽</span>
             <h3>For the Sports-Mad Child</h3>
             <p>Their favourite footballer, athlete or team badge printed onto a Magic Mug, mug, or canvas — a genuinely thrilling birthday surprise for any young sports fan.</p>
+            <span class="cta">Shop Box Frames →</span>
           </div>
           <div class="idea-card">
             <span class="emoji">🐾</span>
@@ -422,7 +475,7 @@ const CATEGORIES = [
         name: "Magic Photo Mug",
         img: "/products/IMG_4299.jpeg",
         desc: "This is the mug that stops breakfast in its tracks. It looks completely plain and jet black in the box — then you pour in your hot drink and, like magic, your photo rises up in full, vivid colour right before your eyes. Made from durable ceramic with a heat-sensitive coating, dishwasher safe, and printed to last. There's nothing else quite like the reaction this gift gets when it's opened.",
-        variants: [{ sku: "magic-mug", label: "11oz Heat-Activated Mug - £18.99" }],
+        variants: [{ sku: "magic-mug", label: "11oz Heat-Activated Mug - £13.99" }],
       },
       {
         name: "Photo Mugs",
@@ -617,6 +670,18 @@ let currentCatIndex = 0;
 const catNav = document.getElementById("catNav");
 const productsGrid = document.getElementById("products");
 const sectionTitle = document.getElementById("sectionTitle");
+
+function goToCategory(key) {
+  const i = CATEGORIES.findIndex(c => c.key === key);
+  if (i === -1) return;
+  currentCatIndex = i;
+  renderCatNav();
+  renderProducts();
+  const target = document.getElementById("sectionTitle");
+  if (target) {
+    window.scrollTo({ top: target.offsetTop - 90, behavior: "smooth" });
+  }
+}
 
 function renderCatNav() {
   catNav.innerHTML = "";
