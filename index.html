@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ONJJEM - Personalised Photo Gifts</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: linear-gradient(180deg, #1A0F2E 0%, #120A22 45%, #0D0719 100%);
     color: #F3EAFF;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     padding: 40px 20px 80px;
   }
   .wrap { max-width: 1000px; margin: 0 auto; }
@@ -28,30 +29,30 @@
     font-weight: 900;
     font-size: clamp(52px, 13vw, 92px);
     letter-spacing: 8px;
-    margin-bottom: 18px;
+    margin-bottom: 26px;
     background: linear-gradient(180deg,
-      #FFFDF5 0%,
-      #FDF0C8 10%,
-      #F5D77E 22%,
-      #E8C04A 36%,
-      #D4A843 50%,
-      #C79A2E 65%,
-      #E8C04A 80%,
-      #F5D77E 100%
+      #FFFDE7 0%,
+      #FFF176 15%,
+      #FFEB3B 30%,
+      #FFD600 50%,
+      #FFC400 70%,
+      #FFEB3B 85%,
+      #FFF9C4 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(120,90,10,0.4);
+    -webkit-text-stroke: 2px #6B4E00;
     text-shadow:
-      0 1px 0 #C79A2E,
-      0 2px 0 #B08A28,
-      0 3px 0 #997520,
-      0 4px 0 #7a5e18,
-      0 5px 0 #5c4712,
-      0 6px 10px rgba(0,0,0,0.35),
-      0 0 25px rgba(232,192,74,0.45),
-      0 0 50px rgba(245,215,126,0.28);
+      0 1px 0 #E6B800,
+      0 2px 0 #D4AC00,
+      0 3px 0 #C29F00,
+      0 4px 0 #B09200,
+      0 5px 0 #9E8500,
+      0 6px 0 #8C7800,
+      0 7px 0 #7A6B00,
+      0 8px 0 #684E00,
+      0 9px 2px rgba(0,0,0,0.5);
     animation: shine 4s ease-in-out infinite;
   }
   @keyframes shine {
@@ -61,8 +62,9 @@
   .three-words {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 14px;
+    margin-top: 8px;
+    margin-bottom: 24px;
   }
   .three-words span {
     color: #D4B14A;
@@ -72,8 +74,8 @@
     text-transform: uppercase;
   }
   .three-words .dot { color: #D4B14A; opacity: 0.5; }
-  .tagline { color: #E8D9A8; font-size: 18px; margin-bottom: 8px; }
-  .subtagline { color: rgba(243,234,255,0.55); font-size: 14px; margin-bottom: 28px; }
+  .tagline { color: #E8D9A8; font-size: 18px; margin-bottom: 14px; }
+  .subtagline { color: rgba(243,234,255,0.55); font-size: 14px; margin-bottom: 40px; }
   .intro-text {
     max-width: 640px;
     margin: 0 auto;
@@ -304,57 +306,10 @@
   footer { text-align: center; margin-top: 50px; }
   footer a { color: #1B6FA8; text-decoration: none; margin: 0 10px; font-size: 13px; }
 
-  .floating-icons {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-  }
-  .float-icon {
-    position: absolute;
-    font-size: 42px;
-    opacity: 0.35;
-    filter: saturate(0.9);
-  }
-  .float-icon.drift-a { animation: driftA 18s linear infinite; }
-  .float-icon.drift-b { animation: driftB 22s linear infinite; }
-  .float-icon.drift-c { animation: driftC 16s linear infinite; }
-  @keyframes driftA {
-    0%   { transform: translate(0, -10vh); }
-    100% { transform: translate(40vw, 110vh); }
-  }
-  @keyframes driftB {
-    0%   { transform: translate(0, -10vh); }
-    100% { transform: translate(-35vw, 110vh); }
-  }
-  @keyframes driftC {
-    0%   { transform: translate(0, -10vh); }
-    100% { transform: translate(60vw, 110vh); }
-  }
   .wrap, .cat-nav-wrap { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
-  <div class="floating-icons">
-    <span class="float-icon drift-a" style="top: -5%; left: 6%; animation-delay: 0s;">☕</span>
-    <span class="float-icon drift-b" style="top: -5%; left: 88%; animation-delay: 2s;">⚽</span>
-    <span class="float-icon drift-c" style="top: -5%; left: 12%; animation-delay: 5s;">🏎️</span>
-    <span class="float-icon drift-a" style="top: -5%; left: 65%; animation-delay: 8s;">🖼️</span>
-    <span class="float-icon drift-b" style="top: -5%; left: 30%; animation-delay: 3s;">☕</span>
-    <span class="float-icon drift-c" style="top: -5%; left: 80%; animation-delay: 10s;">⚽</span>
-    <span class="float-icon drift-a" style="top: -5%; left: 45%; animation-delay: 6s;">🖼️</span>
-    <span class="float-icon drift-b" style="top: -5%; left: 15%; animation-delay: 12s;">🏎️</span>
-    <span class="float-icon drift-c" style="top: -5%; left: 55%; animation-delay: 1s;">☕</span>
-    <span class="float-icon drift-a" style="top: -5%; left: 22%; animation-delay: 4s;">🐕</span>
-    <span class="float-icon drift-b" style="top: -5%; left: 70%; animation-delay: 7s;">🛋️</span>
-    <span class="float-icon drift-c" style="top: -5%; left: 38%; animation-delay: 9s;">👶</span>
-    <span class="float-icon drift-a" style="top: -5%; left: 92%; animation-delay: 11s;">🎂</span>
-    <span class="float-icon drift-b" style="top: -5%; left: 8%; animation-delay: 13s;">🐈</span>
-    <span class="float-icon drift-c" style="top: -5%; left: 60%; animation-delay: 2.5s;">🐕</span>
-    <span class="float-icon drift-a" style="top: -5%; left: 78%; animation-delay: 14s;">🎂</span>
-  </div>
-
   <div class="wrap">
 
     <div class="hero">
@@ -375,27 +330,6 @@
         </div>
       </div>
 
-      <div class="ideas-section">
-        <p class="ideas-title">Gift Inspiration</p>
-        <div class="ideas-grid">
-          <div class="idea-card pressable" onclick="goToCategory('frames')" role="button" tabindex="0" aria-label="Shop Box Frames">
-            <span class="emoji">⚽</span>
-            <h3>For the Sports-Mad Child</h3>
-            <p>Their favourite footballer, athlete or team badge printed onto a Magic Mug, mug, or canvas — a genuinely thrilling birthday surprise for any young sports fan.</p>
-            <span class="cta">Shop Box Frames →</span>
-          </div>
-          <div class="idea-card">
-            <span class="emoji">🐾</span>
-            <h3>For the Pet Lover</h3>
-            <p>Not just for family photos — your dog, cat, or any beloved pet can take pride of place on a mug, canvas, coaster or keyring. A heartfelt gift for anyone who treats their pet like family.</p>
-          </div>
-          <div class="idea-card">
-            <span class="emoji">🎂</span>
-            <h3>For Any Occasion</h3>
-            <p>Birthdays, anniversaries, new babies, or just because — whatever the photo and whoever it's of, we turn it into a gift that feels genuinely personal, not off-the-shelf.</p>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="cat-nav-wrap">
@@ -404,6 +338,28 @@
 
     <h2 class="section-title" id="sectionTitle">Magic Photo Mug</h2>
     <div class="products" id="products"></div>
+
+    <div class="ideas-section">
+      <p class="ideas-title">Gift Inspiration</p>
+      <div class="ideas-grid">
+        <div class="idea-card pressable" onclick="goToCategory('frames')" role="button" tabindex="0" aria-label="Shop Box Frames">
+          <span class="emoji">⚽</span>
+          <h3>For the Sports-Mad Child</h3>
+          <p>Their favourite footballer, athlete or team badge printed onto a Magic Mug, mug, or canvas — a genuinely thrilling birthday surprise for any young sports fan.</p>
+          <span class="cta">Shop Box Frames →</span>
+        </div>
+        <div class="idea-card">
+          <span class="emoji">🐾</span>
+          <h3>For the Pet Lover</h3>
+          <p>Not just for family photos — your dog, cat, or any beloved pet can take pride of place on a mug, canvas, coaster or keyring. A heartfelt gift for anyone who treats their pet like family.</p>
+        </div>
+        <div class="idea-card">
+          <span class="emoji">🎂</span>
+          <h3>For Any Occasion</h3>
+          <p>Birthdays, anniversaries, new babies, or just because — whatever the photo and whoever it's of, we turn it into a gift that feels genuinely personal, not off-the-shelf.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="reviews-section">
       <p class="reviews-title">What Our Customers Say</p>
@@ -497,11 +453,11 @@ const CATEGORIES = [
         img: "/products/stretched-canvas.webp",
         desc: "Museum-quality canvas, hand-stretched over a solid wooden frame and ready to hang straight out of the box — no additional framing needed. We use fade-resistant inks on premium poly-cotton canvas for rich, true-to-life colour that lasts for years. This is the gift that turns a favourite photo into a genuine piece of wall art, and it's consistently our most gifted item for weddings, new babies, and anniversaries.",
         variants: [
-          { sku: "canvas-stretched-8x10", label: "8x10 inch - £39.95" },
-          { sku: "canvas-stretched-10x12", label: "10x12 inch - £42.95" },
-          { sku: "canvas-stretched-12x16", label: "12x16 inch - £45.95" },
-          { sku: "canvas-stretched-16x20", label: "16x20 inch - £54.95" },
-          { sku: "canvas-stretched-20x24", label: "20x24 inch - £62.95" },
+          { sku: "canvas-stretched-6x8", label: "6x8 inch - £21.99" },
+          { sku: "canvas-stretched-10x14", label: "10x14 inch - £26.99" },
+          { sku: "canvas-stretched-12x14", label: "12x14 inch - £30.99" },
+          { sku: "canvas-stretched-17x24", label: "17x24 inch - £35.99" },
+          { sku: "canvas-stretched-23x34", label: "23x34 inch - £51.99" },
         ],
       },
       {
@@ -509,12 +465,12 @@ const CATEGORIES = [
         img: "/products/eco-canvas.webp",
         desc: "All the beauty of a canvas print at a friendlier price. Printed on high-quality canvas material using an eco-conscious process, this is a brilliant way to fill a wall with photos without spending a fortune — perfect for a gallery wall of family memories, or trying out a photo you love before committing to a larger size.",
         variants: [
-          { sku: "eco-canvas-8x8", label: "8x8 inch - £18.99" },
-          { sku: "eco-canvas-8x12", label: "8x12 inch - £19.99" },
-          { sku: "eco-canvas-12x12", label: "12x12 inch - £21.99" },
-          { sku: "eco-canvas-12x18", label: "12x18 inch - £29.99" },
-          { sku: "eco-canvas-16x16", label: "16x16 inch - £26.99" },
-          { sku: "eco-canvas-16x24", label: "16x24 inch - £37.99" },
+          { sku: "eco-canvas-8x8", label: "8x8 inch - £14.99" },
+          { sku: "eco-canvas-8x12", label: "8x12 inch - £15.99" },
+          { sku: "eco-canvas-12x12", label: "12x12 inch - £17.99" },
+          { sku: "eco-canvas-12x18", label: "12x18 inch - £19.99" },
+          { sku: "eco-canvas-16x16", label: "16x16 inch - £21.99" },
+          { sku: "eco-canvas-16x24", label: "16x24 inch - £26.99" },
         ],
       },
       {
@@ -522,10 +478,24 @@ const CATEGORIES = [
         img: "/products/slim-canvas.webp",
         desc: "A striking, elongated canvas shape that suits landscapes, panoramic shots, and statement wall pieces beautifully. The slim profile gives a modern, gallery-style finish that works especially well above a sofa, bed, or in a hallway — an eye-catching alternative to the traditional square or rectangular canvas.",
         variants: [
-          { sku: "slim-canvas-8x16", label: "8x16 inch - £40.95" },
-          { sku: "slim-canvas-24x40", label: "24x40 inch - £86.95" },
-          { sku: "slim-canvas-28x36", label: "28x36 inch - £86.95" },
-          { sku: "slim-canvas-40x48", label: "40x48 inch - £110.95" },
+          { sku: "slim-canvas-8x8", label: "8x8 inch - £20.99" },
+          { sku: "slim-canvas-8x10", label: "8x10 inch - £20.99" },
+          { sku: "slim-canvas-10x10", label: "10x10 inch - £20.99" },
+          { sku: "slim-canvas-12x14", label: "12x14 inch - £24.99" },
+          { sku: "slim-canvas-8x28", label: "8x28 inch - £30.99" },
+          { sku: "slim-canvas-36x24", label: "36x24 inch - £51.99" },
+        ],
+      },
+      {
+        name: "Eco Rolled Canvas",
+        img: "/products/eco-rolled-canvas.jpg",
+        desc: "An unframed, rolled canvas print for anyone who wants to choose or make their own frame — or simply display it as-is. Same fade-resistant inks and premium poly-cotton canvas as our stretched canvas, just shipped flat and ready for you to mount however you like.",
+        variants: [
+          { sku: "eco-rolled-10x10", label: "10x10 inch - £10.99" },
+          { sku: "eco-rolled-12x12", label: "12x12 inch - £13.99" },
+          { sku: "eco-rolled-12x18", label: "12x18 inch - £13.99" },
+          { sku: "eco-rolled-16x20", label: "16x20 inch - £16.99" },
+          { sku: "eco-rolled-18x24", label: "18x24 inch - £19.99" },
         ],
       },
       {
@@ -533,13 +503,11 @@ const CATEGORIES = [
         img: "/products/glow-poster.png",
         desc: "A beautiful photo print by day, and something magical after dark. Our glow-in-the-dark coating gently illuminates your photo once the lights go off — a genuinely unique gift that's especially loved in children's bedrooms, but just as popular as a quirky, conversation-starting piece anywhere in the home.",
         variants: [
-          { sku: "glow-4x6", label: "4x6 inch - £10.99" },
-          { sku: "glow-5x7", label: "5x7 inch - £11.99" },
-          { sku: "glow-8x10", label: "8x10 inch - £13.99" },
-          { sku: "glow-12x16", label: "12x16 inch - £15.99" },
-          { sku: "glow-16x20", label: "16x20 inch - £18.99" },
-          { sku: "glow-20x24", label: "20x24 inch - £23.99" },
-          { sku: "glow-24x32", label: "24x32 inch - £29.99" },
+          { sku: "glow-12x12", label: "12x12 inch - £13.99" },
+          { sku: "glow-12x16", label: "12x16 inch - £12.99" },
+          { sku: "glow-16x24", label: "16x24 inch - £17.99" },
+          { sku: "glow-18x24", label: "18x24 inch - £19.99" },
+          { sku: "glow-28x39", label: "28x39 inch - £38.99" },
         ],
       },
     ],
@@ -555,10 +523,10 @@ const CATEGORIES = [
         variants: [
           { sku: "box-frame-5x7", label: "5x7 inch - £46.95" },
           { sku: "box-frame-6x8", label: "6x8 inch - £49.95" },
-          { sku: "box-frame-11x14", label: "11x14 inch - £60.95" },
-          { sku: "box-frame-12x12", label: "12x12 inch - £57.95" },
-          { sku: "box-frame-12x16", label: "12x16 inch - £62.95" },
-          { sku: "box-frame-16x20", label: "16x20 inch - £72.95" },
+          { sku: "box-frame-11x14", label: "11x14 inch - £37.99" },
+          { sku: "box-frame-12x12", label: "12x12 inch - £35.99" },
+          { sku: "box-frame-12x16", label: "12x16 inch - £39.99" },
+          { sku: "box-frame-16x20", label: "16x20 inch - £47.99" },
         ],
       },
       {
@@ -623,9 +591,9 @@ const CATEGORIES = [
         img: "/products/jigsaw-500pc.webp",
         desc: "A truly unique way to bring a favourite photo to life. Each puzzle is precision-cut from premium, thick 2mm board using your photo printed in full, vivid colour edge-to-edge — no white borders, no gaps. The individual interlocking pieces have a satisfying, sturdy feel and fit together with real precision, so the finished puzzle displays beautifully as a keepsake once complete. A wonderful family activity gift that turns into a lasting memory piece afterwards — many customers frame the finished puzzle to hang on the wall.",
         variants: [
-          { sku: "jigsaw-252", label: "252 pieces - £26.99" },
-          { sku: "jigsaw-500", label: "500 pieces - £29.95" },
-          { sku: "jigsaw-1000", label: "1000 pieces - £35.95" },
+          { sku: "jigsaw-252", label: "252 pieces - £17.99" },
+          { sku: "jigsaw-500", label: "500 pieces - £20.99" },
+          { sku: "jigsaw-1000", label: "1000 pieces - £24.99" },
         ],
       },
       {
@@ -654,11 +622,11 @@ const CATEGORIES = [
         img: "/products/temporary-tattoos.webp",
         desc: "A brilliant novelty gift or fun addition to any celebration. Each tattoo is printed from your own photo using safe, skin-friendly ink that applies in seconds with water and lasts several days — genuinely photo-realistic once applied. Popular for hen and stag parties, festivals, birthdays, or just for a laugh with friends and family. Available in five sizes to suit anything from a small wrist design to a full arm piece.",
         variants: [
-          { sku: "tattoo-s", label: "Small (5cm x 5cm) - £11.99" },
-          { sku: "tattoo-m", label: "Medium (10cm x 10cm) - £17.95" },
-          { sku: "tattoo-l", label: "Large (15cm x 15cm) - £21.95" },
-          { sku: "tattoo-xl", label: "Extra Large (20cm x 20cm) - £24.95" },
-          { sku: "tattoo-xxl", label: "XXL (30cm x 30cm) - £34.95" },
+          { sku: "tattoo-s", label: "Small (5cm x 7.5cm) - £7.99" },
+          { sku: "tattoo-m", label: "Medium (7.5cm x 10cm) - £10.99" },
+          { sku: "tattoo-l", label: "Large (10cm x 15cm) - £13.99" },
+          { sku: "tattoo-xl", label: "Extra Large (20cm x 20cm) - £16.99" },
+          { sku: "tattoo-xxl", label: "XXL (30cm x 30cm) - £24.99" },
         ],
       },
     ],
