@@ -83,6 +83,14 @@
     font-size: 15px;
     line-height: 1.8;
   }
+  .shipping-note {
+    max-width: 640px;
+    margin: 14px auto 0;
+    color: #D4B14A;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+  }
 
   .ticker-wrap {
     margin: 28px auto 0;
@@ -268,6 +276,7 @@
   .card-body { padding: 16px; }
   .card h3 { color: #2B3A4A; font-size: 16px; margin-bottom: 4px; }
   .card p.price-range { color: #1B6FA8; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .card p.pp-note { color: rgba(43,58,74,0.55); font-size: 12px; margin-bottom: 12px; margin-top: -6px; }
   .card p.desc { color: rgba(43,58,74,0.6); font-size: 13px; margin-bottom: 14px; line-height: 1.5; }
   select.variant-select {
     width: 100%;
@@ -322,6 +331,7 @@
       <p class="intro-text">
         Upload any photo and we turn it into a beautiful, personalised gift — canvas prints, magic mugs, jigsaws, photo frames and much more. Every order is made just for you, printed to the highest standard, and delivered straight to your door.
       </p>
+      <p class="shipping-note">All prices shown exclude postage. A flat £3.99 delivery charge is added at checkout.</p>
 
       <div class="ticker-wrap">
         <div class="ticker-track">
@@ -342,21 +352,23 @@
     <div class="ideas-section">
       <p class="ideas-title">Gift Inspiration</p>
       <div class="ideas-grid">
-        <div class="idea-card pressable" onclick="goToCategory('frames')" role="button" tabindex="0" aria-label="Shop Box Frames">
+        <div class="idea-card pressable" onclick="goToCategory('canvas', 'Eco Rolled Canvas')" role="button" tabindex="0" aria-label="Shop Eco Rolled Canvas">
           <span class="emoji">⚽</span>
-          <h3>For the Sports-Mad Child</h3>
-          <p>Their favourite footballer, athlete or team badge printed onto a Magic Mug, mug, or canvas — a genuinely thrilling birthday surprise for any young sports fan.</p>
-          <span class="cta">Shop Box Frames →</span>
+          <h3>Sporting Legends</h3>
+          <p>Their favourite footballer, athlete or team badge printed onto an unframed rolled canvas — a genuinely thrilling birthday surprise for any young sports fan.</p>
+          <span class="cta">From £9.99 — Shop Eco Rolled Canvas →</span>
         </div>
-        <div class="idea-card">
+        <div class="idea-card pressable" onclick="goToCategory('canvas', 'Stretched Canvas')" role="button" tabindex="0" aria-label="Shop Stretched Canvas">
           <span class="emoji">🐾</span>
           <h3>For the Pet Lover</h3>
-          <p>Not just for family photos — your dog, cat, or any beloved pet can take pride of place on a mug, canvas, coaster or keyring. A heartfelt gift for anyone who treats their pet like family.</p>
+          <p>Not just for family photos — your dog, cat, or any beloved pet can take pride of place on a stretched canvas. A heartfelt gift for anyone who treats their pet like family.</p>
+          <span class="cta">From £21.99 — Shop Stretched Canvas →</span>
         </div>
-        <div class="idea-card">
+        <div class="idea-card pressable" onclick="goToCategory('canvas', 'Eco Canvas')" role="button" tabindex="0" aria-label="Shop Eco Canvas">
           <span class="emoji">🎂</span>
           <h3>For Any Occasion</h3>
           <p>Birthdays, anniversaries, new babies, or just because — whatever the photo and whoever it's of, we turn it into a gift that feels genuinely personal, not off-the-shelf.</p>
+          <span class="cta">From £14.99 — Shop Eco Canvas →</span>
         </div>
       </div>
     </div>
@@ -454,10 +466,8 @@ const CATEGORIES = [
         desc: "Museum-quality canvas, hand-stretched over a solid wooden frame and ready to hang straight out of the box — no additional framing needed. We use fade-resistant inks on premium poly-cotton canvas for rich, true-to-life colour that lasts for years. This is the gift that turns a favourite photo into a genuine piece of wall art, and it's consistently our most gifted item for weddings, new babies, and anniversaries.",
         variants: [
           { sku: "canvas-stretched-6x8", label: "6x8 inch - £21.99" },
-          { sku: "canvas-stretched-10x14", label: "10x14 inch - £26.99" },
+          { sku: "canvas-stretched-10x14", label: "10x14 inch - £21.99" },
           { sku: "canvas-stretched-12x14", label: "12x14 inch - £30.99" },
-          { sku: "canvas-stretched-17x24", label: "17x24 inch - £35.99" },
-          { sku: "canvas-stretched-23x34", label: "23x34 inch - £51.99" },
         ],
       },
       {
@@ -484,6 +494,8 @@ const CATEGORIES = [
           { sku: "slim-canvas-12x14", label: "12x14 inch - £24.99" },
           { sku: "slim-canvas-8x28", label: "8x28 inch - £30.99" },
           { sku: "slim-canvas-36x24", label: "36x24 inch - £51.99" },
+          { sku: "slim-canvas-17x23_4", label: "17x23.4 inch - £35.99" },
+          { sku: "slim-canvas-23x33_1", label: "23x33.1 inch - £51.99" },
         ],
       },
       {
@@ -491,11 +503,14 @@ const CATEGORIES = [
         img: "/products/eco-rolled-canvas.jpg",
         desc: "An unframed, rolled canvas print for anyone who wants to choose or make their own frame — or simply display it as-is. Same fade-resistant inks and premium poly-cotton canvas as our stretched canvas, just shipped flat and ready for you to mount however you like.",
         variants: [
-          { sku: "eco-rolled-10x10", label: "10x10 inch - £10.99" },
-          { sku: "eco-rolled-12x12", label: "12x12 inch - £13.99" },
-          { sku: "eco-rolled-12x18", label: "12x18 inch - £13.99" },
-          { sku: "eco-rolled-16x20", label: "16x20 inch - £16.99" },
-          { sku: "eco-rolled-18x24", label: "18x24 inch - £19.99" },
+          { sku: "eco-rolled-10x10", label: "10x10 inch - £9.99" },
+          { sku: "eco-rolled-10x12", label: "10x12 inch - £9.99" },
+          { sku: "eco-rolled-11x14", label: "11x14 inch - £10.99" },
+          { sku: "eco-rolled-12x12", label: "12x12 inch - £10.99" },
+          { sku: "eco-rolled-12x16", label: "12x16 inch - £10.99" },
+          { sku: "eco-rolled-12x18", label: "12x18 inch - £10.99" },
+          { sku: "eco-rolled-10x20", label: "10x20 inch - £10.99" },
+          { sku: "eco-rolled-12x24", label: "12x24 inch - £13.99" },
         ],
       },
       {
@@ -600,7 +615,7 @@ const CATEGORIES = [
         name: "Playing Cards",
         img: "/products/playing-cards.webp",
         desc: "A full deck of 54 professional-quality playing cards, each one featuring your own photos, printed crisp and vivid on durable, smooth-shuffling card stock. A brilliantly personal twist on a classic — genuinely fun to use at family game nights, and a gift that gets picked up again and again rather than sitting on a shelf.",
-        variants: [{ sku: "playing-cards", label: "Full Deck - £15.95" }],
+        variants: [{ sku: "playing-cards", label: "Full Deck - £14.99" }],
       },
     ],
   },
@@ -639,15 +654,30 @@ const catNav = document.getElementById("catNav");
 const productsGrid = document.getElementById("products");
 const sectionTitle = document.getElementById("sectionTitle");
 
-function goToCategory(key) {
+function goToCategory(key, productName) {
   const i = CATEGORIES.findIndex(c => c.key === key);
   if (i === -1) return;
   currentCatIndex = i;
   renderCatNav();
   renderProducts();
-  const target = document.getElementById("sectionTitle");
-  if (target) {
-    window.scrollTo({ top: target.offsetTop - 90, behavior: "smooth" });
+
+  if (productName) {
+    const targetId = "product-" + productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.style.transition = "box-shadow 0.3s ease";
+        el.style.boxShadow = "0 0 0 3px rgba(212,168,67,0.6)";
+        setTimeout(() => { el.style.boxShadow = ""; }, 2200);
+        return;
+      }
+      const target = document.getElementById("sectionTitle");
+      if (target) window.scrollTo({ top: target.offsetTop - 90, behavior: "smooth" });
+    }, 50);
+  } else {
+    const target = document.getElementById("sectionTitle");
+    if (target) window.scrollTo({ top: target.offsetTop - 90, behavior: "smooth" });
   }
 }
 
@@ -738,6 +768,7 @@ function renderProducts() {
 
     const card = document.createElement("div");
     card.className = "card";
+    card.id = "product-" + item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
     const showDropdown = item.variants.length > 1;
     const variantOptions = item.variants
@@ -752,6 +783,7 @@ function renderProducts() {
           ? `<select class="variant-select" data-item="${itemId}">${variantOptions}</select>`
           : `<p class="price-range">${item.variants[0].label}</p>`
         }
+        <p class="pp-note">+ £3.99 postage &amp; packing</p>
         <p class="desc">${item.desc}</p>
         <input type="file" accept="image/*" data-item="${itemId}">
         <button class="buy-btn" data-item="${itemId}">Buy Now</button>
