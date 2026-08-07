@@ -346,6 +346,60 @@
   footer a { color: #1B6FA8; text-decoration: none; margin: 0 10px; font-size: 13px; }
 
   .wrap, .cat-nav-wrap { position: relative; z-index: 1; }
+
+  .thankyou-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13,7,25,0.92);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .thankyou-card {
+    background: linear-gradient(180deg, #1A0F2E 0%, #120A22 100%);
+    border: 1px solid rgba(212,168,67,0.35);
+    border-radius: 20px;
+    padding: 40px 28px;
+    max-width: 420px;
+    text-align: center;
+  }
+  .thankyou-check {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(96,200,140,0.15);
+    border: 2px solid #60C88C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+  }
+  .thankyou-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #F3E2BC;
+    margin-bottom: 12px;
+  }
+  .thankyou-body {
+    color: rgba(243,234,255,0.8);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .thankyou-close {
+    background: #D4B14A;
+    color: #1A0F2E;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 32px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -920,6 +974,37 @@ function renderProducts() {
 
 renderCatNav();
 renderProducts();
+
+// Show a clear thank-you confirmation after a successful Stripe payment,
+// since customers were previously landing back on a normal-looking
+// homepage with no acknowledgment their order went through at all.
+(function checkForOrderSuccess() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("order") !== "success") return;
+
+  const overlay = document.createElement("div");
+  overlay.className = "thankyou-overlay";
+  overlay.innerHTML = `
+    <div class="thankyou-card">
+      <div class="thankyou-check">✓</div>
+      <div class="thankyou-title">Thank you for your order!</div>
+      <div class="thankyou-body">
+        Your payment has gone through successfully. We're getting your order ready to print now,
+        and it'll be on its way to you soon. If you have any questions in the meantime, feel free
+        to get in touch.
+      </div>
+      <button class="thankyou-close">Continue Shopping</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.querySelector(".thankyou-close").addEventListener("click", () => {
+    overlay.remove();
+    // clean the ?order=success param out of the URL so a refresh doesn't re-show this
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, "", cleanUrl);
+  });
+})();
 </script>
 </body>
 </html>
