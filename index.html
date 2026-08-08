@@ -284,6 +284,19 @@
     border-radius: 12px;
     padding: 14px 18px;
   }
+  .category-intro .app-link {
+    display: inline-block;
+    font-weight: 800;
+    font-size: 15px;
+    color: #FFFFFF;
+    background: #F5A623;
+    padding: 2px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  .category-intro .app-link:active {
+    opacity: 0.85;
+  }
   .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -868,7 +881,8 @@ const CATEGORIES = [
   {
     key: "gifts",
     label: "Gift Tags & More",
-    intro: "Got a dog? Before you order a pet tag, check out our free app What's Up Dog! — scan your dog's photo and instantly see their breed mix, personality traits and more, then turn that same photo into a tag, mug or poster right here. Search \"What's Up Dog\" on the App Store.",
+    intro: "Got a dog? Before you order a pet tag, scan them in our free app <a class=\"app-link\" href=\"https://apps.apple.com/app/id6771118261\" target=\"_blank\" rel=\"noopener\">What's Up Dog!</a> to instantly see their breed mix, personality traits and more — then turn that same photo into a tag, mug or poster right here.",
+    introHtml: true,
     items: [
       {
         name: "Pet Tags",
@@ -1127,7 +1141,11 @@ function renderProducts() {
   if (cat.intro) {
     const introEl = document.createElement("p");
     introEl.className = "category-intro";
-    introEl.textContent = cat.intro;
+    if (cat.introHtml) {
+      introEl.innerHTML = cat.intro;
+    } else {
+      introEl.textContent = cat.intro;
+    }
     productsGrid.parentElement.insertBefore(introEl, productsGrid);
   }
 
