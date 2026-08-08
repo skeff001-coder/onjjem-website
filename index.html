@@ -956,7 +956,25 @@ function toBase64(file) {
   });
 }
 
+// Tracks free cartoon generations for the whole visit (not per-item), so
+// switching between products doesn't grant fresh free tries. Persisted in
+// sessionStorage so it survives a page refresh within the same visit too.
+const CARTOON_FREE_LIMIT = 1;
+function getCartoonUsesThisSession() {
+  return parseInt(sessionStorage.getItem("cartoonUses") || "0", 10);
+}
+function recordCartoonUse() {
+  sessionStorage.setItem("cartoonUses", String(getCartoonUsesThisSession() + 1));
+}
+
 function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
+  if (getCartoonUsesThisSession() >= CARTOON_FREE_LIMIT) {
+    statusEl.textContent = "You've already used your free cartoon preview for this visit.";
+    statusEl.className = "status error";
+    btn.disabled = false;
+    return;
+  }
+
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
   overlay.innerHTML = `
@@ -966,7 +984,6 @@ function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
       <img class="cartoon-preview-img" data-role="image" style="display:none">
       <div class="cartoon-preview-buttons" data-role="buttons" style="display:none">
         <button class="cartoon-btn-primary" data-role="use">Use This ✓</button>
-        <button class="cartoon-btn-secondary" data-role="retry">Try Again</button>
       </div>
       <div style="margin-top: 12px;">
         <button class="cartoon-btn-secondary" data-role="cancel" style="width:100%">Cancel</button>
@@ -979,6 +996,7 @@ function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
   let currentCartoonMime = "image/png";
 
   async function generate() {
+    recordCartoonUse();
     overlay.querySelector('[data-role="loading"]').style.display = "block";
     overlay.querySelector('[data-role="image"]').style.display = "none";
     overlay.querySelector('[data-role="buttons"]').style.display = "none";
@@ -1009,8 +1027,6 @@ function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
         "Could not connect. Please try again.";
     }
   }
-
-  overlay.querySelector('[data-role="retry"]').addEventListener("click", generate);
 
   overlay.querySelector('[data-role="cancel"]').addEventListener("click", () => {
     overlay.remove();
