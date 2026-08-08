@@ -999,7 +999,7 @@ function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
         overlay.querySelector('[data-role="buttons"]').style.display = "flex";
       } else {
         overlay.querySelector('[data-role="loading"]').textContent =
-          data.error || "Couldn't generate the cartoon. Please try again.";
+          (data.error || "Couldn't generate the cartoon.") + (data.details ? " (" + data.details + ")" : "");
       }
     } catch (err) {
       overlay.querySelector('[data-role="loading"]').textContent =
