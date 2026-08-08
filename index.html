@@ -983,10 +983,13 @@ function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
     overlay.querySelector('[data-role="image"]').style.display = "none";
     overlay.querySelector('[data-role="buttons"]').style.display = "none";
     try {
+      // Gemini expects raw base64 bytes only, not the full "data:image/...;base64,"
+      // prefix that FileReader.readAsDataURL() produces - strip it before sending.
+      const rawBase64 = photoBase64.includes(",") ? photoBase64.split(",")[1] : photoBase64;
       const res = await fetch(`${API_BASE}/api/cartoonify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ base64Image: photoBase64, mimeType }),
+        body: JSON.stringify({ base64Image: rawBase64, mimeType }),
       });
       const data = await res.json();
       if (data.base64Image) {
