@@ -607,9 +607,9 @@
           "item": {
             "@type": "Product",
             "@id": "https://onjjem.com/#product-16",
-            "name": "Everyday Budget Poster",
-            "description": "An affordable everyday poster print on bright white 170gsm silk paper with eco-conscious water-based inks.",
-            "image": "https://onjjem.com/products/glow-poster-premium.webp",
+            "name": "Budget Poster",
+            "description": "A bright white, affordable poster print on 170gsm silk paper, available in Portrait or Landscape.",
+            "image": "https://onjjem.com/products/budget-poster.jpg",
             "category": "Jigsaws & Children's Corner",
             "brand": {
               "@type": "Brand",
@@ -618,37 +618,8 @@
             "offers": {
               "@type": "AggregateOffer",
               "priceCurrency": "GBP",
-              "lowPrice": 9.99,
-              "highPrice": 21.99,
-              "offerCount": 1,
-              "availability": "https://schema.org/InStock",
-              "url": "https://onjjem.com",
-              "seller": {
-                "@type": "Organization",
-                "name": "ONJJEM"
-              }
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 17,
-          "item": {
-            "@type": "Product",
-            "@id": "https://onjjem.com/#product-17",
-            "name": "Budget Framed Poster",
-            "description": "A self-assembly framed poster with shatterproof glazing, ready to hang in minutes.",
-            "image": "https://onjjem.com/products/glow-poster-premium.webp",
-            "category": "Jigsaws & Children's Corner",
-            "brand": {
-              "@type": "Brand",
-              "name": "ONJJEM"
-            },
-            "offers": {
-              "@type": "AggregateOffer",
-              "priceCurrency": "GBP",
-              "lowPrice": 24.99,
-              "highPrice": 62.99,
+              "lowPrice": 18.99,
+              "highPrice": 27.99,
               "offerCount": 1,
               "availability": "https://schema.org/InStock",
               "url": "https://onjjem.com",
@@ -1009,6 +980,16 @@
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
   }
+  .free-ship-banner {
+    text-align: center;
+    background: #D4A843;
+    color: #1B1330;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    padding: 9px 12px;
+  }
+
   .idea-card {
     background: #FFFFFF;
     border: 1px solid rgba(27,111,168,0.2);
@@ -1016,6 +997,77 @@
     border-radius: 12px;
     padding: 20px;
     text-align: left;
+  }
+
+  .featured-banner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(212,168,67,0.16) 0%, rgba(126,90,211,0.14) 100%);
+    border: 2px solid rgba(212,168,67,0.5);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .featured-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212,168,67,0.25);
+  }
+  .featured-banner-img {
+    flex: 0 0 140px;
+    width: 140px;
+    height: 140px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  }
+  .featured-banner-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .featured-banner-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .featured-banner-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #7E5AD3;
+    margin-bottom: 6px;
+  }
+  .featured-banner-title {
+    font-size: 24px;
+    margin: 0 0 8px;
+    color: #F3EAFF;
+  }
+  .featured-banner-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(243,234,255,0.8);
+    margin: 0 0 14px;
+  }
+  .featured-banner-cta {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 15px;
+    color: #D4A843;
+  }
+
+  @media (max-width: 600px) {
+    .featured-banner {
+      flex-direction: column;
+      text-align: center;
+    }
+    .featured-banner-img {
+      width: 120px;
+      height: 120px;
+    }
   }
   .idea-card .emoji { font-size: 26px; margin-bottom: 8px; display: block; }
   .idea-card h3 { color: #1B6FA8; font-size: 15px; margin-bottom: 6px; }
@@ -1310,6 +1362,7 @@
 </style>
 </head>
 <body>
+  <div class="free-ship-banner">🚚 FREE UK DELIVERY ON EVERY ORDER — NO MINIMUM SPEND</div>
   <div class="wrap">
 
     <div class="hero">
@@ -1336,6 +1389,18 @@
       </div>
       <p class="print-quality-note">Printed with professional Giclée &amp; archival-grade printers</p>
 
+    </div>
+
+    <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug">
+      <div class="featured-banner-img">
+        <img src="/products/IMG_4299.jpeg" alt="Magic Photo Mug" loading="lazy">
+      </div>
+      <div class="featured-banner-content">
+        <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
+        <h2 class="featured-banner-title">The Magic Photo Mug</h2>
+        <p class="featured-banner-text">Looks completely plain black in the box — then their photo appears in full colour the moment a hot drink is poured in. It's the reveal that gets filmed for every family group chat. Dishwasher safe, endlessly reusable, and genuinely magic every single morning.</p>
+        <span class="featured-banner-cta">Shop the Magic Mug — from £17.99 →</span>
+      </div>
     </div>
 
     <div class="cat-nav-wrap">
@@ -1668,35 +1733,22 @@ const CATEGORIES = [
         variants: [{ sku: "playing-cards", label: "Full Deck - £19.99" }],
       },
       {
-        name: "Everyday Budget Poster",
-        img: "/products/glow-poster-premium.webp", 
-        desc: "Affordable everyday poster print on bright white 170gsm silk paper — crisp lines and vibrant colour, printed with eco-conscious water-based inks. A great low-cost way to get a photo up on the wall.",
+        name: "Budget Poster",
+        img: "/products/budget-poster.jpg",
+        desc: "A bright white, affordable poster print on 170gsm silk paper — a genuinely great low-cost way to get a favourite photo up on the wall. Choose portrait or landscape to match your photo.",
         variants: [
-          { sku: "budget-poster-a5", label: "A5 - £9.99" },
-          { sku: "budget-poster-a4", label: "A4 - £9.99" },
-          { sku: "budget-poster-a3", label: "A3 - £10.99" },
-          { sku: "budget-poster-a2", label: "A2 - £16.99" },
-          { sku: "budget-poster-a1", label: "A1 - £21.99" },
-          { sku: "budget-poster-4x6", label: "4x6 inch - £9.99" },
-          { sku: "budget-poster-6x6", label: "6x6 inch - £9.99" },
-        ],
-      },
-      {
-        name: "Budget Framed Poster",
-        img: "/products/glow-poster-premium.webp",
-        desc: "Your favourite photo, ready to hang in minutes. This self-assembly framed poster arrives as one simple package — print and frame together, no separate ordering, no guesswork on sizing. Shatterproof glazing built in for safe, everyday hanging. An easy, affordable way to get a photo properly up on the wall.",
-        variants: [
-          { sku: "bfp-5x7", label: "5x7 inch - £24.99" },
-          { sku: "bfp-6x8", label: "6x8 inch - £24.99" },
-          { sku: "bfp-11x14", label: "11x14 inch - £32.99" },
-          { sku: "bfp-12x12", label: "12x12 inch - £32.99" },
-          { sku: "bfp-12x16", label: "12x16 inch - £30.99" },
-          { sku: "bfp-16x16", label: "16x16 inch - £36.99" },
-          { sku: "bfp-16x20", label: "16x20 inch - £50.99" },
-          { sku: "bfp-18x24", label: "18x24 inch - £55.99" },
-          { sku: "bfp-20x20", label: "20x20 inch - £54.99" },
-          { sku: "bfp-20x28", label: "20x28 inch - £57.99" },
-          { sku: "bfp-24x32", label: "24x31 inch - £62.99" },
+          { sku: "budget-poster-a5-portrait", label: "A5 / Portrait - £18.99" },
+          { sku: "budget-poster-a5-landscape", label: "A5 / Landscape - £18.99" },
+          { sku: "budget-poster-a4-portrait", label: "A4 / Portrait - £18.99" },
+          { sku: "budget-poster-a4-landscape", label: "A4 / Landscape - £18.99" },
+          { sku: "budget-poster-a3-portrait", label: "A3 / Portrait - £19.99" },
+          { sku: "budget-poster-a3-landscape", label: "A3 / Landscape - £19.99" },
+          { sku: "budget-poster-a2-portrait", label: "A2 / Portrait - £21.99" },
+          { sku: "budget-poster-a2-landscape", label: "A2 / Landscape - £21.99" },
+          { sku: "budget-poster-a1-portrait", label: "A1 / Portrait - £24.99" },
+          { sku: "budget-poster-a1-landscape", label: "A1 / Landscape - £24.99" },
+          { sku: "budget-poster-a0-portrait", label: "A0 / Portrait - £27.99" },
+          { sku: "budget-poster-a0-landscape", label: "A0 / Landscape - £27.99" },
         ],
       },
       {
@@ -1704,16 +1756,16 @@ const CATEGORIES = [
         img: "/products/exoboard.webp",
         desc: "A tough, lightweight, fully waterproof display board — perfect for a photo that can live indoors or out, from a playroom wall to a garden fence. Rigid enough to stand freely or hang, with sharp, edge-to-edge colour that won't fade.",
         variants: [
-          { sku: "exoboard-200x300", label: "8x12 inch (200x300mm) - £30.99" },
-          { sku: "exoboard-210x297", label: "8x12 inch (210x297mm) - £30.99" },
-          { sku: "exoboard-297x420", label: "12x17 inch - £37.99" },
-          { sku: "exoboard-300x400", label: "12x16 inch - £48.99" },
-          { sku: "exoboard-400x500", label: "16x20 inch - £58.99" },
-          { sku: "exoboard-450x600", label: "18x24 inch - £67.99" },
-          { sku: "exoboard-594x841", label: "23x33 inch - £82.99" },
-          { sku: "exoboard-600x800", label: "24x31 inch - £88.99" },
-          { sku: "exoboard-700x1000", label: "28x39 inch - £112.99" },
-          { sku: "exoboard-841x1189", label: "33x47 inch - £136.99" },
+          { sku: "exoboard-200x300", label: "8x12 inch (200x300mm) - £35.99" },
+          { sku: "exoboard-210x297", label: "8x12 inch (210x297mm) - £35.99" },
+          { sku: "exoboard-297x420", label: "12x17 inch - £40.99" },
+          { sku: "exoboard-300x400", label: "12x16 inch - £42.99" },
+          { sku: "exoboard-400x500", label: "16x20 inch - £50.99" },
+          { sku: "exoboard-450x600", label: "18x24 inch - £58.99" },
+          { sku: "exoboard-594x841", label: "23x33 inch - £70.99" },
+          { sku: "exoboard-600x800", label: "24x31 inch - £75.99" },
+          { sku: "exoboard-700x1000", label: "28x39 inch - £95.99" },
+          { sku: "exoboard-841x1189", label: "33x47 inch - £115.99" },
         ],
       },
     ],
@@ -1998,7 +2050,7 @@ function renderProducts() {
         <input type="file" accept="image/*" data-item="${itemId}">
         <div class="cartoon-toggle-row">
           <input type="checkbox" class="cartoon-toggle" data-item="${itemId}" id="cartoon-${itemId}">
-          <label for="cartoon-${itemId}">✨ Turn this into a cartoon illustration! (+£4.00)</label>
+          <label for="cartoon-${itemId}">✨ Want your photo turned into a cartoon illustration? (+£4.00)</label>
         </div>
         <button class="buy-btn" data-item="${itemId}">Buy Now</button>
         <p class="status" data-status="${itemId}"></p>
