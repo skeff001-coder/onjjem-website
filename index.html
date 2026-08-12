@@ -1841,7 +1841,6 @@ function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
   let currentCartoonMime = "image/png";
 
   async function generate() {
-    recordCartoonUse();
     overlay.querySelector('[data-role="loading"]').style.display = "block";
     overlay.querySelector('[data-role="image"]').style.display = "none";
     overlay.querySelector('[data-role="buttons"]').style.display = "none";
