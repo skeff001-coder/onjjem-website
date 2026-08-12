@@ -1814,24 +1814,11 @@ function toBase64(file) {
   });
 }
 
-// Tracks free cartoon generations for the whole visit (not per-item), so
-// switching between products doesn't grant fresh free tries. Persisted in
-// sessionStorage so it survives a page refresh within the same visit too.
-const CARTOON_FREE_LIMIT = 1;
-function getCartoonUsesThisSession() {
-  return parseInt(sessionStorage.getItem("cartoonUses") || "0", 10);
-}
-function recordCartoonUse() {
-  sessionStorage.setItem("cartoonUses", String(getCartoonUsesThisSession() + 1));
+
 }
 
 function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
-  if (getCartoonUsesThisSession() >= CARTOON_FREE_LIMIT) {
-    statusEl.textContent = "You've already used your free cartoon preview for this visit.";
-    statusEl.className = "status error";
-    btn.disabled = false;
-    return;
-  }
+
 
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
