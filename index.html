@@ -1435,6 +1435,68 @@
     justify-content: center;
     padding: 20px;
   }
+  .upsell-card {
+    background: linear-gradient(180deg, #1A0F2E 0%, #120A22 100%);
+    border: 1.5px solid rgba(212,168,67,0.4);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+  }
+  .upsell-title {
+    font-size: 19px;
+    color: #F3EAFF;
+    margin: 0 0 6px;
+  }
+  .upsell-sub {
+    font-size: 13px;
+    color: rgba(243,234,255,0.65);
+    margin: 0 0 20px;
+  }
+  .upsell-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    background: rgba(212,168,67,0.08);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  .upsell-item img {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .upsell-item-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #F3EAFF;
+    margin: 0 0 2px;
+  }
+  .upsell-item-price {
+    font-size: 13px;
+    color: #D4A843;
+    font-weight: 700;
+  }
+  .upsell-continue-btn {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(243,234,255,0.85);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
   .thankyou-card {
     background: linear-gradient(180deg, #1A0F2E 0%, #120A22 100%);
     border: 1px solid rgba(212,168,67,0.35);
@@ -1773,8 +1835,8 @@ const CATEGORIES = [
         variants: [
           { sku: "magnet-fridge-3x2", label: "Fridge Magnet 3x2 - £8.99" },
           { sku: "magnet-fridge-6x4", label: "Fridge Magnet 6x4 - £9.99" },
-          { sku: "magnet-square-4x4", label: "Square Magnet 4x4 - £11.99" },
           { sku: "magnet-acrylic-2x3", label: "Acrylic Magnet 2x3 - £12.99" },
+          { sku: "magnet-square-4x4", label: "Square Magnet 4x4 - £11.99" },
           { sku: "magnet-square-6x6", label: "Square Magnet 6x6 - £17.99" },
         ],
       },
@@ -1869,10 +1931,10 @@ const CATEGORIES = [
         img: "/products/glow-poster-premium.webp",
         desc: "Their favourite photo by day — a glowing surprise by night. Charge it under a bright light for 30 minutes, switch off, and watch it come alive with a soft luminous glow that lasts for hours. It's become one of our most-loved bedroom keepsakes: dogs, siblings, sports heroes, favourite characters — any photo your child loves, glowing gently on their wall after lights out. Printed on ultra-heavyweight 350gsm gallery-style paper for a genuinely premium feel, and just as at home in a nursery, playroom, or big kid's bedroom as it is under the stars.",
         variants: [
-          { sku: "art-gitd-premium-a4", label: "A4 - £19.99" },
-          { sku: "art-gitd-premium-a3", label: "A3 - £24.99" },
-          { sku: "art-gitd-premium-a2", label: "A2 - £31.99" },
           { sku: "art-gitd-premium-a1", label: "A1 - £44.99" },
+          { sku: "art-gitd-premium-a2", label: "A2 - £31.99" },
+          { sku: "art-gitd-premium-a3", label: "A3 - £24.99" },
+          { sku: "art-gitd-premium-a4", label: "A4 - £19.99" },
         ],
       },
       {
@@ -2152,17 +2214,55 @@ function attachBuyHandlers() {
       try {
         const photoBase64 = await toBase64(file);
 
-        if (cartoonToggle && cartoonToggle.checked) {
-          showCartoonPreview(itemId, sku, photoBase64, file.type || "image/jpeg", statusEl, btn);
-        } else {
-          await proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
-        }
+        showUpsellNudge(() => {
+          if (cartoonToggle && cartoonToggle.checked) {
+            showCartoonPreview(itemId, sku, photoBase64, file.type || "image/jpeg", statusEl, btn);
+          } else {
+            proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
+          }
+        });
       } catch (err) {
         statusEl.textContent = "Could not connect. Please try again.";
         statusEl.className = "status error";
         btn.disabled = false;
       }
     });
+  });
+}
+
+// ── Upsell nudge — shown right before checkout, suggests a cheap add-on ────────
+const UPSELL_ITEMS = [
+  { name: "Photo Print", price: "£7.99", img: "/products/framed-photo-tiles.jpg", category: "specialist-prints", productName: "Photo Print" },
+  { name: "Magic Photo Mug", price: "£14.99", img: "/products/IMG_4299.jpeg", category: "kitchen-magic", productName: "Magic Photo Mug" },
+];
+
+function showUpsellNudge(onContinue) {
+  const pick = UPSELL_ITEMS[Math.floor(Math.random() * UPSELL_ITEMS.length)];
+  const overlay = document.createElement("div");
+  overlay.className = "thankyou-overlay";
+  overlay.innerHTML = `
+    <div class="upsell-card">
+      <p class="upsell-title">Before you go... 👀</p>
+      <p class="upsell-sub">Lots of people add this to their order — it's a genuine bargain.</p>
+      <div class="upsell-item" data-role="view-item">
+        <img src="${pick.img}" alt="${pick.name}">
+        <div>
+          <p class="upsell-item-name">${pick.name}</p>
+          <p class="upsell-item-price">${pick.price}</p>
+        </div>
+      </div>
+      <button class="upsell-continue-btn" data-role="continue">No thanks, continue with my order →</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.querySelector('[data-role="view-item"]').addEventListener("click", () => {
+    document.body.removeChild(overlay);
+    goToCategory(pick.category, pick.productName);
+  });
+  overlay.querySelector('[data-role="continue"]').addEventListener("click", () => {
+    document.body.removeChild(overlay);
+    onContinue();
   });
 }
 
