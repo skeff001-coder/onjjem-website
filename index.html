@@ -980,6 +980,80 @@
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
   }
+  .hot-deals-section {
+    margin-bottom: 32px;
+  }
+  .hot-deals-title {
+    text-align: center;
+    font-size: 20px;
+    color: #D4A843;
+    margin: 0 0 16px;
+  }
+  .hot-deals-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .deal-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 16px 8px;
+    border-radius: 14px;
+    background: rgba(126,90,211,0.14);
+    border: 1.5px solid rgba(212,168,67,0.4);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .deal-tile:hover { transform: translateY(-2px); }
+  .deal-was {
+    font-size: 11px;
+    color: rgba(243,234,255,0.55);
+    text-decoration: line-through;
+  }
+  .deal-now {
+    font-size: 22px;
+    font-weight: 800;
+    color: #D4A843;
+    margin: 2px 0;
+  }
+  .deal-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #F3EAFF;
+  }
+  .deal-tile-flash {
+    border-color: #D4A843;
+    animation: dealFlash 1.4s ease-in-out infinite;
+  }
+  .deal-flash-badge {
+    position: absolute;
+    top: -10px;
+    right: -6px;
+    background: #E24C4C;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 20px;
+    animation: dealBadgePulse 1.4s ease-in-out infinite;
+  }
+  @keyframes dealFlash {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212,168,67,0.5); }
+    50% { box-shadow: 0 0 0 8px rgba(212,168,67,0); }
+  }
+  @keyframes dealBadgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+  @media (max-width: 480px) {
+    .hot-deals-grid { gap: 8px; }
+    .deal-now { font-size: 18px; }
+    .deal-name { font-size: 10.5px; }
+  }
+
   .free-ship-banner {
     text-align: center;
     background: #D4A843;
@@ -997,6 +1071,51 @@
     border-radius: 12px;
     padding: 20px;
     text-align: left;
+  }
+
+  .mega-deal-banner {
+    text-align: center;
+    padding: 22px 18px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(226,76,76,0.18) 0%, rgba(212,168,67,0.16) 100%);
+    border: 2.5px solid #E24C4C;
+    cursor: pointer;
+    animation: megaDealPulse 1.6s ease-in-out infinite;
+  }
+  .mega-deal-badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    color: #E24C4C;
+    margin-bottom: 8px;
+  }
+  .mega-deal-title {
+    font-size: 22px;
+    margin: 0 0 10px;
+    color: #F3EAFF;
+  }
+  .mega-deal-text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(243,234,255,0.82);
+    margin: 0 0 14px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .mega-deal-cta {
+    display: inline-block;
+    font-weight: 800;
+    font-size: 16px;
+    color: #D4A843;
+    background: rgba(212,168,67,0.15);
+    padding: 8px 20px;
+    border-radius: 30px;
+  }
+  @keyframes megaDealPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(226,76,76,0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(226,76,76,0); }
   }
 
   .featured-banner {
@@ -1391,6 +1510,13 @@
 
     </div>
 
+    <div class="mega-deal-banner pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
+      <span class="mega-deal-badge">🔥 OUTSTANDING PRICE — ON SALE NOW 🔥</span>
+      <h2 class="mega-deal-title">Professional Photo Print — just £7.99</h2>
+      <p class="mega-deal-text">A genuine professional-lab quality colour photo print, made on brilliant white silver halide paper — the same process real photo studios use, not a home-printer copy. Smooth gradients, natural skin tones, rich true colour, and a beautiful gloss finish. Perfect on its own, or as a small thoughtful add-on to any order. Just one of over 100 personalised gifts in our catalogue — and like everything at ONJJEM, it comes with completely free UK delivery, no minimum spend.</p>
+      <span class="mega-deal-cta">Shop Now — £7.99 →</span>
+    </div>
+
     <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug">
       <div class="featured-banner-img">
         <img src="/products/IMG_4299.jpeg" alt="Magic Photo Mug" loading="lazy">
@@ -1400,6 +1526,33 @@
         <h2 class="featured-banner-title">The Magic Photo Mug</h2>
         <p class="featured-banner-text">Looks completely plain black in the box — then their photo appears in full colour the moment a hot drink is poured in. It's the reveal that gets filmed for every family group chat. Dishwasher safe, endlessly reusable, and genuinely magic every single morning.</p>
         <span class="featured-banner-cta">Shop the Magic Mug — now £14.99 →</span>
+      </div>
+    </div>
+
+    <div class="hot-deals-section">
+      <h2 class="hot-deals-title">🔥 Hot Deals 🔥</h2>
+      <div class="hot-deals-grid">
+        <div class="deal-tile deal-tile-flash pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
+          <span class="deal-flash-badge">⚡ DEAL ⚡</span>
+          <span class="deal-was">Gloss 5x5"</span>
+          <span class="deal-now">£7.99</span>
+          <span class="deal-name">Photo Print</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug deal">
+          <span class="deal-was">Was £19.99</span>
+          <span class="deal-now">£14.99</span>
+          <span class="deal-name">Magic Photo Mug</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" role="button" tabindex="0" aria-label="Shop the Glow in the Dark Poster deal">
+          <span class="deal-was">A4 size</span>
+          <span class="deal-now">£19.99</span>
+          <span class="deal-name">Glow in the Dark Poster</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" role="button" tabindex="0" aria-label="Shop the Museum-Grade Fine Art Print deal">
+          <span class="deal-was">5x7 size</span>
+          <span class="deal-now">£9.99</span>
+          <span class="deal-name">Fine Art Print</span>
+        </div>
       </div>
     </div>
 
@@ -1533,6 +1686,101 @@ const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
 // Each top-level category can contain one or more products, each with its own variants
 const CATEGORIES = [
   {
+    key: "specialist-prints",
+    label: "Specialist Prints",
+    items: [
+      {
+        name: "Photo Print",
+        img: "/products/IMG_4299.jpeg",
+        desc: "A genuine professional colour photo print, made on brilliant white silver halide paper for gallery-standard reproduction — smooth gradients, natural skin tones, and rich, true-to-life colour. This is the same continuous-tone print process used by professional photo labs, not a home-printer copy. Delivered in a beautiful gloss finish, ready to keep, frame, or gift.",
+        variants: [
+          { sku: "photo-print-5x5", label: "5x5 inch (Gloss) — £7.99" },
+        ],
+      },
+      {
+        name: "Museum-Grade Fine Art Print",
+        img: "/products/slim-canvas.webp", 
+        desc: "Professional Giclée fine art printing on heavyweight 240gsm matte paper with archival, pigment-based inks. Razor-sharp detail and rich colour that resists fading over time — a genuinely premium way to display a favourite photo.",
+        variants: [
+          { sku: "art-print-5x7", label: "5x7 inch - £9.99" },
+          { sku: "art-print-8x10", label: "8x10 inch - £12.99" },
+          { sku: "art-print-11x14", label: "11x14 inch - £17.99" },
+          { sku: "art-print-12x16", label: "12x16 inch - £19.99" },
+          { sku: "art-print-24x32", label: "24x32 inch - £32.99" },
+          { sku: "art-print-36x48", label: "36x48 inch - £57.99" },
+        ],
+      },
+      {
+        name: "Premium Metallic Foil Art Print",
+        img: "/products/metallic-foil-print.webp",
+        desc: "Ultra-heavyweight 350gsm specialist print with true metallic Gold or Silver foil accents — direct UV digital printing lets you control exactly which lettering or highlights shine. A genuinely eye-catching statement piece.",
+        variants: [
+          { sku: "art-foil-a4-gold", label: "A4 / Gold - £25.99" },
+          { sku: "art-foil-a4-silver", label: "A4 / Silver - £25.99" },
+          { sku: "art-foil-a3-gold", label: "A3 / Gold - £28.99" },
+          { sku: "art-foil-a3-silver", label: "A3 / Silver - £28.99" },
+          { sku: "art-foil-a2-gold", label: "A2 / Gold - £34.99" },
+          { sku: "art-foil-a2-silver", label: "A2 / Silver - £34.99" },
+          { sku: "art-foil-a1-gold", label: "A1 / Gold - £44.99" },
+          { sku: "art-foil-a1-silver", label: "A1 / Silver - £44.99" },
+        ],
+      },
+    ],
+  },
+  {
+    key: "kitchen-magic",
+    label: "Kitchen Magic",
+    items: [
+      {
+        name: "Magic Photo Mug",
+        img: "/products/IMG_4299.jpeg",
+        desc: "This is the mug that stops breakfast in its tracks. It looks completely plain and jet black in the box — then you pour in your hot drink and, like magic, your photo rises up in full, vivid colour right before your eyes. Made from durable ceramic with a heat-sensitive coating, dishwasher safe, and printed to last. There's nothing else quite like the reaction this gift gets when it's opened.",
+        variants: [{ sku: "magic-mug", label: "11oz Heat-Activated Mug — <s>£19.99</s> <strong style=\"color:#D4A843;\">£14.99</strong>" }],
+      },
+      {
+        name: "Photo Mugs",
+        img: "/products/photo-mugs-v2.jpg",
+        desc: "A classic that never goes out of style. Your favourite photo, printed in sharp, vivid colour on a premium ceramic mug that's built for daily use. Dishwasher and microwave safe, so it's as practical as it is personal — perfect for the office desk, the morning coffee, or a thoughtful gift that gets used every single day.",
+        variants: [
+          { sku: "mug-11oz", label: "11oz Mug - £11.99" },
+          { sku: "mug-15oz", label: "15oz Large Mug - £20.99" },
+        ],
+      },
+      {
+        name: "Photo Coasters",
+        img: "/products/wooden-coasters.jpg",
+        desc: "Practical, personal, and genuinely useful every single day. Each coaster is printed with your photo and finished with a durable, heat-resistant surface and cork backing to protect furniture properly — not just decorative. A brilliant small gift, housewarming present, or a thoughtful little extra alongside a bigger order.",
+        variants: [
+          { sku: "coaster-1pk", label: "Single Coaster - £11.99" },
+          { sku: "coaster-2pk", label: "Set of 2 - £16.99" },
+          { sku: "coaster-4pk", label: "Set of 4 - £24.99" },
+          { sku: "coaster-6pk", label: "Set of 6 - £32.99" },
+        ],
+      },
+      {
+        name: "Premium Personalised Kitchen Towel",
+        img: "/products/tea-towels.jpg",
+        desc: "A soft, high-absorbency tea towel featuring your photo in bright, long-lasting print. Choose Polyester for a vibrant all-over print with easy-care fade resistance, or 100% Cotton Twill for extra absorbency and durability. Both are fully machine washable with expertly hemmed edges. Please note: white ink cannot be printed on this item — any transparent or white areas in your design will show the material's natural background tone.",
+        variants: [
+          { sku: "tea-towel-poly", label: "Polyester - £14.99" },
+          { sku: "tea-towel-cotton", label: "Cotton Twill - £18.99" },
+        ],
+      },
+      {
+        name: "Photo Magnets",
+        img: "/products/photo-magnets.webp",
+        desc: "Turn your fridge into a gallery of your favourite moments. Printed on durable, high-gloss magnetic stock with strong holding power, these make a wonderfully simple gift — and an easy way to fit multiple photos and memories somewhere you'll see them every day. Mix and match sizes to build your own little collection.",
+        variants: [
+          { sku: "magnet-fridge-3x2", label: "Fridge Magnet 3x2 - £8.99" },
+          { sku: "magnet-fridge-6x4", label: "Fridge Magnet 6x4 - £9.99" },
+          { sku: "magnet-acrylic-2x3", label: "Acrylic Magnet 2x3 - £12.99" },
+          { sku: "magnet-square-4x4", label: "Square Magnet 4x4 - £11.99" },
+          { sku: "magnet-square-6x6", label: "Square Magnet 6x6 - £17.99" },
+        ],
+      },
+    ],
+  },
+  {
     key: "canvas",
     label: "Canvas & Wall Art",
     items: [
@@ -1596,40 +1844,6 @@ const CATEGORIES = [
     ],
   },
   {
-    key: "specialist-prints",
-    label: "Specialist Prints",
-    items: [
-      {
-        name: "Museum-Grade Fine Art Print",
-        img: "/products/slim-canvas.webp", 
-        desc: "Professional Giclée fine art printing on heavyweight 240gsm matte paper with archival, pigment-based inks. Razor-sharp detail and rich colour that resists fading over time — a genuinely premium way to display a favourite photo.",
-        variants: [
-          { sku: "art-print-5x7", label: "5x7 inch - £9.99" },
-          { sku: "art-print-8x10", label: "8x10 inch - £12.99" },
-          { sku: "art-print-11x14", label: "11x14 inch - £17.99" },
-          { sku: "art-print-12x16", label: "12x16 inch - £19.99" },
-          { sku: "art-print-24x32", label: "24x32 inch - £32.99" },
-          { sku: "art-print-36x48", label: "36x48 inch - £57.99" },
-        ],
-      },
-      {
-        name: "Premium Metallic Foil Art Print",
-        img: "/products/metallic-foil-print.webp",
-        desc: "Ultra-heavyweight 350gsm specialist print with true metallic Gold or Silver foil accents — direct UV digital printing lets you control exactly which lettering or highlights shine. A genuinely eye-catching statement piece.",
-        variants: [
-          { sku: "art-foil-a4-gold", label: "A4 / Gold - £25.99" },
-          { sku: "art-foil-a4-silver", label: "A4 / Silver - £25.99" },
-          { sku: "art-foil-a3-gold", label: "A3 / Gold - £28.99" },
-          { sku: "art-foil-a3-silver", label: "A3 / Silver - £28.99" },
-          { sku: "art-foil-a2-gold", label: "A2 / Gold - £34.99" },
-          { sku: "art-foil-a2-silver", label: "A2 / Silver - £34.99" },
-          { sku: "art-foil-a1-gold", label: "A1 / Gold - £44.99" },
-          { sku: "art-foil-a1-silver", label: "A1 / Silver - £44.99" },
-        ],
-      },
-    ],
-  },
-  {
     key: "frames",
     label: "Frames & Tiles",
     items: [
@@ -1641,59 +1855,6 @@ const CATEGORIES = [
           { sku: "photo-tile-5x7", label: "5x7 inch - £17.99" },
           { sku: "photo-tile-8x8", label: "8x8 inch - £20.99" },
           { sku: "photo-tile-8x10", label: "8x10 inch - £21.99" },
-        ],
-      },
-    ],
-  },
-  {
-    key: "kitchen-magic",
-    label: "Kitchen Magic",
-    items: [
-      {
-        name: "Magic Photo Mug",
-        img: "/products/IMG_4299.jpeg",
-        desc: "This is the mug that stops breakfast in its tracks. It looks completely plain and jet black in the box — then you pour in your hot drink and, like magic, your photo rises up in full, vivid colour right before your eyes. Made from durable ceramic with a heat-sensitive coating, dishwasher safe, and printed to last. There's nothing else quite like the reaction this gift gets when it's opened.",
-        variants: [{ sku: "magic-mug", label: "11oz Heat-Activated Mug — <s>£19.99</s> <strong style=\"color:#D4A843;\">£14.99</strong>" }],
-      },
-      {
-        name: "Photo Mugs",
-        img: "/products/photo-mugs-v2.jpg",
-        desc: "A classic that never goes out of style. Your favourite photo, printed in sharp, vivid colour on a premium ceramic mug that's built for daily use. Dishwasher and microwave safe, so it's as practical as it is personal — perfect for the office desk, the morning coffee, or a thoughtful gift that gets used every single day.",
-        variants: [
-          { sku: "mug-11oz", label: "11oz Mug - £11.99" },
-          { sku: "mug-15oz", label: "15oz Large Mug - £20.99" },
-        ],
-      },
-      {
-        name: "Photo Coasters",
-        img: "/products/wooden-coasters.jpg",
-        desc: "Practical, personal, and genuinely useful every single day. Each coaster is printed with your photo and finished with a durable, heat-resistant surface and cork backing to protect furniture properly — not just decorative. A brilliant small gift, housewarming present, or a thoughtful little extra alongside a bigger order.",
-        variants: [
-          { sku: "coaster-1pk", label: "Single Coaster - £11.99" },
-          { sku: "coaster-2pk", label: "Set of 2 - £16.99" },
-          { sku: "coaster-4pk", label: "Set of 4 - £24.99" },
-          { sku: "coaster-6pk", label: "Set of 6 - £32.99" },
-        ],
-      },
-      {
-        name: "Premium Personalised Kitchen Towel",
-        img: "/products/tea-towels.jpg",
-        desc: "A soft, high-absorbency tea towel featuring your photo in bright, long-lasting print. Choose Polyester for a vibrant all-over print with easy-care fade resistance, or 100% Cotton Twill for extra absorbency and durability. Both are fully machine washable with expertly hemmed edges. Please note: white ink cannot be printed on this item — any transparent or white areas in your design will show the material's natural background tone.",
-        variants: [
-          { sku: "tea-towel-poly", label: "Polyester - £14.99" },
-          { sku: "tea-towel-cotton", label: "Cotton Twill - £18.99" },
-        ],
-      },
-      {
-        name: "Photo Magnets",
-        img: "/products/photo-magnets.webp",
-        desc: "Turn your fridge into a gallery of your favourite moments. Printed on durable, high-gloss magnetic stock with strong holding power, these make a wonderfully simple gift — and an easy way to fit multiple photos and memories somewhere you'll see them every day. Mix and match sizes to build your own little collection.",
-        variants: [
-          { sku: "magnet-fridge-3x2", label: "Fridge Magnet 3x2 - £8.99" },
-          { sku: "magnet-fridge-6x4", label: "Fridge Magnet 6x4 - £9.99" },
-          { sku: "magnet-acrylic-2x3", label: "Acrylic Magnet 2x3 - £12.99" },
-          { sku: "magnet-square-4x4", label: "Square Magnet 4x4 - £11.99" },
-          { sku: "magnet-square-6x6", label: "Square Magnet 6x6 - £17.99" },
         ],
       },
     ],
