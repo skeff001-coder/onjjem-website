@@ -815,39 +815,36 @@
                 radial-gradient(ellipse 60% 50% at 80% 60%, rgba(90,60,160,0.2) 0%, transparent 70%);
   }
   h1 {
-    font-family: 'Comfortaa', sans-serif;
-    font-weight: 700;
-    font-size: clamp(48px, 12vw, 84px);
-    letter-spacing: 6px;
+    font-family: "Arial Black", "Impact", "Montserrat", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: clamp(44px, 10vw, 68px);
+    letter-spacing: -0.02em;
+    line-height: 0.85;
     margin-bottom: 26px;
-    background: linear-gradient(180deg,
-      #FDF6E8 0%,
-      #F3E2BC 15%,
-      #E8CE96 30%,
-      #DCB877 50%,
-      #C9A05E 70%,
-      #DCB877 85%,
-      #F3E2BC 100%
+    background: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #FFF3C4 20%,
+      #F9DE87 40%,
+      #ffffff 48%,
+      #7A5A12 52%,
+      #C9A05E 65%,
+      #F3D078 85%,
+      #ffffff 100%
     );
     -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     background-clip: text;
-    color: transparent;
-    -webkit-text-stroke: 2px #6B4E2A;
-    text-shadow:
-      0 1px 0 #B8905A,
-      0 2px 0 #A98450,
-      0 3px 0 #9A7846,
-      0 4px 0 #8B6C3C,
-      0 5px 0 #7C6032,
-      0 6px 0 #6D5428,
-      0 7px 0 #5E481E,
-      0 8px 0 #4F3C14,
-      0 9px 2px rgba(0,0,0,0.5);
-    animation: shine 4s ease-in-out infinite;
+    filter: drop-shadow(0px 2px 0px #ffffff)
+            drop-shadow(0px 4px 0px #6B4E10)
+            drop-shadow(0px 8px 4px #B8781E)
+            drop-shadow(0px 12px 20px #DCA940);
+    animation: neonFlicker 3s ease-in-out infinite;
   }
-  @keyframes shine {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.15); }
+  @keyframes neonFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.92; }
   }
     .acronym-line {
     color: #D4B14A;
@@ -1066,10 +1063,10 @@
     text-align: center;
     background: #D4A843;
     color: #1B1330;
-    font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 0.3px;
-    padding: 9px 12px;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.2px;
+    padding: 5px 10px;
   }
 
   .idea-card {
@@ -1551,16 +1548,16 @@
 .onjjem-app-banner {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   background: linear-gradient(90deg, #1a1a1a, #2a2210);
   border: 1px solid #d4af37;
   color: #f5e6b8;
   text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 10px;
+  padding: 7px 14px;
+  border-radius: 8px;
   font-family: inherit;
-  font-size: 15px;
-  margin: 0 auto 20px;
+  font-size: 12px;
+  margin: 0 auto 16px;
   max-width: 900px;
   transition: transform 0.15s ease;
 }
@@ -1570,7 +1567,7 @@
 }
 
 .onjjem-app-banner__icon {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .onjjem-app-banner__text {
@@ -1601,14 +1598,6 @@
 <body>
   <div class="free-ship-banner">🚚 FREE UK DELIVERY | 🌍 International shipping available — see costs at checkout</div>
 
-  <!-- ONJJEM App Cross-Promo Banner -->
-  <a href="https://apps.apple.com/app/id6770767370" target="_blank" rel="noopener" class="onjjem-app-banner">
-    <span class="onjjem-app-banner__icon">✨</span>
-    <span class="onjjem-app-banner__text">
-      <strong>Get the ONJJEM app</strong> — order your personalised gifts on the go, plus our new Cartoon-ify feature
-    </span>
-    <span class="onjjem-app-banner__cta">Download free →</span>
-  </a>
   <div class="wrap">
 
     <div class="hero">
@@ -1634,6 +1623,15 @@
         </div>
       </div>
       <p class="print-quality-note">Printed with professional Giclée &amp; archival-grade printers</p>
+
+      <!-- ONJJEM App Cross-Promo Banner -->
+      <a href="https://apps.apple.com/app/id6770767370" target="_blank" rel="noopener" class="onjjem-app-banner">
+        <span class="onjjem-app-banner__icon">✨</span>
+        <span class="onjjem-app-banner__text">
+          <strong>Get the ONJJEM app</strong> — order your personalised gifts on the go, plus our new Cartoon-ify feature
+        </span>
+        <span class="onjjem-app-banner__cta">Download free →</span>
+      </a>
 
     </div>
 
@@ -1996,10 +1994,10 @@ const CATEGORIES = [
         img: "/products/glow-poster-premium.webp",
         desc: "Their favourite photo by day — a glowing surprise by night. Charge it under a bright light for 30 minutes, switch off, and watch it come alive with a soft luminous glow that lasts for hours. It's become one of our most-loved bedroom keepsakes: dogs, siblings, sports heroes, favourite characters — any photo your child loves, glowing gently on their wall after lights out. Printed on ultra-heavyweight 350gsm gallery-style paper for a genuinely premium feel, and just as at home in a nursery, playroom, or big kid's bedroom as it is under the stars.",
         variants: [
-          { sku: "art-gitd-premium-a1", label: "A1 - £44.99" },
-          { sku: "art-gitd-premium-a2", label: "A2 - £31.99" },
-          { sku: "art-gitd-premium-a3", label: "A3 - £24.99" },
           { sku: "art-gitd-premium-a4", label: "A4 - £19.99" },
+          { sku: "art-gitd-premium-a3", label: "A3 - £24.99" },
+          { sku: "art-gitd-premium-a2", label: "A2 - £31.99" },
+          { sku: "art-gitd-premium-a1", label: "A1 - £44.99" },
         ],
       },
       {
