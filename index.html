@@ -1548,10 +1548,67 @@
     font-size: 14px;
     cursor: pointer;
   }
+.onjjem-app-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(90deg, #1a1a1a, #2a2210);
+  border: 1px solid #d4af37;
+  color: #f5e6b8;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  margin: 0 auto 20px;
+  max-width: 900px;
+  transition: transform 0.15s ease;
+}
+
+.onjjem-app-banner:hover {
+  transform: translateY(-1px);
+}
+
+.onjjem-app-banner__icon {
+  font-size: 20px;
+}
+
+.onjjem-app-banner__text {
+  flex: 1;
+}
+
+.onjjem-app-banner__text strong {
+  color: #d4af37;
+}
+
+.onjjem-app-banner__cta {
+  font-weight: 700;
+  color: #d4af37;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .onjjem-app-banner {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .onjjem-app-banner__text {
+    flex-basis: 100%;
+  }
+}
 </style>
 </head>
 <body>
   <div class="free-ship-banner">🚚 FREE UK DELIVERY | 🌍 International shipping available — see costs at checkout</div>
+
+  <!-- ONJJEM App Cross-Promo Banner -->
+  <a href="https://apps.apple.com/app/id6770767370" target="_blank" rel="noopener" class="onjjem-app-banner">
+    <span class="onjjem-app-banner__icon">✨</span>
+    <span class="onjjem-app-banner__text">
+      <strong>Get the ONJJEM app</strong> — order your personalised gifts on the go, plus our new Cartoon-ify feature
+    </span>
+    <span class="onjjem-app-banner__cta">Download free →</span>
+  </a>
   <div class="wrap">
 
     <div class="hero">
@@ -1580,57 +1637,11 @@
 
     </div>
 
-    <div class="mega-deal-banner pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
-      <span class="mega-deal-badge">🔥 OUTSTANDING PRICE — ON SALE NOW 🔥</span>
-      <h2 class="mega-deal-title">Professional Photo Print — just £7.99</h2>
-      <p class="mega-deal-text">A genuine professional-lab quality colour photo print, made on brilliant white silver halide paper — the same process real photo studios use, not a home-printer copy. Smooth gradients, natural skin tones, rich true colour, and a beautiful gloss finish. Perfect on its own, or as a small thoughtful add-on to any order. Just one of over 100 personalised gifts in our catalogue — and like everything at ONJJEM, it comes with completely free UK delivery, no minimum spend.</p>
-      <span class="mega-deal-cta">Shop Now — £7.99 →</span>
-    </div>
-
-    <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug">
-      <div class="featured-banner-img">
-        <img src="/products/magic-mug.jpg" alt="Magic Photo Mug" loading="lazy">
-      </div>
-      <div class="featured-banner-content">
-        <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
-        <h2 class="featured-banner-title">The Magic Photo Mug</h2>
-        <p class="featured-banner-text">Looks completely plain black in the box — then their photo appears in full colour the moment a hot drink is poured in. It's the reveal that gets filmed for every family group chat. Dishwasher safe, endlessly reusable, and genuinely magic every single morning.</p>
-        <span class="featured-banner-cta">Shop the Magic Mug — now £14.99 →</span>
-      </div>
-    </div>
-
-    <div class="hot-deals-section">
-      <h2 class="hot-deals-title">🔥 Hot Deals 🔥</h2>
-      <div class="hot-deals-grid">
-        <div class="deal-tile deal-tile-flash pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
-          <span class="deal-flash-badge">⚡ DEAL ⚡</span>
-          <span class="deal-was">Gloss 5x5"</span>
-          <span class="deal-now">£7.99</span>
-          <span class="deal-name">Photo Print</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug deal">
-          <span class="deal-was">Was £19.99</span>
-          <span class="deal-now">£14.99</span>
-          <span class="deal-name">Magic Photo Mug</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" role="button" tabindex="0" aria-label="Shop the Glow in the Dark Poster deal">
-          <span class="deal-was">A4 size</span>
-          <span class="deal-now">£19.99</span>
-          <span class="deal-name">Glow in the Dark Poster</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" role="button" tabindex="0" aria-label="Shop the Museum-Grade Fine Art Print deal">
-          <span class="deal-was">5x7 size</span>
-          <span class="deal-now">£9.99</span>
-          <span class="deal-name">Fine Art Print</span>
-        </div>
-      </div>
-    </div>
-
     <div class="cat-nav-wrap">
       <div class="cat-nav" id="catNav"></div>
     </div>
 
-    <h2 class="section-title" id="sectionTitle">Magic Photo Mug</h2>
+    <h2 class="section-title" id="sectionTitle" style="display:none;"></h2>
     <div class="products" id="products"></div>
 
     <div class="ideas-section">
@@ -1741,6 +1752,52 @@
       <div class="faq-item">
         <h3 class="faq-q">What is ONJJEM?</h3>
         <p class="faq-a">ONJJEM is a UK-based personalised photo gifts company that prints customers' own photos onto canvas prints, mugs, jigsaws, frames, coasters, and other keepsakes, with free UK delivery and international shipping available.</p>
+      </div>
+    </div>
+
+    <div class="mega-deal-banner pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
+      <span class="mega-deal-badge">🔥 OUTSTANDING PRICE — ON SALE NOW 🔥</span>
+      <h2 class="mega-deal-title">Professional Photo Print — just £7.99</h2>
+      <p class="mega-deal-text">A genuine professional-lab quality colour photo print, made on brilliant white silver halide paper — the same process real photo studios use, not a home-printer copy. Smooth gradients, natural skin tones, rich true colour, and a beautiful gloss finish. Perfect on its own, or as a small thoughtful add-on to any order. Just one of over 100 personalised gifts in our catalogue — and like everything at ONJJEM, it comes with completely free UK delivery, no minimum spend.</p>
+      <span class="mega-deal-cta">Shop Now — £7.99 →</span>
+    </div>
+
+    <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug">
+      <div class="featured-banner-img">
+        <img src="/products/magic-mug.jpg" alt="Magic Photo Mug" loading="lazy">
+      </div>
+      <div class="featured-banner-content">
+        <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
+        <h2 class="featured-banner-title">The Magic Photo Mug</h2>
+        <p class="featured-banner-text">Looks completely plain black in the box — then their photo appears in full colour the moment a hot drink is poured in. It's the reveal that gets filmed for every family group chat. Dishwasher safe, endlessly reusable, and genuinely magic every single morning.</p>
+        <span class="featured-banner-cta">Shop the Magic Mug — now £14.99 →</span>
+      </div>
+    </div>
+
+    <div class="hot-deals-section">
+      <h2 class="hot-deals-title">🔥 Hot Deals 🔥</h2>
+      <div class="hot-deals-grid">
+        <div class="deal-tile deal-tile-flash pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
+          <span class="deal-flash-badge">⚡ DEAL ⚡</span>
+          <span class="deal-was">Gloss 5x5"</span>
+          <span class="deal-now">£7.99</span>
+          <span class="deal-name">Photo Print</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug deal">
+          <span class="deal-was">Was £19.99</span>
+          <span class="deal-now">£14.99</span>
+          <span class="deal-name">Magic Photo Mug</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" role="button" tabindex="0" aria-label="Shop the Glow in the Dark Poster deal">
+          <span class="deal-was">A4 size</span>
+          <span class="deal-now">£19.99</span>
+          <span class="deal-name">Glow in the Dark Poster</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" role="button" tabindex="0" aria-label="Shop the Museum-Grade Fine Art Print deal">
+          <span class="deal-was">5x7 size</span>
+          <span class="deal-now">£9.99</span>
+          <span class="deal-name">Fine Art Print</span>
+        </div>
       </div>
     </div>
 
@@ -2277,6 +2334,7 @@ function showUpsellNudge(onContinue) {
 function renderProducts() {
   const cat = CATEGORIES[currentCatIndex];
   sectionTitle.textContent = cat.label;
+  sectionTitle.style.display = "";
   productsGrid.innerHTML = "";
   window.__currentItems = {};
 
@@ -2332,7 +2390,8 @@ function renderProducts() {
 }
 
 renderCatNav();
-renderProducts();
+// Products no longer auto-load on page open — the section title and
+// product grid stay hidden until the customer taps a category above.
 
 // Show a clear thank-you confirmation after a successful Stripe payment,
 // since customers were previously landing back on a normal-looking
