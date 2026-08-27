@@ -1600,6 +1600,42 @@
     color: #D4A843;
     font-weight: 700;
   }
+  .upsell-add-btn {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    background: #D4A843;
+    color: #1A1206;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-bottom: 8px;
+  }
+  .upsell-photo-choice {
+    margin-bottom: 12px;
+  }
+  .upsell-photo-question {
+    font-size: 13px;
+    color: rgba(243,234,255,0.75);
+    margin-bottom: 10px;
+  }
+  .upsell-photo-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  .upsell-photo-btn {
+    flex: 1;
+    padding: 11px;
+    border: 1.5px solid rgba(212,168,67,0.4);
+    border-radius: 10px;
+    background: rgba(212,168,67,0.08);
+    color: #F3E9D6;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
   .upsell-continue-btn {
     display: block;
     width: 100%;
@@ -1612,6 +1648,12 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+  }
+  .upsell-prefilled-note {
+    font-size: 12.5px;
+    color: #4ade80;
+    font-weight: 700;
+    margin: 4px 0;
   }
   .thankyou-card {
     background: linear-gradient(180deg, #1A1206 0%, #1A1206 100%);
@@ -2312,7 +2354,9 @@ function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
         overlay.querySelector('[data-role="buttons"]').style.display = "flex";
       } else if (data.alreadyUsed) {
         overlay.querySelector('[data-role="loading"]').textContent =
-          "You've already used your free preview. You can still add the cartoon illustration to your order for £1.99 at checkout.";
+          data.limitReason === "too_many_from_this_device"
+            ? "You've reached today's free preview limit on this device. You can still add the cartoon illustration to your order for £1.99 at checkout."
+            : "You've already used your free preview. You can still add the cartoon illustration to your order for £1.99 at checkout.";
       } else {
         overlay.querySelector('[data-role="loading"]').textContent =
           (data.error || "Couldn't generate the cartoon.") + (data.details ? " (" + data.details + ")" : "");
@@ -2396,7 +2440,16 @@ function attachBuyHandlers() {
       const statusEl = document.querySelector(`[data-status="${itemId}"]`);
       const file = fileInput.files[0];
 
-      if (!file) {
+      // If this product was just suggested by the upsell popup and the
+      // customer chose to reuse (or upload) a photo there, use that instead
+      // of requiring them to pick a file again on this card.
+      const prefilled = window.__upsellPhotos?.[sku];
+      let photoBase64;
+      let mimeType = "image/jpeg";
+
+      if (!file && prefilled) {
+        photoBase64 = prefilled;
+      } else if (!file) {
         statusEl.textContent = "Please choose a photo first";
         statusEl.className = "status error";
         return;
@@ -2407,15 +2460,27 @@ function attachBuyHandlers() {
       statusEl.className = "status";
 
       try {
-        const photoBase64 = await toBase64(file);
+        if (file) {
+          photoBase64 = await toBase64(file);
+          mimeType = file.type || "image/jpeg";
+        }
 
-        showUpsellNudge(() => {
+        // If they arrived here via the upsell flow (photo already chosen),
+        // skip straight to checkout instead of showing another upsell nudge.
+        const proceed = () => {
           if (cartoonToggle && cartoonToggle.checked) {
-            showCartoonPreview(itemId, sku, photoBase64, file.type || "image/jpeg", statusEl, btn);
+            showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn);
           } else {
             proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
           }
-        });
+        };
+
+        if (prefilled) {
+          delete window.__upsellPhotos[sku];
+          proceed();
+        } else {
+          showUpsellNudge(item.name, photoBase64, proceed);
+        }
       } catch (err) {
         statusEl.textContent = "Could not connect. Please try again.";
         statusEl.className = "status error";
@@ -2427,34 +2492,70 @@ function attachBuyHandlers() {
 
 // ── Upsell nudge — shown right before checkout, suggests a cheap add-on ────────
 const UPSELL_ITEMS = [
-  { name: "Photo Print", price: "£7.99", img: "/products/framed-photo-tiles.jpg", category: "specialist-prints", productName: "Photo Print" },
-  { name: "Magic Photo Mug", price: "£14.99", img: "/products/magic-mug.jpg", category: "kitchen-magic", productName: "Magic Photo Mug" },
+  { name: "Eco Canvas", price: "From £28.99", img: "/products/eco-canvas.webp", category: "canvas", productName: "Eco Canvas", sku: "eco-canvas-8x12" },
+  { name: "Tea Towel", price: "From £14.99", img: "/products/tea-towel.jpg", category: "kitchen-magic", productName: "Tea Towel", sku: "tea-towel-poly" },
 ];
 
-function showUpsellNudge(onContinue) {
-  const pick = UPSELL_ITEMS[Math.floor(Math.random() * UPSELL_ITEMS.length)];
+function showUpsellNudge(currentItemName, currentPhotoBase64, onContinue) {
+  const eligible = UPSELL_ITEMS.filter((i) => i.name !== currentItemName);
+  const pick = eligible[Math.floor(Math.random() * eligible.length)];
   const overlay = document.createElement("div");
   overlay.className = "thankyou-overlay";
   overlay.innerHTML = `
     <div class="upsell-card">
       <p class="upsell-title">Before you go... 👀</p>
-      <p class="upsell-sub">Lots of people add this to their order — it's a genuine bargain.</p>
-      <div class="upsell-item" data-role="view-item">
+      <p class="upsell-sub">Fancy adding a <strong>${pick.name}</strong> to your order too?</p>
+      <div class="upsell-item">
         <img src="${pick.img}" alt="${pick.name}">
         <div>
           <p class="upsell-item-name">${pick.name}</p>
           <p class="upsell-item-price">${pick.price}</p>
         </div>
       </div>
+      <div class="upsell-photo-choice" data-role="photo-choice" style="display:none;">
+        <p class="upsell-photo-question">Use the same photo, or a different one?</p>
+        <div class="upsell-photo-buttons">
+          <button class="upsell-photo-btn" data-role="same-photo">Same Photo</button>
+          <button class="upsell-photo-btn" data-role="new-photo">Different Photo</button>
+        </div>
+        <input type="file" accept="image/*" data-role="new-photo-input" style="display:none;">
+      </div>
+      <button class="upsell-add-btn" data-role="add-item">Yes, Add ${pick.name} →</button>
       <button class="upsell-continue-btn" data-role="continue">No thanks, continue with my order →</button>
     </div>
   `;
   document.body.appendChild(overlay);
 
-  overlay.querySelector('[data-role="view-item"]').addEventListener("click", () => {
+  const addBtn = overlay.querySelector('[data-role="add-item"]');
+  const photoChoice = overlay.querySelector('[data-role="photo-choice"]');
+  const newPhotoInput = overlay.querySelector('[data-role="new-photo-input"]');
+
+  addBtn.addEventListener("click", () => {
+    addBtn.style.display = "none";
+    photoChoice.style.display = "block";
+  });
+
+  overlay.querySelector('[data-role="same-photo"]').addEventListener("click", () => {
     document.body.removeChild(overlay);
+    window.__upsellPhotos = window.__upsellPhotos || {};
+    window.__upsellPhotos[pick.sku] = currentPhotoBase64;
     goToCategory(pick.category, pick.productName);
   });
+
+  overlay.querySelector('[data-role="new-photo"]').addEventListener("click", () => {
+    newPhotoInput.click();
+  });
+
+  newPhotoInput.addEventListener("change", async () => {
+    const file = newPhotoInput.files[0];
+    if (!file) return;
+    const newBase64 = await toBase64(file);
+    document.body.removeChild(overlay);
+    window.__upsellPhotos = window.__upsellPhotos || {};
+    window.__upsellPhotos[pick.sku] = newBase64;
+    goToCategory(pick.category, pick.productName);
+  });
+
   overlay.querySelector('[data-role="continue"]').addEventListener("click", () => {
     document.body.removeChild(overlay);
     onContinue();
@@ -2504,6 +2605,7 @@ function renderProducts() {
         }
         <p class="pp-note">Free UK delivery</p>
         <p class="desc">${item.desc}</p>
+        <p class="upsell-prefilled-note" data-role="prefilled-note" style="display:none;">✅ Using the photo you already chose</p>
         <input type="file" accept="image/*" data-item="${itemId}">
         <div class="cartoon-toggle-row">
           <input type="checkbox" class="cartoon-toggle" data-item="${itemId}" id="cartoon-${itemId}">
@@ -2514,6 +2616,19 @@ function renderProducts() {
       </div>
     `;
     productsGrid.appendChild(card);
+  });
+
+  // Show a confirmation note on any product card whose SKU has a photo
+  // already selected via the upsell flow.
+  Object.keys(window.__currentItems).forEach((itemId) => {
+    const item = window.__currentItems[itemId];
+    const anySkuHasPhoto = item.variants.some((v) => window.__upsellPhotos?.[v.sku]);
+    if (anySkuHasPhoto) {
+      const note = document.querySelector(`[data-status="${itemId}"]`)
+        ?.closest(".card-body")
+        ?.querySelector('[data-role="prefilled-note"]');
+      if (note) note.style.display = "block";
+    }
   });
 
   attachBuyHandlers();
