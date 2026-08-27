@@ -1250,6 +1250,13 @@
     color: #FFFFFF;
     border-color: transparent;
   }
+  .cat-btn.featured:not(.active) {
+    background: #1A1206;
+    color: #F3D078;
+    border: 1.5px solid #D4B14A;
+    font-weight: 800;
+    box-shadow: 0 0 10px rgba(212,177,74,0.35);
+  }
 
   /* Products */
   .section-title {
@@ -1266,6 +1273,17 @@
     padding: 28px 20px;
     margin: 0 0 32px;
     text-align: center;
+  }
+  .cartoonify-new-badge {
+    display: inline-block;
+    background: linear-gradient(135deg,#B8892A,#D4B14A,#F3E2BC,#B8892A);
+    color: #1A1206;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
   }
   .cartoonify-title {
     color: #F3D078;
@@ -1639,19 +1657,19 @@
     cursor: pointer;
   }
 .onjjem-app-banner {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: linear-gradient(90deg, #1a1a1a, #2a2210);
   border: 1px solid #d4af37;
   color: #f5e6b8;
   text-decoration: none;
-  padding: 7px 14px;
-  border-radius: 8px;
+  padding: 6px 16px;
+  border-radius: 30px;
   font-family: inherit;
   font-size: 12px;
+  font-weight: 700;
   margin: 0 auto 16px;
-  max-width: 900px;
   transition: transform 0.15s ease;
 }
 
@@ -1704,10 +1722,6 @@
       </div>
       <p class="tagline">Handcrafted Gifts, Made From Your Memories</p>
       <p class="subtagline">Made in Britain &nbsp;|&nbsp; Delivered to Your Door</p>
-      <p class="intro-text">
-        Upload any photo and we turn it into a beautiful, personalised gift — canvas prints, magic mugs, jigsaws, photo frames and much more. Every order is made just for you, printed to the highest standard, and delivered straight to your door.
-      </p>
-      <p class="shipping-note">Free UK delivery included on every order.</p>
 
       <div class="ticker-wrap">
         <div class="ticker-track">
@@ -1715,15 +1729,16 @@
           <span>Canvas Prints</span><span>Magic Mugs</span><span>Fine Art Prints</span><span>Photo Jigsaws</span><span>Pet Tags</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Temporary Tattoos</span><span>Metallic Foil Prints</span><span>Glow Posters</span><span>Framed Posters</span><span>Display Boards</span><span>Budget Posters</span>
         </div>
       </div>
-      <p class="print-quality-note">Printed with professional Giclée &amp; archival-grade printers</p>
+
+      <p class="intro-text">
+        Upload any photo and we turn it into a beautiful, personalised gift — canvas prints, magic mugs, jigsaws, photo frames and much more. Every order is made just for you, printed with professional Giclée &amp; archival-grade printers, and delivered straight to your door.
+      </p>
+      <p class="shipping-note">Free UK delivery included on every order.</p>
 
       <!-- ONJJEM App Cross-Promo Banner -->
       <a href="https://apps.apple.com/app/id6770767370" target="_blank" rel="noopener" class="onjjem-app-banner">
-        <span class="onjjem-app-banner__icon">✨</span>
-        <span class="onjjem-app-banner__text">
-          <strong>Get the ONJJEM app</strong> — order your personalised gifts on the go, plus our new Cartoon-ify feature
-        </span>
-        <span class="onjjem-app-banner__cta">Download free →</span>
+        <span class="onjjem-app-banner__icon">🍎</span>
+        <span class="onjjem-app-banner__text">Find us on Apple</span>
       </a>
 
     </div>
@@ -1733,16 +1748,63 @@
     </div>
 
     <div class="cartoonify-showcase" id="cartoonify">
-      <h2 class="cartoonify-title">✨ See What Cartoon-ify Can Do</h2>
-      <p class="cartoonify-sub">See your own photo as a cartoon for free before you decide — then add it to any gift for just £1.99.</p>
+      <span class="cartoonify-new-badge">✨ NEW ✨</span>
+      <h2 class="cartoonify-title">Try Our New Feature: Cartoonify</h2>
       <div class="cartoonify-carousel" id="cartoonifyCarousel">
         <button class="cartoonify-arrow cartoonify-arrow-prev" onclick="cartoonifyPrev()" aria-label="Previous example">‹</button>
         <img id="cartoonifyCarouselImg" src="" alt="Cartoon-ify example" loading="lazy">
         <button class="cartoonify-arrow cartoonify-arrow-next" onclick="cartoonifyNext()" aria-label="Next example">›</button>
       </div>
       <div class="cartoonify-dots" id="cartoonifyDots"></div>
-      <p class="cartoonify-note">Just tick the ✨ cartoon box on any product below to add it to your order.</p>
+      <p class="cartoonify-note">Just tick the ✨ cartoon option on any item to add it to your order.</p>
     </div>
+
+    <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug">
+      <div class="featured-banner-img">
+        <img src="/products/magic-mug.jpg" alt="Magic Photo Mug" loading="lazy">
+      </div>
+      <div class="featured-banner-content">
+        <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
+        <h2 class="featured-banner-title">The Magic Photo Mug</h2>
+        <p class="featured-banner-text">Looks completely plain black in the box — then their photo appears in full colour the moment a hot drink is poured in. It's the reveal that gets filmed for every family group chat. Dishwasher safe, endlessly reusable, and genuinely magic every single morning.</p>
+        <span class="featured-banner-cta">Shop the Magic Mug — now £14.99 →</span>
+      </div>
+    </div>
+
+    <div class="mega-deal-banner pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
+      <span class="mega-deal-badge">🔥 OUTSTANDING PRICE — ON SALE NOW 🔥</span>
+      <h2 class="mega-deal-title">Professional Photo Print — just £7.99</h2>
+      <p class="mega-deal-text">A genuine professional-lab quality colour photo print, made on brilliant white silver halide paper — the same process real photo studios use, not a home-printer copy. Smooth gradients, natural skin tones, rich true colour, and a beautiful gloss finish. Perfect on its own, or as a small thoughtful add-on to any order. Just one of over 100 personalised gifts in our catalogue — and like everything at ONJJEM, it comes with completely free UK delivery, no minimum spend.</p>
+      <span class="mega-deal-cta">Shop Now — £7.99 →</span>
+    </div>
+
+    <div class="hot-deals-section">
+      <h2 class="hot-deals-title">🔥 Hot Deals 🔥</h2>
+      <div class="hot-deals-grid">
+        <div class="deal-tile deal-tile-flash pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
+          <span class="deal-flash-badge">⚡ DEAL ⚡</span>
+          <span class="deal-was">Gloss 5x5"</span>
+          <span class="deal-now">£7.99</span>
+          <span class="deal-name">Photo Print</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug deal">
+          <span class="deal-was">Was £19.99</span>
+          <span class="deal-now">£14.99</span>
+          <span class="deal-name">Magic Photo Mug</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" role="button" tabindex="0" aria-label="Shop the Glow in the Dark Poster deal">
+          <span class="deal-was">A4 size</span>
+          <span class="deal-now">£19.99</span>
+          <span class="deal-name">Glow in the Dark Poster</span>
+        </div>
+        <div class="deal-tile pressable" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" role="button" tabindex="0" aria-label="Shop the Museum-Grade Fine Art Print deal">
+          <span class="deal-was">5x7 size</span>
+          <span class="deal-now">£9.99</span>
+          <span class="deal-name">Fine Art Print</span>
+        </div>
+      </div>
+    </div>
+
 
     <h2 class="section-title" id="sectionTitle" style="display:none;"></h2>
     <div class="products" id="products"></div>
@@ -1756,20 +1818,6 @@
           <p><strong>Want your favourite football star staring back at you every morning?!</strong> Slap their photo on our Magic Photo Mug and watch it appear in full colour the second hot chocolate hits the cup — pure magic for any young fan.</p>
           <p style="margin-top: 10px; font-style: italic;">⚽ Also available: their hero on a canvas for the bedroom wall! ⚽</p>
           <span class="cta">Now £14.99 — Shop the Magic Mug →</span>
-        </div>
-        <div class="idea-card pressable" onclick="goToCategory('canvas', 'Eco Rolled Canvas')" role="button" tabindex="0" aria-label="Shop Eco Rolled Canvas">
-          <span class="emoji">🎂🎉🎂🎈🎂</span>
-          <h3>For Any Occasion</h3>
-          <p>Birthdays, anniversaries, new babies, or just because — whatever the photo and whoever it's of, we turn it into a gift that feels genuinely personal, not off-the-shelf. Our most affordable canvas, with zero compromise on quality.</p>
-          <p style="margin-top: 10px; font-style: italic;">🎂 Planning the big day? Check out Byte 2 Eat for party-worthy recipes and meal ideas. 🎂</p>
-          <span class="cta">From £14.99 — Shop Eco Rolled Canvas →</span>
-        </div>
-        <div class="idea-card pressable" onclick="goToCategory('canvas', 'Stretched Canvas')" role="button" tabindex="0" aria-label="Shop Stretched Canvas">
-          <span class="emoji">🐾🐶🐾🐱🐾</span>
-          <h3>For the Pet Lover</h3>
-          <p>Because they're not "just a pet" — they're family. Give your dog, cat, or any beloved animal the wall art treatment on a genuine gallery-quality stretched canvas. The gift every pet parent secretly wants.</p>
-          <p style="margin-top: 10px; font-style: italic;">🐶 Dog-obsessed household? Download What's Up Dog! — our free app on the App Store, packed with breed scans and fun dog facts. 🐶</p>
-          <span class="cta">From £28.49 — Shop Stretched Canvas →</span>
         </div>
       </div>
     </div>
@@ -1858,52 +1906,6 @@
       </div>
     </div>
 
-    <div class="mega-deal-banner pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
-      <span class="mega-deal-badge">🔥 OUTSTANDING PRICE — ON SALE NOW 🔥</span>
-      <h2 class="mega-deal-title">Professional Photo Print — just £7.99</h2>
-      <p class="mega-deal-text">A genuine professional-lab quality colour photo print, made on brilliant white silver halide paper — the same process real photo studios use, not a home-printer copy. Smooth gradients, natural skin tones, rich true colour, and a beautiful gloss finish. Perfect on its own, or as a small thoughtful add-on to any order. Just one of over 100 personalised gifts in our catalogue — and like everything at ONJJEM, it comes with completely free UK delivery, no minimum spend.</p>
-      <span class="mega-deal-cta">Shop Now — £7.99 →</span>
-    </div>
-
-    <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug">
-      <div class="featured-banner-img">
-        <img src="/products/magic-mug.jpg" alt="Magic Photo Mug" loading="lazy">
-      </div>
-      <div class="featured-banner-content">
-        <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
-        <h2 class="featured-banner-title">The Magic Photo Mug</h2>
-        <p class="featured-banner-text">Looks completely plain black in the box — then their photo appears in full colour the moment a hot drink is poured in. It's the reveal that gets filmed for every family group chat. Dishwasher safe, endlessly reusable, and genuinely magic every single morning.</p>
-        <span class="featured-banner-cta">Shop the Magic Mug — now £14.99 →</span>
-      </div>
-    </div>
-
-    <div class="hot-deals-section">
-      <h2 class="hot-deals-title">🔥 Hot Deals 🔥</h2>
-      <div class="hot-deals-grid">
-        <div class="deal-tile deal-tile-flash pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
-          <span class="deal-flash-badge">⚡ DEAL ⚡</span>
-          <span class="deal-was">Gloss 5x5"</span>
-          <span class="deal-now">£7.99</span>
-          <span class="deal-name">Photo Print</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('kitchen-magic', 'Magic Photo Mug')" role="button" tabindex="0" aria-label="Shop the Magic Photo Mug deal">
-          <span class="deal-was">Was £19.99</span>
-          <span class="deal-now">£14.99</span>
-          <span class="deal-name">Magic Photo Mug</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" role="button" tabindex="0" aria-label="Shop the Glow in the Dark Poster deal">
-          <span class="deal-was">A4 size</span>
-          <span class="deal-now">£19.99</span>
-          <span class="deal-name">Glow in the Dark Poster</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" role="button" tabindex="0" aria-label="Shop the Museum-Grade Fine Art Print deal">
-          <span class="deal-was">5x7 size</span>
-          <span class="deal-now">£9.99</span>
-          <span class="deal-name">Fine Art Print</span>
-        </div>
-      </div>
-    </div>
-
     <footer>
       <a href="/delivery.html">Delivery Info</a>
       <a href="/terms.html">Terms &amp; Conditions</a>
@@ -1915,6 +1917,69 @@ const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
 
 // Each top-level category can contain one or more products, each with its own variants
 const CATEGORIES = [
+  {
+    key: "canvas",
+    label: "Canvas & Wall Art",
+    items: [
+      {
+        name: "Stretched Canvas",
+        img: "/products/stretched-canvas.webp",
+        desc: "Museum-quality canvas, hand-stretched over a solid wooden frame and ready to hang straight out of the box — no additional framing needed. We use fade-resistant inks on premium poly-cotton canvas for rich, true-to-life colour that lasts for years. This is the gift that turns a favourite photo into a genuine piece of wall art, and it's consistently our most gifted item for weddings, new babies, and anniversaries.",
+        variants: [
+          { sku: "canvas-stretched-a5", label: "A5 - £28.49" },
+          { sku: "canvas-stretched-a4", label: "A4 - £39.99" },
+          { sku: "canvas-stretched-a3", label: "A3 - £45.99" },
+          { sku: "canvas-stretched-a2", label: "A2 - £64.99" },
+          { sku: "canvas-stretched-a1", label: "A1 - £89.99" },
+          { sku: "canvas-stretched-a0", label: "A0 - £124.99" },
+        ],
+      },
+      {
+        name: "Eco Canvas",
+        img: "/products/eco-canvas.webp",
+        desc: "All the beauty of a canvas print at a friendlier price. Printed on high-quality canvas material using an eco-conscious process, this is a brilliant way to fill a wall with photos without spending a fortune — perfect for a gallery wall of family memories, or trying out a photo you love before committing to a larger size.",
+        variants: [
+          { sku: "eco-canvas-8x12", label: "8x12 inch - £28.99" },
+          { sku: "eco-canvas-12x12", label: "12x12 inch - £30.99" },
+          { sku: "eco-canvas-12x18", label: "12x18 inch - £32.99" },
+          { sku: "eco-canvas-16x16", label: "16x16 inch - £39.99" },
+          { sku: "eco-canvas-16x24", label: "16x24 inch - £44.99" },
+          { sku: "eco-canvas-20x20", label: "20x20 inch - £44.99" },
+          { sku: "eco-canvas-20x30", label: "20x30 inch - £48.99" },
+        ],
+      },
+      {
+        name: "Slim Canvas",
+        img: "/products/slim-canvas.webp",
+        desc: "Not your standard canvas — this uses a slimmer, precision-engineered frame profile for a sleek, contemporary edge instead of the traditional chunky wooden stretcher bars. It's a specialist finish that costs a little more to produce than our regular canvas range, but delivers a genuinely modern, gallery-style look that suits elongated and panoramic shots beautifully. A design-forward choice for anyone who wants their wall art to feel a step above the ordinary.",
+        variants: [
+          { sku: "slim-canvas-6x6", label: "6x6 inch - £24.99" },
+          { sku: "slim-canvas-12x12", label: "12x12 inch - £39.99" },
+          { sku: "slim-canvas-30x30", label: "30x30 inch - £96.99" },
+          { sku: "slim-canvas-43x87", label: "43x87 inch - £219.99" },
+        ],
+      },
+      {
+        name: "Eco Rolled Canvas",
+        img: "/products/eco-rolled-canvas.jpg",
+        desc: "An unframed, rolled canvas print for anyone who wants to choose or make their own frame — or simply display it as-is. Same fade-resistant inks and premium poly-cotton canvas as our stretched canvas, just shipped flat and ready for you to mount however you like.",
+        variants: [
+          { sku: "eco-rolled-10x10", label: "10x10 inch - £24.99" },
+          { sku: "eco-rolled-10x12", label: "10x12 inch - £24.99" },
+          { sku: "eco-rolled-11x14", label: "11x14 inch - £26.99" },
+          { sku: "eco-rolled-12x12", label: "12x12 inch - £26.99" },
+          { sku: "eco-rolled-12x16", label: "12x16 inch - £29.99" },
+          { sku: "eco-rolled-12x18", label: "12x18 inch - £29.99" },
+          { sku: "eco-rolled-10x20", label: "10x20 inch - £34.99" },
+          { sku: "eco-rolled-12x24", label: "12x24 inch - £34.99" },
+          { sku: "eco-rolled-16x20", label: "16x20 inch - £39.99" },
+          { sku: "eco-rolled-20x20", label: "20x20 inch - £39.99" },
+          { sku: "eco-rolled-24x47", label: "24x47 inch - £44.99" },
+          { sku: "eco-rolled-28x40", label: "28x40 inch - £44.99" },
+        ],
+      },
+    ],
+  },
   {
     key: "specialist-prints",
     label: "Specialist Prints",
@@ -2006,69 +2071,6 @@ const CATEGORIES = [
           { sku: "magnet-acrylic-2x3", label: "Acrylic Magnet 2x3 - £12.99" },
           { sku: "magnet-square-4x4", label: "Square Magnet 4x4 - £11.99" },
           { sku: "magnet-square-6x6", label: "Square Magnet 6x6 - £17.99" },
-        ],
-      },
-    ],
-  },
-  {
-    key: "canvas",
-    label: "Canvas & Wall Art",
-    items: [
-      {
-        name: "Stretched Canvas",
-        img: "/products/stretched-canvas.webp",
-        desc: "Museum-quality canvas, hand-stretched over a solid wooden frame and ready to hang straight out of the box — no additional framing needed. We use fade-resistant inks on premium poly-cotton canvas for rich, true-to-life colour that lasts for years. This is the gift that turns a favourite photo into a genuine piece of wall art, and it's consistently our most gifted item for weddings, new babies, and anniversaries.",
-        variants: [
-          { sku: "canvas-stretched-a5", label: "A5 - £28.49" },
-          { sku: "canvas-stretched-a4", label: "A4 - £39.99" },
-          { sku: "canvas-stretched-a3", label: "A3 - £45.99" },
-          { sku: "canvas-stretched-a2", label: "A2 - £64.99" },
-          { sku: "canvas-stretched-a1", label: "A1 - £89.99" },
-          { sku: "canvas-stretched-a0", label: "A0 - £124.99" },
-        ],
-      },
-      {
-        name: "Eco Canvas",
-        img: "/products/eco-canvas.webp",
-        desc: "All the beauty of a canvas print at a friendlier price. Printed on high-quality canvas material using an eco-conscious process, this is a brilliant way to fill a wall with photos without spending a fortune — perfect for a gallery wall of family memories, or trying out a photo you love before committing to a larger size.",
-        variants: [
-          { sku: "eco-canvas-8x12", label: "8x12 inch - £28.99" },
-          { sku: "eco-canvas-12x12", label: "12x12 inch - £30.99" },
-          { sku: "eco-canvas-12x18", label: "12x18 inch - £32.99" },
-          { sku: "eco-canvas-16x16", label: "16x16 inch - £39.99" },
-          { sku: "eco-canvas-16x24", label: "16x24 inch - £44.99" },
-          { sku: "eco-canvas-20x20", label: "20x20 inch - £44.99" },
-          { sku: "eco-canvas-20x30", label: "20x30 inch - £48.99" },
-        ],
-      },
-      {
-        name: "Slim Canvas",
-        img: "/products/slim-canvas.webp",
-        desc: "Not your standard canvas — this uses a slimmer, precision-engineered frame profile for a sleek, contemporary edge instead of the traditional chunky wooden stretcher bars. It's a specialist finish that costs a little more to produce than our regular canvas range, but delivers a genuinely modern, gallery-style look that suits elongated and panoramic shots beautifully. A design-forward choice for anyone who wants their wall art to feel a step above the ordinary.",
-        variants: [
-          { sku: "slim-canvas-6x6", label: "6x6 inch - £24.99" },
-          { sku: "slim-canvas-12x12", label: "12x12 inch - £39.99" },
-          { sku: "slim-canvas-30x30", label: "30x30 inch - £96.99" },
-          { sku: "slim-canvas-43x87", label: "43x87 inch - £219.99" },
-        ],
-      },
-      {
-        name: "Eco Rolled Canvas",
-        img: "/products/eco-rolled-canvas.jpg",
-        desc: "An unframed, rolled canvas print for anyone who wants to choose or make their own frame — or simply display it as-is. Same fade-resistant inks and premium poly-cotton canvas as our stretched canvas, just shipped flat and ready for you to mount however you like.",
-        variants: [
-          { sku: "eco-rolled-10x10", label: "10x10 inch - £24.99" },
-          { sku: "eco-rolled-10x12", label: "10x12 inch - £24.99" },
-          { sku: "eco-rolled-11x14", label: "11x14 inch - £26.99" },
-          { sku: "eco-rolled-12x12", label: "12x12 inch - £26.99" },
-          { sku: "eco-rolled-12x16", label: "12x16 inch - £29.99" },
-          { sku: "eco-rolled-12x18", label: "12x18 inch - £29.99" },
-          { sku: "eco-rolled-10x20", label: "10x20 inch - £34.99" },
-          { sku: "eco-rolled-12x24", label: "12x24 inch - £34.99" },
-          { sku: "eco-rolled-16x20", label: "16x20 inch - £39.99" },
-          { sku: "eco-rolled-20x20", label: "20x20 inch - £39.99" },
-          { sku: "eco-rolled-24x47", label: "24x47 inch - £44.99" },
-          { sku: "eco-rolled-28x40", label: "28x40 inch - £44.99" },
         ],
       },
     ],
@@ -2233,8 +2235,8 @@ function renderCatNav() {
   catNav.innerHTML = "";
   CATEGORIES.forEach((cat, i) => {
     const btn = document.createElement("button");
-    btn.className = "cat-btn" + (i === currentCatIndex ? " active" : "");
-    btn.textContent = cat.label;
+    btn.className = "cat-btn" + (i === currentCatIndex ? " active" : "") + (i === 0 ? " featured" : "");
+    btn.textContent = i === 0 ? "✨ " + cat.label : cat.label;
     btn.addEventListener("click", () => {
       currentCatIndex = i;
       renderCatNav();
