@@ -2278,6 +2278,81 @@ function showCartoonPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
     </div>
   `;
   document.body.appendChild(overlay);
+  // Extract all the modal control layers
+  const emailStep = overlay.querySelector('[data-role="email-step"]');
+  const emailInput = overlay.querySelector('[data-role="email-input"]');
+  const emailSubmit = overlay.querySelector('[data-role="email-submit"]');
+  const emailError = overlay.querySelector('[data-role="email-error"]');
+  const loadingStep = overlay.querySelector('[data-role="loading"]');
+  const imageElement = overlay.querySelector('[data-role="image"]');
+  const buttonsStep = overlay.querySelector('[data-role="buttons"]');
+  const cancelBtn = overlay.querySelector('[data-role="cancel"]');
+  const useBtn = overlay.querySelector('[data-role="use"]');
+
+  // 1. Wire up the Cancel/Close button action
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", () => overlay.remove());
+  }
+
+  // 2. Wire up the Get My Free Preview submit button logic
+  if (emailSubmit) {
+    emailSubmit.addEventListener("click", async () => {
+      const email = emailInput.value.trim();
+
+      // Enforce clean layout validation
+      if (!email || !email.includes("@") || email.length < 5) {
+        if (emailError) {
+          emailError.textContent = "Please enter a valid email address.";
+          emailError.style.display = "block";
+        }
+        return;
+      }
+
+      if (emailError) emailError.style.display = "none";
+      if (emailStep) emailStep.style.display = "none";
+      if (loadingStep) loadingStep.style.display = "block";
+
+      // Pass the email globally for your backend order layers
+      window.customerEmail = email;
+
+      try {
+        // Run your image generator upload tracking call
+        const response = await fetch("/api/free-scan/consume", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, itemId, sku, photoBase64, mimeType })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && (data.allowed || data.success)) {
+          if (loadingStep) loadingStep.style.display = "none";
+          if (imageElement) {
+            imageElement.src = `data:${mimeType};base64,${photoBase64}`;
+            imageElement.style.display = "block";
+          }
+          if (buttonsStep) buttonsStep.style.display = "block";
+        } else {
+          throw new Error(data.error || "Generation error");
+        }
+      } catch (err) {
+        if (loadingStep) loadingStep.style.display = "none";
+        if (emailStep) emailStep.style.display = "block";
+        if (emailError) {
+          emailError.textContent = "Could not create preview. Please try again.";
+          emailError.style.display = "block";
+        }
+      }
+    });
+  }
+
+  // 3. Wire up the Add to Order button action
+  if (useBtn) {
+    useBtn.addEventListener("click", () => {
+      if (statusEl) statusEl.innerText = "Cartoon added!";
+      overlay.remove();
+    });
+  }
 
   let currentCartoonBase64 = null;
   let currentCartoonMime = "image/png";
