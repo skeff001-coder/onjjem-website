@@ -2523,6 +2523,17 @@ renderCatNav();
 // Products no longer auto-load on page open — the section title and
 // product grid stay hidden until the customer taps a category above.
 
+// If the app linked here with ?category=X&product=Y, jump straight to that
+// product instead of leaving the customer to find it themselves.
+(function deepLinkFromAppLink() {
+  const params = new URLSearchParams(window.location.search);
+  const category = params.get("category");
+  const product = params.get("product");
+  if (category) {
+    goToCategory(category, product || undefined);
+  }
+})();
+
 // ── Cartoon-ify homepage showcase carousel ──────────────────────────────────
 const CARTOONIFY_SAMPLES = [
   "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5940.jpeg",
