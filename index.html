@@ -1159,6 +1159,16 @@
     overflow: hidden;
     box-shadow: 0 4px 14px rgba(0,0,0,0.25);
   }
+  .featured-banner-img-pair {
+    display: flex;
+    gap: 4px;
+    width: 140px;
+  }
+  .featured-banner-img-pair img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+  }
   .featured-banner-img img {
     width: 100%;
     height: 100%;
@@ -1182,6 +1192,12 @@
     margin: 0 0 8px;
     color: #F3E9D6;
   }
+  .featured-banner-tagline {
+    font-size: 15px;
+    font-weight: 800;
+    color: #F3D078;
+    margin: 0 0 8px;
+  }
   .featured-banner-text {
     font-size: 14px;
     line-height: 1.5;
@@ -1200,7 +1216,8 @@
       flex-direction: column;
       text-align: center;
     }
-    .featured-banner-img {
+    .featured-banner-img,
+    .featured-banner-img-pair {
       width: 120px;
       height: 120px;
     }
@@ -1492,6 +1509,8 @@
     padding: 28px 24px;
     max-width: 420px;
     width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
     text-align: center;
   }
   .cartoon-preview-title {
@@ -1808,6 +1827,20 @@
       <p class="intro-bullets">✨ Museum-quality prints &nbsp;|&nbsp; 🛡️ Archival-grade materials &nbsp;|&nbsp; 🚚 Free UK delivery</p>
       <p class="shipping-note">Free UK delivery included on every order.</p>
 
+    <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'ChromaCoat Mug')" role="button" tabindex="0" aria-label="Shop the ChromaCoat Mug">
+      <div class="featured-banner-img featured-banner-img-pair">
+        <img src="/products/magic-mug.jpg" alt="ChromaCoat Mug before reveal" loading="lazy">
+        <img src="/products/Magicbaby.jpg" alt="ChromaCoat Mug after reveal" loading="lazy">
+      </div>
+      <div class="featured-banner-content">
+        <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
+        <h2 class="featured-banner-title">The ChromaCoat Mug</h2>
+        <p class="featured-banner-tagline">Add hot water. Watch the magic. ✨</p>
+        <p class="featured-banner-text">Starts completely black — your photo reveals in full colour the moment a hot drink goes in. Dishwasher safe, endlessly reusable.</p>
+        <span class="featured-banner-cta">Shop the ChromaCoat Mug — now £14.99 →</span>
+      </div>
+    </div>
+
     <div class="mega-deal-banner pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
       <span class="mega-deal-badge">🔥 OUTSTANDING PRICE — ON SALE NOW 🔥</span>
       <h2 class="mega-deal-title">Professional Photo Print — just £7.99</h2>
@@ -1832,19 +1865,7 @@
         <button class="cartoonify-arrow cartoonify-arrow-next" onclick="cartoonifyNext()" aria-label="Next example">›</button>
       </div>
       <div class="cartoonify-dots" id="cartoonifyDots"></div>
-      <p class="cartoonify-note">Just £1.99 — we'll offer to add yours at checkout on any order.</p>
-    </div>
-
-    <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'ChromaCoat Mug')" role="button" tabindex="0" aria-label="Shop the ChromaCoat Mug">
-      <div class="featured-banner-img">
-        <img src="/products/magic-mug.jpg" alt="ChromaCoat Mug" loading="lazy">
-      </div>
-      <div class="featured-banner-content">
-        <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
-        <h2 class="featured-banner-title">The ChromaCoat Mug</h2>
-        <p class="featured-banner-text">Looks completely plain black in the box — then their photo appears in full colour the moment a hot drink is poured in. It's the reveal that gets filmed for every family group chat. Dishwasher safe, endlessly reusable, and genuinely magic every single morning.</p>
-        <span class="featured-banner-cta">Shop the ChromaCoat Mug — now £14.99 →</span>
-      </div>
+      <p class="cartoonify-note">Just £1.99 — a surprise saved especially for delivery day. We'll offer to add yours at checkout on any order.</p>
     </div>
 
     <div class="hot-deals-section">
@@ -2236,8 +2257,8 @@ const CATEGORIES = [
   {
     key: "gifts",
     label: "Gift Tags & More",
-    intro: "Got a dog? Before you order a pet tag, scan them in our free app <a class=\"app-link\" href=\"https://apps.apple.com/gb/app/whats-up-dog/id6771118261\" target=\"_blank\" rel=\"noopener\">What's Up Dog!</a> to instantly see their breed mix, personality traits and more — then turn that same photo into a tag, mug or poster right here.",
-    introHtml: true,
+    intro: "Personalise a keepsake with any photo — perfect for pet tags, keyrings and more.",
+    introHtml: false,
     items: [
       {
         name: "Pet Tags",
@@ -2337,7 +2358,7 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
       <p class="cartoon-email-note">Would you like a Bespoke Custom Cartoon Illustrated Artwork of your photo added to this order? Here's an example of the style:</p>
       <img class="cartoon-preview-img" src="${sample}" alt="Cartoon-ify example" style="display:block; margin-bottom: 14px;">
       <p class="cartoon-email-note" style="margin-top:-6px;">
-        Each piece is created fresh after you order, so yours isn't shown beforehand — just £1.99.
+        Your own cartoon is a surprise, kept especially for delivery day — so it's not shown beforehand. Just £1.99.
       </p>
       <button class="cartoon-btn-primary" data-role="yes" style="width:100%; margin-top:6px;">Yes, Add My Bespoke Cartoon Artwork — £1.99</button>
       <div style="margin-top: 10px;">
