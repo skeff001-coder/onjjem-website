@@ -1165,11 +1165,12 @@
     width: 140px;
   }
   .featured-banner-img-pair img {
-    width: 50%;
+    width: 50% !important;
     height: 100%;
     object-fit: cover;
   }
-  .featured-banner-img img {
+  .featured-banner-img img,
+  .featured-banner-img video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1444,6 +1445,7 @@
   .card h3 { color: #3A2F1A; font-size: 16px; margin-bottom: 4px; }
   .card p.price-range { color: #B8892A; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
   .card p.pp-note { color: rgba(43,58,74,0.55); font-size: 12px; margin-bottom: 12px; margin-top: -6px; }
+  .card p.ip-notice { color: rgba(43,58,74,0.5); font-size: 11px; line-height: 1.5; margin-bottom: 10px; }
   .card p.desc { color: rgba(43,58,74,0.6); font-size: 13px; margin-bottom: 14px; line-height: 1.5; }
   select.variant-select {
     width: 100%;
@@ -1828,9 +1830,8 @@
       <p class="shipping-note">Free UK delivery included on every order.</p>
 
     <div class="featured-banner pressable" onclick="goToCategory('kitchen-magic', 'ChromaCoat Mug')" role="button" tabindex="0" aria-label="Shop the ChromaCoat Mug">
-      <div class="featured-banner-img featured-banner-img-pair">
-        <img src="/products/magic-mug.jpg" alt="ChromaCoat Mug before reveal" loading="lazy">
-        <img src="/products/Magicbaby.jpg" alt="ChromaCoat Mug after reveal" loading="lazy">
+      <div class="featured-banner-img">
+        <video src="/products/Doggy.mp4" autoplay muted loop playsinline></video>
       </div>
       <div class="featured-banner-content">
         <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
@@ -2492,6 +2493,7 @@ function renderProducts() {
         }
         <p class="pp-note">Free UK delivery</p>
         <p class="desc">${item.desc}</p>
+        <p class="ip-notice">Please only upload photos you own the rights to. We can't print copyrighted characters or artwork (e.g. Disney, Marvel, Pokémon).</p>
         <input type="file" accept="image/*" data-item="${itemId}">
         <button class="buy-btn" data-item="${itemId}">Buy Now</button>
         <p class="status" data-status="${itemId}"></p>
