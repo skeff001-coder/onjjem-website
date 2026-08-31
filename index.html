@@ -1357,14 +1357,29 @@
     color: #3a2f1a;
     border: 1.5px solid rgba(184,137,42,0.3);
     border-radius: 14px;
-    padding: 16px 12px;
-    font-size: 14px;
+    padding: 0 0 10px;
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
     white-space: normal;
     text-align: center;
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .cat-btn-img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    display: block;
+  }
+  .cat-btn-label {
+    padding: 0 8px;
+    line-height: 1.3;
   }
   .cat-btn:active {
     transform: scale(0.97);
@@ -1904,12 +1919,6 @@
         </div>
       </div>
 
-      <p class="intro-text-small">
-        Personalised gifts made from your own photos.
-      </p>
-      <p class="intro-bullets">✨ Museum-quality prints</p>
-      <p class="intro-bullets">🛡️ Archival-grade materials</p>
-
     <div class="trust-strip">
       <span class="trust-item">🔒 Secure Checkout</span>
       <span class="trust-dot">·</span>
@@ -2108,6 +2117,7 @@ const CATEGORIES = [
   {
     key: "canvas",
     label: "Canvas & Wall Art",
+    categoryImg: "/products/stretched-canvas.webp",
     items: [
       {
         name: "Stretched Canvas",
@@ -2171,6 +2181,7 @@ const CATEGORIES = [
   {
     key: "specialist-prints",
     label: "Specialist Prints",
+    categoryImg: "/products/framed-photo-tiles.jpg",
     items: [
       {
         name: "Photo Print",
@@ -2213,6 +2224,7 @@ const CATEGORIES = [
   {
     key: "kitchen-magic",
     label: "Kitchen Magic",
+    categoryImg: "/products/magic-mug.jpg",
     items: [
       {
         name: "ChromaCoat Mug",
@@ -2266,6 +2278,7 @@ const CATEGORIES = [
   {
     key: "frames",
     label: "Frames & Tiles",
+    categoryImg: "/products/framed-photo-tiles.jpg",
     items: [
       {
         name: "Framed Photo Tiles",
@@ -2282,6 +2295,7 @@ const CATEGORIES = [
   {
     key: "kids-corner",
     label: "Jigsaws, Glow Posters & Kids",
+    categoryImg: "/products/jigsaw-500pc.webp",
     intro: "Got a young football fan, dancer, or sports star at home? Send us their favourite player, team badge, or big moment on the pitch — we'll turn it into a puzzle, a deck of cards, or a display board they'll genuinely be proud of. And don't miss our Glow in the Dark Poster below — a firm favourite for bedrooms, and one of our most magical gifts.",
     items: [
       {
@@ -2354,6 +2368,7 @@ const CATEGORIES = [
   {
     key: "gifts",
     label: "Gift Tags & More",
+    categoryImg: "/products/pet-tags.jpg",
     intro: "Personalise a keepsake with any photo — perfect for pet tags, keyrings and more.",
     introHtml: false,
     items: [
@@ -2430,7 +2445,11 @@ function renderCatNav() {
   CATEGORIES.forEach((cat, i) => {
     const btn = document.createElement("button");
     btn.className = "cat-btn" + (i === currentCatIndex ? " active" : "") + (i === 0 ? " featured" : "");
-    btn.textContent = i === 0 ? "✨ " + cat.label : cat.label;
+    const badge = i === 0 ? "✨ " : "";
+    btn.innerHTML = `
+      <img src="${cat.categoryImg}" alt="${cat.label}" class="cat-btn-img" loading="lazy">
+      <span class="cat-btn-label">${badge}${cat.label}</span>
+    `;
     btn.addEventListener("click", () => {
       currentCatIndex = i;
       renderCatNav();
