@@ -880,12 +880,22 @@
     font-size: 15px;
     line-height: 1.8;
   }
+  .intro-text-small {
+    max-width: 640px;
+    margin: 0 auto;
+    color: rgba(243,234,255,0.6);
+    font-size: 12px;
+    line-height: 1.5;
+  }
   .intro-bullets {
     max-width: 640px;
     margin: 10px auto 0;
     color: #F3E9D6;
     font-size: 13.5px;
     font-weight: 700;
+  }
+  .intro-bullets + .intro-bullets {
+    margin-top: 4px;
   }
   .shipping-note {
     max-width: 640px;
@@ -894,6 +904,24 @@
     font-size: 13px;
     font-weight: 600;
     text-align: center;
+  }
+  .trust-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px auto 0;
+    max-width: 560px;
+  }
+  .trust-item {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(243,234,255,0.7);
+  }
+  .trust-dot {
+    color: rgba(184,137,42,0.4);
+    font-size: 12px;
   }
   .simple-steps {
     display: flex;
@@ -1196,7 +1224,7 @@
   .featured-banner-img {
     flex: 0 0 140px;
     width: 140px;
-    height: 140px;
+    height: 180px;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 14px rgba(0,0,0,0.25);
@@ -1211,11 +1239,17 @@
     height: 100%;
     object-fit: cover;
   }
-  .featured-banner-img img,
-  .featured-banner-img video {
+  .featured-banner-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+  }
+  .featured-banner-img video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #0F0A04;
     display: block;
   }
   .featured-banner-content {
@@ -1262,7 +1296,7 @@
     .featured-banner-img,
     .featured-banner-img-pair {
       width: 120px;
-      height: 120px;
+      height: 160px;
     }
   }
   .idea-card .emoji { font-size: 26px; margin-bottom: 8px; display: block; }
@@ -1860,15 +1894,8 @@
 
     <div class="hero">
     <h1>ONJJEM</h1>
-      <div class="acronym-line">
-        <span class="initial">O</span>riginal · <span class="initial">N</span>ostalgic · <span class="initial">J</span>oyful <span class="initial">J</span>ournals of <span class="initial">E</span>verlasting <span class="initial">M</span>emories
-      </div>
 
-      <div class="three-words">
-        <span>Send</span><span class="dot">•</span><span>We Create</span><span class="dot">•</span><span>You Receive</span>
-      </div>
       <p class="tagline">Handcrafted Gifts, Made From Your Memories</p>
-      <p class="subtagline">Made in Britain &nbsp;|&nbsp; Delivered to Your Door</p>
 
       <div class="ticker-wrap">
         <div class="ticker-track">
@@ -1877,11 +1904,19 @@
         </div>
       </div>
 
-      <p class="intro-text">
-        Upload any photo and we turn it into a beautiful, personalised gift — canvas prints, magic mugs, jigsaws, photo frames and much more.
+      <p class="intro-text-small">
+        Personalised gifts made from your own photos.
       </p>
-      <p class="intro-bullets">✨ Museum-quality prints &nbsp;|&nbsp; 🛡️ Archival-grade materials &nbsp;|&nbsp; 🚚 Free UK delivery</p>
-      <p class="shipping-note">Free UK delivery included on every order.</p>
+      <p class="intro-bullets">✨ Museum-quality prints</p>
+      <p class="intro-bullets">🛡️ Archival-grade materials</p>
+
+    <div class="trust-strip">
+      <span class="trust-item">🔒 Secure Checkout</span>
+      <span class="trust-dot">·</span>
+      <span class="trust-item">🇬🇧 UK-Based</span>
+      <span class="trust-dot">·</span>
+      <span class="trust-item">📦 Tracked Delivery</span>
+    </div>
 
     <div class="simple-steps">
       <div class="simple-step">
