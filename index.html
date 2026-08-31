@@ -2594,13 +2594,27 @@ function renderProducts() {
         }
         <p class="pp-note">Free UK delivery</p>
         <p class="desc">${item.desc}</p>
-        <p class="ip-notice">Please only upload photos you own the rights to. We can't print copyrighted characters or artwork (e.g. Disney, Marvel, Pokémon).</p>
+        <p class="ip-notice" data-role="ip-notice" style="display:none;">Please only upload photos you own the rights to. We can't print copyrighted characters or artwork (e.g. Disney, Marvel, Pokémon).</p>
         <input type="file" accept="image/*" data-item="${itemId}">
         <button class="buy-btn" data-item="${itemId}">Buy Now</button>
         <p class="status" data-status="${itemId}"></p>
       </div>
     `;
     productsGrid.appendChild(card);
+  });
+
+  // Show the copyright notice only on a card once the customer has actually
+  // chosen a photo there — not cluttering every card on the page upfront.
+  document.querySelectorAll('input[type="file"][data-item]').forEach((input) => {
+    input.addEventListener("change", () => {
+      const itemId = input.dataset.item;
+      const notice = document.querySelector(`[data-status="${itemId}"]`)
+        ?.closest(".card")
+        ?.querySelector('[data-role="ip-notice"]');
+      if (notice && input.files.length > 0) {
+        notice.style.display = "block";
+      }
+    });
   });
 
   attachBuyHandlers();
