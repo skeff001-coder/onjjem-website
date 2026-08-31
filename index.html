@@ -924,14 +924,12 @@
     font-size: 12px;
   }
   .simple-steps {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
     max-width: 560px;
-    margin: 24px auto;
-    padding: 18px 12px;
+    margin: 24px auto 0;
+    padding: 20px 10px;
     background: rgba(184,137,42,0.08);
     border: 1px solid rgba(184,137,42,0.25);
     border-radius: 16px;
@@ -940,31 +938,62 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    min-width: 90px;
+    gap: 6px;
   }
   .simple-step-num {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: linear-gradient(135deg,#B8892A,#D4B14A,#F3E2BC,#B8892A);
     color: #1A1206;
     font-size: 14px;
     font-weight: 800;
+    line-height: 1;
   }
   .simple-step-label {
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 700;
     color: #F3E9D6;
     text-align: center;
+    line-height: 1.3;
   }
-  .simple-step-arrow {
-    color: rgba(184,137,42,0.5);
-    font-size: 18px;
+  .cartoonify-teaser {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 560px;
+    margin: 14px auto 0;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, rgba(184,137,42,0.15), rgba(212,177,74,0.1));
+    border: 1px solid rgba(212,177,74,0.4);
+    border-radius: 14px;
+    cursor: pointer;
   }
+  .cartoonify-teaser-badge {
+    background: linear-gradient(135deg,#B8892A,#D4B14A,#F3E2BC,#B8892A);
+    color: #1A1206;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .cartoonify-teaser-text {
+    font-size: 13px;
+    color: #F3E9D6;
+    font-weight: 600;
+    margin: 0;
+  }
+  .cartoonify-teaser-cta {
+    font-size: 13px;
+    font-weight: 800;
+    color: #F3D078;
+  }
+
 
   .ticker-wrap {
     margin: 28px auto 0;
@@ -1932,16 +1961,20 @@
         <span class="simple-step-num">1</span>
         <span class="simple-step-label">Choose Your Gift</span>
       </div>
-      <span class="simple-step-arrow">→</span>
       <div class="simple-step">
         <span class="simple-step-num">2</span>
         <span class="simple-step-label">Upload Your Picture</span>
       </div>
-      <span class="simple-step-arrow">→</span>
       <div class="simple-step">
         <span class="simple-step-num">3</span>
         <span class="simple-step-label">We Do The Rest</span>
       </div>
+    </div>
+
+    <div class="cartoonify-teaser pressable" onclick="goToCategory('canvas', 'Eco Canvas', true)" role="button" tabindex="0" aria-label="Try Cartoonify">
+      <span class="cartoonify-teaser-badge">✨ NEW</span>
+      <p class="cartoonify-teaser-text">Turn any photo into a funky-style cartoon for just <strong>£1.99</strong></p>
+      <span class="cartoonify-teaser-cta">Try It →</span>
     </div>
 
     <div class="cat-nav-wrap">
@@ -1984,33 +2017,6 @@
       <div class="cartoonify-dots" id="cartoonifyDots"></div>
       <button class="cartoonify-examples-btn" onclick="goToCategory('canvas', 'Eco Canvas', true)">Upload Your Photo Now →</button>
       <p class="cartoonify-note">Just £1.99 — a surprise saved especially for delivery day. We'll offer to add yours at checkout on any order.</p>
-    </div>
-
-    <div class="hot-deals-section">
-      <h2 class="hot-deals-title">🔥 Hot Deals 🔥</h2>
-      <div class="hot-deals-grid">
-        <div class="deal-tile deal-tile-flash pressable" onclick="goToCategory('specialist-prints', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
-          <span class="deal-flash-badge">⚡ DEAL ⚡</span>
-          <span class="deal-was">Gloss 5x5"</span>
-          <span class="deal-now">£7.99</span>
-          <span class="deal-name">Photo Print</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('kitchen-magic', 'ChromaCoat Mug')" role="button" tabindex="0" aria-label="Shop the ChromaCoat Mug deal">
-          <span class="deal-was">Was £19.99</span>
-          <span class="deal-now">£14.99</span>
-          <span class="deal-name">ChromaCoat Mug</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" role="button" tabindex="0" aria-label="Shop the Glow in the Dark Poster deal">
-          <span class="deal-was">A4 size</span>
-          <span class="deal-now">£19.99</span>
-          <span class="deal-name">Glow in the Dark Poster</span>
-        </div>
-        <div class="deal-tile pressable" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" role="button" tabindex="0" aria-label="Shop the Museum-Grade Fine Art Print deal">
-          <span class="deal-was">5x7 size</span>
-          <span class="deal-now">£9.99</span>
-          <span class="deal-name">Fine Art Print</span>
-        </div>
-      </div>
     </div>
 
 
@@ -2471,7 +2477,7 @@ function toBase64(file) {
 
 function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
 
-  const sample = CARTOONIFY_SAMPLES[Math.floor(Math.random() * CARTOONIFY_SAMPLES.length)];
+  const sample = CARTOONIFY_SAMPLES[0];
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
   overlay.innerHTML = `
