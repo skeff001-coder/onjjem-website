@@ -783,6 +783,25 @@
     font-weight: 600;
     text-align: center;
   }
+  .new-customer-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 460px;
+    margin: 16px auto 0;
+    padding: 10px 18px;
+    background: linear-gradient(135deg,#B8892A,#D4B14A,#F3E2BC,#B8892A);
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  .new-customer-banner-icon { font-size: 16px; }
+  .new-customer-banner-text {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #1A1206;
+  }
   .trust-strip {
     display: flex;
     align-items: center;
@@ -1889,6 +1908,11 @@
 
       <p class="tagline">Your Special Moments, Made Forever</p>
 
+    <div class="new-customer-banner pressable" onclick="copyDiscountCode()" role="button" tabindex="0" aria-label="Copy discount code WELCOME10">
+      <span class="new-customer-banner-icon">🎁</span>
+      <span class="new-customer-banner-text" id="discountBannerText">New here? Get <strong>10% off</strong> your first order with code <strong>WELCOME10</strong></span>
+    </div>
+
     <div class="trust-strip">
       <span class="trust-item">🔒 Secure Checkout</span>
       <span class="trust-dot">·</span>
@@ -2351,6 +2375,22 @@ let currentCatIndex = 0;
 const catNav = document.getElementById("catNav");
 const productsGrid = document.getElementById("products");
 const sectionTitle = document.getElementById("sectionTitle");
+
+function copyDiscountCode() {
+  const textEl = document.getElementById("discountBannerText");
+  navigator.clipboard.writeText("WELCOME10").then(() => {
+    const original = textEl.innerHTML;
+    textEl.innerHTML = "✅ Code copied! Paste it at checkout.";
+    setTimeout(() => {
+      textEl.innerHTML = original;
+      const target = document.getElementById("sectionTitle") || document.querySelector(".cat-nav-wrap");
+      if (target) window.scrollTo({ top: target.offsetTop - 90, behavior: "smooth" });
+    }, 1600);
+  }).catch(() => {
+    const target = document.querySelector(".cat-nav-wrap");
+    if (target) window.scrollTo({ top: target.offsetTop - 90, behavior: "smooth" });
+  });
+}
 
 function goToCategory(key, productName, autoOpenUpload) {
   const i = CATEGORIES.findIndex(c => c.key === key);
