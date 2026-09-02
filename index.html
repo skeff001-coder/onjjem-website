@@ -464,7 +464,7 @@
           "item": {
             "@type": "Product",
             "@id": "https://onjjem.com/#product-15",
-            "name": "Playing Cards",
+            "name": "Personalised Photo Playing Cards",
             "description": "A full deck of 54 professional-quality playing cards personalised with your own photos.",
             "image": "https://onjjem.com/products/playing-cards.webp",
             "category": "Jigsaws & Children's Corner",
@@ -803,11 +803,11 @@
   }
   .simple-steps {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
     max-width: 560px;
     margin: 24px auto 0;
-    padding: 20px 10px;
+    padding: 20px 8px;
     background: rgba(184,137,42,0.08);
     border: 1px solid rgba(184,137,42,0.25);
     border-radius: 16px;
@@ -825,19 +825,53 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: linear-gradient(135deg,#B8892A,#D4B14A,#F3E2BC,#B8892A);
+    background: linear-gradient(135deg,#39FF88,#00E5FF,#FF3EC9,#39FF88);
     color: #1A1206;
     font-size: 14px;
     font-weight: 800;
     line-height: 1;
+    animation: neonStepFlash 1.6s ease-in-out infinite;
+  }
+  @keyframes neonStepFlash {
+    0%, 100% { box-shadow: 0 0 6px rgba(57,255,136,0.6), 0 0 12px rgba(0,229,255,0.4); }
+    50% { box-shadow: 0 0 14px rgba(57,255,136,0.95), 0 0 26px rgba(0,229,255,0.8); }
   }
   .simple-step-label {
-    font-size: 12px;
+    font-size: 10.5px;
     font-weight: 700;
     color: #F3E9D6;
     text-align: center;
-    line-height: 1.3;
+    line-height: 1.25;
   }
+  .steps-details {
+    max-width: 560px;
+    margin: 8px auto 0;
+    text-align: center;
+  }
+  .steps-details-link {
+    display: inline-block;
+    font-size: 11.5px;
+    color: rgba(243,234,255,0.55);
+    cursor: pointer;
+    text-decoration: underline;
+    list-style: none;
+  }
+  .steps-details-link::-webkit-details-marker { display: none; }
+  .steps-details-panel {
+    margin-top: 10px;
+    padding: 14px 16px;
+    background: rgba(184,137,42,0.06);
+    border: 1px solid rgba(184,137,42,0.2);
+    border-radius: 12px;
+    text-align: left;
+  }
+  .steps-details-panel p {
+    font-size: 12.5px;
+    color: rgba(243,234,255,0.8);
+    line-height: 1.6;
+    margin: 0 0 10px;
+  }
+  .steps-details-panel p:last-child { margin-bottom: 0; }
   .cartoonify-teaser {
     display: flex;
     align-items: center;
@@ -1360,6 +1394,13 @@
     font-weight: 800;
     margin-bottom: 8px;
   }
+  .cartoonify-hook {
+    color: #FFFFFF;
+    font-size: 14.5px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.4;
+  }
   .cartoonify-sub {
     color: #E8D9A8;
     font-size: 14px;
@@ -1846,14 +1887,7 @@
     <div class="hero">
     <h1>ONJJEM</h1>
 
-      <p class="tagline">Handcrafted Gifts, Made From Your Memories</p>
-
-      <div class="ticker-wrap">
-        <div class="ticker-track">
-          <span>Canvas Prints</span><span>ChromaCoat Mugs</span><span>Fine Art Prints</span><span>Photo Jigsaws</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Metallic Foil Prints</span><span>Glow Posters</span><span>Framed Posters</span><span>Display Boards</span><span>Budget Posters</span>
-          <span>Canvas Prints</span><span>ChromaCoat Mugs</span><span>Fine Art Prints</span><span>Photo Jigsaws</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Metallic Foil Prints</span><span>Glow Posters</span><span>Framed Posters</span><span>Display Boards</span><span>Budget Posters</span>
-        </div>
-      </div>
+      <p class="tagline">Your Special Moments, Made Forever</p>
 
     <div class="trust-strip">
       <span class="trust-item">🔒 Secure Checkout</span>
@@ -1870,11 +1904,33 @@
       </div>
       <div class="simple-step">
         <span class="simple-step-num">2</span>
-        <span class="simple-step-label">Upload Your Picture</span>
+        <span class="simple-step-label">Send Us Your Pic</span>
       </div>
       <div class="simple-step">
         <span class="simple-step-num">3</span>
-        <span class="simple-step-label">We Do The Rest</span>
+        <span class="simple-step-label">We Work Our Magic</span>
+      </div>
+      <div class="simple-step">
+        <span class="simple-step-num">4</span>
+        <span class="simple-step-label">Express Delivery</span>
+      </div>
+    </div>
+
+    <details class="steps-details">
+      <summary class="steps-details-link">More details ›</summary>
+      <div class="steps-details-panel">
+        <p><strong>1. Choose Your Gift</strong> — Pick anything you like from our shop, such as a mug, a canvas, or a jigsaw.</p>
+        <p><strong>2. Send Us Your Pic</strong> — Upload any photo from your phone or computer. It's easy — just tap the button and choose a picture.</p>
+        <p><strong>3. We Work Our Magic</strong> — We print your photo onto the gift you chose, carefully and by hand, usually within 1–2 working days.</p>
+        <p><strong>4. Express Delivery</strong> — We post it straight to your door. UK orders normally arrive 3–4 working days after that. International orders can take a bit longer, usually 5–14 working days.</p>
+        <p>🎉 <strong>Fancy some fun?</strong> Before you pay, we'll ask if you'd like to turn your loved one into a funny Surprise Cartoon for just £1.99 — a brilliant little extra for birthdays, Christmas, or just to make someone smile. It's completely separate from your main gift, and totally optional.</p>
+      </div>
+    </details>
+
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span>Canvas Prints</span><span>ChromaCoat Mugs</span><span>Fine Art Prints</span><span>Photo Jigsaws</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Metallic Foil Prints</span><span>Glow Posters</span><span>Framed Posters</span><span>Display Boards</span><span>Budget Posters</span>
+        <span>Canvas Prints</span><span>ChromaCoat Mugs</span><span>Fine Art Prints</span><span>Photo Jigsaws</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Metallic Foil Prints</span><span>Glow Posters</span><span>Framed Posters</span><span>Display Boards</span><span>Budget Posters</span>
       </div>
     </div>
 
@@ -1891,10 +1947,25 @@
         <span class="featured-banner-badge">✨ Our Bestseller ✨</span>
         <h2 class="featured-banner-title">The ChromaCoat Mug</h2>
         <p class="featured-banner-tagline">Add hot water. Watch the magic. ✨</p>
-        <p class="featured-banner-text">Prank the family. Surprise your partner. The perfect gift for birthdays, anniversaries, Christmas, or their favourite footballer obsession.</p>
+        <p class="featured-banner-text">Prank the family. Surprise your partner. The perfect gift for birthdays, anniversaries, and Christmas.</p>
         <p class="featured-banner-text" style="margin-top:6px;">Made with state-of-the-art thermochromic technology and stunning HD print quality — genuinely top of the range.</p>
         <span class="featured-banner-cta">Shop the ChromaCoat Mug — now £14.99 →</span>
       </div>
+    </div>
+
+    <div class="cartoonify-showcase" id="cartoonify">
+      <span class="cartoonify-new-badge">✨ NEW ✨</span>
+      <h2 class="cartoonify-title">Surprise Cartoon! 🎉</h2>
+      <p class="cartoonify-hook">Turn your photo into a fun cartoon — added to any gift for £1.99</p>
+      <div class="cartoonify-carousel" id="cartoonifyCarousel">
+        <button class="cartoonify-arrow cartoonify-arrow-prev" onclick="cartoonifyPrev()" aria-label="Previous example">‹</button>
+        <img id="cartoonifyCarouselImg" src="" alt="Cartoon-ify example" loading="lazy">
+        <button class="cartoonify-arrow cartoonify-arrow-next" onclick="cartoonifyNext()" aria-label="Next example">›</button>
+      </div>
+      <div class="cartoonify-dots" id="cartoonifyDots"></div>
+      <p class="cartoonify-authentic">✨ Real examples created with Cartoonify</p>
+      <button class="cartoonify-examples-btn" onclick="goToCategory('households', 'ChromaCoat Mug', true)">Upload Your Photo Now →</button>
+      <p class="cartoonify-note">Just £1.99 — a surprise saved especially for delivery day. We'll offer to add yours at checkout on any order.</p>
     </div>
 
     <div class="mega-deal-banner pressable" onclick="goToCategory('prints-frames', 'Photo Print')" role="button" tabindex="0" aria-label="Shop the Photo Print deal">
@@ -1905,35 +1976,32 @@
     </div>
 
 
-    </div>
-
-    <div class="cartoonify-showcase" id="cartoonify">
-      <span class="cartoonify-new-badge">✨ NEW ✨</span>
-      <h2 class="cartoonify-title">Bespoke Custom Cartoon Illustrated Artwork</h2>
-      <div class="cartoonify-carousel" id="cartoonifyCarousel">
-        <button class="cartoonify-arrow cartoonify-arrow-prev" onclick="cartoonifyPrev()" aria-label="Previous example">‹</button>
-        <img id="cartoonifyCarouselImg" src="" alt="Cartoon-ify example" loading="lazy">
-        <button class="cartoonify-arrow cartoonify-arrow-next" onclick="cartoonifyNext()" aria-label="Next example">›</button>
-      </div>
-      <div class="cartoonify-dots" id="cartoonifyDots"></div>
-      <p class="cartoonify-authentic">✨ Real examples created with Cartoonify</p>
-      <button class="cartoonify-examples-btn" onclick="goToCategory('prints-frames', 'Eco Canvas', true)">Upload Your Photo Now →</button>
-      <p class="cartoonify-note">Just £1.99 — a surprise saved especially for delivery day. We'll offer to add yours at checkout on any order.</p>
-    </div>
-
-
     <h2 class="section-title" id="sectionTitle" style="display:none;"></h2>
     <div class="products" id="products"></div>
 
     <div class="ideas-section">
       <p class="ideas-title">Gift Inspiration</p>
       <div class="ideas-grid">
+        <div class="idea-card pressable" onclick="goToCategory('prints-frames', 'Stretched Canvas')" role="button" tabindex="0" aria-label="Shop Stretched Canvas">
+          <span class="emoji">💍🎉💍🎂💍</span>
+          <h3>Milestone Moments</h3>
+          <p><strong>Turn your biggest days into wall art that lasts a lifetime.</strong> Wedding photos, engagements, graduations, new babies, big birthdays — we turn your favourite milestone into a beautiful, gallery-quality canvas you'll treasure forever.</p>
+          <p style="margin-top: 10px; font-style: italic;">💍 Perfect for anniversaries and once-in-a-lifetime keepsakes 💍</p>
+          <span class="cta">From £28.49 — Shop Canvas →</span>
+        </div>
         <div class="idea-card pressable" onclick="goToCategory('households', 'ChromaCoat Mug')" role="button" tabindex="0" aria-label="Shop ChromaCoat Mug">
-          <span class="emoji">⚽🥅⚽🏆⚽</span>
-          <h3>Sporting Legends</h3>
-          <p><strong>Want your favourite football star staring back at you every morning?!</strong> Slap their photo on our ChromaCoat Mug and watch it appear in full colour the second hot chocolate hits the cup — pure magic for any young fan.</p>
-          <p style="margin-top: 10px; font-style: italic;">⚽ Also available: their hero on a canvas for the bedroom wall! ⚽</p>
+          <span class="emoji">☕✨☕✨☕</span>
+          <h3>Morning Magic</h3>
+          <p><strong>Want a happy surprise every morning?!</strong> Pop your favourite family photo on our ChromaCoat Mug and watch it appear in full colour the second hot chocolate hits the cup — pure magic for any young fan.</p>
+          <p style="margin-top: 10px; font-style: italic;">✨ Also available: the same photo on a canvas for the bedroom wall! ✨</p>
           <span class="cta">Now £14.99 — Shop the ChromaCoat Mug →</span>
+        </div>
+        <div class="idea-card pressable" onclick="goToCategory('kids-corner', 'Photo Jigsaw')" role="button" tabindex="0" aria-label="Shop Photo Jigsaw">
+          <span class="emoji">📸🏖️📸🎄📸</span>
+          <h3>Treasured Moments</h3>
+          <p><strong>Whatever the memory, we can print it.</strong> Holiday snaps, family gatherings, that perfect sunset, your dog's silliest pose — any photo you love can become a canvas, mug, jigsaw, or keepsake you'll want to keep forever.</p>
+          <p style="margin-top: 10px; font-style: italic;">📸 There's no wrong photo — just the one that means something to you 📸</p>
+          <span class="cta">Browse All Gifts →</span>
         </div>
       </div>
     </div>
@@ -2197,7 +2265,7 @@ const CATEGORIES = [
       {
         name: "Photo Jigsaw",
         img: "/products/jigsaw-500pc.webp",
-        desc: "There's nothing quite like the magic of building a puzzle where every piece brings you closer to a face you love — a family member, your favourite sports star, or your own dog — revealed piece by piece right in front of you. This isn't just another puzzle: it's a premium, gallery-grade keepsake, proudly printed and handcrafted here in the UK, built from ultra-thick premium paperboard with flawless, borderless dye-sublimation printing for vivid, true-to-life colour. Finished with a mirror-smooth high-gloss varnish and delivered inside a genuine metal keepsake tin — with your photo recreated on the lid — this is the puzzle experience nothing else on the market comes close to.",
+        desc: "There's nothing quite like the magic of building a puzzle where every piece brings you closer to a face you love — a family member, a special moment, or your own dog — revealed piece by piece right in front of you. This isn't just another puzzle: it's a premium, gallery-grade keepsake, proudly printed and handcrafted here in the UK, built from ultra-thick premium paperboard with flawless, borderless dye-sublimation printing for vivid, true-to-life colour. Finished with a mirror-smooth high-gloss varnish and delivered inside a genuine metal keepsake tin — with your photo recreated on the lid — this is the puzzle experience nothing else on the market comes close to.",
         variants: [
           { sku: "jigsaw-30", label: "30 pieces (Pocket Masterpiece) - £24.99" },
           { sku: "jigsaw-110", label: "110 pieces (The Perfect Gift) - £27.99" },
@@ -2207,10 +2275,10 @@ const CATEGORIES = [
         ],
       },
       {
-        name: "Playing Cards",
+        name: "Personalised Photo Playing Cards",
         img: "/products/playing-cards.webp",
         desc: "A full deck of 54 professional-quality playing cards, each one featuring your own photos, printed crisp and vivid on durable, smooth-shuffling card stock. A brilliantly personal twist on a classic — genuinely fun to use at family game nights, and a gift that gets picked up again and again rather than sitting on a shelf.",
-        variants: [{ sku: "playing-cards", label: "Full Deck - £19.99" }],
+        variants: [{ sku: "playing-cards", label: "Full Deck - £17.99" }],
       },
       {
         name: "Budget Poster",
@@ -2331,7 +2399,22 @@ function renderCatNav() {
       currentCatIndex = i;
       renderCatNav();
       renderProducts();
-      window.scrollTo({ top: document.getElementById("sectionTitle").offsetTop - 90, behavior: "smooth" });
+      if (i === 0) {
+        setTimeout(() => {
+          const el = document.getElementById("product-museum-grade-fine-art-print");
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+            el.style.transition = "box-shadow 0.3s ease";
+            el.style.boxShadow = "0 0 0 3px rgba(212,168,67,0.6)";
+            setTimeout(() => { el.style.boxShadow = ""; }, 2200);
+            return;
+          }
+          const target = document.getElementById("sectionTitle");
+          if (target) window.scrollTo({ top: target.offsetTop - 90, behavior: "smooth" });
+        }, 60);
+      } else {
+        window.scrollTo({ top: document.getElementById("sectionTitle").offsetTop - 90, behavior: "smooth" });
+      }
     });
     catNav.appendChild(btn);
   });
@@ -2354,12 +2437,12 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
   overlay.innerHTML = `
     <div class="cartoon-preview-card">
       <div class="cartoon-preview-title">Before you pay... ✨</div>
-      <p class="cartoon-email-note">Would you like a Bespoke Custom Cartoon Illustrated Artwork of your photo added to this order? Here's an example of the style:</p>
+      <p class="cartoon-email-note">Want to turn your photo into Cartoon Fun? Here's an example of the style:</p>
       <img class="cartoon-preview-img" src="${sample}" alt="Cartoon-ify example" style="display:block; margin-bottom: 14px;">
       <p class="cartoon-email-note" style="margin-top:-6px;">
         Your own cartoon is a surprise, kept especially for delivery day — so it's not shown beforehand. Just £1.99.
       </p>
-      <button class="cartoon-btn-primary" data-role="yes" style="width:100%; margin-top:6px;">Yes, Add My Bespoke Cartoon Artwork — £1.99</button>
+      <button class="cartoon-btn-primary" data-role="yes" style="width:100%; margin-top:6px;">Yes, Add Cartoon Fun — £1.99</button>
       <div style="margin-top: 10px;">
         <button class="cartoon-btn-secondary" data-role="no" style="width:100%">No Thanks, Just My Order</button>
       </div>
