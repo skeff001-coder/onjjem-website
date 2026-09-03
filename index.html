@@ -2065,9 +2065,9 @@
           <p class="reassurance-text">Not happy with your order? We'll make it right.</p>
         </div>
         <div class="reassurance-item">
-          <span class="reassurance-icon">👀</span>
-          <p class="reassurance-title">Preview Before It Ships</p>
-          <p class="reassurance-text">See exactly what you're getting before we print.</p>
+          <span class="reassurance-icon">📦</span>
+          <p class="reassurance-title">Made With Care</p>
+          <p class="reassurance-text">Every gift is handled carefully and printed to order.</p>
         </div>
         <div class="reassurance-item">
           <span class="reassurance-icon">🔒</span>
@@ -2613,15 +2613,51 @@ function attachBuyHandlers() {
         const photoBase64 = await toBase64(file);
         const mimeType = file.type || "image/jpeg";
 
-        // Ask once, right before checkout, regardless of which product
-        // they're buying — rather than a checkbox cluttering every card.
-        showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn);
+        // Let the customer see exactly what they've uploaded first, so
+        // they can catch a cropped head or awkward framing before ordering.
+        showPhotoPreview(itemId, sku, photoBase64, mimeType, statusEl, btn);
       } catch (err) {
         statusEl.textContent = "Could not connect. Please try again.";
         statusEl.className = "status error";
         btn.disabled = false;
       }
     });
+  });
+}
+
+function showPhotoPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
+  const overlay = document.createElement("div");
+  overlay.className = "cartoon-preview-overlay";
+  overlay.innerHTML = `
+    <div class="cartoon-preview-card">
+      <div class="cartoon-preview-title">Check Your Photo 👀</div>
+      <p class="cartoon-email-note">Take a look — is everything in the frame the way you want it? Check nothing important is too close to the edge.</p>
+      <img class="cartoon-preview-img" src="data:${mimeType};base64,${photoBase64}" alt="Your uploaded photo" style="display:block; margin-bottom: 14px;">
+      <button class="cartoon-btn-primary" data-role="looks-good" style="width:100%;">Looks Good — Continue →</button>
+      <div style="margin-top: 10px;">
+        <button class="cartoon-btn-secondary" data-role="choose-again" style="width:100%">Choose a Different Photo</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.querySelector('[data-role="choose-again"]').addEventListener("click", () => {
+    overlay.remove();
+    btn.disabled = false;
+    statusEl.textContent = "";
+    statusEl.className = "status";
+    const fileInput = document.querySelector(`input[type="file"][data-item="${itemId}"]`);
+    if (fileInput) {
+      fileInput.value = "";
+      fileInput.click();
+    }
+  });
+
+  overlay.querySelector('[data-role="looks-good"]').addEventListener("click", () => {
+    overlay.remove();
+    // Ask once, right before checkout, regardless of which product
+    // they're buying — rather than a checkbox cluttering every card.
+    showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn);
   });
 }
 
