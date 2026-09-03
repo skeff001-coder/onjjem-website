@@ -4,7 +4,8 @@ export default {
 
     // Proxy API calls to the Railway backend (checkout, uploads, etc.)
     if (url.pathname.startsWith('/api/')) {
-      const target = 'https://onjjem-production-5ef8.up.railway.app' + url.pathname + url.search;
+      const target = 'https://onjjem-api-server-production.up.railway.app
+
       return fetch(new Request(target, request));
     }
 
