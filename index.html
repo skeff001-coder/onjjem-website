@@ -2119,6 +2119,15 @@
 <script>
 const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
 
+// Real Cartoonify examples — defined early since the checkout popup and
+// homepage carousel both reference this before the rest of the script runs.
+const CARTOONIFY_SAMPLES = [
+  "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5940.jpeg",
+  "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5944.jpeg",
+  "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5950.jpeg",
+  "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5958.jpeg",
+];
+
 // Each top-level category can contain one or more products, each with its own variants
 const CATEGORIES = [
   {
@@ -2632,7 +2641,7 @@ function showPhotoPreview(itemId, sku, photoBase64, mimeType, statusEl, btn) {
     <div class="cartoon-preview-card">
       <div class="cartoon-preview-title">Check Your Photo 👀</div>
       <p class="cartoon-email-note">Take a look — is everything in the frame the way you want it? Check nothing important is too close to the edge.</p>
-      <img class="cartoon-preview-img" src="data:${mimeType};base64,${photoBase64}" alt="Your uploaded photo" style="display:block; margin-bottom: 14px;">
+      <img class="cartoon-preview-img" src="${photoBase64}" alt="Your uploaded photo" style="display:block; margin-bottom: 14px;">
       <button class="cartoon-btn-primary" data-role="looks-good" style="width:100%;">Looks Good — Continue →</button>
       <div style="margin-top: 10px;">
         <button class="cartoon-btn-secondary" data-role="choose-again" style="width:100%">Choose a Different Photo</button>
@@ -2757,12 +2766,6 @@ renderCatNav();
 })();
 
 // ── Cartoon-ify homepage showcase carousel ──────────────────────────────────
-const CARTOONIFY_SAMPLES = [
-  "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5940.jpeg",
-  "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5944.jpeg",
-  "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5950.jpeg",
-  "https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5958.jpeg",
-];
 let cartoonifyIndex = 0;
 const cartoonifyImgEl = document.getElementById("cartoonifyCarouselImg");
 const cartoonifyDotsEl = document.getElementById("cartoonifyDots");
