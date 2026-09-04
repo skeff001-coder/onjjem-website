@@ -2586,9 +2586,41 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
         </div>
       `;
 
-      card.querySelector('[data-role="yes"]').addEventListener("click", () => {
-        overlay.remove();
-        proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, { addCartoon: true });
+      card.querySelector('[data-role="yes"]').addEventListener("click", async () => {
+        card.innerHTML = `
+          <div class="cartoon-preview-title">Locking in your cartoon... ✨</div>
+          <p class="cartoon-email-note">One moment — preparing the full-quality version for your order.</p>
+          <div class="cartoon-preview-loading"></div>
+        `;
+        try {
+          const finalRes = await fetch(`${API_BASE}/api/cartoonify`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: false }),
+          });
+          const finalData = await finalRes.json();
+          if (!finalRes.ok || !finalData.base64Image) {
+            throw new Error(finalData.error || "Could not prepare final cartoon");
+          }
+          overlay.remove();
+          // Send the exact confirmed cartoon forward — checkout stores THIS
+          // image directly rather than generating a fresh one later, so
+          // what ships is guaranteed to match what the customer approved.
+          proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, {
+            addCartoon: true,
+            confirmedCartoonBase64: finalData.base64Image,
+          });
+        } catch (err) {
+          card.innerHTML = `
+            <div class="cartoon-preview-title">Something went wrong</div>
+            <p class="cartoon-email-note">We couldn't prepare the full-quality cartoon just now. You can continue with your order as a standard photo instead.</p>
+            <button class="cartoon-btn-primary" data-role="continue-anyway" style="width:100%; margin-top:10px;">Continue With My Order</button>
+          `;
+          card.querySelector('[data-role="continue-anyway"]').addEventListener("click", () => {
+            overlay.remove();
+            proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
+          });
+        }
       });
       card.querySelector('[data-role="no"]').addEventListener("click", () => {
         overlay.remove();
