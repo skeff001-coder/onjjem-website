@@ -2517,65 +2517,94 @@ function toBase64(file) {
 
 function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
 
-  const samples = CARTOONIFY_SAMPLES.slice(0, 3);
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
   overlay.innerHTML = `
     <div class="cartoon-preview-card">
-      <div class="cartoon-preview-title">🎨 Print Your Custom Cartoon onto Your Gift!</div>
-      <p class="cartoon-email-note">Add the custom cartoon printing upgrade to your order for just £1.99. Select your option below to bundle it into your final gift total.</p>
-      <div class="cartoon-offer-gallery">
-        ${samples.map(s => `<img src="${s}" alt="Cartoon-ify example" loading="lazy">`).join("")}
-      </div>
-      <ul class="cartoon-trust-bullets">
-        <li><strong>Bespoke Manufacturing:</strong> Your £1.99 upgrade pays for our system to custom-render and physically print your unique cartoon artwork directly onto your chosen gift.</li>
-        <li><strong>Save the Delivery Day Magic:</strong> Don't spoil the reveal on a tiny phone screen. Experience the unboxing reaction for the first time when your finished physical gift arrives!</li>
-        <li><strong>Bespoke & Non-Refundable:</strong> Because every print is created uniquely for your uploaded photo, cartoon printing upgrades can't be cancelled or refunded once your order is placed.</li>
-      </ul>
-      <button class="cartoon-btn-primary" data-role="yes" style="width:100%; margin-top:10px;">Yes, print my photo as a Custom Cartoon (+£1.99)</button>
+      <div class="cartoon-preview-title">Want to see it as a cartoon? 🎨</div>
+      <p class="cartoon-email-note">We can generate a real preview of your photo as a cartoon — free to see, no obligation. If you love it, add it to your gift for just £1.99.</p>
+      <button class="cartoon-btn-primary" data-role="generate" style="width:100%; margin-top:10px;">Show Me My Cartoon Preview →</button>
       <div style="margin-top: 10px;">
-        <button class="cartoon-btn-secondary" data-role="no" style="width:100%">No, print my photo as a standard regular photo (+£0.00)</button>
+        <button class="cartoon-btn-secondary" data-role="skip" style="width:100%">No Thanks, Just My Order</button>
       </div>
     </div>
   `;
   document.body.appendChild(overlay);
 
-  overlay.querySelector('[data-role="no"]').addEventListener("click", () => {
-    showCartoonAlternativeOffer(overlay, itemId, sku, photoBase64, statusEl, btn);
+  overlay.querySelector('[data-role="skip"]').addEventListener("click", () => {
+    overlay.remove();
+    proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
   });
 
-  overlay.querySelector('[data-role="yes"]').addEventListener("click", async () => {
-    overlay.remove();
-    await proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, {
-      addCartoon: true,
-    });
-  });
-}
+  overlay.querySelector('[data-role="generate"]').addEventListener("click", async () => {
+    const card = overlay.querySelector(".cartoon-preview-card");
+    card.innerHTML = `
+      <div class="cartoon-preview-title">Working our magic... ✨</div>
+      <p class="cartoon-email-note">This takes a few seconds — creating your one-of-a-kind cartoon now.</p>
+      <div class="cartoon-preview-loading"></div>
+    `;
+    try {
+      const res = await fetch(`${API_BASE}/api/cartoonify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: true }),
+      });
+      const data = await res.json();
 
-function showCartoonAlternativeOffer(overlay, itemId, sku, photoBase64, statusEl, btn) {
-  overlay.querySelector(".cartoon-preview-card").innerHTML = `
-    <div class="cartoon-preview-title">Fancy cartooning something else instead? 🎨</div>
-    <p class="cartoon-email-note">
-      No problem — you can complete this order as a standard photo now, then head back into the Gift Shop
-      whenever you like to order a <em>different</em> gift with a Custom Cartoon on it. That would be its own
-      separate £1.99+ order, paid for on its own — we never generate a cartoon without payment first.
-    </p>
-    <button class="cartoon-btn-primary" data-role="continue" style="width:100%; margin-top:10px;">Continue With This Order — £0.00 Cartoon</button>
-    <div style="margin-top: 10px;">
-      <button class="cartoon-btn-secondary" data-role="cancel" style="width:100%">Cancel</button>
-    </div>
-  `;
+      if (data.alreadyUsed) {
+        card.innerHTML = `
+          <div class="cartoon-preview-title">You've used your free previews ✨</div>
+          <p class="cartoon-email-note">No problem — you can still add a Custom Cartoon upgrade for £1.99 and see the real, unwatermarked result once your order is placed.</p>
+          <button class="cartoon-btn-primary" data-role="yes-blind" style="width:100%; margin-top:10px;">Add Custom Cartoon — £1.99</button>
+          <div style="margin-top: 10px;">
+            <button class="cartoon-btn-secondary" data-role="skip2" style="width:100%">No Thanks, Just My Order</button>
+          </div>
+        `;
+        card.querySelector('[data-role="yes-blind"]').addEventListener("click", () => {
+          overlay.remove();
+          proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, { addCartoon: true });
+        });
+        card.querySelector('[data-role="skip2"]').addEventListener("click", () => {
+          overlay.remove();
+          proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
+        });
+        return;
+      }
 
-  overlay.querySelector('[data-role="continue"]').addEventListener("click", async () => {
-    overlay.remove();
-    await proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
-  });
+      if (!res.ok || !data.base64Image) {
+        throw new Error(data.error || "Could not generate preview");
+      }
 
-  overlay.querySelector('[data-role="cancel"]').addEventListener("click", () => {
-    overlay.remove();
-    btn.disabled = false;
-    statusEl.textContent = "";
-    statusEl.className = "status";
+      const previewSrc = `data:${data.mimeType};base64,${data.base64Image}`;
+      card.innerHTML = `
+        <div class="cartoon-preview-title">Here's your cartoon! ✨</div>
+        <img class="cartoon-preview-img" src="${previewSrc}" alt="Your cartoon preview" style="display:block; margin-bottom: 14px;">
+        <p class="cartoon-email-note">Love it? Add the full-quality, unwatermarked version to your gift for just £1.99.</p>
+        <button class="cartoon-btn-primary" data-role="yes" style="width:100%; margin-top:6px;">Yes, Add This Cartoon — £1.99</button>
+        <div style="margin-top: 10px;">
+          <button class="cartoon-btn-secondary" data-role="no" style="width:100%">No Thanks, Just My Order</button>
+        </div>
+      `;
+
+      card.querySelector('[data-role="yes"]').addEventListener("click", () => {
+        overlay.remove();
+        proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, { addCartoon: true });
+      });
+      card.querySelector('[data-role="no"]').addEventListener("click", () => {
+        overlay.remove();
+        proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
+      });
+    } catch (err) {
+      card.innerHTML = `
+        <div class="cartoon-preview-title">Couldn't generate a preview</div>
+        <p class="cartoon-email-note">Something went wrong on our end. You can still continue with your order as a standard photo.</p>
+        <button class="cartoon-btn-primary" data-role="continue-anyway" style="width:100%; margin-top:10px;">Continue With My Order</button>
+      `;
+      card.querySelector('[data-role="continue-anyway"]').addEventListener("click", () => {
+        overlay.remove();
+        proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, null);
+      });
+    }
   });
 }
 
