@@ -2606,7 +2606,7 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
       }
 
       if (!res.ok || !data.base64Image) {
-        throw new Error(data.error || "Could not generate preview");
+        throw new Error(data.details || data.error || "Could not generate preview");
       }
 
       const previewSrc = `data:${data.mimeType};base64,${data.base64Image}`;
