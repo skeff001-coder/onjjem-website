@@ -2664,6 +2664,7 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
       card.innerHTML = `
         <div class="cartoon-preview-title">Couldn't generate a preview</div>
         <p class="cartoon-email-note">Something went wrong on our end. You can still continue with your order as a standard photo.</p>
+        <p style="font-size:11px; color:#c0392b; background:#fff3f3; padding:8px; border-radius:6px; text-align:left; word-break:break-all;">Debug info: ${(err && err.message) ? err.message : String(err)}</p>
         <button class="cartoon-btn-primary" data-role="continue-anyway" style="width:100%; margin-top:10px;">Continue With My Order</button>
       `;
       card.querySelector('[data-role="continue-anyway"]').addEventListener("click", () => {
