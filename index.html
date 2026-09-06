@@ -2129,27 +2129,6 @@ const CARTOONIFY_SAMPLES = [
 // Each top-level category can contain one or more products, each with its own variants
 const CATEGORIES = [
   {
-    key: "canvas-premium",
-    label: "Premium Gallery Canvas",
-    categoryImg: "/products/stretched-canvas.webp",
-    intro: "💍 Turn your biggest days into wall art that lasts a lifetime. Wedding photos, engagements, graduations, new babies, big birthdays — we turn your favourite milestone into a beautiful, gallery-quality canvas you'll treasure forever. Perfect for anniversaries and once-in-a-lifetime keepsakes.",
-    items: [
-      {
-        name: "Premium Stretched Canvas Wall Art (38mm Luxury Bars)",
-        img: "/products/stretched-canvas.webp",
-        desc: "Premium 38mm cotton canvas art prints — beautifully hand-stretched, precision finished, and completely ready to hang. Transform your walls with our museum-grade stretched canvas art prints, meticulously produced on heavyweight 400gsm artist-grade canvas. The finely woven texture brings out breathtaking details and exceptional tonal depth, giving your designs a rich, tactile finish that elevates everything from professional photography to bold, statement artwork. Each canvas is custom-made to order, carefully tensioned by hand over a heavy-duty, purpose-built 38mm frame crafted from premium European kiln-dried knotless pine. Engineered for lifelong durability, the specialized stretcher bars feature a subtle curved profile that reduces pressure on the canvas surface, actively preventing marking and guaranteeing long-term wear without sagging. Every corner is neatly folded and finished to ensure crisp, clean edges and a flawless look from every angle. • Arrives 100% ready to hang. Professionally tensioned over a luxurious, deep 38mm purpose-built European pine gallery framework. • Heavyweight 400gsm Canvas: Artist-grade media with a rich matte texture. • Lifelong Fade Resistance: Engineered for up to 200 years of vibrant display permanence using advanced latex inks and UVgel technology. • Sustainable Pine Framework: Constructed using premium, European kiln-dried knotless pine stretcher bars. • Flawless Hand-Finished Build: Meticulously hand-stretched with sharp, clean corner folds. • Eco-Conscious Properties: Printed using water-based, vegan-friendly inks on sustainably sourced timber structures. Care: Display at room temperature in a stable, moisture-free environment. Keep out of direct sunlight and away from direct heat sources like radiators or fireplaces. Do not use liquids, sprays, or chemical products to clean the surface; a soft, dry brush can be used periodically to gently remove any settled dust.",
-        variants: [
-          { sku: "GLOBAL-CAN-A5", label: "Small - A5 - £39.99" },
-          { sku: "GLOBAL-CAN-A4", label: "Small - A4 - £44.99" },
-          { sku: "GLOBAL-CAN-A3", label: "Medium - A3 - £59.99" },
-          { sku: "GLOBAL-CAN-A2", label: "Medium - A2 - £79.99" },
-          { sku: "GLOBAL-CAN-A1", label: "Large - A1 - £109.99" },
-          { sku: "GLOBAL-CAN-A0", label: "Large - A0 - £139.99" },
-        ],
-      },
-    ],
-  },
-  {
     key: "canvas-eco",
     label: "Eco-Friendly Canvas",
     categoryImg: "/products/eco-canvas.webp",
@@ -2665,6 +2644,13 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
 async function proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, cartoonOptions) {
   statusEl.textContent = "Preparing checkout...";
   statusEl.className = "status loading";
+  if (typeof gtag === "function") {
+    const item = window.__currentItems ? window.__currentItems[itemId] : null;
+    gtag("event", "begin_checkout", {
+      currency: "GBP",
+      items: [{ item_id: sku, item_name: item ? item.name : sku }],
+    });
+  }
   try {
     const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
       method: "POST",
@@ -2905,6 +2891,13 @@ if (cartoonifyImgEl) {
 (function checkForOrderSuccess() {
   const params = new URLSearchParams(window.location.search);
   if (params.get("order") !== "success") return;
+
+  if (typeof gtag === "function") {
+    gtag("event", "purchase", {
+      currency: "GBP",
+      transaction_id: params.get("session_id") || Date.now().toString(),
+    });
+  }
 
   const overlay = document.createElement("div");
   overlay.className = "thankyou-overlay";
