@@ -1717,6 +1717,29 @@
   .cartoon-trust-bullets li strong {
     color: #F3D078;
   }
+  .mug-mockup {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 14px;
+  }
+  .mug-mockup-base {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .mug-mockup-design {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-2deg);
+    width: 40%;
+    height: 40%;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  }
   .cartoon-preview-img {
     width: 100%;
     border-radius: 12px;
@@ -2578,7 +2601,10 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
       const previewSrc = `data:${data.mimeType};base64,${data.base64Image}`;
       card.innerHTML = `
         <div class="cartoon-preview-title">Here's your cartoon! ✨</div>
-        <img class="cartoon-preview-img" src="${previewSrc}" alt="Your cartoon preview" style="display:block; margin-bottom: 10px;">
+        <div class="mug-mockup">
+          <img class="mug-mockup-base" src="/products/magic-mug.jpg" alt="Mug preview">
+          <img class="mug-mockup-design" src="${previewSrc}" alt="Your cartoon on a mug">
+        </div>
         <p class="cartoon-email-note" style="font-weight:700; color:#F3D078;">This exact cartoon can be printed on your gift today — watermark-free.</p>
         <p class="cartoon-email-note">For just £1.99, we'll add this full-quality artwork to your order instead of the plain photo. It's a genuinely one-of-a-kind piece, made just for you.</p>
         <button class="cartoon-btn-primary" data-role="yes" style="width:100%; margin-top:10px;">Yes — Add This Cartoon for £1.99</button>
