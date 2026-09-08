@@ -626,7 +626,7 @@
       "name": "Do you ship outside the UK?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. ONJJEM delivers to the UK, USA, Canada, Australia, and most of Europe, with international delivery taking 5–14 working days depending on destination."
+        "text": "Yes. ONJJEM delivers to the UK, USA, Canada, Australia, and most of Europe. International shipping is a flat £14.99, with delivery taking 5–14 working days depending on destination."
       }
     },
     {
@@ -1117,6 +1117,21 @@
     .deal-name { font-size: 10.5px; }
   }
 
+  .cartoonify-top-flash {
+    text-align: center;
+    margin: 0;
+    padding: 8px 10px;
+    background: #E24C4C;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    animation: topFlashBlink 1s step-start infinite;
+  }
+  @keyframes topFlashBlink {
+    0%, 100% { background: #E24C4C; }
+    50% { background: #39FF88; color: #1A1206; }
+  }
   .free-ship-banner {
     text-align: center;
     background: linear-gradient(90deg, #E8384F, #D4A843, #3E7BD6);
@@ -1997,7 +2012,9 @@
 </style>
 </head>
 <body>
-  <div class="free-ship-banner">🚚 FREE UK DELIVERY | 🌍 International shipping £19.95 flat rate</div>
+  <p class="cartoonify-top-flash">🎉 CARTOON YOUR PIC — SEE AT CHECKOUT! 🎉</p>
+
+  <div class="free-ship-banner">🚚 FREE UK DELIVERY</div>
 
   <div class="wrap">
 
@@ -2067,8 +2084,6 @@
       </div>
     </div>
 
-    <p class="cartoonify-big-headline">Cartoon Your Pic — See At Checkout ✨</p>
-
         <div class="why-section" style="margin-top: 40px;">
       <h2>Why Choose ONJJEM</h2>
       <p>At ONJJEM, we don't just print photos — we craft keepsakes, because behind every photo is a memory that matters.</p>
@@ -2107,7 +2122,7 @@
       </div>
       <div class="faq-item">
         <h3 class="faq-q">Do you ship outside the UK?</h3>
-        <p class="faq-a">Yes. ONJJEM delivers to the UK, USA, Canada, Australia, and most of Europe, with international delivery taking 5–14 working days depending on destination.</p>
+        <p class="faq-a">Yes. ONJJEM delivers to the UK, USA, Canada, Australia, and most of Europe. International shipping is a flat £14.99, with delivery taking 5–14 working days depending on destination.</p>
       </div>
       <div class="faq-item">
         <h3 class="faq-q">What if my order arrives damaged or faulty?</h3>
@@ -2151,60 +2166,7 @@ const CARTOONIFY_SAMPLES = [
 
 // Each top-level category can contain one or more products, each with its own variants
 const CATEGORIES = [
-  {
-    key: "canvas-eco",
-    label: "Eco-Friendly Canvas",
-    categoryImg: "/products/eco-canvas.webp",
-    items: [
-      {
-        name: "Friendly Recycled Eco Canvas (38mm Deep Frame)",
-        img: "/products/eco-canvas.webp",
-        desc: "All the beauty of a canvas print at a friendlier price. Printed on high-quality canvas material using an eco-conscious process, this is a brilliant way to fill a wall with photos without spending a fortune — perfect for a gallery wall of family memories, or trying out a photo you love before committing to a larger size.",
-        variants: [
-          { sku: "ECO-CAN-8X8", label: "Small - 8x8 inch - £24.99" },
-          { sku: "ECO-CAN-8X12", label: "Small - 8x12 inch - £26.99" },
-          { sku: "ECO-CAN-12X12", label: "Medium - 12x12 inch - £29.99" },
-          { sku: "ECO-CAN-12X16", label: "Medium - 12x16 inch - £34.99" },
-          { sku: "ECO-CAN-16X24", label: "Large - 16x24 inch - £49.99" },
-          { sku: "ECO-CAN-20X30", label: "Large - 20x30 inch - £52.99" },
-        ],
-      },
-      {
-        name: "Eco Rolled Canvas (Unframed Protective Tube)",
-        img: "/products/eco-rolled-canvas.jpg",
-        desc: "An unframed, rolled canvas print for anyone who wants to choose or make their own frame — or simply display it as-is. Same fade-resistant inks and premium poly-cotton canvas as our stretched canvas, just shipped flat and ready for you to mount however you like.",
-        variants: [
-          { sku: "ECO-ROL-8X8", label: "Small - 8x8 inch - £14.99" },
-          { sku: "ECO-ROL-10X10", label: "Small - 10x10 inch - £16.99" },
-          { sku: "ECO-ROL-12X12", label: "Medium - 12x12 inch - £19.99" },
-          { sku: "ECO-ROL-12X16", label: "Medium - 12x16 inch - £24.99" },
-          { sku: "ECO-ROL-16X24", label: "Large - 16x24 inch - £34.99" },
-          { sku: "ECO-ROL-20X30", label: "Large - 20x30 inch - £42.99" },
-        ],
-      },
-    ],
-  },
-  {
-    key: "canvas-slim",
-    label: "Slim & Everyday Canvas",
-    categoryImg: "/products/slim-canvas.webp",
-    items: [
-      {
-        name: "Minimalist Slim Canvas (19mm Classic Frame)",
-        img: "/products/slim-canvas.webp",
-        desc: "Not your standard canvas — this uses a slimmer, precision-engineered frame profile for a sleek, contemporary edge instead of the traditional chunky wooden stretcher bars. It's a specialist finish that costs a little more to produce than our regular canvas range, but delivers a genuinely modern, gallery-style look that suits elongated and panoramic shots beautifully. A design-forward choice for anyone who wants their wall art to feel a step above the ordinary.",
-        variants: [
-          { sku: "GLOBAL-SLIMCAN-6X6", label: "Small - 6x6 inch - £21.99" },
-          { sku: "GLOBAL-SLIMCAN-8X8", label: "Small - 8x8 inch - £24.99" },
-          { sku: "GLOBAL-SLIMCAN-12X12", label: "Medium - 12x12 inch - £34.99" },
-          { sku: "GLOBAL-SLIMCAN-24X20", label: "Medium - 24x20 inch - £69.99" },
-          { sku: "GLOBAL-SLIMCAN-30X30", label: "Large - 30x30 inch - £96.99" },
-          { sku: "GLOBAL-SLIMCAN-43X87", label: "Large - 43x87 inch - £229.99" },
-        ],
-      },
-    ],
-  },
-  {
+{
     key: "specialist-prints",
     label: "Specialist Prints",
     categoryImg: "/products/framed-photo-tiles.jpg",
@@ -2246,23 +2208,7 @@ const CATEGORIES = [
       },
     ],
   },
-  {
-    key: "frames",
-    label: "Frames & Tiles",
-    categoryImg: "/products/framed-photo-tiles.jpg",
-    items: [{
-        name: "Framed Photo Tiles",
-        img: "/products/framed-photo-tiles.jpg",
-        desc: "A charming, compact way to display a favourite photo on a shelf, mantelpiece or desk. Each tile comes with its own neat frame and small stand, so it's ready to display the moment it arrives — a lovely little gift on its own, or beautiful grouped together as a set of cherished memories.",
-        variants: [
-          { sku: "photo-tile-5x7", label: "5x7 inch - £12.99" },
-          { sku: "photo-tile-8x8", label: "8x8 inch - £14.99" },
-          { sku: "photo-tile-8x10", label: "8x10 inch - £16.99" },
-        ],
-      },
-    ],
-  },
-  {
+{
     key: "households",
     label: "Household Surprises",
     categoryImg: "/products/magic-mug.jpg",
@@ -2316,7 +2262,83 @@ const CATEGORIES = [
     
     ],
   },
-  {
+{
+    key: "gifts",
+    label: "Gift Tags & More",
+    categoryImg: "/products/pet-tags.jpg",
+    items: [{
+        name: "Pet Tags",
+        img: "/products/pet-tags.jpg",
+        desc: "A genuinely useful safety item that also happens to be a lovely personal keepsake. Durable, scratch-resistant metal tag featuring your pet's own photo alongside their name and your contact details — perfect for collars, and a gift any pet owner will actually use and appreciate, not just admire.",
+        variants: [
+          { sku: "pet-tag-round", label: "Round Tag - £13.99" },
+          { sku: "pet-tag-bone", label: "Bone Shape Tag - £13.99" },
+        ],
+      },
+      {
+        name: "Temporary Tattoos",
+        img: "/products/temporary-tattoos.webp",
+        desc: "A brilliant novelty gift or fun addition to any celebration. Each tattoo is printed from your own photo using safe, skin-friendly ink that applies in seconds with water and lasts several days — genuinely photo-realistic once applied. Popular for hen and stag parties, festivals, birthdays, or just for a laugh with friends and family. Available in five sizes to suit anything from a small wrist design to a full arm piece.",
+        variants: [
+          { sku: "tattoo-s", label: "Small (5cm x 7.5cm) - £11.99" },
+          { sku: "tattoo-m", label: "Medium (7.5cm x 10cm) - £14.99" },
+          { sku: "tattoo-l", label: "Large (10cm x 15cm) - £17.99" },
+          { sku: "tattoo-xl", label: "Extra Large (20cm x 20cm) - £20.99" },
+          { sku: "tattoo-xxl", label: "XXL (30cm x 30cm) - £28.99" },
+        ],
+      },
+    ],
+  },
+{
+    key: "frames",
+    label: "Frames & Tiles",
+    categoryImg: "/products/framed-photo-tiles.jpg",
+    items: [{
+        name: "Framed Photo Tiles",
+        img: "/products/framed-photo-tiles.jpg",
+        desc: "A charming, compact way to display a favourite photo on a shelf, mantelpiece or desk. Each tile comes with its own neat frame and small stand, so it's ready to display the moment it arrives — a lovely little gift on its own, or beautiful grouped together as a set of cherished memories.",
+        variants: [
+          { sku: "photo-tile-5x7", label: "5x7 inch - £12.99" },
+          { sku: "photo-tile-8x8", label: "8x8 inch - £14.99" },
+          { sku: "photo-tile-8x10", label: "8x10 inch - £16.99" },
+        ],
+      },
+    ],
+  },
+{
+    key: "canvas-eco",
+    label: "Eco-Friendly Canvas",
+    categoryImg: "/products/eco-canvas.webp",
+    items: [
+      {
+        name: "Friendly Recycled Eco Canvas (38mm Deep Frame)",
+        img: "/products/eco-canvas.webp",
+        desc: "All the beauty of a canvas print at a friendlier price. Printed on high-quality canvas material using an eco-conscious process, this is a brilliant way to fill a wall with photos without spending a fortune — perfect for a gallery wall of family memories, or trying out a photo you love before committing to a larger size.",
+        variants: [
+          { sku: "ECO-CAN-8X8", label: "Small - 8x8 inch - £24.99" },
+          { sku: "ECO-CAN-8X12", label: "Small - 8x12 inch - £26.99" },
+          { sku: "ECO-CAN-12X12", label: "Medium - 12x12 inch - £29.99" },
+          { sku: "ECO-CAN-12X16", label: "Medium - 12x16 inch - £34.99" },
+          { sku: "ECO-CAN-16X24", label: "Large - 16x24 inch - £49.99" },
+          { sku: "ECO-CAN-20X30", label: "Large - 20x30 inch - £52.99" },
+        ],
+      },
+      {
+        name: "Eco Rolled Canvas (Unframed Protective Tube)",
+        img: "/products/eco-rolled-canvas.jpg",
+        desc: "An unframed, rolled canvas print for anyone who wants to choose or make their own frame — or simply display it as-is. Same fade-resistant inks and premium poly-cotton canvas as our stretched canvas, just shipped flat and ready for you to mount however you like.",
+        variants: [
+          { sku: "ECO-ROL-8X8", label: "Small - 8x8 inch - £14.99" },
+          { sku: "ECO-ROL-10X10", label: "Small - 10x10 inch - £16.99" },
+          { sku: "ECO-ROL-12X12", label: "Medium - 12x12 inch - £19.99" },
+          { sku: "ECO-ROL-12X16", label: "Medium - 12x16 inch - £24.99" },
+          { sku: "ECO-ROL-16X24", label: "Large - 16x24 inch - £34.99" },
+          { sku: "ECO-ROL-20X30", label: "Large - 20x30 inch - £42.99" },
+        ],
+      },
+    ],
+  },
+{
     key: "kids-corner",
     label: "The Kids' Corner",
     categoryImg: "/products/jigsaw-500pc.webp",
@@ -2389,29 +2411,22 @@ const CATEGORIES = [
       },
     ],
   },
-  {
-    key: "gifts",
-    label: "Gift Tags & More",
-    categoryImg: "/products/pet-tags.jpg",
-    items: [{
-        name: "Pet Tags",
-        img: "/products/pet-tags.jpg",
-        desc: "A genuinely useful safety item that also happens to be a lovely personal keepsake. Durable, scratch-resistant metal tag featuring your pet's own photo alongside their name and your contact details — perfect for collars, and a gift any pet owner will actually use and appreciate, not just admire.",
-        variants: [
-          { sku: "pet-tag-round", label: "Round Tag - £13.99" },
-          { sku: "pet-tag-bone", label: "Bone Shape Tag - £13.99" },
-        ],
-      },
+{
+    key: "canvas-slim",
+    label: "Slim & Everyday Canvas",
+    categoryImg: "/products/slim-canvas.webp",
+    items: [
       {
-        name: "Temporary Tattoos",
-        img: "/products/temporary-tattoos.webp",
-        desc: "A brilliant novelty gift or fun addition to any celebration. Each tattoo is printed from your own photo using safe, skin-friendly ink that applies in seconds with water and lasts several days — genuinely photo-realistic once applied. Popular for hen and stag parties, festivals, birthdays, or just for a laugh with friends and family. Available in five sizes to suit anything from a small wrist design to a full arm piece.",
+        name: "Minimalist Slim Canvas (19mm Classic Frame)",
+        img: "/products/slim-canvas.webp",
+        desc: "Not your standard canvas — this uses a slimmer, precision-engineered frame profile for a sleek, contemporary edge instead of the traditional chunky wooden stretcher bars. It's a specialist finish that costs a little more to produce than our regular canvas range, but delivers a genuinely modern, gallery-style look that suits elongated and panoramic shots beautifully. A design-forward choice for anyone who wants their wall art to feel a step above the ordinary.",
         variants: [
-          { sku: "tattoo-s", label: "Small (5cm x 7.5cm) - £11.99" },
-          { sku: "tattoo-m", label: "Medium (7.5cm x 10cm) - £14.99" },
-          { sku: "tattoo-l", label: "Large (10cm x 15cm) - £17.99" },
-          { sku: "tattoo-xl", label: "Extra Large (20cm x 20cm) - £20.99" },
-          { sku: "tattoo-xxl", label: "XXL (30cm x 30cm) - £28.99" },
+          { sku: "GLOBAL-SLIMCAN-6X6", label: "Small - 6x6 inch - £21.99" },
+          { sku: "GLOBAL-SLIMCAN-8X8", label: "Small - 8x8 inch - £24.99" },
+          { sku: "GLOBAL-SLIMCAN-12X12", label: "Medium - 12x12 inch - £34.99" },
+          { sku: "GLOBAL-SLIMCAN-24X20", label: "Medium - 24x20 inch - £69.99" },
+          { sku: "GLOBAL-SLIMCAN-30X30", label: "Large - 30x30 inch - £96.99" },
+          { sku: "GLOBAL-SLIMCAN-43X87", label: "Large - 43x87 inch - £229.99" },
         ],
       },
     ],
