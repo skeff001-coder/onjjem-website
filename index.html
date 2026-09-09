@@ -1773,6 +1773,27 @@
   .card h3 { color: #3A2F1A; font-size: 16px; margin-bottom: 4px; }
   .card p.price-range { color: #B8892A; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
   .card p.pp-note { color: rgba(43,58,74,0.55); font-size: 12px; margin-bottom: 12px; margin-top: -6px; }
+  .card input[type="file"] {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  .card input[type="file"]::file-selector-button {
+    background: linear-gradient(90deg, #f1c40f, #f39c12);
+    color: #000000;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 10px 14px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  .card input[type="file"]::file-selector-button:hover {
+    background: linear-gradient(90deg, #f39c12, #e67e22);
+  }
   .card p.ip-notice { color: rgba(43,58,74,0.5); font-size: 11px; line-height: 1.5; margin-bottom: 10px; }
   .card p.desc { color: rgba(43,58,74,0.6); font-size: 13px; margin-bottom: 14px; line-height: 1.5; }
   select.variant-select {
@@ -2300,7 +2321,7 @@
               <span class="promo-text">Cartoon Your Pic</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/pet-tags.jpg" alt="Gift Card" loading="lazy"></div>
+              <div class="image-wrapper"><img src="/products/Card.png" alt="Gift Card" loading="lazy"></div>
               <span class="promo-badge">🎁 New</span>
               <span class="promo-text">Digital Gift Card</span>
             </a>
@@ -2594,7 +2615,7 @@ const CATEGORIES = [
     categoryImg: "/products/pet-tags.jpg",
     items: [{
         name: "ONJJEM Digital Gift Card",
-        img: "/products/pet-tags.jpg",
+        img: "/products/Card.png",
         desc: "Can't decide what to get them? Let them choose! An ONJJEM Digital Gift Card is delivered straight to your inbox as a unique code, ready to redeem against any gift on our website. No photo needed for this one — just pick an amount and check out.",
         noPhotoNeeded: true,
         variants: [
