@@ -464,8 +464,8 @@
           "item": {
             "@type": "Product",
             "@id": "https://onjjem.com/#product-15",
-            "name": "Personalised Photo Playing Cards",
-            "description": "A full deck of 54 professional-quality playing cards personalised with your own photos.",
+            "name": "Satin-Finish Personalised Photo Cards",
+            "description": "A full deck of 54 premium satin-finish playing cards personalised with your own photos.",
             "image": "https://onjjem.com/products/playing-cards.webp",
             "category": "Jigsaws & Children's Corner",
             "brand": {
@@ -475,8 +475,8 @@
             "offers": {
               "@type": "AggregateOffer",
               "priceCurrency": "GBP",
-              "lowPrice": 19.99,
-              "highPrice": 19.99,
+              "lowPrice": 16.99,
+              "highPrice": 16.99,
               "offerCount": 1,
               "availability": "https://schema.org/InStock",
               "url": "https://onjjem.com",
@@ -807,6 +807,10 @@
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    cursor: default;
+  }
+  .simple-step.pressable {
+    cursor: pointer;
   }
   .simple-step-num {
     display: flex;
@@ -2185,9 +2189,9 @@
         <span class="simple-step-num">1</span>
         <span class="simple-step-label">Enter Gallery</span>
       </div>
-      <div class="simple-step">
+      <div class="simple-step pressable" onclick="document.querySelector('.cat-nav-wrap').scrollIntoView({behavior:'smooth', block:'start'})" role="button" tabindex="0" aria-label="Click to upload your photo">
         <span class="simple-step-num">2</span>
-        <span class="simple-step-label">Upload Pic</span>
+        <span class="simple-step-label">Click To Upload</span>
       </div>
       <div class="simple-step">
         <span class="simple-step-num">3</span>
@@ -2225,12 +2229,12 @@
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" class="product-tile">
               <div class="image-wrapper"><img src="/products/slim-canvas.webp" alt="Fine Art Prints" loading="lazy"></div>
-              <span class="promo-badge red-badge">Cheapest</span>
-              <span class="promo-text">From £5.99</span>
+              <span class="promo-badge red-badge">Best Price</span>
+              <span class="promo-text">Fine Art Print — From £5.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Custom Fabric Patch Badge (Round)')" class="product-tile">
               <div class="image-wrapper"><img src="/products/Patch.png" alt="Fabric Patch" loading="lazy"></div>
-              <span class="promo-text">From £8.99</span>
+              <span class="promo-text">Fabric Patch — From £8.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Magnets')" class="product-tile">
               <div class="image-wrapper"><img src="/products/photo-magnets.webp" alt="Photo Magnets" loading="lazy"></div>
@@ -2244,19 +2248,19 @@
           <div class="products-grid">
             <a href="javascript:void(0)" onclick="goToCategory('households', 'Custom Wooden Drink Coasters')" class="product-tile">
               <div class="image-wrapper"><img src="/products/wooden-coasters.jpg" alt="Wooden Coasters" loading="lazy"></div>
-              <span class="promo-text">From £11.99</span>
+              <span class="promo-text">Wooden Coasters — From £11.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Temporary Tattoos')" class="product-tile">
               <div class="image-wrapper"><img src="/products/temporary-tattoos.webp" alt="Temporary Tattoos" loading="lazy"></div>
-              <span class="promo-text">From £11.99</span>
+              <span class="promo-text">Temporary Tattoos — From £11.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('frames', 'Framed Photo Tiles')" class="product-tile">
               <div class="image-wrapper"><img src="/products/framed-photo-tiles.jpg" alt="Framed Photo Tiles" loading="lazy"></div>
-              <span class="promo-text">From £12.99</span>
+              <span class="promo-text">Framed Photo Tiles — From £12.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Pet Tags')" class="product-tile">
               <div class="image-wrapper"><img src="/products/pet-tags.jpg" alt="Pet Tags" loading="lazy"></div>
-              <span class="promo-text">From £13.99</span>
+              <span class="promo-text">Pet Tags — From £13.99</span>
             </a>
           </div>
         </div>
@@ -2266,20 +2270,20 @@
           <div class="products-grid">
             <a href="javascript:void(0)" onclick="goToCategory('canvas-eco', 'Friendly Recycled Eco Canvas (38mm Deep Frame)')" class="product-tile">
               <div class="image-wrapper"><img src="/products/eco-canvas.webp" alt="Canvas Print" loading="lazy"></div>
-              <span class="promo-text">From £14.99</span>
+              <span class="promo-text">Eco Canvas — From £14.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('households', 'Premium Personalised Kitchen Towel')" class="product-tile">
               <div class="image-wrapper"><img src="/products/tea-towels.jpg" alt="Tea Towels" loading="lazy"></div>
-              <span class="promo-text">From £14.99</span>
+              <span class="promo-text">Kitchen Towel — From £14.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('households', 'ChromaCoat Mug')" class="product-tile">
               <div class="image-wrapper"><img src="/products/magic-mug-final.png" alt="ChromaCoat Mug" loading="lazy"></div>
               <span class="promo-badge">Bestseller</span>
               <span class="promo-text">ChromaCoat Mug — £17.99</span>
             </a>
-            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Personalised Photo Playing Cards')" class="product-tile">
+            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Satin-Finish Personalised Photo Cards')" class="product-tile">
               <div class="image-wrapper"><img src="/products/playing-cards.webp" alt="Playing Cards" loading="lazy"></div>
-              <span class="promo-text">£17.99</span>
+              <span class="promo-text">Photo Cards — £16.99</span>
             </a>
           </div>
         </div>
@@ -2287,17 +2291,17 @@
         <div class="carousel-panel panel-orange">
           <h2 class="panel-title">Premium Printing Section</h2>
           <div class="products-grid">
-            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Personalised Photo Playing Cards')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/playing-cards.webp" alt="Playing Cards" loading="lazy"></div>
-              <span class="promo-text">£17.99</span>
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Mugs')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/photo-mugs-v2.jpg" alt="Photo Mugs" loading="lazy"></div>
+              <span class="promo-text">Photo Mugs — From £11.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" class="product-tile">
               <div class="image-wrapper"><img src="/products/glow-poster-premium.webp" alt="Glow Posters" loading="lazy"></div>
-              <span class="promo-text">From £19.99</span>
+              <span class="promo-text">Glow Posters — From £19.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Photo Jigsaw')" class="product-tile">
               <div class="image-wrapper"><img src="/products/jigsaw-500pc.webp" alt="Photo Jigsaw" loading="lazy"></div>
-              <span class="promo-text">From £24.99</span>
+              <span class="promo-text">Photo Jigsaw — From £24.99</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" class="product-tile">
               <div class="image-wrapper"><img src="/products/Card.png" alt="Gift Card" loading="lazy"></div>
@@ -2320,65 +2324,14 @@
         <span class="trust-item">📦 Tracked Delivery</span>
       </div>
       <p class="cartoonify-big-callout">🎨 NEW: Cartoonify Now Available at Checkout! 🎨</p>
-      <div class="bargain-banner pressable" onclick="goToCategory('specialist-prints')" role="button" tabindex="0" aria-label="Shop our Bargain Basement">
-        💰 Bargain Basement — Prints from just £5.99! 💰
-      </div>
       <div class="giftcard-banner pressable" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" role="button" tabindex="0" aria-label="Shop ONJJEM Gift Cards">
-        🎁 Can't Decide? Send a Digital Gift Card — From £20! 🎁
+        🎁 Give the Gift of Choice — ONJJEM Digital Gift Cards, From £20! 🎁
       </div>
       <div class="cat-nav" id="catNav"></div>
       <h2 class="section-title" id="sectionTitle" style="display:none;"></h2>
       <div class="products" id="products"></div>
     </div>
 
-    <div class="amazon-section-container">
-      <div class="amazon-carousel-track" id="amazonCarousel">
-        <div class="carousel-panel panel-pink">
-          <h2 class="panel-title">Deals for You</h2>
-          <div class="products-grid">
-            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Custom Fabric Patch Badge (Round)')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/Patch.png" alt="Custom Patch Badge" loading="lazy"></div>
-              <span class="promo-text">From £8.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Mugs')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/photo-mugs-v2.jpg" alt="Photo Mug" loading="lazy"></div>
-              <span class="promo-text">From £11.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Photo Jigsaw')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/jigsaw-500pc.webp" alt="Photo Jigsaw" loading="lazy"></div>
-              <span class="promo-text">From £24.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'ChromaCoat Mug')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/magic-mug-final.png" alt="ChromaCoat Mug" loading="lazy"></div>
-              <span class="promo-badge">Bestseller</span>
-              <span class="promo-text">£17.99</span>
-            </a>
-          </div>
-        </div>
-        <div class="carousel-panel panel-blue">
-          <h2 class="panel-title">Our Bestsellers</h2>
-          <div class="products-grid">
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'Custom Wooden Drink Coasters')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/wooden-coasters.jpg" alt="Wooden Coasters" loading="lazy"></div>
-              <span class="promo-text">From £8.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Temporary Tattoos')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/temporary-tattoos.webp" alt="Temporary Tattoos" loading="lazy"></div>
-              <span class="promo-text">From £11.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Personalised Photo Playing Cards')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/playing-cards.webp" alt="Photo Playing Cards" loading="lazy"></div>
-              <span class="promo-text">£17.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', '5x5 Inch Personalised Photo Print (Unframed)')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/framed-photo-tiles.jpg" alt="Photo Print" loading="lazy"></div>
-              <span class="promo-badge red-badge">Cheapest</span>
-              <span class="promo-text">From £5.99</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="featured-banner pressable" onclick="goToCategory('households', 'ChromaCoat Mug')" role="button" tabindex="0" aria-label="Shop the ChromaCoat Mug">
       <div class="featured-banner-img">
@@ -2721,10 +2674,10 @@ const CATEGORIES = [
         ],
       },
       {
-        name: "Personalised Photo Playing Cards",
+        name: "Satin-Finish Personalised Photo Cards",
         img: "/products/playing-cards.webp",
-        desc: "A full deck of 54 professional-quality playing cards, each one featuring your own photos, printed crisp and vivid on durable, smooth-shuffling card stock. A brilliantly personal twist on a classic — genuinely fun to use at family game nights, and a gift that gets picked up again and again rather than sitting on a shelf.",
-        variants: [{ sku: "playing-cards", label: "Full Deck - £17.99" }],
+        desc: "Bring your favourite memories to the table with a fully customised deck of premium photo cards. Perfect for unique family gifts, wedding keepsakes, or adding a personal touch to your next game night. Double-sided UV-coated satin finish protects your images from scratches and fading, printed on heavy-duty 300gsm card stock designed for regular play. Includes the full 54-card deck (52 classic suited cards plus 2 customisable Jokers), delivered in a clean white presentation box. Brilliant for anniversaries and weddings, milestone birthdays, or showcasing your favourite furry friend.",
+        variants: [{ sku: "playing-cards", label: "Full Deck (6x9cm / 3x4\") - £16.99" }],
       },
       {
         name: "Budget Poster",
@@ -3343,37 +3296,6 @@ if (cartoonifyImgEl) {
     window.history.replaceState({}, "", cleanUrl);
   });
 })();
-
-// Auto-scrolling "Deals for you" / "Bestsellers" carousel
-document.addEventListener("DOMContentLoaded", () => {
-  const track = document.getElementById("amazonCarousel");
-  if (!track) return;
-
-  let autoScrollTimer = null;
-  const slideInterval = 3500;
-
-  function startAutoScroll() {
-    autoScrollTimer = setInterval(() => {
-      const maxScrollLeft = track.scrollWidth - track.clientWidth;
-      if (track.scrollLeft >= maxScrollLeft - 5) {
-        track.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
-      }
-    }, slideInterval);
-  }
-
-  function stopAutoScroll() {
-    clearInterval(autoScrollTimer);
-  }
-
-  startAutoScroll();
-
-  track.addEventListener("mouseenter", stopAutoScroll);
-  track.addEventListener("mouseleave", startAutoScroll);
-  track.addEventListener("touchstart", stopAutoScroll, { passive: true });
-  track.addEventListener("touchend", startAutoScroll, { passive: true });
-});
 
 // Auto-scrolling "Top Finds / Value Gifts / Specialist / Extras" carousel
 document.addEventListener("DOMContentLoaded", () => {
