@@ -3257,6 +3257,11 @@ renderCatNav();
   const params = new URLSearchParams(window.location.search);
   const category = params.get("category");
   const product = params.get("product");
+  const cartoon = params.get("cartoon");
+  if (cartoon === "1") {
+    goToCategory("households", "ChromaCoat Mug", true);
+    return;
+  }
   if (category) {
     goToCategory(category, product || undefined);
   }
