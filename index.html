@@ -991,6 +991,134 @@
   }
 
   .reviews-section { max-width: 900px; margin: 40px auto 0; }
+  .newsletter-section {
+    max-width: 500px;
+    margin: 40px auto 0;
+    text-align: center;
+    background: rgba(184,137,42,0.08);
+    border: 1px solid rgba(184,137,42,0.25);
+    border-radius: 16px;
+    padding: 24px 20px;
+  }
+  .newsletter-title { font-size: 18px; font-weight: 800; color: #F3D078; margin-bottom: 6px; }
+  .newsletter-text { font-size: 13px; color: rgba(243,234,255,0.75); margin-bottom: 14px; line-height: 1.5; }
+  .newsletter-form { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .newsletter-input {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(184,137,42,0.4);
+    font-size: 14px;
+  }
+  .newsletter-btn {
+    background: linear-gradient(135deg,#B8892A,#D4B14A,#F3E2BC,#B8892A);
+    color: #1A1206;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .newsletter-status { font-size: 13px; margin-top: 10px; min-height: 16px; color: #39FF88; }
+  /* Base container style */
+  .onjjem-section-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto 24px;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .onjjem-carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .onjjem-carousel-track::-webkit-scrollbar { display: none; }
+  .panel-green  { background-color: #d1e7dd; }
+  .panel-purple { background-color: #f3e5f5; }
+  .amazon-section-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .amazon-carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .amazon-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel-panel {
+    flex: 0 0 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px;
+    scroll-snap-align: start;
+  }
+  .panel-pink { background-color: #ffeef0; }
+  .panel-blue { background-color: #e3f2fd; }
+  .panel-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111111;
+    margin-top: 0;
+    margin-bottom: 14px;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .product-tile {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    cursor: pointer;
+  }
+  .image-wrapper {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  .image-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .promo-badge {
+    background-color: #cc0c39;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 6px;
+    border-radius: 2px;
+    align-self: flex-start;
+    margin-bottom: 4px;
+  }
+  .promo-badge.red-badge {
+    background-color: #bd1a00;
+  }
+  .promo-text {
+    font-size: 12px;
+    color: #cc0c39;
+    font-weight: 600;
+  }
   .reassurance-section { max-width: 900px; margin: 40px auto 0; }
   .reassurance-grid {
     display: grid;
@@ -1136,10 +1264,10 @@
     text-align: center;
     background: linear-gradient(90deg, #E8384F, #D4A843, #3E7BD6);
     color: #FFFFFF;
-    font-weight: 700;
-    font-size: 10.5px;
-    letter-spacing: 0.2px;
-    padding: 5px 10px;
+    font-weight: 900;
+    font-size: 17px;
+    letter-spacing: 0.3px;
+    padding: 10px 10px;
   }
 
   .idea-card {
@@ -1162,6 +1290,31 @@
     100% { background-position: 0 0, -200% 0; }
   }
 
+  .cartoonify-big-callout {
+    text-align: center;
+    margin: 4px auto 16px;
+    max-width: 500px;
+    font-size: 20px;
+    font-weight: 900;
+    color: #F3D078;
+    animation: calloutPulse 1.2s ease-in-out infinite;
+  }
+  @keyframes calloutPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .bargain-banner {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto 16px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg,#2E7D32,#4CAF50,#81C784,#2E7D32);
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 12px;
+    cursor: pointer;
+  }
   .cartoonify-big-headline {
     max-width: 500px;
     margin: 0 auto 20px;
@@ -2012,9 +2165,9 @@
 </style>
 </head>
 <body>
-  <p class="cartoonify-top-flash">🎉 CARTOON YOUR PIC — SEE AT CHECKOUT! 🎉</p>
+  <p class="cartoonify-top-flash pressable" id="discountBannerText" onclick="copyDiscountCode()" role="button" tabindex="0" aria-label="Copy discount code WELCOME10">🎁 NEW HERE? GET 10% OFF WITH CODE WELCOME10! 🎁</p>
 
-  <div class="free-ship-banner">🚚 FREE UK DELIVERY</div>
+  <div class="free-ship-banner">🚚 FREE UK SHIPPING</div>
 
   <div class="wrap">
 
@@ -2026,7 +2179,7 @@
     <div class="simple-steps">
       <div class="simple-step">
         <span class="simple-step-num">1</span>
-        <span class="simple-step-label">Visit Shop</span>
+        <span class="simple-step-label">Enter Gallery</span>
       </div>
       <div class="simple-step">
         <span class="simple-step-num">2</span>
@@ -2041,7 +2194,7 @@
     <details class="steps-details">
       <summary class="steps-details-link">More details ›</summary>
       <div class="steps-details-panel">
-        <p><strong>1. Visit Shop</strong> — Pick anything you like from our shop, such as a mug, a canvas, or a jigsaw.</p>
+        <p><strong>1. Enter Gallery</strong> — Pick anything you like from our shop, such as a mug, a canvas, or a jigsaw.</p>
         <p><strong>2. Upload Pic</strong> — Upload any photo from your phone or computer. It's easy — just tap the button and choose a picture.</p>
         <p><strong>3. We Create</strong> — Standard prints are ready within 1–2 working days. Specialist handmade items — like our ChromaCoat Mug and Cartoon upgrades — are individually crafted, so please allow 5–7 working days. UK orders arrive 3–4 working days after dispatch, and international orders usually take 5–14 working days.</p>
         <p>🎉 <strong>Fancy some fun?</strong> When you upload your photo, we'll offer to show you a free preview of it as a cartoon — no obligation. If you love it, add the full-quality version to your gift for just £1.99. It's completely separate from your main gift, and totally optional.</p>
@@ -2055,6 +2208,103 @@
       </div>
     </div>
 
+    <div class="onjjem-section-container">
+      <div class="onjjem-carousel-track" id="onjjemCarousel">
+
+        <div class="carousel-panel panel-green">
+          <h2 class="panel-title">Shop Our Top Finds</h2>
+          <div class="products-grid">
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'ChromaCoat Mug')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/magic-mug-final.png" alt="ChromaCoat Mug" loading="lazy"></div>
+              <span class="promo-badge">Bestseller</span>
+              <span class="promo-text">ChromaCoat Mug — £17.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Photo Jigsaw')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/jigsaw-500pc.webp" alt="Photo Jigsaw" loading="lazy"></div>
+              <span class="promo-text">From £24.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('canvas-eco', 'Friendly Recycled Eco Canvas (38mm Deep Frame)')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/eco-canvas.webp" alt="Canvas Print" loading="lazy"></div>
+              <span class="promo-text">From £14.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Custom Fabric Patch Badge (Round)')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/patch.png" alt="Fabric Patch" loading="lazy"></div>
+              <span class="promo-text">From £8.99</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="carousel-panel panel-purple">
+          <h2 class="panel-title">Great Value Everyday Gifts</h2>
+          <div class="products-grid">
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'Custom Wooden Drink Coasters')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/wooden-coasters.jpg" alt="Wooden Coasters" loading="lazy"></div>
+              <span class="promo-text">From £11.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Magnets')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/photo-magnets.webp" alt="Photo Magnets" loading="lazy"></div>
+              <span class="promo-text">From £8.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Personalised Photo Playing Cards')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/playing-cards.webp" alt="Playing Cards" loading="lazy"></div>
+              <span class="promo-text">£17.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'Premium Personalised Kitchen Towel')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/tea-towels.jpg" alt="Tea Towels" loading="lazy"></div>
+              <span class="promo-text">From £14.99</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="carousel-panel panel-blue">
+          <h2 class="panel-title">Specialist Prints & Frames</h2>
+          <div class="products-grid">
+            <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/slim-canvas.webp" alt="Fine Art Prints" loading="lazy"></div>
+              <span class="promo-badge red-badge">Cheapest</span>
+              <span class="promo-text">From £5.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('frames', 'Framed Photo Tiles')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/framed-photo-tiles.jpg" alt="Framed Photo Tiles" loading="lazy"></div>
+              <span class="promo-text">From £12.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Temporary Tattoos')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/temporary-tattoos.webp" alt="Temporary Tattoos" loading="lazy"></div>
+              <span class="promo-text">From £11.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Pet Tags')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/pet-tags.jpg" alt="Pet Tags" loading="lazy"></div>
+              <span class="promo-text">From £13.99</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="carousel-panel panel-orange">
+          <h2 class="panel-title">Extra Special Touches</h2>
+          <div class="products-grid">
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'ChromaCoat Mug', true)" class="product-tile">
+              <div class="image-wrapper"><img src="/products/magic-mug.jpg" alt="Cartoon Upgrade" loading="lazy"></div>
+              <span class="promo-badge">Just £1.99</span>
+              <span class="promo-text">Cartoon Your Pic</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', 'Premium Metallic Foil Art Print')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/metallic-foil-print.webp" alt="Metallic Foil" loading="lazy"></div>
+              <span class="promo-text">From £25.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/glow-poster-premium.webp" alt="Glow Posters" loading="lazy"></div>
+              <span class="promo-text">From £19.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Rigid Display Board')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/exoboard.webp" alt="Display Boards" loading="lazy"></div>
+              <span class="promo-text">From £35.99</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <div class="cat-nav-wrap">
       <p class="cat-nav-heading">Enter Gift Gallery</p>
       <div class="trust-strip">
@@ -2064,13 +2314,62 @@
         <span class="trust-dot">·</span>
         <span class="trust-item">📦 Tracked Delivery</span>
       </div>
-      <div class="new-customer-banner pressable" onclick="copyDiscountCode()" role="button" tabindex="0" aria-label="Copy discount code WELCOME10">
-        <span class="new-customer-banner-icon">🎁</span>
-        <span class="new-customer-banner-text" id="discountBannerText">New here? Get <strong>10% off</strong> your first order with code <strong>WELCOME10</strong></span>
+      <p class="cartoonify-big-callout">🎨 NEW: Cartoonify Now Available at Checkout! 🎨</p>
+      <div class="bargain-banner pressable" onclick="goToCategory('specialist-prints')" role="button" tabindex="0" aria-label="Shop our Bargain Basement">
+        💰 Bargain Basement — Prints from just £5.99! 💰
       </div>
       <div class="cat-nav" id="catNav"></div>
       <h2 class="section-title" id="sectionTitle" style="display:none;"></h2>
       <div class="products" id="products"></div>
+    </div>
+
+    <div class="amazon-section-container">
+      <div class="amazon-carousel-track" id="amazonCarousel">
+        <div class="carousel-panel panel-pink">
+          <h2 class="panel-title">Deals for You</h2>
+          <div class="products-grid">
+            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Custom Fabric Patch Badge (Round)')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/patch.png" alt="Custom Patch Badge" loading="lazy"></div>
+              <span class="promo-text">From £8.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Mugs')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/photo-mugs-v2.jpg" alt="Photo Mug" loading="lazy"></div>
+              <span class="promo-text">From £11.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Photo Jigsaw')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/jigsaw-500pc.webp" alt="Photo Jigsaw" loading="lazy"></div>
+              <span class="promo-text">From £24.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'ChromaCoat Mug')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/magic-mug-final.png" alt="ChromaCoat Mug" loading="lazy"></div>
+              <span class="promo-badge">Bestseller</span>
+              <span class="promo-text">£17.99</span>
+            </a>
+          </div>
+        </div>
+        <div class="carousel-panel panel-blue">
+          <h2 class="panel-title">Our Bestsellers</h2>
+          <div class="products-grid">
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'Custom Wooden Drink Coasters')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/wooden-coasters.jpg" alt="Wooden Coasters" loading="lazy"></div>
+              <span class="promo-text">From £8.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Temporary Tattoos')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/temporary-tattoos.webp" alt="Temporary Tattoos" loading="lazy"></div>
+              <span class="promo-text">From £11.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Personalised Photo Playing Cards')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/playing-cards.webp" alt="Photo Playing Cards" loading="lazy"></div>
+              <span class="promo-text">£17.99</span>
+            </a>
+            <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', '5x5 Inch Personalised Photo Print (Unframed)')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/framed-photo-tiles.jpg" alt="Photo Print" loading="lazy"></div>
+              <span class="promo-badge red-badge">Cheapest</span>
+              <span class="promo-text">From £5.99</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="featured-banner pressable" onclick="goToCategory('households', 'ChromaCoat Mug')" role="button" tabindex="0" aria-label="Shop the ChromaCoat Mug">
@@ -2091,6 +2390,16 @@
         🎨 Museum-quality Giclée printing &nbsp;|&nbsp; 🛡️ Archival inks that resist fading for decades &nbsp;|&nbsp; ✅ Every order quality-checked &nbsp;|&nbsp; 💛 Treated like our own family's memories
       </p>
       <p style="margin-top: 14px;">That's the ONJJEM promise: professional-grade printing, honest quality, and a gift you'll be genuinely proud to give.</p>
+    </div>
+
+    <div class="newsletter-section">
+      <p class="newsletter-title">📬 Not Ready to Order Yet?</p>
+      <p class="newsletter-text">Pop your email below and we'll send you future deals, voucher codes, and offers — no spam, just genuine savings when you're ready.</p>
+      <div class="newsletter-form">
+        <input type="email" id="newsletterEmail" placeholder="you@example.com" class="newsletter-input">
+        <button class="newsletter-btn" onclick="submitNewsletter()">Keep Me Posted</button>
+      </div>
+      <p class="newsletter-status" id="newsletterStatus"></p>
     </div>
 
     <div class="reassurance-section">
@@ -2227,7 +2536,7 @@ const CATEGORIES = [
         desc: "A classic that never goes out of style. Your favourite photo, printed in sharp, vivid colour on a premium ceramic mug that's built for daily use. Dishwasher and microwave safe, so it's as practical as it is personal — perfect for the office desk, the morning coffee, or a thoughtful gift that gets used every single day.",
         variants: [
           { sku: "mug-11oz", label: "11oz Mug - £11.99" },
-          { sku: "mug-15oz", label: "15oz Large Mug - £20.99" },
+          { sku: "mug-15oz", label: "15oz Large Mug - £17.99" },
         ],
       },
       {
@@ -2268,6 +2577,17 @@ const CATEGORIES = [
     label: "Gift Tags & More",
     categoryImg: "/products/pet-tags.jpg",
     items: [{
+        name: "ONJJEM Digital Gift Card",
+        img: "/products/pet-tags.jpg",
+        desc: "Can't decide what to get them? Let them choose! An ONJJEM Digital Gift Card is delivered straight to your inbox as a unique code, ready to redeem against any gift on our website. No photo needed for this one — just pick an amount and check out.",
+        noPhotoNeeded: true,
+        variants: [
+          { sku: "giftcard-20", label: "£20 Gift Card" },
+          { sku: "giftcard-30", label: "£30 Gift Card" },
+          { sku: "giftcard-50", label: "£50 Gift Card" },
+        ],
+      },
+      {
         name: "Pet Tags",
         img: "/products/pet-tags.jpg",
         desc: "A genuinely useful safety item that also happens to be a lovely personal keepsake. Durable, scratch-resistant metal tag featuring your pet's own photo alongside their name and your contact details — perfect for collars, and a gift any pet owner will actually use and appreciate, not just admire.",
@@ -2286,6 +2606,30 @@ const CATEGORIES = [
           { sku: "tattoo-l", label: "Large (10cm x 15cm) - £17.99" },
           { sku: "tattoo-xl", label: "Extra Large (20cm x 20cm) - £20.99" },
           { sku: "tattoo-xxl", label: "XXL (30cm x 30cm) - £28.99" },
+        ],
+      },
+      {
+        name: "Men's Ankle Socks",
+        img: "/products/Catz1.jpg",
+        desc: "A genuinely fun, wearable gift — your favourite pattern or photo printed all over a soft, stretchy pair of ankle socks. Quick-drying and moisture-wicking, machine washable, one size fits UK 6-10. Please note: because these are printed using an all-over sublimation process, exact positioning of your design can't be guaranteed — this product works best with bold patterns, colours, or full-image designs rather than a single small photo or logo you want centred perfectly.",
+        variants: [
+          { sku: "GLOBAL-ANKLE-SOCKS", label: "Men's One Size (UK 6-10) - £17.99" },
+        ],
+      },
+      {
+        name: "Custom Fabric Patch Badge (Round)",
+        img: "/products/patch.png",
+        desc: "A brilliant little personalised touch for jackets, bags, or backpacks. Your design, printed onto a durable fabric patch with an iron-on or sew-on backing for easy attachment. Great as a fun stocking filler, a team/club badge, or a quirky personal touch. Please note: as with our other all-over printed items, exact design placement near the patch edges can't be guaranteed, so bold, full-coverage designs work best.",
+        variants: [
+          { sku: "PATCH-ROUND", label: "Round (3x3 inch) - £8.99" },
+        ],
+      },
+      {
+        name: "Custom Fabric Patch Badge (Square)",
+        img: "/products/patch2.png",
+        desc: "A brilliant little personalised touch for jackets, bags, or backpacks. Your design, printed onto a durable fabric patch with an iron-on or sew-on backing for easy attachment. Great as a fun stocking filler, a team/club badge, or a quirky personal touch. Please note: as with our other all-over printed items, exact design placement near the patch edges can't be guaranteed, so bold, full-coverage designs work best.",
+        variants: [
+          { sku: "PATCH-SQUARE", label: "Square (4x4 inch) - £8.99" },
         ],
       },
     ],
@@ -2443,6 +2787,36 @@ let currentCatIndex = 0;
 const catNav = document.getElementById("catNav");
 const productsGrid = document.getElementById("products");
 const sectionTitle = document.getElementById("sectionTitle");
+
+async function submitNewsletter() {
+  const input = document.getElementById("newsletterEmail");
+  const status = document.getElementById("newsletterStatus");
+  const email = input.value.trim();
+
+  if (!email || !email.includes("@")) {
+    status.textContent = "Please enter a valid email address.";
+    status.style.color = "#E24C4C";
+    return;
+  }
+
+  status.textContent = "Sending...";
+  status.style.color = "rgba(243,234,255,0.75)";
+
+  try {
+    const res = await fetch(`${API_BASE}/api/newsletter`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, source: "homepage" }),
+    });
+    if (!res.ok) throw new Error("Signup failed");
+    status.textContent = "✅ Thanks! We'll be in touch with future deals.";
+    status.style.color = "#39FF88";
+    input.value = "";
+  } catch (err) {
+    status.textContent = "Something went wrong — please try again.";
+    status.style.color = "#E24C4C";
+  }
+}
 
 function copyDiscountCode() {
   const textEl = document.getElementById("discountBannerText");
@@ -2730,11 +3104,19 @@ function attachBuyHandlers() {
       const sku = select ? select.value : item.variants[0].sku;
       const fileInput = document.querySelector(`input[type="file"][data-item="${itemId}"]`);
       const statusEl = document.querySelector(`[data-status="${itemId}"]`);
-      const file = fileInput.files[0];
+      const file = fileInput ? fileInput.files[0] : null;
 
-      if (!file) {
+      if (!item.noPhotoNeeded && !file) {
         statusEl.textContent = "Please choose a photo first";
         statusEl.className = "status error";
+        return;
+      }
+
+      if (item.noPhotoNeeded) {
+        btn.disabled = true;
+        statusEl.textContent = "Preparing checkout...";
+        statusEl.className = "status loading";
+        await proceedToCheckout(itemId, sku, "", statusEl, btn, null);
         return;
       }
 
@@ -2965,6 +3347,68 @@ if (cartoonifyImgEl) {
     window.history.replaceState({}, "", cleanUrl);
   });
 })();
+
+// Auto-scrolling "Deals for you" / "Bestsellers" carousel
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.getElementById("amazonCarousel");
+  if (!track) return;
+
+  let autoScrollTimer = null;
+  const slideInterval = 3500;
+
+  function startAutoScroll() {
+    autoScrollTimer = setInterval(() => {
+      const maxScrollLeft = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= maxScrollLeft - 5) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
+      }
+    }, slideInterval);
+  }
+
+  function stopAutoScroll() {
+    clearInterval(autoScrollTimer);
+  }
+
+  startAutoScroll();
+
+  track.addEventListener("mouseenter", stopAutoScroll);
+  track.addEventListener("mouseleave", startAutoScroll);
+  track.addEventListener("touchstart", stopAutoScroll, { passive: true });
+  track.addEventListener("touchend", startAutoScroll, { passive: true });
+});
+
+// Auto-scrolling "Top Finds / Value Gifts / Specialist / Extras" carousel
+document.addEventListener("DOMContentLoaded", () => {
+  const track2 = document.getElementById("onjjemCarousel");
+  if (!track2) return;
+
+  let autoScrollTimer2 = null;
+  const slideInterval2 = 3500;
+
+  function startAutoScroll2() {
+    autoScrollTimer2 = setInterval(() => {
+      const maxScrollLeft = track2.scrollWidth - track2.clientWidth;
+      if (track2.scrollLeft >= maxScrollLeft - 10) {
+        track2.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        track2.scrollBy({ left: track2.clientWidth, behavior: "smooth" });
+      }
+    }, slideInterval2);
+  }
+
+  function stopAutoScroll2() {
+    clearInterval(autoScrollTimer2);
+  }
+
+  startAutoScroll2();
+
+  track2.addEventListener("mouseenter", stopAutoScroll2);
+  track2.addEventListener("mouseleave", startAutoScroll2);
+  track2.addEventListener("touchstart", stopAutoScroll2, { passive: true });
+  track2.addEventListener("touchend", startAutoScroll2, { passive: true });
+});
 </script>
 </body>
 </html>
