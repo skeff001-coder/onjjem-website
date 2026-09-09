@@ -522,8 +522,8 @@
           "item": {
             "@type": "Product",
             "@id": "https://onjjem.com/#product-18",
-            "name": "Rigid Display Board",
-            "description": "A tough, lightweight, fully waterproof display board suitable for indoor or outdoor use.",
+            "name": "Display Board Print",
+            "description": "An affordable photo print on quality budget art paper, sharp and vivid colour.",
             "image": "https://onjjem.com/products/exoboard.webp",
             "category": "Jigsaws & Children's Corner",
             "brand": {
@@ -533,8 +533,8 @@
             "offers": {
               "@type": "AggregateOffer",
               "priceCurrency": "GBP",
-              "lowPrice": 30.99,
-              "highPrice": 136.99,
+              "lowPrice": 5.99,
+              "highPrice": 8.99,
               "offerCount": 1,
               "availability": "https://schema.org/InStock",
               "url": "https://onjjem.com",
@@ -1309,6 +1309,18 @@
     margin: 0 auto 16px;
     padding: 12px 16px;
     background: linear-gradient(135deg,#2E7D32,#4CAF50,#81C784,#2E7D32);
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .giftcard-banner {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto 16px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg,#8E24AA,#D81B60,#F06292,#8E24AA);
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 800;
@@ -2287,17 +2299,18 @@
               <span class="promo-badge">Just £1.99</span>
               <span class="promo-text">Cartoon Your Pic</span>
             </a>
-            <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', 'Premium Metallic Foil Art Print')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/metallic-foil-print.webp" alt="Metallic Foil" loading="lazy"></div>
-              <span class="promo-text">From £25.99</span>
+            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/pet-tags.jpg" alt="Gift Card" loading="lazy"></div>
+              <span class="promo-badge">🎁 New</span>
+              <span class="promo-text">Digital Gift Card</span>
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" class="product-tile">
               <div class="image-wrapper"><img src="/products/glow-poster-premium.webp" alt="Glow Posters" loading="lazy"></div>
               <span class="promo-text">From £19.99</span>
             </a>
-            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Rigid Display Board')" class="product-tile">
+            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Display Board Print')" class="product-tile">
               <div class="image-wrapper"><img src="/products/exoboard.webp" alt="Display Boards" loading="lazy"></div>
-              <span class="promo-text">From £35.99</span>
+              <span class="promo-text">From £5.99</span>
             </a>
           </div>
         </div>
@@ -2317,6 +2330,9 @@
       <p class="cartoonify-big-callout">🎨 NEW: Cartoonify Now Available at Checkout! 🎨</p>
       <div class="bargain-banner pressable" onclick="goToCategory('specialist-prints')" role="button" tabindex="0" aria-label="Shop our Bargain Basement">
         💰 Bargain Basement — Prints from just £5.99! 💰
+      </div>
+      <div class="giftcard-banner pressable" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" role="button" tabindex="0" aria-label="Shop ONJJEM Gift Cards">
+        🎁 Can't Decide? Send a Digital Gift Card — From £20! 🎁
       </div>
       <div class="cat-nav" id="catNav"></div>
       <h2 class="section-title" id="sectionTitle" style="display:none;"></h2>
@@ -2738,20 +2754,12 @@ const CATEGORIES = [
         ],
       },
       {
-        name: "Rigid Display Board",
+        name: "Display Board Print",
         img: "/products/exoboard.webp",
-        desc: "A tough, lightweight, fully waterproof display board — perfect for a photo that can live indoors or out, from a playroom wall to a garden fence. Rigid enough to stand freely or hang, with sharp, edge-to-edge colour that won't fade.",
+        desc: "A genuinely affordable way to display your favourite photo, printed on quality budget art paper with sharp, vivid colour. A brilliant low-cost option for a playroom wall, a quick gift, or trying out a photo before committing to something bigger.",
         variants: [
-          { sku: "exoboard-200x300", label: "8x12 inch (200x300mm) - £35.99" },
-          { sku: "exoboard-210x297", label: "8x12 inch (210x297mm) - £35.99" },
-          { sku: "exoboard-297x420", label: "12x17 inch - £40.99" },
-          { sku: "exoboard-300x400", label: "12x16 inch - £42.99" },
-          { sku: "exoboard-400x500", label: "16x20 inch - £50.99" },
-          { sku: "exoboard-450x600", label: "18x24 inch - £58.99" },
-          { sku: "exoboard-594x841", label: "23x33 inch - £70.99" },
-          { sku: "exoboard-600x800", label: "24x31 inch - £75.99" },
-          { sku: "exoboard-700x1000", label: "28x39 inch - £95.99" },
-          { sku: "exoboard-841x1189", label: "33x47 inch - £115.99" },
+          { sku: "BAP-8X12", label: "Small (A4 - 8\" x 12\") - £5.99" },
+          { sku: "BAP-12X17", label: "Medium (A3 - 12\" x 17\") - £8.99" },
         ],
       },
     ],
