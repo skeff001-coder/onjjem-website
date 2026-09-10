@@ -142,6 +142,9 @@
     </div>
 
     <p class="status" id="checkoutStatus"></p>
+    <div id="previewWrap" style="display:none; margin-bottom:20px; text-align:center;">
+      <img id="previewImg" style="max-width:100%; border-radius:14px; box-shadow:0 4px 16px rgba(0,0,0,0.4);" alt="Your cartoon preview">
+    </div>
   </div>
 
   <div class="sticky-btn-wrap">
@@ -173,6 +176,47 @@ document.getElementById("photoInput").addEventListener("change", async (e) => {
     buyBtn.disabled = false;
   } catch (err) {
     fileStatus.textContent = "Could not read that photo. Please try again.";
+  }
+});
+
+let confirmedCartoonBase64 = null;
+
+document.getElementById("cartoonCheckbox").addEventListener("change", async (e) => {
+  const status = document.getElementById("checkoutStatus");
+  if (!e.target.checked) {
+    confirmedCartoonBase64 = null;
+    status.textContent = "";
+    return;
+  }
+  if (!photoBase64) {
+    status.textContent = "Please upload a photo first.";
+    e.target.checked = false;
+    return;
+  }
+  status.textContent = "Generating your free cartoon preview...";
+  try {
+    const mimeMatch = photoBase64.match(/^data:([^;]+);/);
+    const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+    const res = await fetch(`${API_BASE}/api/cartoonify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: true }),
+    });
+    const data = await res.json();
+    if (data.alreadyUsed) {
+      status.textContent = "You've used your free preview — the cartoon will still be added at checkout.";
+      confirmedCartoonBase64 = "PENDING"; // regenerate fresh at checkout time instead
+      return;
+    }
+    if (!res.ok || !data.base64Image) {
+      throw new Error(data.error || "Could not generate preview");
+    }
+    document.getElementById("previewImg").src = `data:${data.mimeType};base64,${data.base64Image}`;
+    document.getElementById("previewWrap").style.display = "block";
+    status.textContent = "✅ Here's your free preview! Love it? Tap below to order.";
+  } catch (err) {
+    status.textContent = "Couldn't generate a preview — the cartoon will still be added at checkout.";
+    confirmedCartoonBase64 = "PENDING";
   }
 });
 
