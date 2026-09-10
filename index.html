@@ -3021,7 +3021,7 @@ async function proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, cartoo
       body: JSON.stringify({
         sku,
         photoBase64,
-        successUrl: window.location.origin + "/?order=success",
+        successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
         cancelUrl: window.location.href,
         ...(cartoonOptions || {}),
       }),
@@ -3270,11 +3270,54 @@ if (cartoonifyImgEl) {
   const params = new URLSearchParams(window.location.search);
   if (params.get("order") !== "success") return;
 
+  const sessionId = params.get("session_id");
+
   if (typeof gtag === "function") {
-    gtag("event", "purchase", {
-      currency: "GBP",
-      transaction_id: params.get("session_id") || Date.now().toString(),
-    });
+    if (sessionId) {
+      // Fetch the real order details from Stripe via our backend, so the
+      // purchase event reflects the actual item, price, and total — not
+      // placeholder values.
+      fetch(`${API_BASE}/api/stripe/session/${sessionId}`)
+        .then((r) => r.json())
+        .then((data) => {
+          const lineItem = data.line_items?.data?.[0];
+          const itemName = lineItem?.price?.product?.name || "ONJJEM Order";
+          const itemPrice = lineItem?.price?.unit_amount ? lineItem.price.unit_amount / 100 : 0;
+          const quantity = lineItem?.quantity || 1;
+          const totalValue = data.amount_total ? data.amount_total / 100 : itemPrice;
+
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ ecommerce: null }); // Clear previous data
+
+          window.dataLayer.push({
+            event: "purchase",
+            ecommerce: {
+              transaction_id: data.id || sessionId,
+              value: totalValue,
+              currency: (data.currency || "gbp").toUpperCase(),
+              items: [
+                {
+                  item_name: itemName,
+                  price: itemPrice,
+                  quantity: quantity,
+                },
+              ],
+            },
+          });
+        })
+        .catch(() => {
+          // Fall back to a basic event if the real order details can't be fetched
+          gtag("event", "purchase", {
+            currency: "GBP",
+            transaction_id: sessionId,
+          });
+        });
+    } else {
+      gtag("event", "purchase", {
+        currency: "GBP",
+        transaction_id: Date.now().toString(),
+      });
+    }
   }
 
   const overlay = document.createElement("div");
