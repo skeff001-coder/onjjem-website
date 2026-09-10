@@ -1294,11 +1294,11 @@
     text-align: center;
     max-width: 500px;
     margin: 0 auto 16px;
-    padding: 12px 16px;
+    padding: 16px 16px;
     background: linear-gradient(135deg,#8E24AA,#D81B60,#F06292,#8E24AA);
     color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 800;
+    font-size: 19px;
+    font-weight: 900;
     border-radius: 12px;
     cursor: pointer;
   }
@@ -2209,36 +2209,30 @@
       </div>
     </details>
 
-    <div class="ticker-wrap">
-      <div class="ticker-track">
-        <span>Canvas Prints</span><span>ChromaCoat Mugs</span><span>Fine Art Prints</span><span>Photo Jigsaws</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Metallic Foil Prints</span><span>Glow Posters</span><span>Framed Posters</span><span>Budget Posters</span><span>Cartoonify</span><span>Pet Tags</span><span>Photo Coasters</span><span>Temporary Tattoos</span><span>Photo Prints</span>
-        <span>Canvas Prints</span><span>ChromaCoat Mugs</span><span>Fine Art Prints</span><span>Photo Jigsaws</span><span>Wooden Coasters</span><span>Photo Magnets</span><span>Playing Cards</span><span>Tea Towels</span><span>Metallic Foil Prints</span><span>Glow Posters</span><span>Framed Posters</span><span>Budget Posters</span><span>Cartoonify</span><span>Pet Tags</span><span>Photo Coasters</span><span>Temporary Tattoos</span><span>Photo Prints</span>
-      </div>
-    </div>
-
     <div class="onjjem-section-container">
       <div class="onjjem-carousel-track" id="onjjemCarousel">
 
         <div class="carousel-panel panel-green">
           <h2 class="panel-title">Discounted Deals This Week</h2>
           <div class="products-grid">
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'ChromaCoat Mug', true)" class="product-tile">
-              <div class="image-wrapper"><img src="https://xnaggiadvfhrirkdkzwa.supabase.co/storage/v1/object/public/carousel/IMG_5940.jpeg" alt="Cartoon Upgrade" loading="lazy"></div>
-              <span class="promo-badge">Just £1.99</span>
-              <span class="promo-text">Cartoon Your Pic</span>
-            </a>
             <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" class="product-tile">
               <div class="image-wrapper"><img src="/products/slim-canvas.webp" alt="Fine Art Prints" loading="lazy"></div>
               <span class="promo-badge red-badge">Best Price</span>
               <span class="promo-text">Fine Art Print — From £5.99</span>
             </a>
+            <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', 'Photo Postcard')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/framed-photo-tiles.jpg" alt="Photo Postcard" loading="lazy"></div>
+              <span class="promo-badge red-badge">⏳ Launch Price</span>
+              <span class="promo-text">Photo Postcard — £2.99</span>
+            </a>
             <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Custom Fabric Patch Badge (Round)')" class="product-tile">
               <div class="image-wrapper"><img src="/products/Patch.png" alt="Fabric Patch" loading="lazy"></div>
               <span class="promo-text">Fabric Patch — From £8.99</span>
             </a>
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Magnets')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/photo-magnets.webp" alt="Photo Magnets" loading="lazy"></div>
-              <span class="promo-text">Photo Magnets — From £8.99</span>
+            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/Card.png" alt="Gift Card" loading="lazy"></div>
+              <span class="promo-badge">🎁 New</span>
+              <span class="promo-text">Digital Gift Card — From £20</span>
             </a>
           </div>
         </div>
@@ -2303,16 +2297,18 @@
               <div class="image-wrapper"><img src="/products/jigsaw-500pc.webp" alt="Photo Jigsaw" loading="lazy"></div>
               <span class="promo-text">Photo Jigsaw — From £24.99</span>
             </a>
-            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/Card.png" alt="Gift Card" loading="lazy"></div>
-              <span class="promo-badge">🎁 New</span>
-              <span class="promo-text">Digital Gift Card</span>
+            <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Magnets')" class="product-tile">
+              <div class="image-wrapper"><img src="/products/photo-magnets.webp" alt="Photo Magnets" loading="lazy"></div>
+              <span class="promo-text">Photo Magnets — From £8.99</span>
             </a>
           </div>
         </div></div>
 
       </div>
     </div>
+
+
+
 
     <div class="cat-nav-wrap">
       <p class="cat-nav-heading">Enter Gift Gallery</p>
@@ -2325,14 +2321,12 @@
       </div>
       <p class="cartoonify-big-callout">🎨 NEW: Cartoonify Now Available at Checkout! 🎨</p>
       <div class="giftcard-banner pressable" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" role="button" tabindex="0" aria-label="Shop ONJJEM Gift Cards">
-        🎁 Give the Gift of Choice — ONJJEM Digital Gift Cards, From £20! 🎁
+        🎁 Digital Gift Cards Available — From £20! 🎁
       </div>
       <div class="cat-nav" id="catNav"></div>
       <h2 class="section-title" id="sectionTitle" style="display:none;"></h2>
       <div class="products" id="products"></div>
     </div>
-
-
     <div class="featured-banner pressable" onclick="goToCategory('households', 'ChromaCoat Mug')" role="button" tabindex="0" aria-label="Shop the ChromaCoat Mug">
       <div class="featured-banner-img">
         <video src="/products/Doggy.mp4" autoplay muted loop playsinline></video>
@@ -2496,13 +2490,13 @@ const CATEGORIES = [
       {
         name: "ChromaCoat Mug",
         img: "/products/magic-mug-final.png",
-        desc: "This is the mug that stops breakfast in its tracks. It looks completely plain and jet black in the box — then you pour in your hot drink and, like magic, your photo rises up in full, vivid colour right before your eyes. Made from durable ceramic with a heat-sensitive coating, dishwasher safe, and printed to last. There's nothing else quite like the reaction this gift gets when it's opened. This is a specialist, individually handmade item — please allow 5–7 working days for dispatch.",
+        desc: "This is the mug that stops breakfast in its tracks. It looks completely plain and jet black in the box — then you pour in your hot drink and, like magic, your photo rises up in full, vivid colour right before your eyes. Made from durable ceramic with a heat-sensitive coating, dishwasher safe, and printed to last. There's nothing else quite like the reaction this gift gets when it's opened. This is a specialist, individually handmade item — please allow 5–7 working days for dispatch. 📸 For the best result, please upload a landscape (horizontal) photo — portrait photos will be automatically cropped to fit the mug's wrap-around shape.",
         variants: [{ sku: "magic-mug", label: "11oz Heat-Activated Mug — £17.99" }],
       },
       {
         name: "Photo Mugs",
         img: "/products/photo-mugs-v2.jpg",
-        desc: "A classic that never goes out of style. Your favourite photo, printed in sharp, vivid colour on a premium ceramic mug that's built for daily use. Dishwasher and microwave safe, so it's as practical as it is personal — perfect for the office desk, the morning coffee, or a thoughtful gift that gets used every single day.",
+        desc: "A classic that never goes out of style. Your favourite photo, printed in sharp, vivid colour on a premium ceramic mug that's built for daily use. Dishwasher and microwave safe, so it's as practical as it is personal — perfect for the office desk, the morning coffee, or a thoughtful gift that gets used every single day. 📸 For the best result, please upload a landscape (horizontal) photo — portrait photos will be automatically cropped to fit the mug's wrap-around shape.",
         variants: [
           { sku: "mug-11oz", label: "11oz Mug - £11.99" },
           { sku: "mug-15oz", label: "15oz Large Mug - £17.99" },
@@ -3171,9 +3165,11 @@ function renderProducts() {
         }
         <p class="pp-note">Free UK delivery</p>
         <p class="desc">${item.desc}</p>
+        ${item.noPhotoNeeded ? "" : `
         <p class="ip-notice" data-role="ip-notice" style="display:none;">Please only upload photos you own the rights to. We can't print copyrighted characters or artwork (e.g. Disney, Marvel, Pokémon).</p>
         <input type="file" accept="image/*" data-item="${itemId}">
-        <button class="buy-btn" data-item="${itemId}" data-role="buy-btn" disabled>Step 1: Upload Your Photo</button>
+        `}
+        <button class="buy-btn" data-item="${itemId}" data-role="buy-btn" ${item.noPhotoNeeded ? "" : "disabled"}>${item.noPhotoNeeded ? "Buy Gift Card" : "Step 1: Upload Your Photo"}</button>
         <p class="status" data-status="${itemId}"></p>
       </div>
     `;
