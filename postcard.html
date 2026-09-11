@@ -118,10 +118,11 @@
     <h1>Photo Postcard</h1>
     <p class="sub">From your camera roll to your doorstep</p>
 
-    <div class="upload-box" onclick="document.getElementById('photoInput').click()">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-      <div class="main-text">Tap to Upload Your Photo</div>
-      <div class="sub-text">Accepts JPG or PNG from your camera roll</div>
+    <div class="upload-box" id="uploadBox" onclick="document.getElementById('photoInput').click()">
+      <svg id="uploadIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <img id="photoPreview" style="display:none; max-width:100%; max-height:220px; border-radius:12px; margin-bottom:8px;" alt="Your uploaded photo">
+      <div class="main-text" id="uploadMainText">Tap to Upload Your Photo</div>
+      <div class="sub-text" id="uploadSubText">Accepts JPG or PNG from your camera roll</div>
     </div>
     <input type="file" id="photoInput" accept="image/*">
     <p class="status" id="fileStatus"></p>
@@ -172,7 +173,12 @@ document.getElementById("photoInput").addEventListener("change", async (e) => {
   fileStatus.textContent = "Loading your photo...";
   try {
     photoBase64 = await toBase64(file);
-    fileStatus.textContent = "✅ Photo ready — " + file.name;
+    document.getElementById("photoPreview").src = photoBase64;
+    document.getElementById("photoPreview").style.display = "block";
+    document.getElementById("uploadIcon").style.display = "none";
+    document.getElementById("uploadMainText").textContent = "✅ Photo added — tap to change";
+    document.getElementById("uploadSubText").textContent = file.name;
+    fileStatus.textContent = "";
     buyBtn.disabled = false;
   } catch (err) {
     fileStatus.textContent = "Could not read that photo. Please try again.";
