@@ -589,7 +589,7 @@
       "name": "How long does delivery take?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Standard prints and posters are dispatched within 1–2 working days via Royal Mail Tracked 48, arriving 3–4 working days after that. Specialist handmade items — like our ChromaCoat Mug and anything with a Cartoon upgrade — are individually crafted to order, so please allow 5–7 working days for dispatch. International orders (USA, Canada, Australia, and most of Europe) take 5–14 working days depending on destination."
+        "text": "Standard prints and posters are dispatched within 1–2 working days via Royal Mail Tracked 48, arriving 3–4 working days after that. Specialist handmade items — like our ChromaCoat Mug and anything with a Cartoon upgrade — are individually crafted to order, so please allow 2–5 working days for dispatch. International orders (USA, Canada, Australia, and most of Europe) take 5–14 working days depending on destination."
       }
     },
     {
@@ -966,6 +966,23 @@
   }
 
   .reviews-section { max-width: 900px; margin: 40px auto 0; }
+  .review-section {
+    max-width: 500px;
+    margin: 40px auto 0;
+    text-align: center;
+  }
+  .review-title { font-size: 18px; font-weight: 800; color: #F3D078; margin-bottom: 14px; }
+  .review-card {
+    background: rgba(184,137,42,0.08);
+    border: 1px solid rgba(184,137,42,0.25);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .review-stars { color: #F3D078; font-size: 16px; letter-spacing: 2px; margin: 0 0 10px; }
+  .review-quote { font-size: 14px; color: rgba(245,237,216,0.85); line-height: 1.6; font-style: italic; margin: 0 0 10px; }
+  .review-author { font-size: 13px; color: rgba(245,237,216,0.6); font-weight: 700; margin: 0; }
+  .trustpilot-link { font-size: 13px; color: #B8892A; text-decoration: underline; }
   .newsletter-section {
     max-width: 500px;
     margin: 40px auto 0;
@@ -2204,7 +2221,7 @@
       <div class="steps-details-panel">
         <p><strong>1. Enter Gallery</strong> — Pick anything you like from our shop, such as a mug, a canvas, or a jigsaw.</p>
         <p><strong>2. Upload Pic</strong> — Upload any photo from your phone or computer. It's easy — just tap the button and choose a picture.</p>
-        <p><strong>3. We Create</strong> — Standard prints are ready within 1–2 working days. Specialist handmade items — like our ChromaCoat Mug and Cartoon upgrades — are individually crafted, so please allow 5–7 working days. UK orders arrive 3–4 working days after dispatch, and international orders usually take 5–14 working days.</p>
+        <p><strong>3. We Create</strong> — Standard prints are ready within 1–2 working days. Specialist handmade items — like our ChromaCoat Mug and Cartoon upgrades — are individually crafted, so please allow 2–5 working days. UK orders arrive 3–4 working days after dispatch, and international orders usually take 5–14 working days.</p>
         <p>🎉 <strong>Fancy some fun?</strong> When you upload your photo, we'll offer to show you a free preview of it as a cartoon — no obligation. If you love it, add the full-quality version to your gift for just £1.99. It's completely separate from your main gift, and totally optional.</p>
       </div>
     </details>
@@ -2347,6 +2364,16 @@
       <p style="margin-top: 14px;">That's the ONJJEM promise: professional-grade printing, honest quality, and a gift you'll be genuinely proud to give.</p>
     </div>
 
+    <div class="review-section">
+      <p class="review-title">⭐ What Our Customers Say</p>
+      <div class="review-card">
+        <p class="review-stars">★★★★★</p>
+        <p class="review-quote">"Love the mug I ordered, such a cute design and the heat-activated effect works perfectly. Really happy with it!"</p>
+        <p class="review-author">— Niamh</p>
+      </div>
+      <a href="https://www.trustpilot.com/review/onjjem.com" target="_blank" rel="noopener" class="trustpilot-link">See our reviews on Trustpilot →</a>
+    </div>
+
     <div class="newsletter-section">
       <p class="newsletter-title">📬 Not Ready to Order Yet?</p>
       <p class="newsletter-text">Pop your email below and we'll send you future deals, voucher codes, and offers — no spam, just genuine savings when you're ready.</p>
@@ -2382,7 +2409,7 @@
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
         <h3 class="faq-q">How long does delivery take?</h3>
-        <p class="faq-a">Standard prints and posters are dispatched within 1–2 working days via Royal Mail Tracked 48, arriving 3–4 working days after that. Specialist handmade items — like our ChromaCoat Mug and anything with a Cartoon upgrade — are individually crafted to order, so please allow 5–7 working days for dispatch. International orders (USA, Canada, Australia, and most of Europe) take 5–14 working days depending on destination.</p>
+        <p class="faq-a">Standard prints and posters are dispatched within 1–2 working days via Royal Mail Tracked 48, arriving 3–4 working days after that. Specialist handmade items — like our ChromaCoat Mug and anything with a Cartoon upgrade — are individually crafted to order, so please allow 2–5 working days for dispatch. International orders (USA, Canada, Australia, and most of Europe) take 5–14 working days depending on destination.</p>
       </div>
       <div class="faq-item">
         <h3 class="faq-q">Do you ship outside the UK?</h3>
@@ -2490,7 +2517,7 @@ const CATEGORIES = [
       {
         name: "ChromaCoat Mug",
         img: "/products/magic-mug-final.png",
-        desc: "This is the mug that stops breakfast in its tracks. It looks completely plain and jet black in the box — then you pour in your hot drink and, like magic, your photo rises up in full, vivid colour right before your eyes. Made from durable ceramic with a heat-sensitive coating, dishwasher safe, and printed to last. There's nothing else quite like the reaction this gift gets when it's opened. This is a specialist, individually handmade item — please allow 5–7 working days for dispatch. 📸 For the best result, please upload a landscape (horizontal) photo — portrait photos will be automatically cropped to fit the mug's wrap-around shape.",
+        desc: "This is the mug that stops breakfast in its tracks. It looks completely plain and jet black in the box — then you pour in your hot drink and, like magic, your photo rises up in full, vivid colour right before your eyes. Made from durable ceramic with a heat-sensitive coating, dishwasher safe, and printed to last. There's nothing else quite like the reaction this gift gets when it's opened. This is a specialist, individually handmade item — please allow 2–5 working days for dispatch. 📸 For the best result, please upload a landscape (horizontal) photo — portrait photos will be automatically cropped to fit the mug's wrap-around shape.",
         variants: [{ sku: "magic-mug", label: "11oz Heat-Activated Mug — £17.99" }],
       },
       {
