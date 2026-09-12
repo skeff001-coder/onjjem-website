@@ -1373,21 +1373,82 @@
     .deal-name { font-size: 10.5px; }
   }
 
-  .cartoonify-top-flash {
-    text-align: center;
-    margin: 0;
-    padding: 8px 10px;
-    background: #E24C4C;
+  .mini-ticker-wrap {
+    overflow: hidden;
+    background: #7B2FBE;
+    padding: 6px 0;
+  }
+  .mini-ticker-track {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: miniTickerScroll 18s linear infinite;
+  }
+  .mini-ticker-track span {
     color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 900;
+    font-size: 11px;
+    font-weight: 800;
     letter-spacing: 0.3px;
-    animation: topFlashBlink 1s step-start infinite;
+    margin: 0 10px;
   }
-  @keyframes topFlashBlink {
-    0%, 100% { background: #E24C4C; }
-    50% { background: #39FF88; color: #1A1206; }
+  @keyframes miniTickerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
+
+  .search-bar-wrap {
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto 4px;
+  }
+  .search-bar-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(184,137,42,0.4);
+    background: rgba(255,255,255,0.06);
+    color: #F5EDD8;
+    font-size: 15px;
+    font-family: inherit;
+  }
+  .search-bar-input::placeholder { color: rgba(245,237,216,0.45); }
+  .search-results {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #1A1206;
+    border: 1px solid rgba(184,137,42,0.4);
+    border-radius: 12px;
+    max-height: 260px;
+    overflow-y: auto;
+    z-index: 50;
+    text-align: left;
+  }
+  .search-result-item {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #F5EDD8;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(184,137,42,0.15);
+  }
+  .search-result-item:last-child { border-bottom: none; }
+  .search-result-item:active { background: rgba(184,137,42,0.15); }
+  .search-no-results { padding: 12px 14px; font-size: 13px; color: rgba(245,237,216,0.5); }
+
+  .mini-welcome-tile {
+    display: inline-block;
+    margin: 10px auto 0;
+    padding: 5px 12px;
+    background: rgba(184,137,42,0.12);
+    border: 1px solid rgba(184,137,42,0.4);
+    border-radius: 20px;
+    color: #F3D078;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+  }
+
   .free-ship-banner {
     text-align: center;
     background: linear-gradient(90deg, #E8384F, #D4A843, #3E7BD6);
@@ -1971,6 +2032,7 @@
   .status { font-size: 12px; margin-top: 8px; text-align: center; min-height: 16px; }
   .status.error { color: #E8A05C; }
   .status.loading { color: #B8892A; }
+  .status.success { color: #39FF88; font-weight: 700; }
 
   .cartoon-toggle-row {
     display: flex;
@@ -2340,9 +2402,6 @@
 </style>
 </head>
 <body>
-  <p class="cartoonify-top-flash pressable" id="discountBannerText" onclick="copyDiscountCode()" role="button" tabindex="0" aria-label="Copy discount code WELCOME10">🎁 NEW HERE? GET 10% OFF WITH CODE WELCOME10! 🎁</p>
-
-  <div class="free-ship-banner">🚚 FREE UK SHIPPING</div>
 
   <div class="wrap">
 
@@ -2350,6 +2409,11 @@
     <h1>ONJJEM</h1>
 
       <p class="tagline">Your Special Moments, Made Forever</p>
+
+      <div class="search-bar-wrap">
+        <input type="text" id="siteSearchInput" class="search-bar-input" placeholder="🔍 Search for a gift..." autocomplete="off">
+        <div id="searchResults" class="search-results" style="display:none;"></div>
+      </div>
 
     <div class="simple-steps">
       <div class="simple-step">
@@ -2365,6 +2429,8 @@
         <span class="simple-step-label">We Create</span>
       </div>
     </div>
+
+    <p class="mini-welcome-tile pressable" id="discountBannerText" onclick="copyDiscountCode()" role="button" tabindex="0" aria-label="Copy discount code WELCOME10">🎁 New? WELCOME10 for 10% off</p>
 
     <details class="steps-details">
       <summary class="steps-details-link">More details ›</summary>
@@ -2479,6 +2545,12 @@
 
     <div class="cat-nav-wrap">
       <p class="cat-nav-heading">Enter Gift Gallery</p>
+      <div class="mini-ticker-wrap">
+        <div class="mini-ticker-track">
+          <span>⚡ Free UK Shipping</span><span>•</span><span>Dispatched Within 72 Hours</span><span>•</span><span>The Perfect Spontaneous Gift 🧑‍🍳</span>
+          <span>⚡ Free UK Shipping</span><span>•</span><span>Dispatched Within 72 Hours</span><span>•</span><span>The Perfect Spontaneous Gift 🧑‍🍳</span>
+        </div>
+      </div>
       <div class="trust-strip">
         <span class="trust-item">🔒 Secure Checkout</span>
         <span class="trust-dot">·</span>
@@ -2669,6 +2741,22 @@ const CATEGORIES = [
     categoryImg: "/products/magic-mug.jpg",
     intro: "☕ Want a happy surprise every morning? Pop your favourite family photo on our ChromaCoat Mug and watch it appear in full colour the second hot chocolate hits the cup — pure magic for any young fan. Also available: the same photo on a canvas for the bedroom wall!",
     items: [
+      {
+        name: "Personalised Chef's Apron (Child)",
+        img: "/products/Chef.png",
+        desc: "🎁 The Ultimate Spontaneous Gift. From your camera roll to the kitchen counter — the most thoughtful, mess-proof keepsake you'll ever give. 📸 The photo shown is a real example, transformed using our Cartoonify upgrade — see a free preview of your own photo as a cartoon at checkout. 🧑‍🍳 Mummy & Me Matching: order the matching adult apron too, and we'll email you 15% off your next apron. 🌿 Premium 360gsm Canvas: heavy-duty, kitchen-grade fabric built to handle real messes. 🧼 100% Machine Washable: printed with water-based archival inks that resist fading, even after a tough bake. 📦 Dispatched in 72 Hours: manufactured in the UK and shipped straight to your doorstep. 🚚 Free UK Shipping: the price you see is exactly what you pay at checkout, no hidden fees. Available with white strap and ties.",
+        variants: [
+          { sku: "H-APR-CA-WTIE", label: "Child Size (19.5\" x 25\") - £19.95" },
+        ],
+      },
+      {
+        name: "Personalised Chef's Apron (Adult)",
+        img: "/products/Chef2.png",
+        desc: "The grown-up match to our Child's Apron — same premium 360gsm canvas, same Cartoonify option, with black strap and ties. Perfect for a genuine Mummy & Me matching set.",
+        variants: [
+          { sku: "H-APR-AA-BTIE", label: "Adult Size (25\" x 35\") - £24.49" },
+        ],
+      },
       {
         name: "ChromaCoat Mug",
         img: "/products/magic-mug-final.png",
@@ -3375,16 +3463,25 @@ function renderProducts() {
       const card = document.querySelector(`[data-status="${itemId}"]`)?.closest(".card");
       const notice = card?.querySelector('[data-role="ip-notice"]');
       const buyBtn = card?.querySelector('[data-role="buy-btn"]');
+      const statusEl = document.querySelector(`[data-status="${itemId}"]`);
       if (input.files.length > 0) {
         if (notice) notice.style.display = "block";
         if (buyBtn) {
           buyBtn.disabled = false;
           buyBtn.textContent = "Buy Now";
         }
+        if (statusEl) {
+          statusEl.textContent = "✅ Photo added — " + input.files[0].name;
+          statusEl.className = "status success";
+        }
       } else {
         if (buyBtn) {
           buyBtn.disabled = true;
           buyBtn.textContent = "Step 1: Upload Your Photo";
+        }
+        if (statusEl) {
+          statusEl.textContent = "";
+          statusEl.className = "status";
         }
       }
     });
@@ -3396,6 +3493,59 @@ function renderProducts() {
 renderCatNav();
 // Products no longer auto-load on page open — the section title and
 // product grid stay hidden until the customer taps a category above.
+
+// Live search across every real product name, scanning the actual
+// CATEGORIES data so results always match what's genuinely on sale.
+(function setupSiteSearch() {
+  const input = document.getElementById("siteSearchInput");
+  const results = document.getElementById("searchResults");
+  if (!input || !results) return;
+
+  function allProducts() {
+    const list = [];
+    CATEGORIES.forEach((cat) => {
+      cat.items.forEach((item) => {
+        list.push({ name: item.name, categoryKey: cat.key });
+      });
+    });
+    return list;
+  }
+
+  input.addEventListener("input", () => {
+    const q = input.value.trim().toLowerCase();
+    if (!q) {
+      results.style.display = "none";
+      results.innerHTML = "";
+      return;
+    }
+    const matches = allProducts().filter((p) => p.name.toLowerCase().includes(q));
+    if (matches.length === 0) {
+      results.innerHTML = `<div class="search-no-results">No matches — try browsing the Gift Gallery below.</div>`;
+    } else {
+      results.innerHTML = matches
+        .slice(0, 8)
+        .map((p) => `<div class="search-result-item" data-cat="${p.categoryKey}" data-name="${p.name.replace(/"/g, "&quot;")}">${p.name}</div>`)
+        .join("");
+    }
+    results.style.display = "block";
+  });
+
+  results.addEventListener("click", (e) => {
+    const item = e.target.closest(".search-result-item");
+    if (!item) return;
+    const cat = item.dataset.cat;
+    const name = item.dataset.name;
+    results.style.display = "none";
+    input.value = "";
+    goToCategory(cat, name);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-bar-wrap")) {
+      results.style.display = "none";
+    }
+  });
+})();
 
 // If the app linked here with ?category=X&product=Y, jump straight to that
 // product instead of leaving the customer to find it themselves.
