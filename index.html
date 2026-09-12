@@ -3032,6 +3032,12 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
 }
 
 async function proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, cartoonOptions) {
+  const isInternational = confirm(
+    "Are you ordering from OUTSIDE the UK?\n\n" +
+    "Tap OK if you're ordering from outside the UK (£14.99 shipping applies).\n" +
+    "Tap Cancel if you're in the UK (free delivery)."
+  );
+
   statusEl.textContent = "Preparing checkout...";
   statusEl.className = "status loading";
   if (typeof gtag === "function") {
@@ -3048,6 +3054,7 @@ async function proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, cartoo
       body: JSON.stringify({
         sku,
         photoBase64,
+        international: isInternational,
         successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
         cancelUrl: window.location.href,
         ...(cartoonOptions || {}),
