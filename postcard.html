@@ -80,6 +80,56 @@
   .cartoon-title { font-weight: 900; color: #F3D078; font-size: 15px; }
   .cartoon-desc { font-size: 12.5px; color: rgba(245,237,216,0.7); margin-top: 4px; line-height: 1.5; }
 
+  .recipient-box {
+    border: 2px dashed #3E7BD6;
+    background: rgba(62,123,214,0.1);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+  .recipient-toggle {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+    color: #A9C6F0;
+  }
+  .recipient-toggle input[type="checkbox"] { width: 20px; height: 20px; margin-top: 1px; flex-shrink: 0; }
+  .recipient-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(184,137,42,0.3);
+    background: rgba(255,255,255,0.05);
+    color: #F5EDD8;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-family: inherit;
+  }
+  .recipient-input::placeholder { color: rgba(245,237,216,0.4); }
+
+  .greetings-box {
+    border: 2px dashed #2E7D32;
+    background: rgba(46,125,50,0.1);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+  .greetings-banner {
+    text-align: center;
+    padding: 14px 10px;
+    border: 3px double #F3D078;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #B8892A, #D4B14A, #F3E2BC, #B8892A);
+    color: #1A1206;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: 0.5px;
+  }
+
   .status { font-size: 13px; text-align: center; min-height: 18px; margin-top: 6px; }
 
   .sticky-btn-wrap {
@@ -140,6 +190,55 @@
           <div class="cartoon-desc">See a free preview first — if you love it, we'll print the full-quality cartoon version onto your postcard instead of the plain photo.</div>
         </div>
       </label>
+    </div>
+
+    <div class="greetings-box">
+      <label class="recipient-toggle">
+        <input type="checkbox" id="greetingsCheckbox">
+        <span>🏖️ On holiday? Add a "Greetings From..." banner</span>
+      </label>
+      <div id="greetingsFields" style="display:none; margin-top:14px;">
+        <select id="greetingsFlag" class="recipient-input">
+          <option value="">🏳️ No flag — just the location name</option>
+          <option value="🇬🇧">🇬🇧 United Kingdom</option>
+          <option value="🇮🇪">🇮🇪 Ireland</option>
+          <option value="🇫🇷">🇫🇷 France</option>
+          <option value="🇩🇪">🇩🇪 Germany</option>
+          <option value="🇪🇸">🇪🇸 Spain</option>
+          <option value="🇮🇹">🇮🇹 Italy</option>
+          <option value="🇵🇹">🇵🇹 Portugal</option>
+          <option value="🇳🇱">🇳🇱 Netherlands</option>
+          <option value="🇧🇪">🇧🇪 Belgium</option>
+          <option value="🇨🇭">🇨🇭 Switzerland</option>
+          <option value="🇦🇹">🇦🇹 Austria</option>
+          <option value="🇬🇷">🇬🇷 Greece</option>
+          <option value="🇹🇷">🇹🇷 Turkey</option>
+          <option value="🇺🇸">🇺🇸 United States</option>
+          <option value="🇨🇦">🇨🇦 Canada</option>
+          <option value="🇦🇺">🇦🇺 Australia</option>
+          <option value="🇳🇿">🇳🇿 New Zealand</option>
+          <option value="🇯🇵">🇯🇵 Japan</option>
+          <option value="🇹🇭">🇹🇭 Thailand</option>
+          <option value="🇦🇪">🇦🇪 UAE</option>
+        </select>
+        <input type="text" id="greetingsLocation" class="recipient-input" maxlength="30" placeholder="Where are you? e.g. Blackpool, Edinburgh, Marbella">
+        <div id="greetingsPreview" style="display:none; margin-top:10px;"></div>
+      </div>
+    </div>
+
+    <div class="recipient-box">
+      <label class="recipient-toggle">
+        <input type="checkbox" id="sendToOtherCheckbox">
+        <span>📮 Send this straight to someone else instead of me</span>
+      </label>
+      <div id="recipientFields" style="display:none; margin-top:14px;">
+        <input type="text" id="recipientName" class="recipient-input" placeholder="Recipient's full name">
+        <input type="text" id="recipientLine1" class="recipient-input" placeholder="Address line 1">
+        <input type="text" id="recipientLine2" class="recipient-input" placeholder="Address line 2 (optional)">
+        <input type="text" id="recipientCity" class="recipient-input" placeholder="Town / City">
+        <input type="text" id="recipientPostcode" class="recipient-input" placeholder="Postcode">
+        <textarea id="recipientMessage" class="recipient-input" rows="3" maxlength="200" placeholder="Add a short note (optional) — we'll print it on the back, like a real letter"></textarea>
+      </div>
     </div>
 
     <p class="status" id="checkoutStatus"></p>
@@ -226,14 +325,72 @@ document.getElementById("cartoonCheckbox").addEventListener("change", async (e) 
   }
 });
 
+document.getElementById("greetingsCheckbox").addEventListener("change", (e) => {
+  document.getElementById("greetingsFields").style.display = e.target.checked ? "block" : "none";
+  updateGreetingsPreview();
+});
+document.getElementById("greetingsLocation").addEventListener("input", updateGreetingsPreview);
+document.getElementById("greetingsFlag").addEventListener("change", updateGreetingsPreview);
+
+function updateGreetingsPreview() {
+  const location = document.getElementById("greetingsLocation").value.trim();
+  const flag = document.getElementById("greetingsFlag").value;
+  const preview = document.getElementById("greetingsPreview");
+  if (location) {
+    preview.style.display = "block";
+    preview.innerHTML = `<div class="greetings-banner">${flag ? flag + " " : ""}Greetings from ${location}! 🏖️</div>`;
+  } else {
+    preview.style.display = "none";
+  }
+}
+
+document.getElementById("sendToOtherCheckbox").addEventListener("change", (e) => {
+  document.getElementById("recipientFields").style.display = e.target.checked ? "block" : "none";
+});
+
 async function startCheckout() {
   const buyBtn = document.getElementById("buyBtn");
   const status = document.getElementById("checkoutStatus");
   const addCartoon = document.getElementById("cartoonCheckbox").checked;
+  const sendToOther = document.getElementById("sendToOtherCheckbox").checked;
 
   if (!photoBase64) {
     status.textContent = "Please upload a photo first.";
     return;
+  }
+
+  let recipient = null;
+  const greetingsLocation = document.getElementById("greetingsCheckbox").checked
+    ? document.getElementById("greetingsLocation").value.trim()
+    : "";
+  const greetingsFlag = document.getElementById("greetingsCheckbox").checked
+    ? document.getElementById("greetingsFlag").value
+    : "";
+
+  if (sendToOther) {
+    const name = document.getElementById("recipientName").value.trim();
+    const line1 = document.getElementById("recipientLine1").value.trim();
+    const city = document.getElementById("recipientCity").value.trim();
+    const postcode = document.getElementById("recipientPostcode").value.trim();
+    if (!name || !line1 || !city || !postcode) {
+      status.textContent = "Please fill in the recipient's name, address, city, and postcode.";
+      return;
+    }
+    const personalNote = document.getElementById("recipientMessage").value.trim();
+    recipient = {
+      name,
+      line1,
+      line2: document.getElementById("recipientLine2").value.trim(),
+      city,
+      postcode,
+      message: [
+        greetingsLocation ? `${greetingsFlag ? greetingsFlag + " " : ""}Greetings from ${greetingsLocation}!` : "",
+        personalNote,
+      ].filter(Boolean).join(" — "),
+    };
+  } else if (greetingsLocation) {
+    // Not sending to someone else, but still wants the greeting noted
+    recipient = { greetingsOnly: true, message: `${greetingsFlag ? greetingsFlag + " " : ""}Greetings from ${greetingsLocation}!` };
   }
 
   buyBtn.disabled = true;
@@ -249,6 +406,7 @@ async function startCheckout() {
         successUrl: window.location.origin + "/?order=success",
         cancelUrl: window.location.href,
         ...(addCartoon ? { addCartoon: true } : {}),
+        ...(recipient ? { recipient } : {}),
       }),
     });
     const data = await res.json();
