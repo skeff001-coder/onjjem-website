@@ -369,7 +369,7 @@
             "@id": "https://onjjem.com/#product-12",
             "name": "Men's Ankle Socks",
             "description": "A genuinely fun, wearable gift — your favourite pattern or photo printed all over a soft, stretchy pair of ankle socks",
-            "image": "https://onjjem.com/products/Catz1.jpg",
+            "image": "https://onjjem.com/products/tea-towels.jpg",
             "category": "Gift Tags & More",
             "brand": {
               "@type": "Brand",
@@ -856,6 +856,14 @@
     text-transform: uppercase;
   }
   .three-words .dot { color: #D4B14A; opacity: 0.5; }
+  .emporium-subtitle {
+    color: #F3D078;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
   .tagline { color: #E8D9A8; font-size: 18px; margin-bottom: 14px; }
   .subtagline { color: rgba(243,234,255,0.55); font-size: 14px; margin-bottom: 40px; }
   .intro-text {
@@ -2388,8 +2396,9 @@
 
     <div class="hero">
     <h1>ONJJEM</h1>
+    <p class="emporium-subtitle">The Emporium of Personalised Gifts</p>
 
-      <p class="tagline">Your Special Moments, Made Forever</p>
+      <p class="tagline">Moments, Made Forever</p>
 
       <div class="search-bar-wrap">
         <input type="text" id="siteSearchInput" class="search-bar-input" placeholder="🔍 Search for a gift..." autocomplete="off">
@@ -2468,7 +2477,8 @@
             </a>
             <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Pet Tags')" class="product-tile">
               <div class="image-wrapper"><img src="/products/pet-tags.jpg" alt="Pet Tags" loading="lazy"></div>
-              <span class="promo-text">Pet Tags — From £13.99</span>
+              <span class="promo-badge red-badge">⏳ Low Price This Week</span>
+              <span class="promo-text">Pet Tags — £9.95</span>
             </a>
           </div>
         </div>
@@ -2804,10 +2814,10 @@ const CATEGORIES = [
       {
         name: "Pet Tags",
         img: "/products/pet-tags.jpg",
-        desc: "A genuinely useful safety item that also happens to be a lovely personal keepsake. Durable, scratch-resistant metal tag featuring your pet's own photo alongside their name and your contact details — perfect for collars, and a gift any pet owner will actually use and appreciate, not just admire.",
+        desc: "⏳ Low price this week only! A genuinely useful safety item that also happens to be a lovely personal keepsake. Durable, scratch-resistant metal tag featuring your pet's own photo alongside their name and your contact details — perfect for collars, and a gift any pet owner will actually use and appreciate, not just admire.",
         variants: [
-          { sku: "pet-tag-round", label: "Round Tag - £13.99" },
-          { sku: "pet-tag-bone", label: "Bone Shape Tag - £13.99" },
+          { sku: "pet-tag-round", label: "Round Tag - £9.95" },
+          { sku: "pet-tag-bone", label: "Bone Shape Tag - £9.95" },
         ],
       },
       {
@@ -2824,7 +2834,7 @@ const CATEGORIES = [
       },
       {
         name: "Men's Ankle Socks",
-        img: "/products/Catz1.jpg",
+        img: "/products/tea-towels.jpg",
         desc: "A genuinely fun, wearable gift — your favourite pattern or photo printed all over a soft, stretchy pair of ankle socks. Quick-drying and moisture-wicking, machine washable, one size fits UK 6-10. Please note: because these are printed using an all-over sublimation process, exact positioning of your design can't be guaranteed — this product works best with bold patterns, colours, or full-image designs rather than a single small photo or logo you want centred perfectly.",
         variants: [
           { sku: "GLOBAL-ANKLE-SOCKS", label: "Men's One Size (UK 6-10) - £17.99" },
@@ -2937,12 +2947,12 @@ const CATEGORIES = [
         img: "/products/framed-photo-tiles.jpg",
         desc: "A bright white, affordable poster print on 170gsm silk paper — a genuinely great low-cost way to get a favourite photo up on the wall. Choose portrait or landscape to match your photo.",
         variants: [
-          { sku: "budget-poster-a5-portrait", label: "A5 / Portrait - £18.99" },
-          { sku: "budget-poster-a5-landscape", label: "A5 / Landscape - £18.99" },
-          { sku: "budget-poster-a4-portrait", label: "A4 / Portrait - £18.99" },
-          { sku: "budget-poster-a4-landscape", label: "A4 / Landscape - £18.99" },
-          { sku: "budget-poster-a3-portrait", label: "A3 / Portrait - £19.99" },
-          { sku: "budget-poster-a3-landscape", label: "A3 / Landscape - £19.99" },
+          { sku: "budget-poster-a5-portrait", label: "A5 / Portrait - £12.99" },
+          { sku: "budget-poster-a5-landscape", label: "A5 / Landscape - £12.99" },
+          { sku: "budget-poster-a4-portrait", label: "A4 / Portrait - £16.99" },
+          { sku: "budget-poster-a4-landscape", label: "A4 / Landscape - £16.99" },
+          { sku: "budget-poster-a3-portrait", label: "A3 / Portrait - £21.99" },
+          { sku: "budget-poster-a3-landscape", label: "A3 / Landscape - £21.99" },
           { sku: "budget-poster-a2-portrait", label: "A2 / Portrait - £21.99" },
           { sku: "budget-poster-a2-landscape", label: "A2 / Landscape - £21.99" },
           { sku: "budget-poster-a1-portrait", label: "A1 / Portrait - £24.99" },
