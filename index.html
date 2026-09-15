@@ -2387,151 +2387,468 @@
     flex-basis: 100%;
   }
 }
+
+/* ===== PROFESSIONAL DESIGN SYSTEM ===== */
+:root {
+  --pro-gold: #d4af37;
+  --pro-gold-hover: #e5c158;
+  --pro-dark: #1a1a1a;
+  --pro-darkgray: #2a2a2a;
+  --pro-lightgray: #f5f5f5;
+  --pro-text: #ffffff;
+  --pro-text-muted: #cccccc;
+  --pro-border: rgba(212, 175, 55, 0.2);
+}
+.pro-header {
+  background: var(--pro-darkgray);
+  border-bottom: 1px solid var(--pro-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.pro-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pro-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--pro-gold);
+}
+.pro-nav {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.95rem;
+}
+.pro-nav a {
+  color: var(--pro-text);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+.pro-nav a:hover {
+  color: var(--pro-gold);
+}
+.pro-hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+.pro-hero-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.pro-hero-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Poppins', sans-serif !important;
+  font-size: clamp(1.75rem, 5vw, 3.5rem) !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: -1px !important;
+  margin: 0 0 1rem 0 !important;
+  color: #ffffff !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background-clip: unset !important;
+  filter: none !important;
+  animation: none !important;
+  text-align: center;
+}
+.pro-hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--pro-text-muted);
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+  font-weight: 400;
+}
+.pro-search-wrap {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.pro-search-input {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border: 1px solid var(--pro-border);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--pro-text);
+  transition: all 0.3s;
+}
+.pro-search-input:focus {
+  outline: none;
+  border-color: var(--pro-gold);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+.pro-search-input::placeholder {
+  color: var(--pro-text-muted);
+}
+.pro-search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--pro-darkgray);
+  border: 1px solid var(--pro-border);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+}
+.pro-promo-pill {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--pro-border);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  color: var(--pro-text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pro-promo-pill:hover {
+  background: rgba(212, 175, 55, 0.25);
+  border-color: var(--pro-gold);
+}
+.pro-trust-strip {
+  background: var(--pro-dark);
+  border-bottom: 1px solid var(--pro-border);
+  padding: 0.875rem 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--pro-text-muted);
+}
+.pro-trust-item {
+  color: var(--pro-text);
+  font-weight: 500;
+}
+.pro-trust-divider {
+  margin: 0 0.75rem;
+  opacity: 0.5;
+}
+.pro-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+.pro-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+.pro-section-header h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin: 0;
+  color: var(--pro-text);
+}
+.pro-view-all {
+  color: var(--pro-gold);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+.pro-view-all:hover {
+  color: var(--pro-gold-hover);
+}
+.pro-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+@media (max-width: 768px) {
+  .pro-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+@media (max-width: 480px) {
+  .pro-product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.pro-product-card {
+  background: transparent;
+  border: 1px solid var(--pro-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.pro-product-card:hover {
+  border-color: var(--pro-gold);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+}
+.pro-product-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--pro-darkgray);
+}
+.pro-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.pro-product-card:hover .pro-product-image img {
+  transform: scale(1.08);
+}
+.pro-product-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--pro-gold);
+  color: var(--pro-dark);
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.pro-product-card h3 {
+  font-size: 1.1rem;
+  margin: 1.25rem 1.25rem 0.5rem 1.25rem;
+  color: var(--pro-text);
+  font-weight: 600;
+}
+.pro-product-desc {
+  font-size: 0.875rem;
+  color: var(--pro-text-muted);
+  margin: 0 1.25rem 1rem 1.25rem;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+.pro-cta-secondary {
+  margin: 0 1.25rem 1.25rem 1.25rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: 1px solid var(--pro-gold);
+  color: var(--pro-gold);
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-start;
+}
+.pro-cta-secondary:hover {
+  background: var(--pro-gold);
+  color: var(--pro-dark);
+}
+.pro-why-section {
+  background: var(--pro-darkgray);
+  padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.pro-why-section h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin: 0 0 3rem 0;
+  color: var(--pro-text);
+  text-align: center;
+}
+.pro-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+.pro-why-item {
+  text-align: center;
+}
+.pro-why-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.pro-why-item h3 {
+  font-size: 1.1rem;
+  color: var(--pro-text);
+  margin: 0 0 0.75rem 0;
+  font-weight: 600;
+}
+.pro-why-item p {
+  font-size: 0.9rem;
+  color: var(--pro-text-muted);
+  margin: 0;
+  line-height: 1.6;
+}
+.pro-review-section {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+.pro-review-card {
+  background: var(--pro-darkgray);
+  border: 1px solid var(--pro-border);
+  padding: 2rem;
+  border-radius: 8px;
+}
+.pro-review-stars {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--pro-gold);
+  display: block;
+}
+.pro-review-quote {
+  font-size: 1rem;
+  color: var(--pro-text);
+  font-style: italic;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+.pro-review-author {
+  font-size: 0.9rem;
+  color: var(--pro-text-muted);
+  margin: 1rem 0 0 0;
+}
+@media (max-width: 768px) {
+  .pro-hero { padding: 2.5rem 1rem; }
+  .pro-hero-title { font-size: 1.75rem; }
+  .pro-hero-subtitle { font-size: 0.95rem; }
+  .pro-nav { gap: 1rem; font-size: 0.85rem; }
+  .pro-header-content { padding: 0.75rem 1rem; }
+  .pro-section { padding: 2.5rem 1rem; }
+  .pro-why-section { padding: 2.5rem 1rem; }
+}
 </style>
 </head>
 <body>
 
   <div class="wrap">
 
-    <div class="hero">
-    <h1>ONJJEM</h1>
-    <p class="emporium-subtitle">The Emporium of Personalised Gifts</p>
-
-      <p class="tagline">Moments, Made Forever</p>
-
-      <div class="search-bar-wrap">
-        <input type="text" id="siteSearchInput" class="search-bar-input" placeholder="🔍 Search for a gift..." autocomplete="off">
-        <div id="searchResults" class="search-results" style="display:none;"></div>
-      </div>
-
-    <div class="simple-steps">
-      <div class="simple-step">
-        <span class="simple-step-num">1</span>
-        <span class="simple-step-label">Enter Gallery</span>
-      </div>
-      <div class="simple-step pressable" onclick="document.querySelector('.cat-nav-wrap').scrollIntoView({behavior:'smooth', block:'start'})" role="button" tabindex="0" aria-label="Click to upload your photo">
-        <span class="simple-step-num">2</span>
-        <span class="simple-step-label">Click To Upload</span>
-      </div>
-      <div class="simple-step">
-        <span class="simple-step-num">3</span>
-        <span class="simple-step-label">We Create</span>
+    <div class="pro-header">
+      <div class="pro-header-content">
+        <div class="pro-logo">ONJJEM</div>
+        <nav class="pro-nav">
+          <a href="javascript:void(0)" onclick="document.querySelector('.cat-nav-wrap').scrollIntoView({behavior:'smooth'})">Shop</a>
+          <a href="javascript:void(0)" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')">Gift Cards</a>
+          <a href="/terms.html">Help</a>
+        </nav>
       </div>
     </div>
 
-    <p class="mini-welcome-tile pressable" id="discountBannerText" onclick="copyDiscountCode()" role="button" tabindex="0" aria-label="Copy discount code WELCOME10">🎁 New? WELCOME10 for 10% off</p>
+    <div class="pro-hero">
+      <div class="pro-hero-content">
+        <h1 class="pro-hero-title">Your Photos, Beautifully Printed</h1>
+        <p class="pro-hero-subtitle">Photo gifts that make memories last — from handmade mugs to museum-quality canvas prints. Free UK shipping.</p>
 
-    <details class="steps-details">
-      <summary class="steps-details-link">More details ›</summary>
-      <div class="steps-details-panel">
-        <p><strong>1. Enter Gallery</strong> — Pick anything you like from our shop, such as a mug, a canvas, or a jigsaw.</p>
-        <p><strong>2. Upload Pic</strong> — Upload any photo from your phone or computer. It's easy — just tap the button and choose a picture.</p>
-        <p><strong>3. We Create</strong> — Standard prints are ready within 1–2 working days. Specialist handmade items — like our ChromaCoat Mug and Cartoon upgrades — are individually crafted, so please allow 2–5 working days. UK orders arrive 3–4 working days after dispatch, and international orders usually take 5–14 working days.</p>
-        <p>🎉 <strong>Fancy some fun?</strong> When you upload your photo, we'll offer to show you a free preview of it as a cartoon — no obligation. If you love it, add the full-quality version to your gift for just £1.99. It's completely separate from your main gift, and totally optional.</p>
-      </div>
-    </details>
-
-    <div class="onjjem-section-container">
-      <div class="onjjem-carousel-track" id="onjjemCarousel">
-
-        <div class="carousel-panel panel-green">
-          <h2 class="panel-title">Discounted Deals This Week</h2>
-          <div class="products-grid">
-            <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/slim-canvas.webp" alt="Fine Art Prints" loading="lazy"></div>
-              <span class="promo-badge red-badge">Best Price</span>
-              <span class="promo-text">Fine Art Print — From £5.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('specialist-prints', 'Photo Postcard')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/framed-photo-tiles.jpg" alt="Photo Postcard" loading="lazy"></div>
-              <span class="promo-badge red-badge">🎉 First 20: £1.69</span>
-              <span class="promo-text">Photo Postcard — £2.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Custom Fabric Patch Badge (Round)')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/Patch.png" alt="Fabric Patch" loading="lazy"></div>
-              <span class="promo-text">Fabric Patch — From £8.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'ONJJEM Digital Gift Card')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/Card.png" alt="Gift Card" loading="lazy"></div>
-              <span class="promo-badge">🎁 New</span>
-              <span class="promo-text">Digital Gift Card — From £20</span>
-            </a>
-          </div>
+        <div class="pro-search-wrap">
+          <input type="text" id="siteSearchInput" class="pro-search-input" placeholder="Search for a gift..." autocomplete="off">
+          <div id="searchResults" class="pro-search-results" style="display:none;"></div>
         </div>
 
-        <div class="carousel-panel panel-purple">
-          <h2 class="panel-title">Great Value Gifts</h2>
-          <div class="products-grid">
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'Custom Wooden Drink Coasters')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/wooden-coasters.jpg" alt="Wooden Coasters" loading="lazy"></div>
-              <span class="promo-text">Wooden Coasters — From £11.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Temporary Tattoos')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/temporary-tattoos.webp" alt="Temporary Tattoos" loading="lazy"></div>
-              <span class="promo-text">Temporary Tattoos — From £11.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('frames', 'Framed Photo Tiles')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/framed-photo-tiles.jpg" alt="Framed Photo Tiles" loading="lazy"></div>
-              <span class="promo-text">Framed Photo Tiles — From £12.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('gifts', 'Pet Tags')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/pet-tags.jpg" alt="Pet Tags" loading="lazy"></div>
-              <span class="promo-badge red-badge">⏳ Low Price This Week</span>
-              <span class="promo-text">Pet Tags — £9.95</span>
-            </a>
-          </div>
+        <div class="pro-promo-pill" id="discountBannerText" onclick="copyDiscountCode()" role="button" tabindex="0">
+          🎁 First-time buyers: Use WELCOME10 for 10% off
         </div>
-
-        <div class="carousel-panel panel-blue">
-          <h2 class="panel-title">Popular Choices</h2>
-          <div class="products-grid">
-            <a href="javascript:void(0)" onclick="goToCategory('canvas-eco', 'Friendly Recycled Eco Canvas (38mm Deep Frame)')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/eco-canvas.webp" alt="Canvas Print" loading="lazy"></div>
-              <span class="promo-text">Eco Canvas — From £14.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'Premium Personalised Kitchen Towel')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/tea-towels.jpg" alt="Tea Towels" loading="lazy"></div>
-              <span class="promo-text">Kitchen Towel — From £14.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'ChromaCoat Mug')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/magic-mug-final.png" alt="ChromaCoat Mug" loading="lazy"></div>
-              <span class="promo-badge">Bestseller</span>
-              <span class="promo-text">ChromaCoat Mug — £17.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Satin-Finish Personalised Photo Cards')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/playing-cards.webp" alt="Playing Cards" loading="lazy"></div>
-              <span class="promo-text">Photo Cards — £16.99</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="carousel-panel panel-orange">
-          <h2 class="panel-title">Premium Printing Section</h2>
-          <div class="products-grid">
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Mugs')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/photo-mugs-v2.jpg" alt="Photo Mugs" loading="lazy"></div>
-              <span class="promo-text">Photo Mugs — From £11.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Glow in the Dark Poster')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/glow-poster-premium.webp" alt="Glow Posters" loading="lazy"></div>
-              <span class="promo-text">Glow Posters — From £19.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('kids-corner', 'Photo Jigsaw')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/jigsaw-500pc.webp" alt="Photo Jigsaw" loading="lazy"></div>
-              <span class="promo-text">Photo Jigsaw — From £24.99</span>
-            </a>
-            <a href="javascript:void(0)" onclick="goToCategory('households', 'Photo Magnets')" class="product-tile">
-              <div class="image-wrapper"><img src="/products/photo-magnets.webp" alt="Photo Magnets" loading="lazy"></div>
-              <span class="promo-text">Photo Magnets — From £8.99</span>
-            </a>
-          </div>
-        </div></div>
-
       </div>
     </div>
 
+    <div class="pro-trust-strip">
+      <span class="pro-trust-item">✓ Secure Checkout</span>
+      <span class="pro-trust-divider">•</span>
+      <span class="pro-trust-item">✓ Free UK Shipping</span>
+      <span class="pro-trust-divider">•</span>
+      <span class="pro-trust-item">✓ Tracked Delivery</span>
+    </div>
 
+    <div class="pro-section">
+      <div class="pro-section-header">
+        <h2>Shop Our Most Popular Gifts</h2>
+        <a href="javascript:void(0)" onclick="document.querySelector('.cat-nav-wrap').scrollIntoView({behavior:'smooth'})" class="pro-view-all">View All →</a>
+      </div>
 
+      <div class="pro-product-grid">
+        <div class="pro-product-card" onclick="goToCategory('specialist-prints', 'Photo Postcard')">
+          <div class="pro-product-image">
+            <img src="/products/framed-photo-tiles.jpg" alt="Photo Postcard" loading="lazy">
+            <span class="pro-product-badge">From £2.99</span>
+          </div>
+          <h3>Photo Postcard</h3>
+          <p class="pro-product-desc">Classic 6x4 gloss print. Send through post or frame.</p>
+          <button class="pro-cta-secondary">Shop</button>
+        </div>
+
+        <div class="pro-product-card" onclick="goToCategory('households', 'ChromaCoat Mug')">
+          <div class="pro-product-image">
+            <img src="/products/magic-mug-final.png" alt="ChromaCoat Mug" loading="lazy">
+            <span class="pro-product-badge">Bestseller</span>
+          </div>
+          <h3>ChromaCoat Mug</h3>
+          <p class="pro-product-desc">Heat-activated photo reveal. Dishwasher safe.</p>
+          <button class="pro-cta-secondary">Shop Now — £17.99</button>
+        </div>
+
+        <div class="pro-product-card" onclick="goToCategory('canvas-eco', 'Friendly Recycled Eco Canvas (38mm Deep Frame)')">
+          <div class="pro-product-image">
+            <img src="/products/eco-canvas.webp" alt="Eco Canvas" loading="lazy">
+            <span class="pro-product-badge">Eco-Friendly</span>
+          </div>
+          <h3>Eco Canvas</h3>
+          <p class="pro-product-desc">Museum-grade print on recycled materials.</p>
+          <button class="pro-cta-secondary">From £14.99</button>
+        </div>
+
+        <div class="pro-product-card" onclick="goToCategory('specialist-prints', 'Museum-Grade Fine Art Print')">
+          <div class="pro-product-image">
+            <img src="/products/slim-canvas.webp" alt="Fine Art Print" loading="lazy">
+            <span class="pro-product-badge">Premium</span>
+          </div>
+          <h3>Fine Art Print</h3>
+          <p class="pro-product-desc">Giclée printing, archival inks, gallery-grade.</p>
+          <button class="pro-cta-secondary">From £5.99</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pro-why-section">
+      <h2>Why Choose ONJJEM?</h2>
+      <div class="pro-why-grid">
+        <div class="pro-why-item">
+          <div class="pro-why-icon">🎨</div>
+          <h3>Professional Quality</h3>
+          <p>Museum-grade Giclée printing and archival inks that resist fading for decades.</p>
+        </div>
+        <div class="pro-why-item">
+          <div class="pro-why-icon">🏡</div>
+          <h3>Handmade with Care</h3>
+          <p>Every gift is individually printed to order and quality-checked before shipping.</p>
+        </div>
+        <div class="pro-why-item">
+          <div class="pro-why-icon">🔒</div>
+          <h3>Your Photos Are Safe</h3>
+          <p>UK data protection. Your photos are never shared, stored securely, and deleted after printing.</p>
+        </div>
+        <div class="pro-why-item">
+          <div class="pro-why-icon">✓</div>
+          <h3>100% Satisfaction</h3>
+          <p>Not happy? We'll make it right. Full refund or replacement, no questions asked.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pro-review-section">
+      <div class="pro-review-card">
+        <div class="pro-review-stars">★★★★★</div>
+        <p class="pro-review-quote">"Love the mug I ordered, such a cute design and the heat-activated effect works perfectly. Really happy with it!"</p>
+        <p class="pro-review-author">— Niamh, UK Customer</p>
+      </div>
+    </div>
 
     <div class="cat-nav-wrap">
       <p class="cat-nav-heading">Enter Gift Gallery</p>
