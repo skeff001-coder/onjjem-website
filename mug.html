@@ -182,10 +182,13 @@ document.getElementById("photoInput").addEventListener("change", async (e) => {
   }
 });
 
+let confirmedCartoonBase64 = null;
+
 document.getElementById("cartoonCheckbox").addEventListener("change", async (e) => {
   const status = document.getElementById("checkoutStatus");
   if (!e.target.checked) {
     status.textContent = "";
+    confirmedCartoonBase64 = null;
     return;
   }
   if (!photoBase64) {
@@ -204,7 +207,7 @@ document.getElementById("cartoonCheckbox").addEventListener("change", async (e) 
     });
     const data = await res.json();
     if (data.alreadyUsed) {
-      status.textContent = "You've used your free preview — the cartoon will still be added at checkout.";
+      status.textContent = "You've used your free preview — the cartoon will still be added at checkout (may take a little longer).";
       return;
     }
     if (!res.ok || !data.base64Image) {
@@ -212,7 +215,23 @@ document.getElementById("cartoonCheckbox").addEventListener("change", async (e) 
     }
     document.getElementById("previewImg").src = `data:${data.mimeType};base64,${data.base64Image}`;
     document.getElementById("previewWrap").style.display = "block";
-    status.textContent = "✅ Here's your free preview! Love it? Tap below to order.";
+    status.textContent = "Preparing your full-quality version...";
+
+    // Generate the real, unwatermarked version now, while they're still
+    // looking at the preview — so tapping "Buy Now" later doesn't have to
+    // wait for a fresh AI generation and feel like it's hanging.
+    const finalRes = await fetch(`${API_BASE}/api/cartoonify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: false }),
+    });
+    const finalData = await finalRes.json();
+    if (finalRes.ok && finalData.base64Image) {
+      confirmedCartoonBase64 = finalData.base64Image;
+      status.textContent = "✅ Here's your free preview! Love it? Tap below to order.";
+    } else {
+      status.textContent = "✅ Here's your free preview! Love it? Tap below to order.";
+    }
   } catch (err) {
     status.textContent = "Couldn't generate a preview — the cartoon will still be added at checkout.";
   }
@@ -250,6 +269,7 @@ async function startCheckout() {
         successUrl: window.location.origin + "/?order=success",
         cancelUrl: window.location.href,
         ...(addCartoon ? { addCartoon: true } : {}),
+        ...(addCartoon && confirmedCartoonBase64 ? { confirmedCartoonBase64 } : {}),
       }),
     });
     const data = await res.json();
