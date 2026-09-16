@@ -172,7 +172,7 @@
       <div class="main-text" id="uploadMainText">Tap to Upload Your Photo</div>
       <div class="sub-text" id="uploadSubText">Accepts JPG or PNG from your camera roll</div>
     </div>
-    <input type="file" id="photoInput" accept="image/*">
+    <input type="file" id="photoInput" accept="image/*" style="display: none;">
     <p class="status" id="fileStatus"></p>
 
     <div class="price-row">
@@ -193,7 +193,7 @@
     <div class="greetings-box">
       <label class="recipient-toggle">
         <input type="checkbox" id="greetingsCheckbox">
-        <span>🏖️ On holiday? Add a "Greetings From..." banner</span>
+        <span>🏖️ On holiday? Add a "Greetings From..." banner <span style="color: #4CAF50; font-weight: 700;">✓ Free</span></span>
       </label>
       <div id="greetingsFields" style="display:none; margin-top:14px;">
         <select id="greetingsFlag" class="recipient-input">
@@ -227,7 +227,7 @@
     <div class="recipient-box">
       <label class="recipient-toggle">
         <input type="checkbox" id="sendToOtherCheckbox">
-        <span>📮 Send this straight to someone else instead of me</span>
+        <span>📮 Send this straight to someone else instead of me <span style="color: #4CAF50; font-weight: 700;">✓ Free</span></span>
       </label>
       <div id="recipientFields" style="display:none; margin-top:14px;">
         <input type="text" id="recipientName" class="recipient-input" placeholder="Recipient's full name">
