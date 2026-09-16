@@ -156,6 +156,9 @@
     <div id="previewWrap" style="display:none; margin-bottom:20px; text-align:center;">
       <img id="previewImg" style="max-width:100%; border-radius:14px; box-shadow:0 4px 16px rgba(0,0,0,0.4);" alt="Your cartoon preview">
     </div>
+
+    <label for="postcodeInput" style="display:block; font-size:13px; font-weight:700; color:#F3E9D6; margin-bottom:6px;">Your postcode (for delivery cost)</label>
+    <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA" style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(184,137,42,0.4); background:rgba(255,255,255,0.06); color:#F5EDD8; font-size:15px; margin-bottom:16px;">
   </div>
 
   <div class="sticky-btn-wrap">
@@ -249,9 +252,9 @@ async function startCheckout() {
     return;
   }
 
-  const postcode = (prompt("Please enter your postcode, so we can work out your delivery cost:") || "").trim();
+  const postcode = document.getElementById("postcodeInput").value.trim();
   if (!postcode) {
-    status.textContent = "Please enter a postcode to continue.";
+    status.textContent = "Please enter your postcode above to continue.";
     return;
   }
   const isInternational = !/^[A-Za-z]{1,2}\d/.test(postcode);
