@@ -116,6 +116,9 @@
     <input type="file" id="photoInput" accept="image/*">
     <p class="status" id="fileStatus"></p>
 
+    <label for="postcodeInput" style="display:block; font-size:13px; font-weight:700; color:#F3E9D6; margin-bottom:6px;">Your postcode (for delivery cost)</label>
+    <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA" style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(184,137,42,0.4); background:rgba(255,255,255,0.06); color:#F5EDD8; font-size:15px; margin-bottom:16px;">
+
     <button class="buy-btn" id="buyBtn" disabled onclick="startCheckout()">Buy Now — £17.99</button>
     <p class="status" id="checkoutStatus"></p>
   </div>
@@ -164,9 +167,9 @@ async function startCheckout() {
     return;
   }
 
-  const postcode = (prompt("Please enter your postcode, so we can work out your delivery cost:") || "").trim();
+  const postcode = document.getElementById("postcodeInput").value.trim();
   if (!postcode) {
-    status.textContent = "Please enter a postcode to continue.";
+    status.textContent = "Please enter your postcode above to continue.";
     return;
   }
   const isInternational = !/^[A-Za-z]{1,2}\d/.test(postcode);
@@ -230,8 +233,11 @@ async function startCheckout() {
         alert("Please upload your photo first, then use Apple Pay / Google Pay.");
         return;
       }
-      const postcode = (prompt("Please enter your postcode, so we can work out your delivery cost:") || "").trim();
-      if (!postcode) return;
+      const postcode = document.getElementById("postcodeInput").value.trim();
+      if (!postcode) {
+        alert("Please enter your postcode above first, then use Apple Pay / Google Pay.");
+        return;
+      }
       const isInternational = !/^[A-Za-z]{1,2}\d/.test(postcode);
 
       try {
