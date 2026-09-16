@@ -2552,15 +2552,23 @@
   color: var(--pro-text);
 }
 .pro-view-all {
-  color: var(--pro-gold);
+  display: inline-block;
+  color: #1a1a1a;
+  background: var(--pro-gold);
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: color 0.2s;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 50px;
+  transition: all 0.2s ease;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  white-space: nowrap;
 }
 .pro-view-all:hover {
-  color: var(--pro-gold-hover);
+  background: var(--pro-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.5);
 }
 .pro-product-grid {
   display: grid;
@@ -2726,6 +2734,65 @@
   .pro-section { padding: 2.5rem 1rem; }
   .pro-why-section { padding: 2.5rem 1rem; }
 }
+
+/* Shipping destination modal */
+.shipping-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1.5rem;
+}
+
+.shipping-modal {
+  background: #2a2a2a;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.shipping-modal-title {
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.4;
+}
+
+.shipping-modal-btn {
+  display: block;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shipping-modal-btn:last-child {
+  margin-bottom: 0;
+}
+
+.shipping-modal-btn:hover {
+  background: #d4af37;
+  color: #1a1a1a;
+  border-color: #d4af37;
+}
 </style>
 </head>
 <body>
@@ -2769,8 +2836,8 @@
 
     <div class="pro-section">
       <div class="pro-section-header">
-        <h2>Shop Our Most Popular Gifts</h2>
-        <a href="javascript:void(0)" onclick="document.querySelector('.cat-nav-wrap').scrollIntoView({behavior:'smooth'})" class="pro-view-all">View All →</a>
+        <h2>Enter Our Gift Emporium</h2>
+        <a href="javascript:void(0)" onclick="document.querySelector('.cat-nav-wrap').scrollIntoView({behavior:'smooth'})" class="pro-view-all">View All Gifts →</a>
       </div>
 
       <div class="pro-product-grid">
@@ -2998,7 +3065,7 @@ const CATEGORIES = [
     items: [{
         name: "Photo Postcard",
         img: "/products/framed-photo-tiles.jpg",
-        desc: "🎉 The first 20 customers get this for just £1.69 — use code FIRST20 at checkout! ⏳ Launch Price — Limited Time Only! Your favourite photo, printed on a classic 6x4 inch gloss postcard. A brilliant, genuinely affordable way to send a photo through the post, add a personal note to a gift, or just keep a memory close. Fancy something extra fun? Add our Cartoonify upgrade for just £1.99 at checkout, and we'll transform your uploaded photo into a custom cartoon illustration before printing.",
+        desc: "Your favourite photo, printed on a classic 6x4 inch gloss postcard. A brilliant, genuinely affordable way to send a photo through the post, add a personal note to a gift, or just keep a memory close. Fancy something extra fun? Add our Cartoonify upgrade for just £1.99 at checkout, and we'll transform your uploaded photo into a custom cartoon illustration before printing.",
         variants: [
           { sku: "CLASSIC-POST-GLOS-6X4", label: "6x4 inch (Gloss) — £2.99" },
         ],
@@ -3580,8 +3647,31 @@ function showCartoonOffer(itemId, sku, photoBase64, mimeType, statusEl, btn) {
   });
 }
 
+function askIfInternational() {
+  return new Promise((resolve) => {
+    const overlay = document.createElement("div");
+    overlay.className = "shipping-modal-overlay";
+    overlay.innerHTML = `
+      <div class="shipping-modal">
+        <p class="shipping-modal-title">Where should we ship your order?</p>
+        <button class="shipping-modal-btn shipping-modal-btn-uk" data-choice="uk">🇬🇧 Shipping to the UK</button>
+        <button class="shipping-modal-btn shipping-modal-btn-intl" data-choice="intl">🌍 Shipping Outside the UK</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    overlay.querySelector('[data-choice="uk"]').addEventListener("click", () => {
+      overlay.remove();
+      resolve(false);
+    });
+    overlay.querySelector('[data-choice="intl"]').addEventListener("click", () => {
+      overlay.remove();
+      resolve(true);
+    });
+  });
+}
+
 async function proceedToCheckout(itemId, sku, photoBase64, statusEl, btn, cartoonOptions) {
-  const isInternational = confirm("Ordering from outside the UK?");
+  const isInternational = await askIfInternational();
 
   statusEl.textContent = "Preparing checkout...";
   statusEl.className = "status loading";
