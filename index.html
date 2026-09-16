@@ -3838,7 +3838,7 @@ function renderProducts() {
         <p class="ip-notice" data-role="ip-notice" style="display:none;">Please only upload photos you own the rights to. We can't print copyrighted characters or artwork (e.g. Disney, Marvel, Pokémon).</p>
         <input type="file" accept="image/*" data-item="${itemId}">
         `}
-        <button class="buy-btn" data-item="${itemId}" data-role="buy-btn" ${item.noPhotoNeeded ? "" : "disabled"}>${item.noPhotoNeeded ? "Buy Gift Card" : "Step 1: Upload Your Photo"}</button>
+        <button class="buy-btn" data-item="${itemId}" data-role="buy-btn" ${item.noPhotoNeeded ? "" : "disabled"}>${item.noPhotoNeeded ? "Buy Gift Card" : "📸 Add Your Photo"}</button>
         <p class="status" data-status="${itemId}"></p>
       </div>
     `;
@@ -3869,7 +3869,7 @@ function renderProducts() {
       } else {
         if (buyBtn) {
           buyBtn.disabled = true;
-          buyBtn.textContent = "Step 1: Upload Your Photo";
+          buyBtn.textContent = "📸 Add Your Photo";
         }
         if (statusEl) {
           statusEl.textContent = "";
