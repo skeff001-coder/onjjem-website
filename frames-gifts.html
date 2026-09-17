@@ -162,8 +162,9 @@ ITEMS.forEach((item, i) => {
       <h3>${item.name}</h3>
       ${showDropdown ? `<select class="variant" data-item="${i}">${options}</select>` : `<p class="price">${item.variants[0].label}</p>`}
       <p class="desc">${item.desc}</p>
-      ${item.name !== "Gift Cards (Digital & Physical)" ? `<input type="file" accept="image/*" data-item="${i}">` : ''}
-      <button class="buy-btn" data-item="${i}" ${item.name === "Gift Cards (Digital & Physical)" ? '' : 'disabled'}>📸 Add Your Photo</button>
+      ${item.name !== "Gift Cards (Digital & Physical)" ? `<input type="file" accept="image/*" data-item="${i}" style="display:none;">` : ''}
+      ${item.name !== "Gift Cards (Digital & Physical)" ? `<button class="buy-btn" style="background:#8e7cc3; margin-bottom:0.5rem;" data-item="${i}" data-type="upload">📸 Pick your pic and click</button>` : ''}
+      <button class="buy-btn" data-item="${i}" data-type="checkout" ${item.name === "Gift Cards (Digital & Physical)" ? '' : 'style="display:none;"'}>Buy Now</button>
       <p class="status" data-status="${i}"></p>
     </div>
   `;
@@ -173,15 +174,25 @@ ITEMS.forEach((item, i) => {
 document.querySelectorAll('input[type="file"]').forEach(input => {
   input.addEventListener("change", () => {
     const i = input.dataset.item;
-    const btn = document.querySelector(`.buy-btn[data-item="${i}"]`);
+    const uploadBtn = document.querySelector(`button[data-item="${i}"][data-type="upload"]`);
+    const checkoutBtn = document.querySelector(`button[data-item="${i}"][data-type="checkout"]`);
     const status = document.querySelector(`[data-status="${i}"]`);
     if (input.files.length > 0) {
-      btn.disabled = false;
-      btn.textContent = "Buy Now";
+      uploadBtn.style.display = "none";
+      checkoutBtn.style.display = "block";
       status.textContent = "✅ Photo added";
       status.style.color = "#2e7d32";
     }
   });
+});
+
+document.querySelectorAll('button[data-type="upload"]').forEach(btn => {
+  btn.addEventListener("click", () => {
+    const i = btn.dataset.item;
+    const fileInput = document.querySelector(`input[type="file"][data-item="${i}"]`);
+    fileInput.click();
+  });
+});
 });
 
 function toBase64(file) {
@@ -193,7 +204,7 @@ function toBase64(file) {
   });
 }
 
-document.querySelectorAll(".buy-btn").forEach(btn => {
+document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
   btn.addEventListener("click", async () => {
     const i = btn.dataset.item;
     const item = window.__items[i];

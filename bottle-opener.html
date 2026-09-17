@@ -73,10 +73,11 @@
       </div>
       
       <div class="file-input-wrapper">
-        <input type="file" id="photo" accept="image/*" onchange="onPhotoSelect()">
+        <input type="file" id="photo" accept="image/*" onchange="onPhotoSelect()" style="display:none;">
+        <button class="buy-btn" style="background:#8e7cc3; margin-top:1rem;" onclick="document.getElementById('photo').click()">📸 Pick your pic and click</button>
       </div>
       
-      <button class="buy-btn" id="buyBtn" disabled onclick="handleCheckout()">📸 Add Photo & Buy</button>
+      <button class="buy-btn" id="buyBtn" disabled onclick="handleCheckout()">Buy Now</button>
       <p class="status" id="status"></p>
     </div>
   </div>
