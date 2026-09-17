@@ -74,39 +74,9 @@ const ITEMS = [
     img: "/products/framed-tile.jpg",
     desc: "Your photo printed on a durable tile, mounted in an elegant frame. Ready to hang. Bathroom-safe, easy to clean.",
     variants: [
-      { sku: "tile-frame-6x4", label: "6x4 inch Framed - £12.99" },
-      { sku: "tile-frame-8x6", label: "8x6 inch Framed - £18.99" },
-      { sku: "tile-frame-10x8", label: "10x8 inch Framed - £24.99" }
-    ]
-  },
-  {
-    name: "Gift Tags & More",
-    img: "/products/gift-tags.jpg",
-    desc: "Beautiful custom gift tags printed with your photo. Perfect for wrapping special presents. Hole for string or ribbon included.",
-    variants: [
-      { sku: "gift-tags-set-10", label: "Pack of 10 Tags - £8.99" },
-      { sku: "gift-tags-set-20", label: "Pack of 20 Tags - £14.99" }
-    ]
-  },
-  {
-    name: "Photo Coasters (Wooden)",
-    img: "/products/wooden-coasters.jpg",
-    desc: "Heat-resistant wooden coaster with cork backing. Photo printed on top. Practical, personal, and gets used every day.",
-    variants: [
-      { sku: "coaster-2pk", label: "Set of 2 - £11.99" },
-      { sku: "coaster-4pk", label: "Set of 4 - £16.99" }
-    ]
-  },
-  {
-    name: "Photo Magnets",
-    img: "/products/photo-magnets.webp",
-    desc: "High-gloss magnetic stock in multiple shapes. Mix and match to create your fridge gallery.",
-    variants: [
-      { sku: "magnet-fridge-3x2", label: "Fridge Magnet 3x2 - £8.99" },
-      { sku: "magnet-fridge-6x4", label: "Fridge Magnet 6x4 - £9.99" },
-      { sku: "magnet-acrylic-2x3", label: "Acrylic Magnet 2x3 - £12.99" },
-      { sku: "magnet-square-4x4", label: "Square Magnet 4x4 - £11.99" },
-      { sku: "magnet-square-6x6", label: "Square Magnet 6x6 - £17.99" }
+      { sku: "photo-tile-5x7", label: "5x7 inch Framed - £9.99" },
+      { sku: "photo-tile-8x8", label: "8x8 inch Framed - £14.99" },
+      { sku: "photo-tile-8x10", label: "8x10 inch Framed - £16.99" }
     ]
   },
   {
@@ -114,8 +84,8 @@ const ITEMS = [
     img: "/products/patch.jpg",
     desc: "Custom iron-on patch with your photo. Stick it on a bag, jacket, or cushion cover. Heat-transfer adhesive.",
     variants: [
-      { sku: "patch-3x3", label: "3x3 inch - £7.99" },
-      { sku: "patch-4x4", label: "4x4 inch - £11.99" }
+      { sku: "PATCH-ROUND", label: "Round - £4.99" },
+      { sku: "PATCH-SQUARE", label: "Square - £4.99" }
     ]
   },
   {
@@ -123,8 +93,11 @@ const ITEMS = [
     img: "/products/tattoos.jpg",
     desc: "Temporary photo tattoos featuring your image. Fun, harmless, and great for festivals or parties.",
     variants: [
-      { sku: "tattoo-sheet-5", label: "Sheet of 5 - £5.99" },
-      { sku: "tattoo-sheet-10", label: "Sheet of 10 - £9.99" }
+      { sku: "tattoo-s", label: "Small - £2.99" },
+      { sku: "tattoo-m", label: "Medium - £3.99" },
+      { sku: "tattoo-l", label: "Large - £4.99" },
+      { sku: "tattoo-xl", label: "Extra Large - £6.99" },
+      { sku: "tattoo-xxl", label: "XXL - £8.99" }
     ]
   },
   {
@@ -132,17 +105,17 @@ const ITEMS = [
     img: "/products/socks.jpg",
     desc: "Cosy crew socks with your photo printed all over. Available in multiple colours. Unisex fit.",
     variants: [
-      { sku: "socks-onesize", label: "One Size Socks - £14.99" }
+      { sku: "GLOBAL-ANKLE-SOCKS", label: "One Size Socks - £11.99" }
     ]
   },
   {
-    name: "Gift Cards (Digital & Physical)",
+    name: "ONJJEM Digital Gift Card",
     img: "/products/gift-card.jpg",
-    desc: "Let them choose their perfect personalised gift. Available from £20 up to £100. Digital delivery or physical card.",
+    desc: "Let them choose their perfect personalised gift. Delivered straight to their inbox as a unique code.",
     variants: [
-      { sku: "gift-card-20", label: "£20 Gift Card" },
-      { sku: "gift-card-50", label: "£50 Gift Card" },
-      { sku: "gift-card-100", label: "£100 Gift Card" }
+      { sku: "giftcard-20", label: "£20 Gift Card" },
+      { sku: "giftcard-30", label: "£30 Gift Card" },
+      { sku: "giftcard-50", label: "£50 Gift Card" }
     ]
   }
 ];
@@ -163,8 +136,8 @@ ITEMS.forEach((item, i) => {
       ${showDropdown ? `<select class="variant" data-item="${i}">${options}</select>` : `<p class="price">${item.variants[0].label}</p>`}
       <p class="desc">${item.desc}</p>
       ${item.name !== "Gift Cards (Digital & Physical)" ? `<input type="file" accept="image/*" data-item="${i}" style="display:none;">` : ''}
-      ${item.name !== "Gift Cards (Digital & Physical)" ? `<button class="buy-btn" style="background:#8e7cc3; margin-bottom:0.5rem;" data-item="${i}" data-type="upload">📸 Pick your pic and click</button>` : ''}
-      <button class="buy-btn" data-item="${i}" data-type="checkout" ${item.name === "Gift Cards (Digital & Physical)" ? '' : 'style="display:none;"'}>Buy Now</button>
+      ${item.name !== "ONJJEM Digital Gift Card" ? `<button class="buy-btn" style="background:#8e7cc3; margin-bottom:0.5rem;" data-item="${i}" data-type="upload">📸 Pick your pic and click</button>` : ''}
+      <button class="buy-btn" data-item="${i}" data-type="checkout" ${item.name === "ONJJEM Digital Gift Card" ? '' : 'style="display:none;"'}>Buy Now</button>
       <p class="status" data-status="${i}"></p>
     </div>
   `;
@@ -193,7 +166,6 @@ document.querySelectorAll('button[data-type="upload"]').forEach(btn => {
     fileInput.click();
   });
 });
-});
 
 function toBase64(file) {
   return new Promise((resolve, reject) => {
@@ -212,7 +184,7 @@ document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
     const sku = select ? select.value : item.variants[0].sku;
     
     // Gift cards don't need photos
-    if (item.name === "Gift Cards (Digital & Physical)") {
+    if (item.name === "ONJJEM Digital Gift Card") {
       btn.disabled = true;
       const status = document.querySelector(`[data-status="${i}"]`);
       status.textContent = "Preparing checkout...";
