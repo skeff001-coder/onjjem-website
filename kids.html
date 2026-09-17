@@ -70,6 +70,12 @@ const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
 
 const ITEMS = [
   {
+    name: "Personalised Velcro Baby Bib (White)",
+    img: "/products/baby-bib.jpg",
+    desc: "100% cotton, double-layered (200gsm) baby bib with your photo printed directly on garment. Velcro fastening. Safe for little ones.",
+    variants: [{ sku: "ONJJEM-BABY-BIB-WHI", label: "Baby Bib (White) - £7.50" }]
+  },
+  {
     name: "Kids Cartoon T-Shirt",
     img: "/products/kids-tshirt.jpg",
     desc: "Premium kids' cartoon t-shirt (Stanley/Stella STTK184). Your photo transforms into a playful cartoon illustration, printed large on the front. 6 colours, 5 sizes (3-14 years).",
@@ -193,7 +199,6 @@ document.querySelectorAll('button[data-type="upload"]').forEach(btn => {
     const fileInput = document.querySelector(`input[type="file"][data-item="${i}"]`);
     fileInput.click();
   });
-});
 });
 
 function toBase64(file) {
