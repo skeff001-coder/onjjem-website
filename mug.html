@@ -3,353 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChromaCoat Magic Mug — ONJJEM</title>
-<meta name="description" content="Upload your photo and get it printed on our heat-activated colour-changing mug. Apple Pay, Google Pay, and card — one tap checkout.">
-<script src="https://js.stripe.com/v3/"></script>
+<title>Photo Mug | ONJJEM Personalised Gifts</title>
+<meta name="description" content="Custom photo mug printed with your photo. Sharp vivid colours on durable ceramic. Dishwasher safe. Free UK shipping.">
+<link rel="canonical" href="https://www.onjjem.com/mug.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3L30Q5L3MK');
+</script>
 <style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: #0A0804;
-    color: #F5EDD8;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    padding-bottom: 40px;
-  }
-  .wrap { max-width: 420px; margin: 0 auto; padding: 20px 16px; }
-  .brand { text-align: center; font-size: 18px; font-weight: 900; color: #F3D078; letter-spacing: 1px; margin-bottom: 4px; }
-  h1 { text-align: center; font-size: 22px; font-weight: 800; color: #FFFFFF; margin: 4px 0 4px; }
-  .sub { text-align: center; color: rgba(245,237,216,0.65); font-size: 13px; margin-bottom: 16px; }
-
-  .hero-img { width: 100%; border-radius: 16px; margin-bottom: 16px; }
-
-  .price-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid rgba(184,137,42,0.2);
-    border-bottom: 1px solid rgba(184,137,42,0.2);
-    padding: 14px 0;
-    margin-bottom: 16px;
-  }
-  .price-now { font-size: 28px; font-weight: 900; color: #FFFFFF; }
-  .free-ship-pill {
-    background: rgba(57,255,136,0.15);
-    color: #39FF88;
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    border-radius: 20px;
-  }
-
-  /* Express Checkout renders here — Apple Pay / Google Pay / Link,
-     above the fold, before any manual form fields */
-  #express-checkout-element { margin-bottom: 16px; min-height: 44px; }
-  .express-divider {
-    text-align: center;
-    font-size: 12px;
-    color: rgba(245,237,216,0.4);
-    margin: 4px 0 16px;
-  }
-
-  .upload-box {
-    background: rgba(184,137,42,0.08);
-    border: 2px dashed rgba(184,137,42,0.4);
-    border-radius: 16px;
-    padding: 28px 16px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 16px;
-  }
-  .upload-box svg { width: 36px; height: 36px; margin-bottom: 8px; color: #D4B14A; }
-  .upload-box .main-text { font-size: 15px; font-weight: 800; color: #F3E9D6; }
-  .upload-box .sub-text { font-size: 12px; color: rgba(245,237,216,0.5); margin-top: 4px; }
-  #photoInput { display: none; }
-  #photoPreview { display: none; max-width: 100%; max-height: 200px; border-radius: 12px; margin-bottom: 8px; }
-
-  .cartoon-box {
-    border: 2px dashed #8E24AA;
-    background: rgba(142,36,170,0.1);
-    border-radius: 16px;
-    padding: 14px;
-    margin-bottom: 16px;
-  }
-  .cartoon-box label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
-  .cartoon-box input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; }
-  .cartoon-title { font-weight: 900; color: #F3D078; font-size: 15px; }
-  .cartoon-desc { font-size: 12.5px; color: rgba(245,237,216,0.7); margin-top: 4px; line-height: 1.5; }
-  .status { font-size: 13px; text-align: center; min-height: 18px; margin-top: 6px; }
-  .status.error { color: #E8A05C; }
-
-  .buy-btn {
-    width: 100%;
-    background: linear-gradient(135deg,#B8892A,#D4B14A,#F3E2BC,#B8892A);
-    color: #1A1206;
-    font-size: 17px;
-    font-weight: 900;
-    padding: 16px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-  .buy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #2a2a2a; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  .header { background: #3a3a3a; padding: 1.2rem 1.5rem; border-bottom: 2px solid #d4af37; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+  .logo { font-size: 1.5rem; font-weight: 700; color: #d4af37; text-decoration: none; letter-spacing: 2px; }
+  .nav { display: flex; gap: 1.5rem; }
+  .nav a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+  .nav a:hover { color: #d4af37; }
+  .page-header { text-align: center; padding: 2.5rem 1.5rem 1.5rem; }
+  .page-header h1 { color: #d4af37; font-size: 2rem; margin-bottom: 0.5rem; }
+  .page-header p { color: #ccc; max-width: 600px; margin: 0 auto; }
+  .products { max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .card { background: #fff; border-radius: 10px; overflow: hidden; }
+  .card img { width: 100%; height: 200px; object-fit: cover; display: block; background: #eee; }
+  .card-body { padding: 1.2rem; }
+  .card h3 { color: #1a1a1a; font-size: 1.1rem; margin-bottom: 0.3rem; }
+  .card .price { color: #b8892a; font-weight: 700; margin-bottom: 0.6rem; }
+  .card .desc { color: #666; font-size: 0.85rem; line-height: 1.5; margin-bottom: 1rem; }
+  select.variant { width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 0.8rem; font-size: 0.85rem; }
+  input[type=file] { width: 100%; font-size: 0.8rem; margin-bottom: 0.8rem; }
+  .buy-btn { display: block; width: 100%; background: #d4af37; color: #1a1a1a; font-weight: 700; padding: 0.8rem; border: none; border-radius: 6px; cursor: pointer; }
+  .buy-btn:hover { background: #e5c158; }
+  .status { font-size: 0.8rem; margin-top: 0.5rem; min-height: 14px; text-align: center; }
+  footer { text-align: center; padding: 2rem; color: #999; border-top: 1px solid #444; font-size: 0.85rem; }
+  footer a { color: #d4af37; text-decoration: none; margin: 0 8px; }
 </style>
 </head>
 <body>
 
-  <div class="wrap">
-    <div class="brand">ONJJEM</div>
-    <h1>ChromaCoat Magic Mug</h1>
-    <p class="sub">Looks plain black — reveals your photo in full colour with hot drinks</p>
+<header class="header">
+  <a href="/" class="logo">ONJJEM</a>
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/#help">Help</a>
+    <a href="/gift-cards.html">Gift Cards</a>
+  </nav>
+</header>
 
-    <img class="hero-img" src="/products/magic-mug-final.png" alt="ChromaCoat colour-changing mug">
+<div class="page-header">
+  <h1>Photo Mugs</h1>
+  <p>Classic custom mugs with your photo in sharp, vivid colour. Dishwasher and microwave safe.</p>
+</div>
 
-    <div class="price-row">
-      <div class="price-now">£17.99</div>
-      <span class="free-ship-pill">Free UK Shipping</span>
-    </div>
+<div class="products" id="products"></div>
 
-    <!-- Stripe Express Checkout — Apple Pay / Google Pay / Link.
-         Only shows up if the customer's device/browser actually
-         supports one of these — otherwise this whole block stays
-         empty and they just use the normal upload+buy flow below. -->
-    <div id="express-checkout-element"></div>
-    <p class="express-divider" id="expressDivider" style="display:none;">or pay with card below</p>
-
-    <div class="upload-box" id="uploadBox" onclick="document.getElementById('photoInput').click()">
-      <svg id="uploadIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-      <img id="photoPreview" alt="Your uploaded photo">
-      <div class="main-text" id="uploadMainText">Tap to Upload Your Photo</div>
-      <div class="sub-text" id="uploadSubText">Accepts JPG or PNG from your camera roll</div>
-    </div>
-    <input type="file" id="photoInput" accept="image/*">
-    <p class="status" id="fileStatus"></p>
-
-    <div class="cartoon-box">
-      <label>
-        <input type="checkbox" id="cartoonCheckbox">
-        <div>
-          <div class="cartoon-title">✨ Cartoonify My Photo! (+£1.99)</div>
-          <div class="cartoon-desc">See a free preview first — if you love it, we'll print the full-quality cartoon version onto your mug instead of the plain photo.</div>
-        </div>
-      </label>
-    </div>
-    <div id="previewWrap" style="display:none; margin-bottom:16px; text-align:center;">
-      <img id="previewImg" style="max-width:100%; border-radius:14px; box-shadow:0 4px 16px rgba(0,0,0,0.4);" alt="Your cartoon preview">
-    </div>
-
-    <label for="postcodeInput" style="display:block; font-size:13px; font-weight:700; color:#F3E9D6; margin-bottom:6px;">Your postcode (for delivery cost)</label>
-    <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA" style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(184,137,42,0.4); background:rgba(255,255,255,0.06); color:#F5EDD8; font-size:15px; margin-bottom:16px;">
-
-    <button class="buy-btn" id="buyBtn" disabled onclick="startCheckout()">Buy Now — £17.99</button>
-    <p class="status" id="checkoutStatus"></p>
-  </div>
+<footer>
+  <a href="/delivery.html">Delivery Info</a>
+  <a href="/terms.html">Terms</a>
+  <a href="/privacy.html">Privacy</a>
+</footer>
 
 <script>
 const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
-const SKU = "magic-mug";
-let photoBase64 = null;
-let stripe = null;
 
-function toBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+const ITEMS = [
+  {
+    name: "Photo Mug (11oz)",
+    img: "/products/photo-mugs-v2.jpg",
+    desc: "Perfect everyday size. Sharp, vivid photo on classic ceramic mug.",
+    variants: [{ sku: "mug-11oz", label: "11oz Mug - £11.99" }]
+  },
+  {
+    name: "Photo Mug (15oz Large)",
+    img: "/products/photo-mugs-v2.jpg",
+    desc: "Extra large for coffee lovers. Great for travel or home.",
+    variants: [{ sku: "mug-15oz", label: "15oz Large Mug - £17.99" }]
+  }
+];
+
+function renderProducts() {
+  const container = document.getElementById('products');
+  container.innerHTML = ITEMS.map((item, idx) => `
+    <div class="card">
+      <img src="${item.img}" alt="${item.name}">
+      <div class="card-body">
+        <h3>${item.name}</h3>
+        <p class="desc">${item.desc}</p>
+        <p class="price">${item.variants[0].label.split(' - ')[1]}</p>
+        <input type="file" accept="image/*" onchange="handleFileUpload(this, event)" data-sku="${item.variants[0].sku}" style="display:none;" id="fileInput${idx}">
+        <button class="buy-btn" style="background:#8e7cc3; margin-bottom:0.5rem;" onclick="document.getElementById('fileInput${idx}').click()">📸 Pick your pic and click</button>
+        <button class="buy-btn" onclick="startCheckout(this)">Buy Now</button>
+        <div class="status" id="status"></div>
+      </div>
+    </div>
+  `).join('');
 }
 
-document.getElementById("photoInput").addEventListener("change", async (e) => {
-  const file = e.target.files[0];
-  const fileStatus = document.getElementById("fileStatus");
-  const buyBtn = document.getElementById("buyBtn");
-  if (!file) return;
-  fileStatus.textContent = "Loading your photo...";
-  try {
-    photoBase64 = await toBase64(file);
-    document.getElementById("photoPreview").src = photoBase64;
-    document.getElementById("photoPreview").style.display = "block";
-    document.getElementById("uploadIcon").style.display = "none";
-    document.getElementById("uploadMainText").textContent = "✅ Photo added — tap to change";
-    document.getElementById("uploadSubText").textContent = file.name;
-    fileStatus.textContent = "";
-    buyBtn.disabled = false;
-  } catch (err) {
-    fileStatus.textContent = "Could not read that photo. Please try again.";
+function handleFileUpload(input, event) {
+  const file = event.target.files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      input.dataset.photo = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
-});
+}
 
-let confirmedCartoonBase64 = null;
-
-document.getElementById("cartoonCheckbox").addEventListener("change", async (e) => {
-  const status = document.getElementById("checkoutStatus");
-  if (!e.target.checked) {
-    status.textContent = "";
-    confirmedCartoonBase64 = null;
+async function startCheckout(btn) {
+  const card = btn.closest('.card-body');
+  const fileInput = card.querySelector('input[type=file]');
+  const status = card.querySelector('.status');
+  
+  const sku = fileInput.dataset.sku;
+  const photo = fileInput.dataset.photo;
+  
+  if (!photo) {
+    status.textContent = 'Please pick your pic first!';
     return;
   }
-  if (!photoBase64) {
-    status.textContent = "Please upload a photo first.";
-    e.target.checked = false;
-    return;
-  }
-  status.textContent = "Generating your free cartoon preview...";
-  try {
-    const mimeMatch = photoBase64.match(/^data:([^;]+);/);
-    const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
-    const res = await fetch(`${API_BASE}/api/cartoonify`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: true }),
-    });
-    const data = await res.json();
-    if (data.alreadyUsed) {
-      status.textContent = "You've used your free preview — the cartoon will still be added at checkout (may take a little longer).";
-      return;
-    }
-    if (!res.ok || !data.base64Image) {
-      throw new Error(data.error || "Could not generate preview");
-    }
-    document.getElementById("previewImg").src = `data:${data.mimeType};base64,${data.base64Image}`;
-    document.getElementById("previewWrap").style.display = "block";
-    status.textContent = "Preparing your full-quality version...";
-
-    // Generate the real, unwatermarked version now, while they're still
-    // looking at the preview — so tapping "Buy Now" later doesn't have to
-    // wait for a fresh AI generation and feel like it's hanging.
-    const finalRes = await fetch(`${API_BASE}/api/cartoonify`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: false }),
-    });
-    const finalData = await finalRes.json();
-    if (finalRes.ok && finalData.base64Image) {
-      confirmedCartoonBase64 = finalData.base64Image;
-      status.textContent = "✅ Here's your free preview! Love it? Tap below to order.";
-    } else {
-      status.textContent = "✅ Here's your free preview! Love it? Tap below to order.";
-    }
-  } catch (err) {
-    status.textContent = "Couldn't generate a preview — the cartoon will still be added at checkout.";
-  }
-});
-
-async function startCheckout() {
-  const buyBtn = document.getElementById("buyBtn");
-  const status = document.getElementById("checkoutStatus");
-
-  if (!photoBase64) {
-    status.textContent = "Please upload a photo first.";
-    return;
-  }
-
-  const postcode = document.getElementById("postcodeInput").value.trim();
-  if (!postcode) {
-    status.textContent = "Please enter your postcode above to continue.";
-    return;
-  }
-  const isInternational = !/^[A-Za-z]{1,2}\d/.test(postcode);
-
-  buyBtn.disabled = true;
-  status.textContent = "Preparing checkout...";
-
-  const addCartoon = document.getElementById("cartoonCheckbox").checked;
-
+  
+  btn.disabled = true;
+  status.textContent = 'Starting checkout...';
+  
   try {
     const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        sku: SKU,
-        photoBase64,
-        international: isInternational,
-        successUrl: window.location.origin + "/?order=success",
-        cancelUrl: window.location.href,
-        ...(addCartoon ? { addCartoon: true } : {}),
-        ...(addCartoon && confirmedCartoonBase64 ? { confirmedCartoonBase64 } : {}),
-      }),
+        sku,
+        photoBase64: photo,
+        successUrl: window.location.origin + '/?order=success',
+        cancelUrl: window.location.href
+      })
     });
+    
     const data = await res.json();
     if (data.url) {
       window.location.href = data.url;
     } else {
-      throw new Error(data.error || "Could not start checkout");
+      throw new Error(data.error || 'Checkout failed');
     }
   } catch (err) {
-    status.textContent = "Something went wrong — please try again.";
-    buyBtn.disabled = false;
+    status.textContent = err.message || 'Something went wrong.';
+    btn.disabled = false;
   }
 }
 
-// ── Stripe Express Checkout (Apple Pay / Google Pay / Link) ─────────────────
-// This requires a photo to already be uploaded before it can charge — so we
-// only mount it once a photo exists, and it reuses the exact same backend
-// endpoint as the normal Buy button, just skipping the extra tap.
-(async function setupExpressCheckout() {
-  try {
-    const configRes = await fetch(`${API_BASE}/api/stripe/config`);
-    const config = await configRes.json();
-    if (!config.publishableKey) return;
-
-    stripe = Stripe(config.publishableKey);
-
-    const elements = stripe.elements({
-      mode: "payment",
-      amount: 1799,
-      currency: "gbp",
-    });
-
-    const expressCheckoutElement = elements.create("expressCheckout");
-    expressCheckoutElement.mount("#express-checkout-element");
-
-    expressCheckoutElement.on("ready", ({ availablePaymentMethods }) => {
-      if (availablePaymentMethods) {
-        document.getElementById("expressDivider").style.display = "block";
-      }
-    });
-
-    expressCheckoutElement.on("confirm", async () => {
-      if (!photoBase64) {
-        alert("Please upload your photo first, then use Apple Pay / Google Pay.");
-        return;
-      }
-      const postcode = document.getElementById("postcodeInput").value.trim();
-      if (!postcode) {
-        alert("Please enter your postcode above first, then use Apple Pay / Google Pay.");
-        return;
-      }
-      const isInternational = !/^[A-Za-z]{1,2}\d/.test(postcode);
-
-      try {
-        const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            sku: SKU,
-            photoBase64,
-            international: isInternational,
-            successUrl: window.location.origin + "/?order=success",
-            cancelUrl: window.location.href,
-          }),
-        });
-        const data = await res.json();
-        if (data.url) {
-          window.location.href = data.url;
-        }
-      } catch (err) {
-        alert("Something went wrong — please try again.");
-      }
-    });
-  } catch (err) {
-    // If this fails for any reason, the page still works fine via the
-    // normal Buy Now button below — Express Checkout is a bonus, not a
-    // requirement.
-    console.log("Express Checkout unavailable:", err);
-  }
-})();
+renderProducts();
 </script>
+
 </body>
 </html>
