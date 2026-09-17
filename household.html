@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Household Gifts | ONJJEM</title>
+<meta name="description" content="Personalised mugs, blankets, aprons, coasters and more. Free UK shipping.">
+<link rel="canonical" href="https://onjjem.com/household" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3L30Q5L3MK');
+</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#2a2a2a; color:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
+  .header { background:#3a3a3a; padding:1.2rem 1.5rem; border-bottom:2px solid #d4af37; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+  .logo { font-size:1.5rem; font-weight:700; color:#d4af37; text-decoration:none; letter-spacing:2px; }
+  .nav { display:flex; gap:1.5rem; }
+  .nav a { color:#fff; text-decoration:none; font-weight:500; font-size:0.9rem; }
+  .nav a:hover { color:#d4af37; }
+  .page-header { text-align:center; padding:2.5rem 1.5rem 1.5rem; }
+  .page-header h1 { color:#d4af37; font-size:2rem; margin-bottom:0.5rem; }
+  .page-header p { color:#ccc; max-width:600px; margin:0 auto; }
+  .products { max-width:1100px; margin:0 auto; padding:1rem 1.5rem 3rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+  .card { background:#fff; border-radius:10px; overflow:hidden; }
+  .card img { width:100%; height:200px; object-fit:cover; display:block; background:#eee; }
+  .card-body { padding:1.2rem; }
+  .card h3 { color:#1a1a1a; font-size:1.1rem; margin-bottom:0.3rem; }
+  .card .price { color:#b8892a; font-weight:700; margin-bottom:0.6rem; }
+  .card .desc { color:#666; font-size:0.85rem; line-height:1.5; margin-bottom:1rem; }
+  select.variant { width:100%; padding:0.6rem; border-radius:6px; border:1px solid #ccc; margin-bottom:0.8rem; font-size:0.85rem; }
+  input[type=file] { width:100%; font-size:0.8rem; margin-bottom:0.8rem; }
+  .buy-btn { display:block; width:100%; background:#d4af37; color:#1a1a1a; font-weight:700; padding:0.8rem; border:none; border-radius:6px; cursor:pointer; }
+  .buy-btn:hover { background:#e5c158; }
+  .status { font-size:0.8rem; margin-top:0.5rem; min-height:14px; text-align:center; }
+  footer { text-align:center; padding:2rem; color:#999; border-top:1px solid #444; font-size:0.85rem; }
+  footer a { color:#d4af37; text-decoration:none; margin:0 8px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/" class="logo">ONJJEM</a>
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/#help">Help</a>
+    <a href="/gift-cards.html">Gift Cards</a>
+  </nav>
+</header>
+
+<div class="page-header">
+  <h1>Household Surprises</h1>
+  <p>Mugs, blankets, coasters and everyday items — all printed with your own photo.</p>
+</div>
+
+<div class="products" id="products"></div>
+
+<footer>
+  <a href="/delivery.html">Delivery Info</a>
+  <a href="/terms.html">Terms</a>
+  <a href="/privacy.html">Privacy</a>
+</footer>
+
+<script>
+const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+
+const ITEMS = [
+  {
+    name: "ChromaCoat Mug",
+    img: "/products/magic-mug-final.png",
+    desc: "Looks plain black in the box — pour in a hot drink and your photo appears in full colour. Dishwasher safe. Handmade to order, please allow 2-5 working days.",
+    variants: [{ sku: "magic-mug", label: "11oz Heat-Activated Mug — £17.99" }]
+  },
+  {
+    name: "Photo Mugs",
+    img: "/products/photo-mugs-v2.jpg",
+    desc: "A classic that never goes out of style. Sharp, vivid colour on a durable ceramic mug. Dishwasher and microwave safe.",
+    variants: [
+      { sku: "mug-11oz", label: "11oz Mug - £11.99" },
+      { sku: "mug-15oz", label: "15oz Large Mug - £17.99" }
+    ]
+  },
+  {
+    name: "Custom Wooden Drink Coasters",
+    img: "/products/wooden-coasters.jpg",
+    desc: "Heat-resistant surface with cork backing. A practical, personal gift that gets used every day.",
+    variants: [
+      { sku: "coaster-2pk", label: "Set of 2 - £11.99" },
+      { sku: "coaster-4pk", label: "Set of 4 - £16.99" }
+    ]
+  },
+  {
+    name: "Premium Personalised Kitchen Towel",
+    img: "/products/tea-towels.jpg",
+    desc: "Soft, high-absorbency tea towel with your photo in bright, long-lasting print. Fully machine washable.",
+    variants: [
+      { sku: "tea-towel-poly", label: "Polyester - £14.99" },
+      { sku: "tea-towel-cotton", label: "Cotton Twill - £18.99" }
+    ]
+  },
+  {
+    name: "Photo Magnets",
+    img: "/products/photo-magnets.webp",
+    desc: "Durable, high-gloss magnetic stock. Mix and match sizes to build your own fridge gallery.",
+    variants: [
+      { sku: "magnet-fridge-3x2", label: "Fridge Magnet 3x2 - £8.99" },
+      { sku: "magnet-fridge-6x4", label: "Fridge Magnet 6x4 - £9.99" },
+      { sku: "magnet-acrylic-2x3", label: "Acrylic Magnet 2x3 - £12.99" },
+      { sku: "magnet-square-4x4", label: "Square Magnet 4x4 - £11.99" },
+      { sku: "magnet-square-6x6", label: "Square Magnet 6x6 - £17.99" }
+    ]
+  },
+  {
+    name: "Personalised Chef's Apron (Child)",
+    img: "/products/Chef.PNG",
+    desc: "Premium 360gsm canvas apron, machine washable. Photo printed large across the front. White strap and ties.",
+    variants: [{ sku: "H-APR-CA-WTIE", label: "Child Size (19.5\" x 25\") - £19.95" }]
+  },
+  {
+    name: "Personalised Chef's Apron (Adult)",
+    img: "/products/Chef2.PNG",
+    desc: "The grown-up match to our Child's Apron. Same premium canvas, black strap and ties. Perfect matching set.",
+    variants: [{ sku: "H-APR-AA-BTIE", label: "Adult Size (25\" x 35\") - £24.49" }]
+  },
+  {
+    name: "Personalised Velcro Baby Bib (White)",
+    img: "/products/baby-bib.jpg",
+    desc: "100% cotton, double-layered (200gsm) baby bib with your photo printed directly on garment. Velcro fastening. Safe for little ones.",
+    variants: [{ sku: "ONJJEM-BABY-BIB-WHI", label: "Baby Bib (White) - £7.50" }]
+  },
+  {
+    name: "Aluminium Blade Bottle Opener",
+    img: "/products/bar-blade-opener.jpg",
+    desc: "Sleek 4cm x 17.8cm aluminium bottle opener with your photo printed on one side. Direct UV printing with white underbase for durability.",
+    variants: [{ sku: "ONJJEM-BAR-BLADE-ALUM", label: "Bar Blade Opener - £7.99" }]
+  },
+  {
+    name: "Personalised Photo Hot Water Bottle (2L)",
+    img: "/products/hot-water-bottle.jpg",
+    desc: "Premium 2L rubber hot water bottle with ultra-soft plush cover featuring your photo. Edge-to-edge sublimation print. Meets safety standard BS1970:2012. Includes free UK tracked delivery.",
+    variants: [{ sku: "ONJJEM-HWB-2L-PLUSH", label: "2L Hot Water Bottle - £18.49" }]
+  },
+  {
+    name: "TCQ Luxury Velvet Red Christmas Stocking",
+    img: "/products/christmas-stocking.jpg",
+    desc: "Luxury red velvet Christmas stocking with your photo printed on the cuff. Personalized keepsake gift. Includes free UK tracked delivery.",
+    variants: [{ sku: "ONJJEM-XMAS-STOCKING-RED", label: "Red Velvet Stocking - £15.99" }]
+  },
+  {
+    name: "Personalised Red Velvet Christmas Sack",
+    img: "/products/christmas-sack.jpg",
+    desc: "Premium red velvet Christmas sack featuring your photo printed on the front. Perfect for storing gifts and decorations. A beautiful keepsake. Includes free UK tracked delivery.",
+    variants: [{ sku: "ONJJEM-XMAS-SACK-RED", label: "Red Velvet Sack - £19.99" }]
+  },
+
+];
+
+const grid = document.getElementById("products");
+window.__items = {};
+
+ITEMS.forEach((item, i) => {
+  window.__items[i] = item;
+  const showDropdown = item.variants.length > 1;
+  const options = item.variants.map(v => `<option value="${v.sku}">${v.label}</option>`).join("");
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <img src="${item.img}" alt="${item.name}" loading="lazy">
+    <div class="card-body">
+      <h3>${item.name}</h3>
+      ${showDropdown ? `<select class="variant" data-item="${i}">${options}</select>` : `<p class="price">${item.variants[0].label}</p>`}
+      <p class="desc">${item.desc}</p>
+      <input type="file" accept="image/*" data-item="${i}">
+      <button class="buy-btn" data-item="${i}" disabled>📸 Add Your Photo</button>
+      <p class="status" data-status="${i}"></p>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+document.querySelectorAll('input[type="file"]').forEach(input => {
+  input.addEventListener("change", () => {
+    const i = input.dataset.item;
+    const btn = document.querySelector(`.buy-btn[data-item="${i}"]`);
+    const status = document.querySelector(`[data-status="${i}"]`);
+    if (input.files.length > 0) {
+      btn.disabled = false;
+      btn.textContent = "Buy Now";
+      status.textContent = "✅ Photo added";
+      status.style.color = "#2e7d32";
+    }
+  });
+});
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+document.querySelectorAll(".buy-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const i = btn.dataset.item;
+    const item = window.__items[i];
+    const select = document.querySelector(`select[data-item="${i}"]`);
+    const sku = select ? select.value : item.variants[0].sku;
+    const fileInput = document.querySelector(`input[type="file"][data-item="${i}"]`);
+    const status = document.querySelector(`[data-status="${i}"]`);
+    const file = fileInput.files[0];
+    if (!file) { status.textContent = "Please choose a photo first"; return; }
+
+    btn.disabled = true;
+    status.textContent = "Preparing checkout...";
+
+    try {
+      const photoBase64 = await toBase64(file);
+      const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sku,
+          photoBase64,
+          successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
+          cancelUrl: window.location.href
+        })
+      });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+      else { status.textContent = data.error || "Something went wrong"; btn.disabled = false; }
+    } catch (err) {
+      status.textContent = "Could not connect. Please try again.";
+      btn.disabled = false;
+    }
+  });
+});
+</script>
+</body>
+</html>

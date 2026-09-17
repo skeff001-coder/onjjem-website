@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift Cards | ONJJEM</title>
+<meta name="description" content="ONJJEM gift cards. Let them choose their perfect personalised photo gift. From £20 to £100.">
+<link rel="canonical" href="https://onjjem.com/gift-cards" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3L30Q5L3MK');
+</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#2a2a2a; color:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
+  .header { background:#3a3a3a; padding:1.2rem 1.5rem; border-bottom:2px solid #d4af37; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+  .logo { font-size:1.5rem; font-weight:700; color:#d4af37; text-decoration:none; letter-spacing:2px; }
+  .nav { display:flex; gap:1.5rem; }
+  .nav a { color:#fff; text-decoration:none; font-weight:500; font-size:0.9rem; }
+  .nav a:hover { color:#d4af37; }
+  .page-header { text-align:center; padding:2.5rem 1.5rem 1.5rem; }
+  .page-header h1 { color:#d4af37; font-size:2rem; margin-bottom:0.5rem; }
+  .page-header p { color:#ccc; max-width:600px; margin:0 auto; }
+  .products { max-width:1100px; margin:0 auto; padding:1rem 1.5rem 3rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+  .card { background:#fff; border-radius:10px; overflow:hidden; }
+  .card-body { padding:1.2rem; }
+  .card h3 { color:#1a1a1a; font-size:1.1rem; margin-bottom:0.3rem; }
+  .card .price { color:#b8892a; font-weight:700; margin-bottom:0.6rem; font-size:1.5rem; }
+  .card .desc { color:#666; font-size:0.85rem; line-height:1.5; margin-bottom:1rem; }
+  .buy-btn { display:block; width:100%; background:#d4af37; color:#1a1a1a; font-weight:700; padding:0.8rem; border:none; border-radius:6px; cursor:pointer; }
+  .buy-btn:hover { background:#e5c158; }
+  .status { font-size:0.8rem; margin-top:0.5rem; min-height:14px; text-align:center; }
+  footer { text-align:center; padding:2rem; color:#999; border-top:1px solid #444; font-size:0.85rem; }
+  footer a { color:#d4af37; text-decoration:none; margin:0 8px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/" class="logo">ONJJEM</a>
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/#help">Help</a>
+  </nav>
+</header>
+
+<div class="page-header">
+  <h1>🎁 ONJJEM Gift Cards</h1>
+  <p>Let them choose their perfect personalised photo gift. Available as digital or physical card delivery.</p>
+</div>
+
+<div class="products" id="products"></div>
+
+<footer>
+  <a href="/delivery.html">Delivery Info</a>
+  <a href="/terms.html">Terms</a>
+  <a href="/privacy.html">Privacy</a>
+</footer>
+
+<script>
+const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+
+const ITEMS = [
+  {
+    name: "£20 Gift Card",
+    desc: "Digital delivery or physical card. Redeemable for any ONJJEM product.",
+    variants: [{ sku: "gift-card-20", label: "£20 Gift Card" }]
+  },
+  {
+    name: "£50 Gift Card",
+    desc: "Digital delivery or physical card. Perfect for a premium gift.",
+    variants: [{ sku: "gift-card-50", label: "£50 Gift Card" }]
+  },
+  {
+    name: "£100 Gift Card",
+    desc: "Digital delivery or physical card. Unlock the full range of premium products.",
+    variants: [{ sku: "gift-card-100", label: "£100 Gift Card" }]
+  }
+];
+
+const grid = document.getElementById("products");
+window.__items = {};
+
+ITEMS.forEach((item, i) => {
+  window.__items[i] = item;
+  const card = document.createElement("div");
+  card.className = "card";
+  const priceMatch = item.variants[0].label.match(/£(\d+)/);
+  const price = priceMatch ? priceMatch[1] : "?";
+  card.innerHTML = `
+    <div class="card-body">
+      <h3>${item.name}</h3>
+      <p class="price">£${price}</p>
+      <p class="desc">${item.desc}</p>
+      <button class="buy-btn" data-item="${i}">Buy Now →</button>
+      <p class="status" data-status="${i}"></p>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+document.querySelectorAll(".buy-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const i = btn.dataset.item;
+    const item = window.__items[i];
+    const sku = item.variants[0].sku;
+    const status = document.querySelector(`[data-status="${i}"]`);
+
+    btn.disabled = true;
+    status.textContent = "Preparing checkout...";
+
+    try {
+      const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sku,
+          successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
+          cancelUrl: window.location.href
+        })
+      });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+      else { status.textContent = data.error || "Something went wrong"; btn.disabled = false; }
+    } catch (err) {
+      status.textContent = "Could not connect. Please try again.";
+      btn.disabled = false;
+    }
+  });
+});
+</script>
+</body>
+</html>

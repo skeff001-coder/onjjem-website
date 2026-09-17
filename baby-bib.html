@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalised Velcro Baby Bib | ONJJEM</title>
+<meta name="description" content="Custom photo baby bib with optional cartoon transformation. 100% cotton, Velcro fastening.">
+<link rel="canonical" href="https://onjjem.com/baby-bib" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MK"></script>
+<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-3L30Q5L3MK');</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#2a2a2a; color:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+  .header { background:#3a3a3a; padding:1.2rem 1.5rem; border-bottom:2px solid #d4af37; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+  .logo { font-size:1.5rem; font-weight:700; color:#d4af37; text-decoration:none; letter-spacing:2px; }
+  .nav { display:flex; gap:1.5rem; }
+  .nav a { color:#fff; text-decoration:none; font-weight:500; font-size:0.9rem; }
+  .nav a:hover { color:#d4af37; }
+  .container { max-width:900px; margin:0 auto; padding:2rem 1.5rem; }
+  .product { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  .product-img { background:#fff; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:400px; }
+  .product-img img { width:100%; height:100%; object-fit:cover; }
+  .product-details h1 { color:#d4af37; font-size:1.8rem; margin-bottom:1rem; }
+  .product-details p { color:#ccc; line-height:1.6; margin-bottom:1rem; }
+  .price { font-size:2rem; color:#d4af37; font-weight:700; margin:1.5rem 0; }
+  .toggle-group { background:#3a3a3a; padding:1.5rem; border-radius:8px; margin:1.5rem 0; }
+  .toggle-group label { display:flex; align-items:center; gap:0.8rem; cursor:pointer; margin-bottom:0.8rem; }
+  .toggle-group input[type="checkbox"] { width:20px; height:20px; cursor:pointer; }
+  .toggle-group .toggle-text { color:#ccc; }
+  .file-input-wrapper { margin:1.5rem 0; }
+  input[type="file"] { width:100%; padding:0.8rem; border:2px dashed #d4af37; border-radius:6px; background:#3a3a3a; color:#fff; }
+  .buy-btn { display:block; width:100%; background:#d4af37; color:#1a1a1a; font-weight:700; padding:1rem; border:none; border-radius:6px; cursor:pointer; font-size:1rem; margin-top:1.5rem; }
+  .buy-btn:hover { background:#e5c158; }
+  .buy-btn:disabled { opacity:0.5; cursor:not-allowed; }
+  .status { font-size:0.9rem; margin-top:0.8rem; min-height:20px; }
+  .back-link { color:#d4af37; text-decoration:none; margin-bottom:1rem; display:inline-block; }
+  .back-link:hover { text-decoration:underline; }
+  @media (max-width: 768px) {
+    .product { grid-template-columns:1fr; }
+    .product-img { min-height:300px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/" class="logo">ONJJEM</a>
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/#help">Help</a>
+  </nav>
+</header>
+
+<div class="container">
+  <a href="/household.html" class="back-link">← Back to Household</a>
+  
+  <div class="product">
+    <div class="product-img">
+      <img src="/products/baby-bib.jpg" alt="Personalised Baby Bib">
+    </div>
+    
+    <div class="product-details">
+      <h1>Personalised Velcro Baby Bib (White)</h1>
+      <p>100% cotton, double-layered (200gsm) baby bib with your photo printed directly on garment. Soft Velcro fastening makes it safe and comfy for little ones.</p>
+      
+      <div class="price" id="price">£7.50</div>
+      
+      <div class="toggle-group">
+        <label>
+          <input type="checkbox" id="cartoonify" onchange="updatePrice()">
+          <span class="toggle-text">Add Cartoon Transformation +£1.99</span>
+        </label>
+      </div>
+      
+      <div class="file-input-wrapper">
+        <input type="file" id="photo" accept="image/*" onchange="onPhotoSelect()">
+      </div>
+      
+      <button class="buy-btn" id="buyBtn" disabled onclick="handleCheckout()">📸 Add Photo & Buy</button>
+      <p class="status" id="status"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+const SKU = "ONJJEM-BABY-BIB-WHI";
+const BASE_PRICE = 7.50;
+const CARTOONIFY_COST = 1.99;
+
+function updatePrice() {
+  const cartoonify = document.getElementById('cartoonify').checked;
+  const total = cartoonify ? BASE_PRICE + CARTOONIFY_COST : BASE_PRICE;
+  document.getElementById('price').textContent = '£' + total.toFixed(2);
+}
+
+function onPhotoSelect() {
+  const file = document.getElementById('photo').files[0];
+  if (file) {
+    document.getElementById('buyBtn').disabled = false;
+    document.getElementById('status').textContent = '✅ Photo selected';
+    document.getElementById('status').style.color = '#2e7d32';
+  }
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleCheckout() {
+  const file = document.getElementById('photo').files[0];
+  const cartoonify = document.getElementById('cartoonify').checked;
+  const status = document.getElementById('status');
+  
+  if (!file) {
+    status.textContent = 'Please select a photo first';
+    status.style.color = '#d4af37';
+    return;
+  }
+  
+  document.getElementById('buyBtn').disabled = true;
+  status.textContent = 'Preparing checkout...';
+  status.style.color = '#ccc';
+  
+  try {
+    const photoBase64 = await toBase64(file);
+    const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sku: SKU,
+        photoBase64,
+        cartoonify_upgrade: cartoonify,
+        successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
+        cancelUrl: window.location.href
+      })
+    });
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    else { status.textContent = data.error || "Something went wrong"; document.getElementById('buyBtn').disabled = false; }
+  } catch (err) {
+    status.textContent = "Connection error. Try again.";
+    document.getElementById('buyBtn').disabled = false;
+  }
+}
+</script>
+</body>
+</html>
