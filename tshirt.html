@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3L30Q5L3MK');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cartoon Kids T-Shirt | ONJJEM</title>
+    <meta name="description" content="Custom cartoon kids t-shirt featuring your child as a playful illustration. Premium 100% organic cotton, printed in the UK with free delivery.">
+    <link rel="canonical" href="https://onjjem.com/tshirt" />
+    <link rel="stylesheet" href="index-Dwvduj-H.css">
+</head>
+<body>
+
+    <!-- Main Navigation -->
+    <header class="site-header">
+        <div class="logo">ONJJEM</div>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="help.html">Help</a>
+        </nav>
+    </header>
+
+    <main class="product-container">
+        <!-- Left Column: Product Mockups & Preview Images -->
+        <div class="product-gallery">
+            <div class="main-image-wrapper">
+                <img id="product-mockup" src="/products/tee-cartoon-sttk184.jpg" alt="Custom Cartoon Kids Premium T-Shirt">
+            </div>
+            <div class="badge-row">
+                <span class="badge badge-uk">🇬🇧 Printed in UK</span>
+                <span class="badge badge-shipping">🚚 Free UK Shipping</span>
+                <span class="badge badge-eco">🌿 100% Organic Cotton</span>
+            </div>
+        </div>
+
+        <!-- Right Column: Product Detail and Interactive Checkout Form -->
+        <div class="product-details">
+            <span class="product-tag">CUSTOM ILLUSTRATION INCLUDED</span>
+            <h1>Cartoon Kids' Premium T-Shirt</h1>
+            <p class="product-model-info">Stanley/Stella Mini Creator 2.0 (STTK184) | 100% Organic Combed Cotton</p>
+            
+            <!-- Pricing Structure -->
+            <div class="product-price-box">
+                <span class="current-price">£16.99</span>
+                <span class="shipping-tag">+ Free Tracked UK Delivery</span>
+            </div>
+
+            <p class="product-brief">
+                Upload a photo of your child. We'll transform it into a playful, colorful cartoon illustration and print it on this premium soft cotton tee. No add-ons, no confusion — cartoon magic included in the price. Every shirt is unique, printed just for your family.
+            </p>
+
+            <!-- Dynamic Ordering Form -->
+            <form id="tshirt-order-form" class="customization-form" action="/create-checkout-session" method="POST">
+                
+                <!-- 1. Color Variant Selection Swatches (6 colors) -->
+                <div class="form-group">
+                    <label class="form-label">1. Choose Shirt Colour:</label>
+                    <div class="color-swatch-grid">
+                        <label class="swatch-container"><input type="radio" name="color" value="WHITE" required checked><span class="swatch-circle" style="background-color: #FFFFFF; border: 1px solid #ccc;"></span> White</label>
+                        <label class="swatch-container"><input type="radio" name="color" value="BLACK"><span class="swatch-circle" style="background-color: #000000;"></span> Black</label>
+                        <label class="swatch-container"><input type="radio" name="color" value="GREY"><span class="swatch-circle" style="background-color: #A2A2A2;"></span> Heather Grey</label>
+                        <label class="swatch-container"><input type="radio" name="color" value="RED"><span class="swatch-circle" style="background-color: #C8102E;"></span> Fire Red</label>
+                        <label class="swatch-container"><input type="radio" name="color" value="ROYALBLUE"><span class="swatch-circle" style="background-color: #0047AB;"></span> Royal Blue</label>
+                        <label class="swatch-container"><input type="radio" name="color" value="PINK"><span class="swatch-circle" style="background-color: #FFC0CB;"></span> Cotton Pink</label>
+                    </div>
+                </div>
+
+                <!-- 2. Sizing Variant Selection Dropdown -->
+                <div class="form-group">
+                    <label for="size-select" class="form-label">2. Select Age Size:</label>
+                    <select id="size-select" name="size" class="styled-dropdown" required>
+                        <option value="" disabled selected>-- Choose Size --</option>
+                        <option value="3Y">3-4 years</option>
+                        <option value="5Y">5-6 years</option>
+                        <option value="7Y">7-8 years</option>
+                        <option value="9Y">9-11 years</option>
+                        <option value="12Y">12-14 years</option>
+                    </select>
+                </div>
+
+                <!-- 3. Photo Upload Integration Field -->
+                <div class="form-group">
+                    <label class="form-label">3. Upload Your Child's Photo:</label>
+                    <div class="upload-zone-wrapper">
+                        <input type="file" id="photo-upload" name="customer_photo" accept="image/png, image/jpeg" required style="display: none;">
+                        <button type="button" onclick="document.getElementById('photo-upload').click();" class="btn btn-secondary">📸 Choose Photo from Phone</button>
+                        <p class="upload-hint">Best results: Clear, well-lit face shots. Portrait orientation works great. We'll cartoonify the rest.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Artwork Preview Acknowledgement -->
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="preview_acknowledgement" required>
+                        <span class="custom-checkbox"></span>
+                        I want to see my cartoon design first — I'll approve before you print.
+                    </label>
+                </div>
+
+                <!-- Submission Checkout Trigger -->
+                <button type="submit" id="checkout-button" class="btn btn-primary btn-block">
+                    🛒 Continue to Checkout
+                </button>
+            </form>
+
+            <div class="trust-section">
+                <p>✓ Secure checkout via Stripe | ✓ Cartoon proof approval included | ✓ Made in the UK</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="index-Bm4a7mCV.js"></script>
+</body>
+</html>
