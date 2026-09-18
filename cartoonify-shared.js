@@ -47,9 +47,11 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
   overlay.className = "cartoon-preview-overlay";
   overlay.innerHTML = `
     <div class="cartoon-preview-card">
-      <div class="cartoon-preview-title">Want to see it as a cartoon? 🎨</div>
-      <p class="cartoon-email-note">We can generate a real preview of your photo as a cartoon — free to see, no obligation. If you love it, add it to your gift for just £1.99.</p>
-      <button class="cartoon-btn-primary" data-role="generate" style="width:100%; margin-top:10px;">Show Me My Cartoon Preview →</button>
+      <div class="cartoon-sparkle-badge">✨ NEW ✨</div>
+      <div class="cartoon-preview-title">See Yourself as a Cartoon! 🎨</div>
+      <p class="cartoon-email-note cartoon-highlight">Turn everyone in your photo into their own unique cartoon character — for just £1.99.</p>
+      <p class="cartoon-email-note">Free to preview first. No obligation, no risk — just tap below and see the magic.</p>
+      <button class="cartoon-btn-primary cartoon-btn-glow" data-role="generate" style="width:100%; margin-top:10px;">✨ Show Me My Cartoon! ✨</button>
       <div style="margin-top: 10px;">
         <button class="cartoon-btn-secondary" data-role="skip" style="width:100%">No Thanks, Just My Order</button>
       </div>
