@@ -67,9 +67,13 @@
       
       <div class="toggle-group">
         <label>
-          <input type="checkbox" id="cartoonify" onchange="updatePrice()">
+          <input type="checkbox" id="cartoonify" onchange="onCartoonToggle()">
           <span class="toggle-text">Add Cartoon Transformation +£1.99</span>
         </label>
+        <div id="previewWrap" style="display:none; margin-top: 1rem; text-align:center;">
+          <img id="previewImg" style="max-width:100%; border-radius:10px;" alt="Your cartoon preview">
+        </div>
+        <p class="status" id="cartoonStatus" style="margin-bottom:0;"></p>
       </div>
       
       <div class="file-input-wrapper">
@@ -95,14 +99,8 @@ function updatePrice() {
   document.getElementById('price').textContent = '£' + total.toFixed(2);
 }
 
-function onPhotoSelect() {
-  const file = document.getElementById('photo').files[0];
-  if (file) {
-    document.getElementById('buyBtn').disabled = false;
-    document.getElementById('status').textContent = '✅ Photo selected';
-    document.getElementById('status').style.color = '#2e7d32';
-  }
-}
+let photoBase64 = null;
+let confirmedCartoonBase64 = null;
 
 function toBase64(file) {
   return new Promise((resolve, reject) => {
@@ -113,23 +111,86 @@ function toBase64(file) {
   });
 }
 
-async function handleCheckout() {
+async function onPhotoSelect() {
   const file = document.getElementById('photo').files[0];
+  if (!file) return;
+  try {
+    photoBase64 = await toBase64(file);
+    document.getElementById('buyBtn').disabled = false;
+    document.getElementById('status').textContent = '✅ Photo selected';
+    document.getElementById('status').style.color = '#2e7d32';
+  } catch (err) {
+    document.getElementById('status').textContent = 'Could not read that photo. Please try again.';
+    document.getElementById('status').style.color = '#d4af37';
+  }
+}
+
+async function onCartoonToggle() {
+  updatePrice();
+  const checked = document.getElementById('cartoonify').checked;
+  const status = document.getElementById('cartoonStatus');
+  const previewWrap = document.getElementById('previewWrap');
+
+  if (!checked) {
+    confirmedCartoonBase64 = null;
+    status.textContent = '';
+    previewWrap.style.display = 'none';
+    return;
+  }
+  if (!photoBase64) {
+    status.textContent = 'Please pick a photo first.';
+    status.style.color = '#d4af37';
+    document.getElementById('cartoonify').checked = false;
+    updatePrice();
+    return;
+  }
+
+  status.textContent = 'Generating your free cartoon preview...';
+  status.style.color = '#ccc';
+  try {
+    const mimeMatch = photoBase64.match(/^data:([^;]+);/);
+    const mimeType = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+    const res = await fetch(`${API_BASE}/api/cartoonify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: true }),
+    });
+    const data = await res.json();
+    if (data.alreadyUsed) {
+      status.textContent = "You've used your free preview — the cartoon will still be added at checkout.";
+      status.style.color = '#ccc';
+      confirmedCartoonBase64 = 'PENDING';
+      return;
+    }
+    if (!res.ok || !data.base64Image) {
+      throw new Error(data.error || 'Could not generate preview');
+    }
+    document.getElementById('previewImg').src = `data:${data.mimeType};base64,${data.base64Image}`;
+    previewWrap.style.display = 'block';
+    status.textContent = "✅ Here's your free preview! Love it? Tap Buy Now below.";
+    status.style.color = '#2e7d32';
+  } catch (err) {
+    status.textContent = "Couldn't generate a preview — the cartoon will still be added at checkout.";
+    status.style.color = '#ccc';
+    confirmedCartoonBase64 = 'PENDING';
+  }
+}
+
+async function handleCheckout() {
   const cartoonify = document.getElementById('cartoonify').checked;
   const status = document.getElementById('status');
-  
-  if (!file) {
+
+  if (!photoBase64) {
     status.textContent = 'Please select a photo first';
     status.style.color = '#d4af37';
     return;
   }
-  
+
   document.getElementById('buyBtn').disabled = true;
   status.textContent = 'Preparing checkout...';
   status.style.color = '#ccc';
-  
+
   try {
-    const photoBase64 = await toBase64(file);
     const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -137,6 +198,8 @@ async function handleCheckout() {
         sku: SKU,
         photoBase64,
         cartoonify_upgrade: cartoonify,
+        ...(cartoonify && confirmedCartoonBase64 && confirmedCartoonBase64 !== "PENDING"
+          ? { confirmedCartoonBase64 } : {}),
         successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
         cancelUrl: window.location.href
       })
