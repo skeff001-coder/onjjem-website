@@ -39,6 +39,7 @@
   footer { text-align:center; padding:2rem; color:#999; border-top:1px solid #444; font-size:0.85rem; }
   footer a { color:#d4af37; text-decoration:none; margin:0 8px; }
 </style>
+<link rel="stylesheet" href="/cartoonify-shared.css">
 </head>
 <body>
 
@@ -90,16 +91,18 @@ const ITEMS = [
   {
     name: "Premium Metallic Foil Art Print",
     img: "/products/metallic-foil-print.webp",
-    desc: "Ultra-heavyweight 350gsm specialist print with true metallic Gold or Silver foil accents — direct UV digital printing for an eye-catching statement piece.",
+    desc: "Frame not included — print only. Ultra-heavyweight 350gsm specialist print with true metallic Gold or Silver foil accents — direct UV digital printing for an eye-catching statement piece. Free UK shipping.",
     variants: [
-      { sku: "art-foil-a4-gold", label: "A4 / Gold - £25.99" },
-      { sku: "art-foil-a4-silver", label: "A4 / Silver - £25.99" },
-      { sku: "art-foil-a3-gold", label: "A3 / Gold - £28.99" },
-      { sku: "art-foil-a3-silver", label: "A3 / Silver - £28.99" },
-      { sku: "art-foil-a2-gold", label: "A2 / Gold - £34.99" },
-      { sku: "art-foil-a2-silver", label: "A2 / Silver - £34.99" },
-      { sku: "art-foil-a1-gold", label: "A1 / Gold - £44.99" },
-      { sku: "art-foil-a1-silver", label: "A1 / Silver - £44.99" }
+      { sku: "ART-FOIL-GOL-4X6", label: "4x6\" (10x15cm) / Gold - £7.99" },
+      { sku: "ART-FOIL-SIL-4X6", label: "4x6\" (10x15cm) / Silver - £7.99" },
+      { sku: "ART-FOIL-GOL-12X12", label: "30x30cm / Gold - £15.99" },
+      { sku: "ART-FOIL-SIL-12X12", label: "30x30cm / Silver - £15.99" },
+      { sku: "ART-FOIL-GOL-20X28", label: "50x70cm / Gold - £15.99" },
+      { sku: "ART-FOIL-SIL-20X28", label: "50x70cm / Silver - £15.99" },
+      { sku: "ART-FOIL-GOL-A3", label: "A3 / Gold - £18.99" },
+      { sku: "ART-FOIL-SIL-A3", label: "A3 / Silver - £18.99" },
+      { sku: "ART-FOIL-GOL-A2", label: "A2 / Gold - £26.99" },
+      { sku: "ART-FOIL-SIL-A2", label: "A2 / Silver - £26.99" }
     ]
   },
   {
@@ -158,18 +161,25 @@ ITEMS.forEach((item, i) => {
   grid.appendChild(card);
 });
 
+let itemPendingCartoonOptions = {};
+
 document.querySelectorAll('input[type="file"]').forEach(input => {
-  input.addEventListener("change", () => {
+  input.addEventListener("change", async () => {
     const i = input.dataset.item;
-    const uploadBtn = document.querySelector(`button[data-item="${i}"][data-type="upload"]`);
-    const checkoutBtn = document.querySelector(`button[data-item="${i}"][data-type="checkout"]`);
     const status = document.querySelector(`[data-status="${i}"]`);
-    if (input.files.length > 0) {
+    if (input.files.length === 0) return;
+    const photoBase64 = await toBase64(input.files[0]);
+    input.dataset.photo = photoBase64;
+    status.textContent = "";
+    ONJJEM_showPhotoPreview(photoBase64, (cartoonOptions) => {
+      itemPendingCartoonOptions[i] = cartoonOptions;
+      const uploadBtn = document.querySelector(`button[data-item="${i}"][data-type="upload"]`);
+      const checkoutBtn = document.querySelector(`button[data-item="${i}"][data-type="checkout"]`);
       uploadBtn.style.display = "none";
       checkoutBtn.style.display = "block";
-      status.textContent = "✅ Photo added";
+      status.textContent = "✅ Photo added" + (cartoonOptions ? " — with Cartoon!" : "");
       status.style.color = "#2e7d32";
-    }
+    });
   });
 });
 
@@ -198,14 +208,15 @@ document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
     const sku = select ? select.value : item.variants[0].sku;
     const fileInput = document.querySelector(`input[type="file"][data-item="${i}"]`);
     const status = document.querySelector(`[data-status="${i}"]`);
-    const file = fileInput.files[0];
-    if (!file) { status.textContent = "Please choose a photo first"; return; }
+    const photoBase64 = fileInput.dataset.photo;
+    if (!photoBase64) { status.textContent = "Please choose a photo first"; return; }
 
     btn.disabled = true;
     status.textContent = "Preparing checkout...";
 
+    const cartoonOptions = itemPendingCartoonOptions[i];
+
     try {
-      const photoBase64 = await toBase64(file);
       const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -213,7 +224,8 @@ document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
           sku,
           photoBase64,
           successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
-          cancelUrl: window.location.href
+          cancelUrl: window.location.href,
+          ...(cartoonOptions || {})
         })
       });
       const data = await res.json();
@@ -226,5 +238,6 @@ document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
   });
 });
 </script>
+<script src="/cartoonify-shared.js"></script>
 </body>
 </html>
