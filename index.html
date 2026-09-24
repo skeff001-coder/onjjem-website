@@ -1,636 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONJJEM | Personalised Photo Gifts</title>
-    <meta name="description" content="Premium personalised photo gifts printed in the UK. Custom t-shirts, blankets, mugs, fine art prints.">
-    <link rel="canonical" href="https://onjjem.com/" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MK"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-3L30Q5L3MK');
-    </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Poster Sale — Unbelievable Prices | ONJJEM</title>
+<meta name="description" content="Huge posters, tiny prices. Personalised photo posters from £11.99, free UK shipping.">
+<link rel="canonical" href="https://onjjem.com/poster-sale" />
+<link rel="stylesheet" href="/cartoonify-shared.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3L30Q5L3MK');
+</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#2a2a2a; color:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
+  .header { background:#3a3a3a; padding:1.2rem 1.5rem; border-bottom:2px solid #d4af37; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+  .logo { font-size:1.5rem; font-weight:700; color:#d4af37; text-decoration:none; letter-spacing:2px; }
+  .nav { display:flex; gap:1.5rem; }
+  .nav a { color:#fff; text-decoration:none; font-weight:500; font-size:0.9rem; }
+  .nav a:hover { color:#d4af37; }
 
-        body {
-            background: #2a2a2a;
-            color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
+  .sale-banner {
+    background: repeating-linear-gradient(45deg, #e8384f, #e8384f 20px, #c8102e 20px, #c8102e 40px);
+    color: #fff;
+    text-align: center;
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.6rem;
+  }
 
-        /* HEADER */
-        .header {
-            background: #3a3a3a;
-            padding: 1.5rem 2rem;
-            border-bottom: 2px solid #d4af37;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+  .page-header { text-align:center; padding:2rem 1.5rem 1rem; }
+  .page-header h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 0.4rem;
+    background: linear-gradient(90deg, #ffd700, #fff8dc, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .page-header p { color:#ffd700; font-weight:700; font-size:1.05rem; max-width:600px; margin:0 auto; }
+  .page-header .sub { color:#ccc; font-weight:400; font-size:0.9rem; margin-top:0.5rem; }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #d4af37;
-            text-decoration: none;
-            letter-spacing: 2px;
-        }
-
-        .nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav a:hover {
-            color: #d4af37;
-        }
-
-        /* TRUST BANNER */
-        .trust-banner {
-            background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%);
-            padding: 1rem 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #444;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* HERO */
-        .hero {
-            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
-            padding: 4rem 2rem;
-            text-align: center;
-            border-bottom: 2px solid #d4af37;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #d4af37, transparent);
-            opacity: 0.5;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            color: #d4af37;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        .hero .emporium-label {
-            font-size: 0.9rem;
-            color: #d4af37;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: #ddd;
-            max-width: 700px;
-            margin: 0 auto 1.5rem;
-            line-height: 1.6;
-            font-weight: 500;
-        }
-
-        .hero input {
-            font-family: inherit;
-        }
-
-        .hero input::placeholder {
-            color: #999;
-        }
-
-        /* CATEGORIES GRID */
-        .categories {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .category-tile {
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .category-tile:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(212, 175, 55, 0.3);
-        }
-
-        .category-image {
-            width: 100%;
-            height: 200px;
-            background: #f0f0f0;
-            overflow: hidden;
-        }
-
-        .category-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .category-content {
-            padding: 1.5rem;
-            background: #f9f9f9;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .category-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
-        }
-
-        .category-desc {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-
-        .category-btn {
-            background: #d4af37;
-            color: #1a1a1a;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: background 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .category-btn:hover {
-            background: #e5c158;
-        }
-
-        /* GIFT CARDS SPOTLIGHT */
-        .gift-cards-spotlight {
-            margin-top: 3rem;
-        }
-
-        .gift-cards-tile {
-            background: linear-gradient(135deg, #d4af37 0%, #e5c158 100%);
-            border-radius: 12px;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            gap: 2rem;
-        }
-
-        .gift-cards-tile:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.4);
-        }
-
-        .gift-cards-content {
-            flex: 1;
-        }
-
-        .gift-cards-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
-        }
-
-        .gift-cards-desc {
-            font-size: 1rem;
-            color: #333;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .gift-cards-btn {
-            background: #1a1a1a;
-            color: #d4af37;
-            border: none;
-            padding: 0.9rem 1.8rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.2s;
-            font-size: 0.95rem;
-        }
-
-        .gift-cards-btn:hover {
-            background: #2a2a2a;
-            transform: scale(1.05);
-        }
-
-        .gift-cards-image {
-            flex: 0 0 200px;
-            height: 200px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .gift-cards-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* WHY CHOOSE SECTION */
-        .why-section {
-            background: #3a3a3a;
-            padding: 3rem 2rem;
-            margin-bottom: 3rem;
-            border-top: 1px solid #d4af37;
-            border-bottom: 1px solid #d4af37;
-        }
-
-        .why-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .why-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: #d4af37;
-        }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .why-item {
-            text-align: center;
-        }
-
-        .why-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .why-item h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: #d4af37;
-        }
-
-        .why-item p {
-            font-size: 0.95rem;
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        /* HELP SECTION */
-        .help-section {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-
-        .help-title {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: #d4af37;
-        }
-
-        .help-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .help-card {
-            background: #3a3a3a;
-            padding: 2rem;
-            border-radius: 8px;
-            border-left: 3px solid #d4af37;
-        }
-
-        .help-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #d4af37;
-        }
-
-        .help-card p {
-            color: #ccc;
-            font-size: 0.9rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .help-link {
-            color: #d4af37;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        .help-link:hover {
-            color: #e5c158;
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #1a1a1a;
-            color: #999;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
-            border-top: 1px solid #d4af37;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .categories-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .nav {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .trust-banner {
-                gap: 1rem;
-                font-size: 0.8rem;
-                flex-direction: column;
-            }
-
-            .gift-cards-tile {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-                padding: 1.5rem;
-            }
-
-            .gift-cards-image {
-                flex: 0 0 auto;
-                width: 100%;
-                height: 150px;
-            }
-
-            .gift-cards-title {
-                font-size: 1.4rem;
-            }
-        }
-    </style>
+  .products { max-width:1100px; margin:0 auto; padding:1.5rem 1.5rem 3rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+  .card {
+    background:#fff;
+    border-radius:10px;
+    overflow:hidden;
+    position: relative;
+    border: 3px solid #ffd700;
+  }
+  .card-badge {
+    position: absolute;
+    top: 10px;
+    right: -32px;
+    background: #e8384f;
+    color: #fff;
+    font-weight: 900;
+    font-size: 0.7rem;
+    padding: 4px 40px;
+    transform: rotate(45deg);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+  }
+  .card img { width:100%; height:200px; object-fit:cover; display:block; background:#eee; }
+  .card-body { padding:1.2rem; }
+  .card h3 { color:#1a1a1a; font-size:1.1rem; margin-bottom:0.3rem; }
+  .card .price { color:#e8384f; font-weight:900; font-size:1.3rem; margin-bottom:0.6rem; }
+  .card .desc { color:#666; font-size:0.85rem; line-height:1.5; margin-bottom:1rem; }
+  select.variant { width:100%; padding:0.6rem; border-radius:6px; border:1px solid #ccc; margin-bottom:0.8rem; font-size:0.85rem; }
+  input[type=file] { width:100%; font-size:0.8rem; margin-bottom:0.8rem; }
+  .buy-btn { display:block; width:100%; background:#ffd700; color:#1a1a1a; font-weight:900; padding:0.8rem; border:none; border-radius:6px; cursor:pointer; text-transform: uppercase; letter-spacing: 0.5px; }
+  .buy-btn:hover { background:#ffe94d; }
+  .status { font-size:0.8rem; margin-top:0.5rem; min-height:14px; text-align:center; }
+  footer { text-align:center; padding:2rem; color:#999; border-top:1px solid #444; font-size:0.85rem; }
+  footer a { color:#d4af37; text-decoration:none; margin:0 8px; }
+</style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header class="header">
-        <a href="/" class="logo">ONJJEM</a>
-        <nav class="nav">
-            <a href="#categories">Shop</a>
-            <a href="#help">Help</a>
-            <a href="/gift-cards">Gift Cards</a>
-        </nav>
-    </header>
+<div class="sale-banner">⚡ Sale On Now — Huge Posters, Tiny Prices ⚡</div>
 
-    <!-- TRUST BANNER -->
-    <div class="trust-banner">
-        <div class="trust-item">✓ Free UK Shipping</div>
-        <div class="trust-item">✓ Dispatched Within 72 Hours</div>
-        <div class="trust-item">✓ Secure Checkout</div>
-        <div class="trust-item">✓ Tracked Delivery</div>
+<header class="header">
+  <a href="/" class="logo">ONJJEM</a>
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/prints.html">Prints</a>
+    <a href="/gift-cards.html">Gift Cards</a>
+  </nav>
+</header>
+
+<div class="page-header">
+  <h1>🔥 Poster Sale 🔥</h1>
+  <p>Unbelievable prices. Genuinely huge posters.</p>
+  <p class="sub">Free UK delivery on every size, always.</p>
+</div>
+
+<div class="products" id="products"></div>
+
+<footer>
+  <a href="/delivery.html">Delivery Info</a>
+  <a href="/terms.html">Terms</a>
+  <a href="/privacy.html">Privacy</a>
+</footer>
+
+<script>
+const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+
+const ITEMS = [
+  {
+    name: "Budget Poster",
+    img: "/products/framed-photo-tiles.jpg",
+    desc: "A bright white poster print on 170gsm silk paper — a great way to get a favourite photo up on the wall, at a genuinely unbeatable price. Choose portrait or landscape.",
+    variants: [
+      { sku: "budget-poster-a4-portrait", label: "A4 (21x29.7cm) / Portrait - £11.99" },
+      { sku: "budget-poster-a4-landscape", label: "A4 (21x29.7cm) / Landscape - £11.99" },
+      { sku: "budget-poster-a2-portrait", label: "A2 (42x59.4cm) / Portrait - £16.99" },
+      { sku: "budget-poster-a2-landscape", label: "A2 (42x59.4cm) / Landscape - £16.99" },
+      { sku: "budget-poster-a1-portrait", label: "A1 (59.4x84.1cm) / Portrait - £18.99" },
+      { sku: "budget-poster-a1-landscape", label: "A1 (59.4x84.1cm) / Landscape - £18.99" },
+      { sku: "budget-poster-50x70-portrait", label: "50x70cm / Portrait - £15.99" },
+      { sku: "budget-poster-50x70-landscape", label: "50x70cm / Landscape - £15.99" },
+      { sku: "budget-poster-70x100-portrait", label: "🔥 MASSIVE 70x100cm / Portrait - £19.99" },
+      { sku: "budget-poster-70x100-landscape", label: "🔥 MASSIVE 70x100cm / Landscape - £19.99" }
+    ]
+  }
+];
+
+const grid = document.getElementById("products");
+window.__items = {};
+
+ITEMS.forEach((item, i) => {
+  window.__items[i] = item;
+  const showDropdown = item.variants.length > 1;
+  const options = item.variants.map(v => `<option value="${v.sku}">${v.label}</option>`).join("");
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="card-badge">Sale</div>
+    <img src="${item.img}" alt="${item.name}" loading="lazy">
+    <div class="card-body">
+      <h3>${item.name}</h3>
+      ${showDropdown ? `<select class="variant" data-item="${i}">${options}</select>` : `<p class="price">${item.variants[0].label}</p>`}
+      <p class="desc">${item.desc}</p>
+      <input type="file" accept="image/*" data-item="${i}" style="display:none;">
+      <button class="buy-btn" style="background:#8e7cc3; color:#fff; margin-bottom:0.5rem;" data-item="${i}" data-type="upload">📸 Pick your pic and click</button>
+      <button class="buy-btn" data-item="${i}" data-type="checkout" style="display:none;">Buy Now</button>
+      <p class="status" data-status="${i}"></p>
     </div>
+  `;
+  grid.appendChild(card);
+});
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <p class="emporium-label">✨ Enter Our Gift Emporium ✨</p>
-            <h1>Your Photos, Beautifully Printed</h1>
-            <p>Premium personalised photo gifts printed in the UK. Museum-grade quality, archival inks, and handmade to order — from fine art prints to custom apparel. All with free UK shipping.</p>
-        </div>
-        <div style="margin-top: 2rem;">
-            <input type="text" placeholder="Search for a gift..." style="width: 100%; max-width: 400px; padding: 0.8rem; border: 2px solid #d4af37; border-radius: 6px; background: #fff; color: #1a1a1a; font-size: 0.95rem;">
-        </div>
-    </section>
+let itemPendingCartoonOptions = {};
 
-    <!-- CATEGORIES -->
-    <section class="categories" id="categories">
-        <div class="categories-grid">
-            <!-- PRINTS -->
-            <a href="/prints.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/slim-canvas.webp" alt="Fine Art Prints">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">Fine Art Prints</h2>
-                    <p class="category-desc">Postcards, canvases, metallic foil & glow-in-the-dark posters.</p>
-                    <button class="category-btn">Shop All Prints →</button>
-                </div>
-            </a>
+document.querySelectorAll('input[type="file"]').forEach(input => {
+  input.addEventListener("change", async () => {
+    const i = input.dataset.item;
+    const status = document.querySelector(`[data-status="${i}"]`);
+    if (input.files.length === 0) return;
+    const photoBase64 = await toBase64(input.files[0]);
+    input.dataset.photo = photoBase64;
+    status.textContent = "";
+    ONJJEM_showPhotoPreview(photoBase64, (cartoonOptions) => {
+      itemPendingCartoonOptions[i] = cartoonOptions;
+      const uploadBtn = document.querySelector(`button[data-item="${i}"][data-type="upload"]`);
+      const checkoutBtn = document.querySelector(`button[data-item="${i}"][data-type="checkout"]`);
+      uploadBtn.style.display = "none";
+      checkoutBtn.style.display = "block";
+      status.textContent = "✅ Photo added" + (cartoonOptions ? " — with Cartoon!" : "");
+      status.style.color = "#2e7d32";
+    });
+  });
+});
 
-            <!-- HOUSEHOLD -->
-            <a href="/household.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/magic-mug-final.png" alt="Household">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">Household</h2>
-                    <p class="category-desc">Mugs, blankets & everyday items.</p>
-                    <button class="category-btn">Shop Household →</button>
-                </div>
-            </a>
+document.querySelectorAll('button[data-type="upload"]').forEach(btn => {
+  btn.addEventListener("click", () => {
+    const i = btn.dataset.item;
+    const fileInput = document.querySelector(`input[type="file"][data-item="${i}"]`);
+    fileInput.click();
+  });
+});
 
-            <!-- FRAMES & GIFTS -->
-            <a href="/frames-gifts.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/framed-tile.jpg" alt="Frames & Gifts">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">Frames & Gifts</h2>
-                    <p class="category-desc">Frames, tiles, gift tags & more.</p>
-                    <button class="category-btn">Shop Frames & Gifts →</button>
-                </div>
-            </a>
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
-            <!-- KIDS CARTOON ZONE -->
-            <a href="/kids.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/kids-tshirt.jpg" alt="Cartoon Kids Zone">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">Cartoon Kids Zone</h2>
-                    <p class="category-desc">T-shirts, hoodies, jigsaws & glow-in-the-dark items.</p>
-                    <button class="category-btn">Shop Kids →</button>
-                </div>
-            </a>
+document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const i = btn.dataset.item;
+    const item = window.__items[i];
+    const select = document.querySelector(`select[data-item="${i}"]`);
+    const sku = select ? select.value : item.variants[0].sku;
+    const fileInput = document.querySelector(`input[type="file"][data-item="${i}"]`);
+    const status = document.querySelector(`[data-status="${i}"]`);
+    const photoBase64 = fileInput.dataset.photo;
+    if (!photoBase64) { status.textContent = "Please choose a photo first"; return; }
 
-            <a href="/christmas.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/Christmas-stocking.png" alt="Christmas">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">🎄 Christmas</h2>
-                    <p class="category-desc">Luxury velvet stockings & sacks, personalised with your photo.</p>
-                    <button class="category-btn">Shop Christmas →</button>
-                </div>
-            </a>
-        </div>
+    btn.disabled = true;
+    status.textContent = "Preparing checkout...";
 
-        <!-- GIFT CARDS (STANDALONE) -->
-        <div class="gift-cards-spotlight">
-            <a href="/gift-cards.html" class="gift-cards-tile">
-                <div class="gift-cards-content">
-                    <h2 class="gift-cards-title">🎁 Gift Cards</h2>
-                    <p class="gift-cards-desc">Let them choose their perfect personalised gift. From £20</p>
-                    <button class="gift-cards-btn">View Gift Cards →</button>
-                </div>
-                <div class="gift-cards-image">
-                    <img src="/products/Card.png" alt="Gift Cards">
-                </div>
-            </a>
-        </div>
-    </section>
+    const cartoonOptions = itemPendingCartoonOptions[i];
 
-    <!-- WHY CHOOSE ONJJEM -->
-    <section class="why-section">
-        <div class="why-content">
-            <h2 class="why-title">Why Choose ONJJEM?</h2>
-            <div class="why-grid">
-                <div class="why-item">
-                    <div class="why-icon">✓</div>
-                    <h3>Professional Quality</h3>
-                    <p>Museum-grade printing and archival inks that resist fading for 10+ years.</p>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon">🏠</div>
-                    <h3>Handmade with Care</h3>
-                    <p>Every gift is individually printed to order and quality-checked before dispatch.</p>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon">🛡️</div>
-                    <h3>Your Photos Are Safe</h3>
-                    <p>UK data protection. Your photos are never shared, stored securely, and deleted after printing.</p>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon">🎨</div>
-                    <h3>Cartoon Magic</h3>
-                    <p>Transform any photo into a playful cartoon illustration before printing.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- HELP SECTION -->
-    <section class="help-section" id="help">
-        <h2 class="help-title">We're Here to Help</h2>
-        <div class="help-grid">
-            <div class="help-card">
-                <h3>📞 Customer Support</h3>
-                <p>Questions about your order or need help choosing? Our team is here for you.</p>
-                <a href="/help" class="help-link">Contact Us →</a>
-            </div>
-            <div class="help-card">
-                <h3>📦 Shipping & Returns</h3>
-                <p>Free UK shipping on all orders. 30-day returns if you're not completely happy.</p>
-                <a href="/help#shipping" class="help-link">View Policy →</a>
-            </div>
-            <div class="help-card">
-                <h3>❓ FAQ</h3>
-                <p>Find answers to common questions about prints, products, and ordering.</p>
-                <a href="/help#faq" class="help-link">See FAQ →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>&copy; 2026 ONJJEM. All rights reserved. | Personalised gifts printed in Preston, UK.</p>
-    </footer>
-
+    try {
+      const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sku,
+          photoBase64,
+          successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
+          cancelUrl: window.location.href,
+          ...(cartoonOptions || {})
+        })
+      });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+      else { status.textContent = data.error || "Something went wrong"; btn.disabled = false; }
+    } catch (err) {
+      status.textContent = "Could not connect. Please try again.";
+      btn.disabled = false;
+    }
+  });
+});
+</script>
+<script src="/cartoonify-shared.js"></script>
 </body>
 </html>
