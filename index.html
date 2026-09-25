@@ -493,8 +493,9 @@
             <h1>Your Photos, Beautifully Printed</h1>
             <p>Premium personalised photo gifts printed in the UK. Museum-grade quality, archival inks, and handmade to order — from fine art prints to custom apparel. All with free UK shipping.</p>
         </div>
-        <div style="margin-top: 2rem;">
-            <input type="text" placeholder="Search for a gift..." style="width: 100%; max-width: 400px; padding: 0.8rem; border: 2px solid #d4af37; border-radius: 6px; background: #fff; color: #1a1a1a; font-size: 0.95rem;">
+        <div style="margin-top: 2rem; position: relative; max-width: 400px; margin-left: auto; margin-right: auto;">
+            <input type="text" id="siteSearchInput" placeholder="Search for a gift..." autocomplete="off" style="width: 100%; padding: 0.8rem; border: 2px solid #d4af37; border-radius: 6px; background: #fff; color: #1a1a1a; font-size: 0.95rem;">
+            <div id="searchResults" style="display:none; position:absolute; top:100%; left:0; right:0; background:#fff; border:1px solid #d4af37; border-radius:6px; margin-top:4px; max-height:280px; overflow-y:auto; z-index:50; text-align:left;"></div>
         </div>
     </section>
 
@@ -654,5 +655,74 @@
         <p>&copy; 2026 ONJJEM. All rights reserved. | Personalised gifts printed in Preston, UK.</p>
     </footer>
 
+<script>
+// Real product list, matching what's genuinely on each category page today.
+const SEARCHABLE_PRODUCTS = [
+  { name: "Photo Postcard", page: "/prints.html" },
+  { name: "Museum Fine Art Print", page: "/prints.html" },
+  { name: "Premium Metallic Foil Art Print", page: "/prints.html" },
+  { name: "Glow in the Dark Poster", page: "/prints.html" },
+  { name: "ChromaCoat Mug", page: "/household.html" },
+  { name: "Photo Mugs", page: "/household.html" },
+  { name: "Aluminium Blade Bottle Opener", page: "/household.html" },
+  { name: "Personalised Wireless Charger", page: "/household.html" },
+  { name: "Custom Wooden Drink Coasters", page: "/household.html" },
+  { name: "Premium Personalised Kitchen Towel", page: "/household.html" },
+  { name: "Photo Magnets", page: "/household.html" },
+  { name: "Personalised Chef's Apron", page: "/household.html" },
+  { name: "Hot Water Bottle", page: "/winter-warmers.html" },
+  { name: "Fleece Blanket", page: "/winter-warmers.html" },
+  { name: "Glow in the Dark Poster", page: "/kids.html" },
+  { name: "Personalised Velcro Baby Bib", page: "/kids.html" },
+  { name: "Kids Cartoon T-Shirt", page: "/kids.html" },
+  { name: "The Kids' Corner Jigsaw", page: "/kids.html" },
+  { name: "Custom Playing Cards", page: "/kids.html" },
+  { name: "Framed Photo Tiles", page: "/frames-gifts.html" },
+  { name: "Personalised Patch", page: "/frames-gifts.html" },
+  { name: "Photo Tattoos", page: "/frames-gifts.html" },
+  { name: "Custom Photo Socks", page: "/frames-gifts.html" },
+  { name: "Gift Card", page: "/gift-cards.html" },
+  { name: "Christmas Stocking", page: "/christmas.html" },
+  { name: "Christmas Sack", page: "/christmas.html" },
+  { name: "Budget Poster", page: "/poster-sale.html" },
+];
+
+(function setupHomeSearch() {
+  const input = document.getElementById("siteSearchInput");
+  const results = document.getElementById("searchResults");
+  if (!input || !results) return;
+
+  input.addEventListener("input", () => {
+    const q = input.value.trim().toLowerCase();
+    if (!q) {
+      results.style.display = "none";
+      results.innerHTML = "";
+      return;
+    }
+    const matches = SEARCHABLE_PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
+    if (matches.length === 0) {
+      results.innerHTML = `<div style="padding:12px 14px; font-size:13px; color:#888;">No matches — try browsing the categories below.</div>`;
+    } else {
+      results.innerHTML = matches
+        .slice(0, 8)
+        .map(p => `<div class="search-result-item" data-page="${p.page}" style="padding:10px 14px; font-size:13px; color:#1a1a1a; cursor:pointer; border-bottom:1px solid #eee;">${p.name}</div>`)
+        .join("");
+    }
+    results.style.display = "block";
+  });
+
+  results.addEventListener("click", (e) => {
+    const item = e.target.closest(".search-result-item");
+    if (!item) return;
+    window.location.href = item.dataset.page;
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#siteSearchInput") && !e.target.closest("#searchResults")) {
+      results.style.display = "none";
+    }
+  });
+})();
+</script>
 </body>
 </html>
