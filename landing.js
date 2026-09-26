@@ -133,6 +133,45 @@ function ONJJEM_toPng(dataUrl, maxPx) {
   });
 }
 
+// Burn optional words onto a picture, meme-style (white with a dark outline).
+function ONJJEM_addCaption(dataUrl, text, pos) {
+  text = (text || "").trim();
+  if (!text) return Promise.resolve(dataUrl);
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = img.width; c.height = img.height;
+      const ctx = c.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      const W = c.width, H = c.height;
+      const maxW = W * 0.86;
+      const words = text.split(/\s+/);
+      let size = Math.round(Math.min(W, H) * 0.13), lines = [];
+      for (; size > 12; size -= 2) {
+        ctx.font = `900 ${size}px -apple-system, 'Helvetica Neue', Impact, Arial, sans-serif`;
+        lines = []; let line = "";
+        for (const w of words) {
+          const t = line ? line + " " + w : w;
+          if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t;
+        }
+        lines.push(line);
+        if (lines.length <= 3 && Math.max(...lines.map(l => ctx.measureText(l).width)) <= maxW) break;
+      }
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.lineJoin = "round"; ctx.lineWidth = Math.max(4, size * 0.16);
+      ctx.strokeStyle = "rgba(0,0,0,0.9)"; ctx.fillStyle = "#ffffff";
+      const lh = size * 1.15, margin = Math.min(W, H) * 0.12;
+      const block = lines.length * lh;
+      const top = pos === "top" ? margin + lh / 2 : H - margin - block + lh / 2;
+      lines.forEach((l, i) => { const y = top + i * lh; ctx.strokeText(l, W / 2, y); ctx.fillText(l, W / 2, y); });
+      resolve(c.toDataURL("image/jpeg", 0.93));
+    };
+    img.onerror = () => resolve(dataUrl);
+    img.src = dataUrl;
+  });
+}
+
 function ONJJEM_printAnythingHtml() {
   const items = [
     ["📸", "Photos", "Family, friends, holidays"],
@@ -291,6 +330,14 @@ function ONJJEM_renderLanding(P) {
         <span class="order-label">2. Add your photo${opts.some(o => o.multi) ? "s" : ""}, drawing or words</span>
         <input type="file" id="photoInput" accept="image/*" style="display:none">
         <div class="upload" id="uploadBox" role="button" tabindex="0"></div>
+        <div id="captionWrap" style="display:none;margin-top:0.7rem">
+          <label for="captionText" style="font-weight:700;display:block;margin-bottom:0.35rem">Add funny words to your picture? <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+          <input id="captionText" maxlength="60" placeholder="e.g. Chief Treat Inspector 🐾" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem">
+          <div style="display:flex;gap:0.4rem;margin-top:0.4rem">
+            <button type="button" class="btn btn-ghost capPos" data-pos="bottom" style="padding:0.45rem;font-size:0.85rem;border-color:var(--gold)">Words at bottom</button>
+            <button type="button" class="btn btn-ghost capPos" data-pos="top" style="padding:0.45rem;font-size:0.85rem">Words at top</button>
+          </div>
+        </div>
         <button type="button" class="btn btn-ghost" id="typeBtn" style="margin-top:0.6rem;font-size:0.95rem;padding:0.75rem">✏️ No photo? Type your own words or slogan</button>
 
         <div class="order-total"><span>Total <small style="color:var(--muted)">(free UK delivery)</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
@@ -321,7 +368,17 @@ function ONJJEM_renderLanding(P) {
   const isMulti = () => !!opts[selected].multi;
   const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Tap to choose up to " + opts[selected].multi + " photos" : "Tap to choose a photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div>`;
 
+  let isTextDesign = false;
+  const capText = document.getElementById("captionText");
+  let capPos = "bottom", capTimer;
+  capText.addEventListener("input", () => { clearTimeout(capTimer); capTimer = setTimeout(refreshPhoto, 250); });
+  document.querySelectorAll(".capPos").forEach(b => b.addEventListener("click", () => {
+    capPos = b.dataset.pos;
+    document.querySelectorAll(".capPos").forEach(x => x.style.borderColor = x === b ? "var(--gold)" : "");
+    refreshPhoto();
+  }));
   async function refreshPhoto() {
+    if (!photos.length) document.getElementById("captionWrap").style.display = "none";
     if (!photos.length) { photo = null; box.classList.remove("has-photo"); box.innerHTML = emptyBox(); return; }
     if (isMulti() && photos.length > 1) {
       box.innerHTML = `<div class="u-text">Building your collage…</div>`;
@@ -331,7 +388,9 @@ function ONJJEM_renderLanding(P) {
     }
     const n = isMulti() ? Math.min(photos.length, opts[selected].multi) : 1;
     box.classList.add("has-photo");
-    box.innerHTML = `<img class="u-preview" src="${photo}" alt="Your photo"><div class="u-text">✓ ${n > 1 ? n + " photos added" : "Photo added"}</div><div class="u-hint">Tap to change</div>`;
+    document.getElementById("captionWrap").style.display = isTextDesign ? "none" : "block";
+    const shown = await ONJJEM_addCaption(photo, isTextDesign ? "" : capText.value, capPos);
+    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo"><div class="u-text">✓ ${n > 1 ? n + " photos added" : "Photo added"}</div><div class="u-hint">Tap to change</div>`;
   }
 
   optionEls.forEach(el => el.addEventListener("click", async () => {
@@ -368,7 +427,6 @@ function ONJJEM_renderLanding(P) {
   });
 
   // Typed words / slogans
-  let isTextDesign = false;
   document.getElementById("typeBtn").addEventListener("click", () => {
     const o = opts[selected];
     ONJJEM_openTextMaker(o.aspect || P.textAspect || 1, async dataUrl => {
@@ -379,7 +437,7 @@ function ONJJEM_renderLanding(P) {
       box.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   });
-  input.addEventListener("change", () => { isTextDesign = false; });
+  input.addEventListener("change", () => { isTextDesign = false; }, true);
 
   // Buy
   const buyBtn = document.getElementById("buyBtn");
@@ -401,7 +459,19 @@ function ONJJEM_renderLanding(P) {
     status.textContent = "Taking you to secure checkout…";
     onjjemGa("event", "begin_checkout", { currency: "GBP", value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
     try {
-      const photoToSend = P.pngMaxPx ? await ONJJEM_toPng(photo, P.pngMaxPx) : photo;
+      const words = isTextDesign ? "" : capText.value;
+      let finalPhoto = await ONJJEM_addCaption(photo, words, capPos);
+      const extra = Object.assign({}, cartoonOpts || {});
+      if (extra.confirmedCartoonBase64) {
+        // Show the customer the exact cartoon that will be printed, with their words.
+        const cartoonUrl = extra.confirmedCartoonBase64.startsWith("data:") ? extra.confirmedCartoonBase64 : "data:image/png;base64," + extra.confirmedCartoonBase64;
+        const finalCartoon = await ONJJEM_addCaption(cartoonUrl, words, capPos);
+        extra.confirmedCartoonBase64 = P.pngMaxPx ? await ONJJEM_toPng(finalCartoon, P.pngMaxPx) : finalCartoon;
+        box.innerHTML = `<img class="u-preview" src="${finalCartoon}" alt="Your cartoon"><div class="u-text">✓ Cartoon added — this is what we'll print</div>`;
+      } else if (words) {
+        box.innerHTML = `<img class="u-preview" src="${finalPhoto}" alt="Your design"><div class="u-text">✓ This is what we'll print</div>`;
+      }
+      const photoToSend = P.pngMaxPx ? await ONJJEM_toPng(finalPhoto, P.pngMaxPx) : finalPhoto;
       const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -410,7 +480,7 @@ function ONJJEM_renderLanding(P) {
           photoBase64: photoToSend,
           successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: window.location.href.split("#")[0] + "#order"
-        }, cartoonOpts || {}))
+        }, extra))
       });
       const data = await res.json().catch(() => ({}));
       if (data.url) { window.location.href = data.url; return; }
@@ -418,7 +488,7 @@ function ONJJEM_renderLanding(P) {
     } catch (err) {
       buyBtn.disabled = false;
       status.style.color = "#ffb4a8";
-      status.textContent = "Sorry — something went wrong. Please try again, or email hello@onjjem.com and we'll sort it.";
+      status.textContent = "Sorry, checkout didn't start (" + (err && err.message ? err.message : "connection problem") + "). Please try again, or email hello@onjjem.com and we'll sort it.";
     }
   }
 
