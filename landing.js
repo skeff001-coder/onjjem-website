@@ -10,7 +10,7 @@ const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
 //    (Stripe → Product catalogue → Coupons → create coupon → add promotion code).
 //    Set active:false to hide the offer everywhere.
 const ONJJEM_PROMO = {
-  active: true,
+  active: false,
   code: "XMAS15",
   headline: "🎃 Halloween cartoons are here! Plus 15% off everything",
   small: "Enter the code at checkout. Ends 30 November."
