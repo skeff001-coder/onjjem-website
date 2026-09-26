@@ -392,7 +392,9 @@ function ONJJEM_renderLanding(P) {
         <button type="button" class="btn btn-ghost" id="typeBtn" style="margin-top:0.6rem;font-size:0.95rem;padding:0.75rem">✏️ No photo? Type your own words or slogan</button>
 
         <div class="order-total"><span>Total <small style="color:var(--muted)">(free UK delivery)</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
-        <button class="btn" id="buyBtn">${P.cartoon ? "Continue — preview & checkout" : "Continue to secure checkout"}</button>
+        <button class="btn" id="basketBtn">🧺 Add to basket</button>
+        <button class="btn btn-ghost" id="buyBtn" style="margin-top:0.5rem">Buy just this one now →</button>
+        <p class="order-note" style="margin-top:0.5rem">🎁 Bundle &amp; save: <strong>10% off 2 gifts</strong>, <strong>15% off 3 or more</strong>, applied automatically in your basket.</p>
         <div class="order-status" id="status"></div>
         <p class="order-note">🔒 Secure payment by Stripe${ONJJEM_PROMO.active ? ` · Code <strong>${esc(ONJJEM_PROMO.code)}</strong> goes in at checkout` : ""}</p>
       </div>
@@ -522,16 +524,57 @@ function ONJJEM_renderLanding(P) {
 
   // Buy
   const buyBtn = document.getElementById("buyBtn");
-  buyBtn.addEventListener("click", () => {
+  const basketBtn = document.getElementById("basketBtn");
+  function startFlow(then) {
     if (!photo) { status.textContent = "Please add your photo first 📸"; box.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     status.textContent = "";
     const collage = isMulti() && photos.length > 1; // cartoons are for single photos
     if (P.cartoon && !collage && !isTextDesign && typeof ONJJEM_showPhotoPreview === "function") {
-      ONJJEM_showPhotoPreview(photo, cartoonOpts => checkout(cartoonOpts));
+      ONJJEM_showPhotoPreview(photo, cartoonOpts => then(cartoonOpts));
     } else {
-      checkout(null);
+      then(null);
     }
-  });
+  }
+  buyBtn.addEventListener("click", () => startFlow(checkout));
+  basketBtn.addEventListener("click", () => startFlow(addToBasket));
+
+  // Make the exact print file for this gift and put it in the basket.
+  async function addToBasket(cartoonOpts) {
+    const o = opts[selected];
+    basketBtn.disabled = true; buyBtn.disabled = true;
+    status.style.color = "var(--muted)";
+    status.textContent = "Adding to your basket…";
+    try {
+      const words = isTextDesign ? "" : capText.value;
+      let source = photo, cartoon = false;
+      if (cartoonOpts && cartoonOpts.addCartoon) {
+        let c = cartoonOpts.confirmedCartoonBase64;
+        if (!c) {
+          // Free previews used up: make the final cartoon now.
+          status.textContent = "Making your cartoon… this takes a few seconds";
+          const r = await fetch(`${API_BASE}/api/cartoonify`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ base64Image: photo, mimeType: "image/jpeg", watermark: false, style: window.ONJJEM_CARTOON_STYLE || undefined }) });
+          const d = await r.json();
+          if (!d.base64Image) throw new Error("the cartoon couldn't be made");
+          c = d.base64Image;
+        }
+        source = c.startsWith("data:") ? c : "data:image/png;base64," + c;
+        cartoon = true;
+      }
+      let print = await finalize(source, words, true);
+      print = P.pngMaxPx ? await ONJJEM_toPng(print, P.pngMaxPx) : await ONJJEM_limitSize(print, 2600);
+      const preview = await finalize(source, words, false);
+      const thumb = await ONJJEM_limitSize(preview, 240);
+      await ONJJEM_Basket.add({ sku: o.sku, name: o.name, price: o.price, cartoon, photo: print, thumb, page: location.pathname });
+      onjjemGa("event", "add_to_cart", { currency: "GBP", value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
+      status.textContent = "";
+      ONJJEM_showAddedToast(thumb, o.name);
+    } catch (err) {
+      status.style.color = "#ffb4a8";
+      status.textContent = "Sorry, that didn't add (" + (err && err.message ? err.message : "please try again") + ").";
+    } finally {
+      basketBtn.disabled = false; buyBtn.disabled = false;
+    }
+  }
 
   async function checkout(cartoonOpts) {
     const o = opts[selected];
@@ -588,6 +631,162 @@ function ONJJEM_renderLanding(P) {
 
   onjjemGa("event", "view_item", { currency: "GBP", value: fromPrice, items: opts.map(o => ({ item_id: o.sku, item_name: o.name, price: o.price })) });
 }
+
+// ── Basket ───────────────────────────────────────────────────────────────────
+// Kept in the browser (IndexedDB, which can hold pictures) so it survives
+// moving between pages. Checkout sends every gift with its own picture.
+async function ONJJEM_limitSize(dataUrl, maxPx) {
+  const img = await ONJJEM_loadImg(dataUrl);
+  const scale = Math.min(1, maxPx / Math.max(img.width, img.height));
+  if (scale === 1 && dataUrl.startsWith("data:image/jpeg")) return dataUrl;
+  const c = document.createElement("canvas");
+  c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+  c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+  return c.toDataURL("image/jpeg", 0.9);
+}
+
+const ONJJEM_Basket = (() => {
+  let memory = [];
+  function db() {
+    return new Promise((resolve, reject) => {
+      try {
+        const req = indexedDB.open("onjjem", 1);
+        req.onupgradeneeded = () => req.result.createObjectStore("basket");
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      } catch (e) { reject(e); }
+    });
+  }
+  async function load() {
+    try {
+      const d = await db();
+      return await new Promise(res => {
+        const r = d.transaction("basket").objectStore("basket").get("items");
+        r.onsuccess = () => res(r.result || []);
+        r.onerror = () => res(memory);
+      });
+    } catch (e) { return memory; }
+  }
+  async function save(items) {
+    memory = items;
+    try {
+      const d = await db();
+      await new Promise(res => { const t = d.transaction("basket", "readwrite"); t.objectStore("basket").put(items, "items"); t.oncomplete = res; t.onerror = res; });
+    } catch (e) {}
+    ONJJEM_updateBasketButton(items);
+  }
+  return {
+    load,
+    async add(item) {
+      const items = await load();
+      if (items.length >= 8) throw new Error("your basket is full (8 gifts max)");
+      item.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      items.push(item); await save(items); return items;
+    },
+    async remove(id) { const items = (await load()).filter(i => i.id !== id); await save(items); return items; },
+    async clear() { await save([]); }
+  };
+})();
+
+function ONJJEM_bundlePercent(n) { return n >= 3 ? 15 : n === 2 ? 10 : 0; }
+
+function ONJJEM_updateBasketButton(items) {
+  let btn = document.getElementById("basketFab");
+  if (!btn) {
+    btn = document.createElement("button");
+    btn.id = "basketFab"; btn.type = "button"; btn.className = "basket-fab";
+    btn.addEventListener("click", ONJJEM_openBasket);
+    document.body.appendChild(btn);
+  }
+  btn.innerHTML = `🧺<span class="basket-count">${items.length}</span>`;
+  btn.style.display = items.length ? "flex" : "none";
+}
+
+function ONJJEM_showAddedToast(thumb, name) {
+  const t = document.createElement("div");
+  t.className = "cartoon-preview-overlay";
+  ONJJEM_Basket.load().then(items => {
+    const n = items.length, next = ONJJEM_bundlePercent(n + 1), now = ONJJEM_bundlePercent(n);
+    const nudge = next > now ? `Add ${n === 1 ? "one more gift to save 10%" : "one more gift to save 15%"} on everything 🎁` : `You're saving ${now}% on your whole basket 🎉`;
+    t.innerHTML = `
+      <div class="cartoon-preview-card" style="text-align:center">
+        <img src="${thumb}" alt="" style="max-height:130px;margin:0 auto 0.6rem;border-radius:10px">
+        <div class="cartoon-preview-title">Added to your basket 🧺</div>
+        <p class="cartoon-email-note">${esc(name)}</p>
+        <p class="cartoon-email-note" style="font-weight:700;color:#F3D078">${nudge}</p>
+        <button class="cartoon-btn-primary" data-a="more" style="width:100%;margin-top:0.4rem">Add another gift</button>
+        <button class="cartoon-btn-secondary" data-a="basket" style="width:100%;margin-top:0.5rem">View basket &amp; checkout (${n})</button>
+      </div>`;
+    document.body.appendChild(t);
+    t.querySelector('[data-a="more"]').onclick = () => { t.remove(); location.href = "/tiktok"; };
+    t.querySelector('[data-a="basket"]').onclick = () => { t.remove(); ONJJEM_openBasket(); };
+  });
+}
+
+async function ONJJEM_openBasket() {
+  const items = await ONJJEM_Basket.load();
+  const old = document.getElementById("basketPanel"); if (old) old.remove();
+  const panel = document.createElement("div");
+  panel.id = "basketPanel"; panel.className = "cartoon-preview-overlay";
+  const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? 1.99 : 0), 0);
+  const pct = ONJJEM_bundlePercent(items.length);
+  const disc = Math.round(sub * pct) / 100;
+  const nextPct = ONJJEM_bundlePercent(items.length + 1);
+  panel.innerHTML = `
+    <div class="cartoon-preview-card basket-card">
+      <div class="cartoon-preview-title">Your basket 🧺</div>
+      ${items.length ? items.map(i => `
+        <div class="basket-row">
+          <img src="${i.thumb}" alt="">
+          <div class="basket-info"><strong>${esc(i.name)}</strong>${i.cartoon ? "<small>+ cartoon £1.99</small>" : ""}</div>
+          <div class="basket-price">${money(i.price + (i.cartoon ? 1.99 : 0))}</div>
+          <button type="button" class="basket-remove" data-id="${i.id}" aria-label="Remove">✕</button>
+        </div>`).join("") : `<p class="cartoon-email-note">Your basket is empty.</p>`}
+      ${items.length ? `
+        <div class="basket-sum"><span>Subtotal</span><span>${money(sub)}</span></div>
+        ${pct ? `<div class="basket-sum" style="color:#7ee2a0"><span>Bundle discount (${pct}%)</span><span>−${money(disc)}</span></div>` : ""}
+        <div class="basket-sum"><span>UK delivery</span><span>FREE</span></div>
+        <div class="basket-sum basket-total"><span>Total</span><span>${money(sub - disc)}</span></div>
+        ${pct ? `<p class="cartoon-email-note" style="font-size:0.8rem">Your bundle discount is applied instead of promo codes.</p>` : ""}
+        ${nextPct > pct ? `<p class="cartoon-email-note" style="color:#F3D078;font-weight:700">Add ${items.length === 1 ? "1 more gift to save 10%" : "1 more gift to save 15%"} 🎁</p>` : ""}
+        <button class="cartoon-btn-primary" id="basketCheckout" style="width:100%;margin-top:0.6rem">Checkout securely →</button>
+        <div id="basketStatus" class="cartoon-email-note" style="min-height:1.2em;margin-top:0.4rem"></div>` : ""}
+      <button class="cartoon-btn-secondary" id="basketMore" style="width:100%;margin-top:0.5rem">Keep shopping</button>
+    </div>`;
+  document.body.appendChild(panel);
+  panel.addEventListener("click", e => { if (e.target === panel) panel.remove(); });
+  panel.querySelector("#basketMore").onclick = () => { panel.remove(); if (!window.PAGE) location.href = "/tiktok"; };
+  panel.querySelectorAll(".basket-remove").forEach(b => b.onclick = async () => { await ONJJEM_Basket.remove(b.dataset.id); ONJJEM_openBasket(); });
+  const go = panel.querySelector("#basketCheckout");
+  if (go) go.onclick = async () => {
+    const st = panel.querySelector("#basketStatus");
+    go.disabled = true; st.textContent = "Taking you to secure checkout…";
+    onjjemGa("event", "begin_checkout", { currency: "GBP", value: sub - disc, items: items.map(i => ({ item_id: i.sku, item_name: i.name, price: i.price })) });
+    try {
+      const res = await fetch(`${API_BASE}/api/stripe/cart-checkout`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map(i => ({ sku: i.sku, photoBase64: i.photo, cartoon: !!i.cartoon })),
+          successUrl: location.origin + "/?order=success&basket=1&session_id={CHECKOUT_SESSION_ID}",
+          cancelUrl: location.href.split("#")[0]
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (data.url) { location.href = data.url; return; }
+      throw new Error(data.error || "checkout didn't start");
+    } catch (err) {
+      go.disabled = false;
+      st.style.color = "#ffb4a8";
+      st.textContent = "Sorry, checkout didn't start (" + (err.message || "connection problem") + "). Please try again or email hello@onjjem.com.";
+    }
+  };
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const q = new URLSearchParams(location.search);
+  if (q.get("order") === "success" && q.get("basket") === "1") await ONJJEM_Basket.clear();
+  ONJJEM_updateBasketButton(await ONJJEM_Basket.load());
+});
 
 if (window.PAGE) {
   document.addEventListener("DOMContentLoaded", () => ONJJEM_renderLanding(window.PAGE));

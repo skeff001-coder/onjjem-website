@@ -129,3 +129,17 @@ a { color: var(--gold); }
 
 .l-footer { text-align: center; color: #999; font-size: 0.85rem; padding: 2rem 1rem; border-top: 1px solid var(--line); margin-top: 2rem; }
 .l-footer a { color: var(--gold); text-decoration: none; margin: 0 0.5rem; }
+
+/* Basket */
+.basket-fab { position: fixed; right: 16px; bottom: 16px; z-index: 60; width: 60px; height: 60px; border-radius: 50%; border: none; background: var(--gold); color: #1a1a1a; font-size: 1.6rem; display: none; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.45); cursor: pointer; }
+.basket-count { position: absolute; top: -4px; right: -4px; background: #e23b3b; color: #fff; font-size: 0.8rem; font-weight: 800; min-width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; padding: 0 5px; }
+@media (max-width: 819px) { body.has-sticky .basket-fab { bottom: 88px; } }
+.basket-card { max-width: 460px; max-height: 88vh; overflow-y: auto; }
+.basket-row { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; }
+.basket-row img { width: 54px; height: 54px; object-fit: cover; border-radius: 8px; flex: 0 0 auto; background: #fff; }
+.basket-info { flex: 1; font-size: 0.9rem; }
+.basket-info small { display: block; opacity: 0.75; }
+.basket-price { font-weight: 800; white-space: nowrap; }
+.basket-remove { background: none; border: none; color: inherit; opacity: 0.6; font-size: 1rem; cursor: pointer; padding: 0.3rem; }
+.basket-sum { display: flex; justify-content: space-between; padding: 0.3rem 0; font-size: 0.95rem; }
+.basket-total { font-weight: 800; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.15); margin-top: 0.3rem; padding-top: 0.5rem; }
