@@ -90,6 +90,32 @@ function ONJJEM_readPhoto(file) {
   });
 }
 
+// Lay 1–9 photos out as a square grid (print-ready, 1800px = 6" at 300dpi).
+// 2–3 photos fill a 2x2 grid and 5–8 fill a 3x3 grid by repeating photos.
+function ONJJEM_buildCollage(dataUrls) {
+  const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });
+  return Promise.all(dataUrls.map(load)).then(imgs => {
+    imgs = imgs.filter(Boolean);
+    const n = imgs.length;
+    const cols = n <= 1 ? 1 : n <= 4 ? 2 : 3;
+    const size = 1800, gap = 18;
+    const cell = (size - gap * (cols + 1)) / cols;
+    const c = document.createElement("canvas");
+    c.width = c.height = size;
+    const ctx = c.getContext("2d");
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, size, size);
+    for (let k = 0; k < cols * cols; k++) {
+      const img = imgs[k % n];
+      const s = Math.min(img.width, img.height);
+      const sx = (img.width - s) / 2, sy = (img.height - s) / 2;
+      const x = gap + (k % cols) * (cell + gap), y = gap + Math.floor(k / cols) * (cell + gap);
+      ctx.drawImage(img, sx, sy, s, s, x, y, cell, cell);
+    }
+    return c.toDataURL("image/jpeg", 0.92);
+  });
+}
+
 function ONJJEM_renderLanding(P) {
   const app = document.getElementById("app");
   const opts = P.options;
@@ -136,13 +162,9 @@ function ONJJEM_renderLanding(P) {
             </label>`).join("")}
         </div>
 
-        <span class="order-label">2. Add your photo</span>
+        <span class="order-label">2. Add your photo${opts.some(o => o.multi) ? "s" : ""}</span>
         <input type="file" id="photoInput" accept="image/*" style="display:none">
-        <div class="upload" id="uploadBox" role="button" tabindex="0">
-          <div class="u-icon">📸</div>
-          <div class="u-text">Tap to choose a photo</div>
-          <div class="u-hint">${esc(P.photoHint || "Clear, bright photos print best.")}</div>
-        </div>
+        <div class="upload" id="uploadBox" role="button" tabindex="0"></div>
 
         <div class="order-total"><span>Total <small style="color:var(--muted)">(free UK delivery)</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
         <button class="btn" id="buyBtn">${P.cartoon ? "Continue — preview & checkout" : "Continue to secure checkout"}</button>
@@ -165,31 +187,55 @@ function ONJJEM_renderLanding(P) {
 
   // Option selection
   const optionEls = app.querySelectorAll(".option");
-  optionEls.forEach(el => el.addEventListener("click", () => {
+  const input = document.getElementById("photoInput");
+  const box = document.getElementById("uploadBox");
+  const status = document.getElementById("status");
+  let photos = []; // every photo the customer picked (for collage options)
+  const isMulti = () => !!opts[selected].multi;
+  const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Tap to choose up to " + opts[selected].multi + " photos" : "Tap to choose a photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div>`;
+
+  async function refreshPhoto() {
+    if (!photos.length) { photo = null; box.classList.remove("has-photo"); box.innerHTML = emptyBox(); return; }
+    if (isMulti() && photos.length > 1) {
+      box.innerHTML = `<div class="u-text">Building your collage…</div>`;
+      photo = await ONJJEM_buildCollage(photos.slice(0, opts[selected].multi));
+    } else {
+      photo = photos[0];
+    }
+    const n = isMulti() ? Math.min(photos.length, opts[selected].multi) : 1;
+    box.classList.add("has-photo");
+    box.innerHTML = `<img class="u-preview" src="${photo}" alt="Your photo"><div class="u-text">✓ ${n > 1 ? n + " photos added" : "Photo added"}</div><div class="u-hint">Tap to change</div>`;
+  }
+
+  optionEls.forEach(el => el.addEventListener("click", async () => {
+    const wasMulti = isMulti();
     selected = Number(el.dataset.i);
     optionEls.forEach(e => e.classList.toggle("selected", e === el));
     el.querySelector("input").checked = true;
     document.getElementById("total").textContent = money(opts[selected].price);
+    input.multiple = isMulti();
+    if (wasMulti !== isMulti()) await refreshPhoto();
   }));
+  input.multiple = isMulti();
+  box.innerHTML = emptyBox();
 
   // Photo upload
-  const input = document.getElementById("photoInput");
-  const box = document.getElementById("uploadBox");
-  const status = document.getElementById("status");
   box.addEventListener("click", () => input.click());
   box.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") input.click(); });
   input.addEventListener("change", async () => {
-    const file = input.files && input.files[0];
-    if (!file) return;
+    const files = Array.from(input.files || []);
+    if (!files.length) return;
     status.textContent = "";
-    box.innerHTML = `<div class="u-text">Loading your photo…</div>`;
+    box.innerHTML = `<div class="u-text">Loading your photo${files.length > 1 ? "s" : ""}…</div>`;
     try {
-      photo = await ONJJEM_readPhoto(file);
-      box.classList.add("has-photo");
-      box.innerHTML = `<img class="u-preview" src="${photo}" alt="Your photo"><div class="u-text">✓ Photo added</div><div class="u-hint">Tap to change it</div>`;
+      const max = isMulti() ? opts[selected].multi : 1;
+      if (files.length > max) status.textContent = `We've used your first ${max} photos.`;
+      photos = await Promise.all(files.slice(0, max).map(ONJJEM_readPhoto));
+      await refreshPhoto();
+      input.value = "";
       onjjemGa("event", "add_to_cart", { currency: "GBP", value: opts[selected].price, items: [{ item_id: opts[selected].sku, item_name: opts[selected].name, price: opts[selected].price }] });
     } catch (err) {
-      box.innerHTML = `<div class="u-icon">📸</div><div class="u-text">Tap to choose a photo</div>`;
+      photos = []; await refreshPhoto();
       status.textContent = err.message;
     }
   });
@@ -199,7 +245,8 @@ function ONJJEM_renderLanding(P) {
   buyBtn.addEventListener("click", () => {
     if (!photo) { status.textContent = "Please add your photo first 📸"; box.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     status.textContent = "";
-    if (P.cartoon && typeof ONJJEM_showPhotoPreview === "function") {
+    const collage = isMulti() && photos.length > 1; // cartoons are for single photos
+    if (P.cartoon && !collage && typeof ONJJEM_showPhotoPreview === "function") {
       ONJJEM_showPhotoPreview(photo, cartoonOpts => checkout(cartoonOpts));
     } else {
       checkout(null);
