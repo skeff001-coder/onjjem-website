@@ -172,6 +172,50 @@ function ONJJEM_addCaption(dataUrl, text, pos) {
   });
 }
 
+function ONJJEM_loadImg(src) {
+  return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+}
+// Centre-crop a picture to an exact shape (w:h) so what they see is what prints.
+async function ONJJEM_cropTo(dataUrl, w, h) {
+  const img = await ONJJEM_loadImg(dataUrl);
+  const target = w / h, have = img.width / img.height;
+  let sw = img.width, sh = img.height;
+  if (have > target) sw = img.height * target; else sh = img.width / target;
+  if (Math.abs(have - target) < 0.01) return dataUrl;
+  const c = document.createElement("canvas");
+  c.width = Math.round(sw); c.height = Math.round(sh);
+  c.getContext("2d").drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, 0, 0, c.width, c.height);
+  return c.toDataURL("image/jpeg", 0.93);
+}
+async function ONJJEM_rotate90(dataUrl) {
+  const img = await ONJJEM_loadImg(dataUrl);
+  const c = document.createElement("canvas");
+  c.width = img.height; c.height = img.width;
+  const ctx = c.getContext("2d");
+  ctx.translate(c.width, 0); ctx.rotate(Math.PI / 2); ctx.drawImage(img, 0, 0);
+  return c.toDataURL("image/jpeg", 0.93);
+}
+// Mug wrap: the whole picture (nothing cut off), shown twice so it faces
+// out whichever hand holds the mug, on a soft blurred background.
+async function ONJJEM_mugWrap(dataUrl, aspect) {
+  const img = await ONJJEM_loadImg(dataUrl);
+  const H = 1100, W = Math.round(H * aspect);
+  const c = document.createElement("canvas"); c.width = W; c.height = H;
+  const ctx = c.getContext("2d");
+  const s = Math.max(W / img.width, H / img.height);
+  ctx.filter = "blur(40px) brightness(0.9)";
+  ctx.drawImage(img, (W - img.width * s) / 2, (H - img.height * s) / 2, img.width * s, img.height * s);
+  ctx.filter = "none";
+  const ph = H * 0.9, pw = Math.min(ph * img.width / img.height, W * 0.46);
+  const fh = pw * img.height / img.width;
+  const slots = pw * 2 <= W * 0.96 ? [0.25, 0.75] : [0.5];
+  for (const f of slots) {
+    ctx.save(); ctx.shadowColor = "rgba(0,0,0,0.25)"; ctx.shadowBlur = 24;
+    ctx.drawImage(img, W * f - pw / 2, (H - fh) / 2, pw, fh); ctx.restore();
+  }
+  return c.toDataURL("image/jpeg", 0.93);
+}
+
 function ONJJEM_printAnythingHtml() {
   const items = [
     ["📸", "Photos", "Family, friends, holidays"],
@@ -307,7 +351,7 @@ function ONJJEM_renderLanding(P) {
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div><h3>Pick a photo or type words</h3><p>Pets, kids, family, a drawing, or your own slogan.</p></div></div>
         <div class="step"><div class="step-num">2</div><div><h3>${P.cartoon ? "Cartoon it (optional)" : "Choose your option"}</h3><p>${P.cartoon ? "See a free preview of your photo as a cartoon. Add it for £1.99, or keep the original." : "Pick the size or style you want."}</p></div></div>
-        <div class="step"><div class="step-num">3</div><div><h3>We make it &amp; post it</h3><p>Printed to order in the UK and sent with free tracked delivery.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div><h3>We make it &amp; post it</h3><p>Printed to order in the UK and sent with free delivery.</p></div></div>
       </div>
     </section>
 
@@ -330,6 +374,13 @@ function ONJJEM_renderLanding(P) {
         <span class="order-label">2. Add your photo${opts.some(o => o.multi) ? "s" : ""}, drawing or words</span>
         <input type="file" id="photoInput" accept="image/*" style="display:none">
         <div class="upload" id="uploadBox" role="button" tabindex="0"></div>
+        <div id="orientWrap" style="display:none;margin-top:0.7rem">
+          <span style="font-weight:700;display:block;margin-bottom:0.35rem">Which way round?</span>
+          <div style="display:flex;gap:0.4rem">
+            <button type="button" class="btn btn-ghost orientBtn" data-o="portrait" style="padding:0.55rem;font-size:0.9rem">▯ Portrait (tall)</button>
+            <button type="button" class="btn btn-ghost orientBtn" data-o="landscape" style="padding:0.55rem;font-size:0.9rem">▭ Landscape (wide)</button>
+          </div>
+        </div>
         <div id="captionWrap" style="display:none;margin-top:0.7rem">
           <label for="captionText" style="font-weight:700;display:block;margin-bottom:0.35rem">Add funny words to your picture? <span style="color:var(--muted);font-weight:400">(optional)</span></label>
           <input id="captionText" maxlength="60" placeholder="e.g. Chief Treat Inspector 🐾" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem">
@@ -377,7 +428,32 @@ function ONJJEM_renderLanding(P) {
     document.querySelectorAll(".capPos").forEach(x => x.style.borderColor = x === b ? "var(--gold)" : "");
     refreshPhoto();
   }));
+  let orient = null; // "portrait" | "landscape", set from the photo, customer can switch
+  const orientWrap = document.getElementById("orientWrap");
+  const nominalOrient = o => (o.ratio && o.ratio[0] > o.ratio[1]) ? "landscape" : "portrait";
+  function targetRatio(o) {
+    if (!o.ratio) return null;
+    let [w, h] = o.ratio;
+    if (o.orient && orient && orient !== nominalOrient(o) && w !== h) [w, h] = [h, w];
+    return [w, h];
+  }
+  // Everything that turns the picture into the exact print file.
+  async function finalize(src, words, forPrint) {
+    const o = opts[selected];
+    let out = src;
+    const r = targetRatio(o);
+    if (r && !o.wrap) out = await ONJJEM_cropTo(out, r[0], r[1]);
+    out = await ONJJEM_addCaption(out, words, capPos);
+    if (o.wrap) out = await ONJJEM_mugWrap(out, o.wrap);
+    else if (forPrint && r && r[0] !== r[1] && (r[0] > r[1]) !== (o.ratio[0] > o.ratio[1])) out = await ONJJEM_rotate90(out);
+    return out;
+  }
+  document.querySelectorAll(".orientBtn").forEach(b => b.addEventListener("click", () => { orient = b.dataset.o; refreshPhoto(); }));
+
   async function refreshPhoto() {
+    const o0 = opts[selected];
+    orientWrap.style.display = photos.length && o0.orient && !o0.wrap && o0.ratio && o0.ratio[0] !== o0.ratio[1] ? "block" : "none";
+    document.querySelectorAll(".orientBtn").forEach(x => x.style.borderColor = x.dataset.o === orient ? "var(--gold)" : "");
     if (!photos.length) document.getElementById("captionWrap").style.display = "none";
     if (!photos.length) { photo = null; box.classList.remove("has-photo"); box.innerHTML = emptyBox(); return; }
     if (isMulti() && photos.length > 1) {
@@ -389,8 +465,11 @@ function ONJJEM_renderLanding(P) {
     const n = isMulti() ? Math.min(photos.length, opts[selected].multi) : 1;
     box.classList.add("has-photo");
     document.getElementById("captionWrap").style.display = isTextDesign ? "none" : "block";
-    const shown = await ONJJEM_addCaption(photo, isTextDesign ? "" : capText.value, capPos);
-    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo"><div class="u-text">✓ ${n > 1 ? n + " photos added" : "Photo added"}</div><div class="u-hint">Tap to change</div>`;
+    if (!orient) { const im = await ONJJEM_loadImg(photo); orient = im.width > im.height ? "landscape" : "portrait"; document.querySelectorAll(".orientBtn").forEach(x => x.style.borderColor = x.dataset.o === orient ? "var(--gold)" : ""); }
+    const shown = await finalize(photo, isTextDesign ? "" : capText.value, false);
+    const o1 = opts[selected];
+    const label = o1.wrap ? "This wraps around your mug (your picture shows on both sides)" : (o1.ratio ? "This is exactly how it will print" : "Tap to change");
+    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}"><div class="u-text">✓ ${n > 1 ? n + " photos added" : "Photo added"}</div><div class="u-hint">${label} · tap to change</div>`;
   }
 
   optionEls.forEach(el => el.addEventListener("click", async () => {
@@ -400,7 +479,7 @@ function ONJJEM_renderLanding(P) {
     el.querySelector("input").checked = true;
     document.getElementById("total").textContent = money(opts[selected].price);
     input.multiple = isMulti();
-    if (wasMulti !== isMulti()) await refreshPhoto();
+    await refreshPhoto();
   }));
   input.multiple = isMulti();
   box.innerHTML = emptyBox();
@@ -417,6 +496,7 @@ function ONJJEM_renderLanding(P) {
       const max = isMulti() ? opts[selected].multi : 1;
       if (files.length > max) status.textContent = `We've used your first ${max} photos.`;
       photos = await Promise.all(files.slice(0, max).map(ONJJEM_readPhoto));
+      orient = null;
       await refreshPhoto();
       input.value = "";
       onjjemGa("event", "add_to_cart", { currency: "GBP", value: opts[selected].price, items: [{ item_id: opts[selected].sku, item_name: opts[selected].name, price: opts[selected].price }] });
@@ -429,7 +509,8 @@ function ONJJEM_renderLanding(P) {
   // Typed words / slogans
   document.getElementById("typeBtn").addEventListener("click", () => {
     const o = opts[selected];
-    ONJJEM_openTextMaker(o.aspect || P.textAspect || 1, async dataUrl => {
+    const tr = targetRatio(o);
+    ONJJEM_openTextMaker(o.wrap ? 1.3 : (tr ? tr[0] / tr[1] : (o.aspect || P.textAspect || 1)), async dataUrl => {
       photos = [dataUrl];
       isTextDesign = true;
       await refreshPhoto();
@@ -460,16 +541,14 @@ function ONJJEM_renderLanding(P) {
     onjjemGa("event", "begin_checkout", { currency: "GBP", value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
     try {
       const words = isTextDesign ? "" : capText.value;
-      let finalPhoto = await ONJJEM_addCaption(photo, words, capPos);
+      let finalPhoto = await finalize(photo, words, true);
       const extra = Object.assign({}, cartoonOpts || {});
       if (extra.confirmedCartoonBase64) {
         // Show the customer the exact cartoon that will be printed, with their words.
         const cartoonUrl = extra.confirmedCartoonBase64.startsWith("data:") ? extra.confirmedCartoonBase64 : "data:image/png;base64," + extra.confirmedCartoonBase64;
-        const finalCartoon = await ONJJEM_addCaption(cartoonUrl, words, capPos);
+        const finalCartoon = await finalize(cartoonUrl, words, true);
         extra.confirmedCartoonBase64 = P.pngMaxPx ? await ONJJEM_toPng(finalCartoon, P.pngMaxPx) : finalCartoon;
-        box.innerHTML = `<img class="u-preview" src="${finalCartoon}" alt="Your cartoon"><div class="u-text">✓ Cartoon added — this is what we'll print</div>`;
-      } else if (words) {
-        box.innerHTML = `<img class="u-preview" src="${finalPhoto}" alt="Your design"><div class="u-text">✓ This is what we'll print</div>`;
+        box.innerHTML = `<img class="u-preview" src="${await finalize(cartoonUrl, words, false)}" alt="Your cartoon"><div class="u-text">✓ Cartoon added — this is what we'll print</div>`;
       }
       const photoToSend = P.pngMaxPx ? await ONJJEM_toPng(finalPhoto, P.pngMaxPx) : finalPhoto;
       const res = await fetch(`${API_BASE}/api/stripe/checkout`, {

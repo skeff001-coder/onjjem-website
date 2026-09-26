@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fine Art Prints | ONJJEM</title>
-<meta name="description" content="Photo postcards and museum-grade fine art prints of your own photos. Free UK shipping.">
-<link rel="canonical" href="https://onjjem.com/prints" />
+<title>Photo Prints &amp; Postcards | ONJJEM</title>
+<meta name="description" content="Glossy photo postcards and museum-quality prints of your photos, portrait or landscape. Free UK delivery.">
+<link rel="canonical" href="https://onjjem.com/prints">
+<meta property="og:title" content="Photo Prints &amp; Postcards | ONJJEM">
+<meta property="og:description" content="Glossy photo postcards and museum-quality prints of your photos, portrait or landscape. Free UK delivery.">
+<meta property="og:image" content="https://onjjem.com/prints-postcards.jpg">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -13,184 +16,50 @@
   gtag('js', new Date());
   gtag('config', 'G-3L30Q5L3MW');
 </script>
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#2a2a2a; color:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
-  .header { background:#3a3a3a; padding:1.2rem 1.5rem; border-bottom:2px solid #d4af37; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
-  .logo { font-size:1.5rem; font-weight:700; color:#d4af37; text-decoration:none; letter-spacing:2px; }
-  .nav { display:flex; gap:1.5rem; }
-  .nav a { color:#fff; text-decoration:none; font-weight:500; font-size:0.9rem; }
-  .nav a:hover { color:#d4af37; }
-  .page-header { text-align:center; padding:2.5rem 1.5rem 1.5rem; }
-  .page-header h1 { color:#d4af37; font-size:2rem; margin-bottom:0.5rem; }
-  .page-header p { color:#ccc; max-width:600px; margin:0 auto; }
-  .products { max-width:1100px; margin:0 auto; padding:1rem 1.5rem 3rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
-  .card { background:#fff; border-radius:10px; overflow:hidden; }
-  .card img { width:100%; height:200px; object-fit:cover; display:block; background:#eee; }
-  .card-body { padding:1.2rem; }
-  .card h3 { color:#1a1a1a; font-size:1.1rem; margin-bottom:0.3rem; }
-  .card .price { color:#b8892a; font-weight:700; margin-bottom:0.6rem; }
-  .card .desc { color:#666; font-size:0.85rem; line-height:1.5; margin-bottom:1rem; }
-  select.variant { width:100%; padding:0.6rem; border-radius:6px; border:1px solid #ccc; margin-bottom:0.8rem; font-size:0.85rem; }
-  input[type=file] { width:100%; font-size:0.8rem; margin-bottom:0.8rem; }
-  .buy-btn { display:block; width:100%; background:#d4af37; color:#1a1a1a; font-weight:700; padding:0.8rem; border:none; border-radius:6px; cursor:pointer; }
-  .buy-btn:hover { background:#e5c158; }
-  .status { font-size:0.8rem; margin-top:0.5rem; min-height:14px; text-align:center; }
-  footer { text-align:center; padding:2rem; color:#999; border-top:1px solid #444; font-size:0.85rem; }
-  footer a { color:#d4af37; text-decoration:none; margin:0 8px; }
-</style>
+<link rel="stylesheet" href="/landing.css">
 <link rel="stylesheet" href="/cartoonify-shared.css">
 </head>
 <body>
-
-<header class="header">
-  <a href="/" class="logo">ONJJEM</a>
-  <nav class="nav">
-    <a href="/">Home</a>
-    <a href="/#help">Help</a>
-    <a href="/gift-cards.html">Gift Cards</a>
-  </nav>
-</header>
-
-<div class="page-header">
-  <h1>Fine Art Prints</h1>
-  <p>Postcards and museum-grade fine art prints — all printed from your own photo.</p>
-</div>
-
-<div class="products" id="products"></div>
-
-<footer>
-  <a href="/delivery.html">Delivery Info</a>
-  <a href="/terms.html">Terms</a>
-  <a href="/privacy.html">Privacy</a>
-</footer>
-
+<div id="app"></div>
 <script>
-const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
-
-const ITEMS = [
-  {
-    name: "Photo Postcard",
-    img: "/products/framed-photo-tiles.jpg",
-    desc: "Your favourite photo, printed on a classic 6x4 inch gloss postcard. A brilliant, affordable way to send a photo through the post or keep a memory close.",
-    variants: [{ sku: "CLASSIC-POST-GLOS-6X4", label: "6x4 inch (Gloss) — £2.99" }]
-  },
-  {
-    name: "Museum-Grade Fine Art Print",
-    img: "/products/slim-canvas.webp",
-    desc: "Professional Giclée fine art printing on heavyweight 240gsm matte paper with archival, pigment-based inks. Razor-sharp detail and rich colour that resists fading over time.",
-    variants: [
-      { sku: "art-print-5x7", label: "5x7 inch - £9.99" },
-      { sku: "art-print-8x10", label: "8x10 inch - £14.99" },
-      { sku: "art-print-11x14", label: "11x14 inch - £19.99" },
-      { sku: "art-print-12x16", label: "12x16 inch - £24.99" },
-      { sku: "art-print-24x32", label: "24x32 inch - £29.99" },
-      { sku: "art-print-36x48", label: "36x48 inch - £34.99" }
-    ]
-  }
-];
-
-const grid = document.getElementById("products");
-window.__items = {};
-
-ITEMS.forEach((item, i) => {
-  window.__items[i] = item;
-  const showDropdown = item.variants.length > 1;
-  const options = item.variants.map(v => `<option value="${v.sku}">${v.label}</option>`).join("");
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <img src="${item.img}" alt="${item.name}" loading="lazy">
-    <div class="card-body">
-      <h3>${item.name}</h3>
-      ${showDropdown ? `<select class="variant" data-item="${i}">${options}</select>` : `<p class="price">${item.variants[0].label}</p>`}
-      <p class="desc">${item.desc}</p>
-      <input type="file" accept="image/*" data-item="${i}" style="display:none;">
-      <button class="buy-btn" style="background:#8e7cc3; margin-bottom:0.5rem;" data-item="${i}" data-type="upload">📸 Pick your pic and click</button>
-      <button class="buy-btn" data-item="${i}" data-type="checkout" style="display:none;">Buy Now</button>
-      <p class="status" data-status="${i}"></p>
-    </div>
-  `;
-  grid.appendChild(card);
-});
-
-let itemPendingCartoonOptions = {};
-
-document.querySelectorAll('input[type="file"]').forEach(input => {
-  input.addEventListener("change", async () => {
-    const i = input.dataset.item;
-    const status = document.querySelector(`[data-status="${i}"]`);
-    if (input.files.length === 0) return;
-    const photoBase64 = await toBase64(input.files[0]);
-    input.dataset.photo = photoBase64;
-    status.textContent = "";
-    ONJJEM_showPhotoPreview(photoBase64, (cartoonOptions) => {
-      itemPendingCartoonOptions[i] = cartoonOptions;
-      const uploadBtn = document.querySelector(`button[data-item="${i}"][data-type="upload"]`);
-      const checkoutBtn = document.querySelector(`button[data-item="${i}"][data-type="checkout"]`);
-      uploadBtn.style.display = "none";
-      checkoutBtn.style.display = "block";
-      status.textContent = "✅ Photo added" + (cartoonOptions ? " — with Cartoon!" : "");
-      status.style.color = "#2e7d32";
-    });
-  });
-});
-
-document.querySelectorAll('button[data-type="upload"]').forEach(btn => {
-  btn.addEventListener("click", () => {
-    const i = btn.dataset.item;
-    const fileInput = document.querySelector(`input[type="file"][data-item="${i}"]`);
-    fileInput.click();
-  });
-});
-
-function toBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
-document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
-  btn.addEventListener("click", async () => {
-    const i = btn.dataset.item;
-    const item = window.__items[i];
-    const select = document.querySelector(`select[data-item="${i}"]`);
-    const sku = select ? select.value : item.variants[0].sku;
-    const fileInput = document.querySelector(`input[type="file"][data-item="${i}"]`);
-    const status = document.querySelector(`[data-status="${i}"]`);
-    const photoBase64 = fileInput.dataset.photo;
-    if (!photoBase64) { status.textContent = "Please choose a photo first"; return; }
-
-    btn.disabled = true;
-    status.textContent = "Preparing checkout...";
-
-    const cartoonOptions = itemPendingCartoonOptions[i];
-
-    try {
-      const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          sku,
-          photoBase64,
-          successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
-          cancelUrl: window.location.href,
-          ...(cartoonOptions || {})
-        })
-      });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else { status.textContent = data.error || "Something went wrong"; btn.disabled = false; }
-    } catch (err) {
-      status.textContent = "Could not connect. Please try again.";
-      btn.disabled = false;
-    }
-  });
-});
+window.PAGE = {
+  kicker: "Prints & postcards",
+  title: "Your photos, printed beautifully",
+  sub: "Pick a size, add your photo and choose portrait (tall) or landscape (wide). You'll see exactly how it will print before you pay, so nothing important gets cut off.",
+  heroImg: "/prints-postcards.jpg",
+  heroAlt: "Framed photo prints on a wall, one portrait and one landscape",
+  ticks: [
+    "Portrait or landscape: you choose",
+    "See the exact print before you pay",
+    "Museum-quality matte art paper that won't fade",
+    "Free UK delivery"
+  ],
+  cta: "Choose my print",
+  optionWord: "your size",
+  orderTitle: "Make your print",
+  cartoon: true,
+  photoHint: "Use the original photo from your phone (not a screenshot) for the sharpest print.",
+  options: [
+    { sku: "CLASSIC-POST-GLOS-6X4", ratio: [6, 4], orient: true, name: "Photo postcard — 6×4″ (15×10cm)", note: "Glossy card. Post it, or keep it on the fridge", price: 3.99, badge: "£3.99" },
+    { sku: "art-print-5x7", ratio: [5, 7], orient: true, name: "Small print — 5×7″ (13×18cm)", note: "Fits a standard 5×7 frame. Great for a desk or shelf", price: 9.99 },
+    { sku: "art-print-8x10", ratio: [8, 10], orient: true, name: "Medium print — 8×10″ (20×25cm)", note: "Fits a standard 8×10 frame. Our most popular", price: 15.99, badge: "POPULAR", default: true },
+    { sku: "art-print-11x14", ratio: [11, 14], orient: true, name: "Large print — 11×14″ (28×36cm)", note: "A statement picture for the wall", price: 19.99 },
+    { sku: "art-print-12x16", ratio: [12, 16], orient: true, name: "Extra large — 12×16″ (30×40cm)", note: "Big and bold, for a living room or hallway", price: 24.99 },
+    { sku: "art-print-18x24", ratio: [18, 24], orient: true, name: "Wall print — 18×24″ (45×60cm)", note: "Fits standard 45×60 frames", price: 27.99 },
+    { sku: "art-print-24x32", ratio: [24, 32], orient: true, name: "Big wall print — 24×32″ (60×80cm)", note: "Gallery-size statement piece", price: 34.99 },
+    { sku: "art-print-36x48", ratio: [36, 48], orient: true, name: "Huge wall print — 36×48″ (91×122cm)", note: "Fills a wall. Needs a good, sharp photo", price: 54.99 }
+  ],
+  faq: [
+    ["Portrait or landscape?", "Portrait is tall (like a standing person), landscape is wide (like a beach view). We pick the right one from your photo automatically, and you can switch with one tap. The preview shows exactly what will be printed."],
+    ["Does it come in a frame?", "No, prints arrive unframed and flat-packed, ready for any standard frame of the same size."],
+    ["What paper do you use?", "Postcards are glossy card. Prints are museum-quality 240gsm matte fine-art paper with fade-resistant inks."],
+    ["Can I print words or a slogan?", "Yes. Tap \"Type your own words\" and write anything. Pick colours and a font and see it before you buy. You can also add funny words on top of your photo."],
+    ["Is there anything you can't print?", "Please only send pictures and words you have the right to use. We can't print football club badges, brand logos or cartoon characters from films and TV, or anything offensive."],
+    ["What if something's wrong?", "Email hello@onjjem.com with a photo and we'll put it right with a replacement or refund."]
+  ]
+};
 </script>
+<script src="/landing.js"></script>
 <script src="/cartoonify-shared.js"></script>
 </body>
 </html>
