@@ -43,13 +43,19 @@ function ONJJEM_showPhotoPreview(photoBase64, onProceed) {
 }
 
 function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
+  // Pages can set window.ONJJEM_CARTOON_STYLE = "halloween" (or "christmas")
+  // for a seasonal cartoon.
+  const style = window.ONJJEM_CARTOON_STYLE || undefined;
+  const isHalloween = style === "halloween";
+  const isChristmas = style === "christmas";
+  let previewId;
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
   overlay.innerHTML = `
     <div class="cartoon-preview-card">
-      <div class="cartoon-sparkle-badge">✨ NEW ✨</div>
-      <div class="cartoon-preview-title">See Yourself as a Cartoon! 🎨</div>
-      <p class="cartoon-email-note cartoon-highlight">Turn everyone in your photo into their own unique cartoon character — for just £1.99.</p>
+      <div class="cartoon-sparkle-badge">${isHalloween ? "🎃 HALLOWEEN 🎃" : isChristmas ? "🎄 CHRISTMAS 🎄" : "✨ NEW ✨"}</div>
+      <div class="cartoon-preview-title">${isHalloween ? "See Them as a Halloween Cartoon! 🎃" : isChristmas ? "See Them as a Christmas Cartoon! 🎄" : "See Yourself as a Cartoon! 🎨"}</div>
+      <p class="cartoon-email-note cartoon-highlight">${isHalloween ? "We'll turn your photo into a cute Halloween cartoon, with a costume, pumpkins and a spooky moonlit night, for just £1.99." : isChristmas ? "We'll turn your photo into a cosy Christmas cartoon, with a Santa hat, fairy lights and falling snow, for just £1.99." : "Turn everyone in your photo into their own unique cartoon character — for just £1.99."}</p>
       <p class="cartoon-email-note">Free to preview first. No obligation, no risk — just tap below and see the magic.</p>
       <button class="cartoon-btn-primary cartoon-btn-glow" data-role="generate" style="width:100%; margin-top:10px;">✨ Show Me My Cartoon! ✨</button>
       <div style="margin-top: 10px;">
@@ -75,7 +81,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
       const res = await fetch(`${API_BASE}/api/cartoonify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: true }),
+        body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: true, style }),
       });
       const data = await res.json();
 
@@ -103,6 +109,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
         throw new Error(data.details || data.error || "Could not generate preview");
       }
 
+      previewId = data.previewId;
       const previewSrc = `data:${data.mimeType};base64,${data.base64Image}`;
       card.innerHTML = `
         <div class="cartoon-preview-title">Here's your cartoon! ✨</div>
@@ -125,7 +132,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
           const finalRes = await fetch(`${API_BASE}/api/cartoonify`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: false }),
+            body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: false, style, previewId }),
           });
           const finalData = await finalRes.json();
           if (!finalRes.ok || !finalData.base64Image) {
