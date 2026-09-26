@@ -1,727 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONJJEM | Personalised Photo Gifts</title>
-    <meta name="description" content="Premium personalised photo gifts printed in the UK. Custom t-shirts, blankets, mugs, fine art prints.">
-    <link rel="canonical" href="https://onjjem.com/" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-3L30Q5L3MW');
-    </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #2a2a2a;
-            color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        /* HEADER */
-        .header {
-            background: #3a3a3a;
-            padding: 1.5rem 2rem;
-            border-bottom: 2px solid #d4af37;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #d4af37;
-            text-decoration: none;
-            letter-spacing: 2px;
-        }
-
-        .nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav a:hover {
-            color: #d4af37;
-        }
-
-        /* TRUST BANNER */
-        .trust-banner {
-            background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%);
-            padding: 1rem 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #444;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* HERO */
-        .hero {
-            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
-            padding: 4rem 2rem;
-            text-align: center;
-            border-bottom: 2px solid #d4af37;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #d4af37, transparent);
-            opacity: 0.5;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            color: #d4af37;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        .hero .emporium-label {
-            font-size: 0.9rem;
-            color: #d4af37;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: #ddd;
-            max-width: 700px;
-            margin: 0 auto 1.5rem;
-            line-height: 1.6;
-            font-weight: 500;
-        }
-
-        .hero input {
-            font-family: inherit;
-        }
-
-        .hero input::placeholder {
-            color: #999;
-        }
-
-        /* CATEGORIES GRID */
-        .categories {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .category-tile {
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .category-tile:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(212, 175, 55, 0.3);
-        }
-
-        .category-image {
-            width: 100%;
-            height: 200px;
-            background: #f0f0f0;
-            overflow: hidden;
-        }
-
-        .category-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .category-content {
-            padding: 1.5rem;
-            background: #f9f9f9;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .category-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
-        }
-
-        .category-desc {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-
-        .category-btn {
-            background: #d4af37;
-            color: #1a1a1a;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: background 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .category-btn:hover {
-            background: #e5c158;
-        }
-
-        /* GIFT CARDS SPOTLIGHT */
-        .gift-cards-spotlight {
-            margin-top: 3rem;
-        }
-
-        .gift-cards-tile {
-            background: linear-gradient(135deg, #d4af37 0%, #e5c158 100%);
-            border-radius: 12px;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            gap: 2rem;
-        }
-
-        .gift-cards-tile:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.4);
-        }
-
-        .gift-cards-content {
-            flex: 1;
-        }
-
-        .gift-cards-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
-        }
-
-        .gift-cards-desc {
-            font-size: 1rem;
-            color: #333;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .gift-cards-btn {
-            background: #1a1a1a;
-            color: #d4af37;
-            border: none;
-            padding: 0.9rem 1.8rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.2s;
-            font-size: 0.95rem;
-        }
-
-        .gift-cards-btn:hover {
-            background: #2a2a2a;
-            transform: scale(1.05);
-        }
-
-        .gift-cards-image {
-            flex: 0 0 200px;
-            height: 200px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .gift-cards-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* WHY CHOOSE SECTION */
-        .why-section {
-            background: #3a3a3a;
-            padding: 3rem 2rem;
-            margin-bottom: 3rem;
-            border-top: 1px solid #d4af37;
-            border-bottom: 1px solid #d4af37;
-        }
-
-        .why-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .why-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: #d4af37;
-        }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .why-item {
-            text-align: center;
-        }
-
-        .why-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .why-item h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: #d4af37;
-        }
-
-        .why-item p {
-            font-size: 0.95rem;
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        /* HELP SECTION */
-        .help-section {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-
-        .help-title {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: #d4af37;
-        }
-
-        .help-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .help-card {
-            background: #3a3a3a;
-            padding: 2rem;
-            border-radius: 8px;
-            border-left: 3px solid #d4af37;
-        }
-
-        .help-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #d4af37;
-        }
-
-        .help-card p {
-            color: #ccc;
-            font-size: 0.9rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .help-link {
-            color: #d4af37;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        .help-link:hover {
-            color: #e5c158;
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #1a1a1a;
-            color: #999;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
-            border-top: 1px solid #d4af37;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .categories-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .nav {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .trust-banner {
-                gap: 1rem;
-                font-size: 0.8rem;
-                flex-direction: column;
-            }
-
-            .gift-cards-tile {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-                padding: 1.5rem;
-            }
-
-            .gift-cards-image {
-                flex: 0 0 auto;
-                width: 100%;
-                height: 150px;
-            }
-
-            .gift-cards-title {
-                font-size: 1.4rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONJJEM | Personalised Photo &amp; Cartoon Gifts</title>
+<meta name="description" content="Your photo, or your pet as a cartoon, on mugs, magnets, blankets and prints. Handmade in the UK with free UK delivery.">
+<link rel="canonical" href="https://onjjem.com/">
+<meta property="og:title" content="ONJJEM | Personalised Photo &amp; Cartoon Gifts">
+<meta property="og:description" content="Your photo, or your pet as a cartoon, on mugs, magnets, blankets and prints. Handmade in the UK with free UK delivery.">
+<meta property="og:image" content="https://onjjem.com/products/cartoonify-preview.jpeg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<link rel="stylesheet" href="/landing.css">
 </head>
 <body>
+<div id="hdr"></div>
 
-    <!-- HEADER -->
-    <header class="header">
-        <a href="/" class="logo">ONJJEM</a>
-        <nav class="nav">
-            <a href="#categories">Shop</a>
-            <a href="#help">Help</a>
-            <a href="/gift-cards">Gift Cards</a>
-        </nav>
-    </header>
+<main>
+  <div class="wrap"><div class="success" id="success" style="display:none">
+    <h2>🎉 Thank you — your order is in!</h2>
+    <p>You'll get a confirmation email shortly. We'll make your gift by hand and post it with free tracked delivery.</p>
+    <p style="margin-top:0.6rem"><strong>Love it when it arrives?</strong> Email a photo of it to <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> and we'll send you <strong>20% off</strong> your next order.</p>
+  </div></div>
 
-    <!-- TRUST BANNER -->
-    <div class="trust-banner">
-        <div class="trust-item">✓ Free UK Shipping</div>
-        <div class="trust-item">✓ Dispatched Within 72 Hours</div>
-        <div class="trust-item">✓ Secure Checkout</div>
-        <div class="trust-item">✓ Tracked Delivery</div>
+  <section class="wrap l-hero">
+    <div class="l-hero-img"><img src="/products/cartoonify-preview.jpeg" alt="A family photo turned into a cartoon" style="object-fit:cover"></div>
+    <div>
+      <div class="l-kicker">Personalised gifts · Made in the UK</div>
+      <h1>Your photo, or your pet as a cartoon, on a gift they'll love</h1>
+      <p class="sub">Pick a gift, add a photo from your phone, and see a free cartoon preview. We make it by hand and post it free anywhere in the UK.</p>
+      <ul class="l-ticks">
+        <li>Free cartoon preview, so you see it before you pay</li>
+        <li>Free tracked UK delivery on everything</li>
+        <li>Not happy? We'll replace it or refund you</li>
+      </ul>
+      <a href="#best" class="btn">Shop best sellers</a>
     </div>
+  </section>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <p class="emporium-label">✨ Enter Our Gift Emporium ✨</p>
-            <h1>Your Photos, Beautifully Printed</h1>
-            <p>Premium personalised photo gifts printed in the UK. Museum-grade quality, archival inks, and handmade to order — from fine art prints to custom apparel. All with free UK shipping.</p>
-        </div>
-        <div style="margin-top: 2rem; position: relative; max-width: 400px; margin-left: auto; margin-right: auto;">
-            <input type="text" id="siteSearchInput" placeholder="Search for a gift..." autocomplete="off" style="width: 100%; padding: 0.8rem; border: 2px solid #d4af37; border-radius: 6px; background: #fff; color: #1a1a1a; font-size: 0.95rem;">
-            <div id="searchResults" style="display:none; position:absolute; top:100%; left:0; right:0; background:#fff; border:1px solid #d4af37; border-radius:6px; margin-top:4px; max-height:280px; overflow-y:auto; z-index:50; text-align:left;"></div>
-        </div>
-    </section>
+  <section class="l-section wrap" id="best">
+    <h2>Best sellers</h2>
+    <div class="tiles">
+      <a class="tile" href="/mug"><img src="/products/magic-mug-final.png" alt="Colour-changing photo mug" loading="lazy"><div class="t-body"><h3>Photo &amp; cartoon mugs</h3><div class="t-price">From £12.99</div><div class="t-tag">Colour-changing favourite</div></div></a>
+      <a class="tile" href="/magnets"><img src="/products/IMG_8533.jpeg" alt="Photo fridge magnets" loading="lazy"><div class="t-body"><h3>Fridge magnets</h3><div class="t-price">From £8.99</div><div class="t-tag">Perfect stocking filler</div></div></a>
+      <a class="tile" href="/blanket"><img src="/products/IMG_8759.jpeg" alt="Photo fleece blanket" loading="lazy"><div class="t-body"><h3>Fleece blankets</h3><div class="t-price">From £49.99</div><div class="t-tag">The cosy Christmas gift</div></div></a>
+      <a class="tile" href="/prints.html"><img src="/products/glow-poster-premium.webp" alt="Photo prints and posters" loading="lazy"><div class="t-body"><h3>Prints &amp; posters</h3><div class="t-price">From £7.99</div><div class="t-tag">Frame-ready photo art</div></div></a>
+    </div>
+  </section>
 
-    <!-- CATEGORIES -->
-    <section class="categories" id="categories">
-        <div class="categories-grid">
-            <!-- PRINTS -->
-            <a href="/prints.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/glow-poster-premium.webp" alt="Fine Art Prints">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">Fine Art Prints</h2>
-                    <p class="category-desc">Postcards, canvases, metallic foil & glow-in-the-dark posters.</p>
-                    <button class="category-btn">Shop All Prints →</button>
-                </div>
-            </a>
+  <section class="l-section wrap">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div><h3>Pick a gift</h3><p>Mugs, magnets, blankets, prints and more.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><h3>Add your photo</h3><p>Any photo from your phone. Try the free cartoon preview.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><h3>We make it &amp; post it</h3><p>Made to order in the UK and sent with free tracked delivery.</p></div></div>
+    </div>
+  </section>
 
-            <!-- HOUSEHOLD -->
-            <a href="/household.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/magic-mug-final.png" alt="Household">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">Household</h2>
-                    <p class="category-desc">Mugs, blankets & everyday items.</p>
-                    <button class="category-btn">Shop Household →</button>
-                </div>
-            </a>
+  <div id="reviews"></div>
 
-            <!-- FRAMES & GIFTS -->
-            <a href="/frames-gifts.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/framed-photo-tiles.jpg" alt="Frames & Gifts">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">Frames & Gifts</h2>
-                    <p class="category-desc">Frames, tiles, gift tags & more.</p>
-                    <button class="category-btn">Shop Frames & Gifts →</button>
-                </div>
-            </a>
+  <section class="l-section wrap">
+    <h2>🎄 Christmas gifts</h2>
+    <div class="link-list">
+      <a href="/christmas.html">Stockings &amp; sacks</a>
+      <a href="/winter-warmers.html">Winter warmers</a>
+      <a href="/kids.html">For kids</a>
+      <a href="/gift-cards.html">Gift cards</a>
+    </div>
+  </section>
 
-            <!-- KIDS CARTOON ZONE -->
-            <a href="/kids.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/kids-tshirt.jpg" alt="Cartoon Kids Zone">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">Cartoon Kids Zone</h2>
-                    <p class="category-desc">T-shirts, hoodies, jigsaws & glow-in-the-dark items.</p>
-                    <button class="category-btn">Shop Kids →</button>
-                </div>
-            </a>
+  <section class="l-section wrap">
+    <h2>Browse everything</h2>
+    <div class="link-list">
+      <a href="/household.html">Home &amp; kitchen</a>
+      <a href="/prints.html">Prints &amp; posters</a>
+      <a href="/frames-gifts.html">Frames &amp; gifts</a>
+      <a href="/poster-sale.html">🔥 Poster sale</a>
+    </div>
+  </section>
 
-            <a href="/christmas.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/Christmas-stocking.png" alt="Christmas">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">🎄 Christmas</h2>
-                    <p class="category-desc">Luxury velvet stockings & sacks, personalised with your photo.</p>
-                    <button class="category-btn">Shop Christmas →</button>
-                </div>
-            </a>
+  <section class="l-section wrap faq" id="faq">
+    <h2>Questions</h2>
+    <details><summary>How long will my order take?</summary><p>Everything is made to order. Most items are made in 2–5 working days, then posted with free tracked UK delivery.</p></details>
+    <details><summary>How does the cartoon option work?</summary><p>After you add your photo, we show you a free cartoon version. If you love it, add it for £1.99 and that exact cartoon is printed. If not, we print your original photo.</p></details>
+    <details><summary>Do you deliver outside the UK?</summary><p>Our gifts ship free across the UK. Outside the UK? Email <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> and we'll let you know if we can deliver to you.</p></details>
+    <details><summary>What if something's wrong with my gift?</summary><p>Email <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> with a photo and we'll put it right with a replacement or a refund. See <a href="/delivery.html">delivery info</a>.</p></details>
+    <details><summary>Is my photo safe?</summary><p>Your photo is only used to make your order and is never shared. See our <a href="/privacy.html">privacy policy</a>.</p></details>
+  </section>
+</main>
 
-            <a href="/poster-sale.html" class="category-tile" style="border: 2px solid #ffd700;">
-                <div class="category-image">
-                    <img src="/products/slim-canvas.webp" alt="Poster Sale">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">🔥 Poster Sale</h2>
-                    <p class="category-desc">Huge posters, tiny prices. From just £11.99, free UK delivery.</p>
-                    <button class="category-btn" style="background:#ffd700; color:#1a1a1a;">Shop The Sale →</button>
-                </div>
-            </a>
-
-            <a href="/winter-warmers.html" class="category-tile">
-                <div class="category-image">
-                    <img src="/products/IMG_8535.jpeg" alt="Winter Warmers">
-                </div>
-                <div class="category-content">
-                    <h2 class="category-title">🧣 Winter Warmers</h2>
-                    <p class="category-desc">Cosy personalised gifts to keep them warm all winter.</p>
-                    <button class="category-btn">Shop Winter Warmers →</button>
-                </div>
-            </a>
-        </div>
-
-        <!-- GIFT CARDS (STANDALONE) -->
-        <div class="gift-cards-spotlight">
-            <a href="/gift-cards.html" class="gift-cards-tile">
-                <div class="gift-cards-content">
-                    <h2 class="gift-cards-title">🎁 Gift Cards</h2>
-                    <p class="gift-cards-desc">Let them choose their perfect personalised gift. From £20</p>
-                    <button class="gift-cards-btn">View Gift Cards →</button>
-                </div>
-                <div class="gift-cards-image">
-                    <img src="/products/Card.png" alt="Gift Cards">
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- WHY CHOOSE ONJJEM -->
-    <section class="why-section">
-        <div class="why-content">
-            <h2 class="why-title">Why Choose ONJJEM?</h2>
-            <div class="why-grid">
-                <div class="why-item">
-                    <div class="why-icon">✓</div>
-                    <h3>Professional Quality</h3>
-                    <p>Museum-grade printing and archival inks that resist fading for 10+ years.</p>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon">🏠</div>
-                    <h3>Handmade with Care</h3>
-                    <p>Every gift is individually printed to order and quality-checked before dispatch.</p>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon">🛡️</div>
-                    <h3>Your Photos Are Safe</h3>
-                    <p>UK data protection. Your photos are never shared, stored securely, and deleted after printing.</p>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon">🎨</div>
-                    <h3>Cartoon Magic</h3>
-                    <p>Transform any photo into a playful cartoon illustration before printing.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- HELP SECTION -->
-    <section class="help-section" id="help">
-        <h2 class="help-title">We're Here to Help</h2>
-        <div class="help-grid">
-            <div class="help-card">
-                <h3>📞 Customer Support</h3>
-                <p>Questions about your order or need help choosing? Our team is here for you.</p>
-                <a href="mailto:hello@onjjem.com" class="help-link">Contact Us →</a>
-            </div>
-            <div class="help-card">
-                <h3>📦 Shipping & Returns</h3>
-                <p>Free UK shipping on all orders. 30-day returns if you're not completely happy.</p>
-                <a href="/help#shipping" class="help-link">View Policy →</a>
-            </div>
-            <div class="help-card">
-                <h3>❓ FAQ</h3>
-                <p>Find answers to common questions about prints, products, and ordering.</p>
-                <a href="/help#faq" class="help-link">See FAQ →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>&copy; 2026 ONJJEM. All rights reserved. | Personalised gifts printed in Preston, UK.</p>
-    </footer>
-
+<div id="ftr"></div>
+<script src="/landing.js"></script>
 <script>
-// Real product list, matching what's genuinely on each category page today.
-const SEARCHABLE_PRODUCTS = [
-  { name: "Photo Postcard", page: "/prints.html" },
-  { name: "Museum Fine Art Print", page: "/prints.html" },
-  { name: "Premium Metallic Foil Art Print", page: "/prints.html" },
-  { name: "Glow in the Dark Poster", page: "/prints.html" },
-  { name: "ChromaCoat Mug", page: "/household.html" },
-  { name: "Photo Mugs", page: "/household.html" },
-  { name: "Aluminium Blade Bottle Opener", page: "/household.html" },
-  { name: "Personalised Wireless Charger", page: "/household.html" },
-  { name: "Custom Wooden Drink Coasters", page: "/household.html" },
-  { name: "Premium Personalised Kitchen Towel", page: "/household.html" },
-  { name: "Photo Magnets", page: "/household.html" },
-  { name: "Personalised Chef's Apron", page: "/household.html" },
-  { name: "Hot Water Bottle", page: "/winter-warmers.html" },
-  { name: "Fleece Blanket", page: "/winter-warmers.html" },
-  { name: "Glow in the Dark Poster", page: "/kids.html" },
-  { name: "Personalised Velcro Baby Bib", page: "/kids.html" },
-  { name: "Kids Cartoon T-Shirt", page: "/kids.html" },
-  { name: "The Kids' Corner Jigsaw", page: "/kids.html" },
-  { name: "Custom Playing Cards", page: "/kids.html" },
-  { name: "Framed Photo Tiles", page: "/frames-gifts.html" },
-  { name: "Personalised Patch", page: "/frames-gifts.html" },
-  { name: "Photo Tattoos", page: "/frames-gifts.html" },
-  { name: "Gift Card", page: "/gift-cards.html" },
-  { name: "Christmas Stocking", page: "/christmas.html" },
-  { name: "Christmas Sack", page: "/christmas.html" },
-  { name: "Budget Poster", page: "/poster-sale.html" },
-];
+document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
+document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();
+var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_reviewsHtml();
 
-(function setupHomeSearch() {
-  const input = document.getElementById("siteSearchInput");
-  const results = document.getElementById("searchResults");
-  if (!input || !results) return;
-
-  input.addEventListener("input", () => {
-    const q = input.value.trim().toLowerCase();
-    if (!q) {
-      results.style.display = "none";
-      results.innerHTML = "";
-      return;
-    }
-    const matches = SEARCHABLE_PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
-    if (matches.length === 0) {
-      results.innerHTML = `<div style="padding:12px 14px; font-size:13px; color:#888;">No matches — try browsing the categories below.</div>`;
-    } else {
-      results.innerHTML = matches
-        .slice(0, 8)
-        .map(p => `<div class="search-result-item" data-page="${p.page}" style="padding:10px 14px; font-size:13px; color:#1a1a1a; cursor:pointer; border-bottom:1px solid #eee;">${p.name}</div>`)
-        .join("");
-    }
-    results.style.display = "block";
-  });
-
-  results.addEventListener("click", (e) => {
-    const item = e.target.closest(".search-result-item");
-    if (!item) return;
-    window.location.href = item.dataset.page;
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest("#siteSearchInput") && !e.target.closest("#searchResults")) {
-      results.style.display = "none";
-    }
-  });
+// Thank-you message + Google Analytics purchase after a Stripe checkout
+(function () {
+  var q = new URLSearchParams(location.search);
+  if (q.get("order") !== "success") return;
+  var box = document.getElementById("success");
+  box.style.display = "block";
+  var sid = q.get("session_id");
+  if (!sid || sid.indexOf("{") === 0) return;
+  var key = "onjjem_ga_" + sid;
+  try { if (sessionStorage.getItem(key)) return; } catch (e) {}
+  fetch(API_BASE + "/api/stripe/session/" + encodeURIComponent(sid))
+    .then(function (r) { return r.json(); })
+    .then(function (s) {
+      if (!s || !s.id) return;
+      var items = ((s.line_items && s.line_items.data) || []).map(function (li) {
+        return { item_name: li.price && li.price.product && li.price.product.name, price: (li.price && li.price.unit_amount || 0) / 100, quantity: li.quantity || 1 };
+      });
+      onjjemGa("event", "purchase", { transaction_id: s.id, currency: (s.currency || "gbp").toUpperCase(), value: (s.amount_total || 0) / 100, items: items });
+      try { sessionStorage.setItem(key, "1"); } catch (e) {}
+    }).catch(function () {});
 })();
+
 </script>
 </body>
 </html>

@@ -1,0 +1,131 @@
+/* ONJJEM landing pages — shared styles (mug, magnets, blanket, tiktok, home) */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #1f1f1f;
+  --card: #2c2c2c;
+  --card-2: #353535;
+  --gold: #d4af37;
+  --gold-light: #e8c75a;
+  --text: #ffffff;
+  --muted: #c9c9c9;
+  --line: #444;
+  --green: #5cc37c;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: var(--gold); }
+
+/* Offer bar */
+.offer-bar { background: var(--gold); color: #1a1a1a; text-align: center; font-weight: 700; font-size: 0.9rem; padding: 0.6rem 1rem; }
+.offer-bar code { background: #1a1a1a; color: var(--gold); padding: 0.1rem 0.45rem; border-radius: 4px; font-family: inherit; letter-spacing: 1px; }
+
+/* Header */
+.l-header { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1rem; border-bottom: 1px solid var(--line); max-width: 1100px; margin: 0 auto; }
+.l-logo { color: var(--gold); font-weight: 800; letter-spacing: 3px; font-size: 1.3rem; text-decoration: none; }
+.l-nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; margin-left: 1rem; }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+/* Hero */
+.l-hero { display: grid; grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem 0 1rem; align-items: center; }
+.l-hero-img { border-radius: 14px; overflow: hidden; background: #fff; aspect-ratio: 1 / 1; }
+.l-hero-img img { width: 100%; height: 100%; object-fit: contain; }
+.l-kicker { color: var(--gold); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.4rem; }
+.l-hero h1 { font-size: 2rem; line-height: 1.15; margin-bottom: 0.7rem; }
+.l-hero p.sub { color: var(--muted); font-size: 1.05rem; margin-bottom: 1rem; }
+.l-price { font-size: 1.4rem; font-weight: 800; color: var(--gold); margin-bottom: 1rem; }
+.l-price small { color: var(--muted); font-weight: 500; font-size: 0.9rem; }
+.l-ticks { list-style: none; display: grid; gap: 0.35rem; margin-bottom: 1.2rem; }
+.l-ticks li::before { content: "✓ "; color: var(--green); font-weight: 800; }
+.btn { display: inline-block; width: 100%; text-align: center; background: var(--gold); color: #1a1a1a; font-weight: 800; font-size: 1.05rem; padding: 1rem; border: none; border-radius: 10px; cursor: pointer; text-decoration: none; }
+.btn:hover { background: var(--gold-light); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--line); }
+.btn-ghost:hover { background: var(--card); }
+
+@media (min-width: 820px) {
+  .l-hero { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 2.5rem 0 1.5rem; }
+  .l-hero h1 { font-size: 2.6rem; }
+}
+
+/* Sections */
+.l-section { padding: 2rem 0; }
+.l-section h2 { font-size: 1.5rem; margin-bottom: 1rem; text-align: center; }
+.l-section h2 .gold { color: var(--gold); }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: 1fr; gap: 0.8rem; }
+.step { background: var(--card); border-radius: 12px; padding: 1rem 1.1rem; display: flex; gap: 0.9rem; align-items: flex-start; }
+.step-num { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--gold); color: #1a1a1a; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.step h3 { font-size: 1rem; margin-bottom: 0.15rem; }
+.step p { color: var(--muted); font-size: 0.92rem; }
+@media (min-width: 820px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+
+/* Order box */
+.order-box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem; max-width: 620px; margin: 0 auto; }
+.order-box h2 { text-align: left; font-size: 1.25rem; margin-bottom: 0.8rem; }
+.order-label { font-weight: 700; margin: 1rem 0 0.5rem; display: block; }
+.order-label:first-of-type { margin-top: 0; }
+.options { display: grid; gap: 0.55rem; }
+.option { display: flex; align-items: center; gap: 0.75rem; background: var(--card-2); border: 2px solid transparent; border-radius: 10px; padding: 0.8rem 0.9rem; cursor: pointer; }
+.option input { accent-color: var(--gold); width: 18px; height: 18px; flex: 0 0 auto; }
+.option .o-name { flex: 1; }
+.option .o-name small { display: block; color: var(--muted); font-size: 0.8rem; }
+.option .o-price { font-weight: 800; color: var(--gold); white-space: nowrap; }
+.option.selected { border-color: var(--gold); }
+.option .o-badge { background: var(--gold); color: #1a1a1a; font-size: 0.68rem; font-weight: 800; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.35rem; vertical-align: middle; }
+
+.upload { border: 2px dashed var(--line); border-radius: 12px; padding: 1.1rem; text-align: center; cursor: pointer; background: var(--card-2); }
+.upload:hover { border-color: var(--gold); }
+.upload .u-icon { font-size: 1.8rem; }
+.upload .u-text { font-weight: 700; }
+.upload .u-hint { color: var(--muted); font-size: 0.82rem; }
+.upload.has-photo { border-style: solid; border-color: var(--green); }
+.upload img.u-preview { max-height: 180px; margin: 0 auto 0.5rem; border-radius: 8px; }
+
+.order-total { display: flex; justify-content: space-between; align-items: center; margin: 1.1rem 0 0.8rem; font-size: 1.05rem; }
+.order-total strong { color: var(--gold); font-size: 1.3rem; }
+.order-note { color: var(--muted); font-size: 0.82rem; text-align: center; margin-top: 0.6rem; }
+.order-status { text-align: center; font-size: 0.9rem; margin-top: 0.6rem; min-height: 1.2em; color: #ffb4a8; }
+
+/* Reviews */
+.reviews { display: grid; grid-template-columns: 1fr; gap: 0.8rem; }
+.review { background: var(--card); border-radius: 12px; padding: 1.1rem; }
+.review .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 0.4rem; }
+.review p { font-size: 0.98rem; margin-bottom: 0.5rem; }
+.review .who { color: var(--muted); font-size: 0.85rem; }
+@media (min-width: 820px) { .reviews { grid-template-columns: repeat(2, 1fr); } }
+
+/* Product tiles (home + tiktok hub) */
+.tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+.tile { background: var(--card); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--text); display: flex; flex-direction: column; }
+.tile img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #fff; }
+.tile .t-body { padding: 0.75rem 0.8rem 0.9rem; }
+.tile h3 { font-size: 0.98rem; margin-bottom: 0.15rem; }
+.tile .t-price { color: var(--gold); font-weight: 800; font-size: 0.92rem; }
+.tile .t-tag { color: var(--muted); font-size: 0.8rem; }
+@media (min-width: 820px) { .tiles { grid-template-columns: repeat(4, 1fr); gap: 1.1rem; } }
+
+/* Links list (browse everything) */
+.link-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+.link-list a { background: var(--card); color: var(--text); text-decoration: none; padding: 0.8rem; border-radius: 10px; font-size: 0.92rem; text-align: center; }
+.link-list a:hover { background: var(--card-2); }
+@media (min-width: 820px) { .link-list { grid-template-columns: repeat(4, 1fr); } }
+
+/* FAQ */
+.faq details { background: var(--card); border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 0.55rem; }
+.faq summary { font-weight: 700; cursor: pointer; }
+.faq details p { color: var(--muted); margin-top: 0.5rem; font-size: 0.95rem; }
+
+/* Success banner */
+.success { background: #1f3a28; border: 1px solid var(--green); color: #d8f5e0; border-radius: 12px; padding: 1.1rem; margin: 1rem auto; max-width: 700px; text-align: center; }
+.success h2 { color: #fff; margin-bottom: 0.4rem; }
+
+/* Sticky mobile buy bar */
+.sticky-buy { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(31,31,31,0.97); border-top: 1px solid var(--line); padding: 0.7rem 1rem; display: none; z-index: 50; }
+.sticky-buy .btn { padding: 0.85rem; }
+@media (max-width: 819px) { .sticky-buy.show { display: block; } body.has-sticky { padding-bottom: 76px; } }
+
+.l-footer { text-align: center; color: #999; font-size: 0.85rem; padding: 2rem 1rem; border-top: 1px solid var(--line); margin-top: 2rem; }
+.l-footer a { color: var(--gold); text-decoration: none; margin: 0 0.5rem; }

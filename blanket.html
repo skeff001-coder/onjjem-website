@@ -1,156 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-3L30Q5L3MW');
-    </script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Photo Fleece Blanket | ONJJEM</title>
-    <meta name="description" content="Custom fleece blankets with your photo printed. Machine washable, water repellent, 285gsm soft plush. Small, medium, large or giant sizes. Free UK shipping.">
-    <link rel="canonical" href="https://onjjem.com/blanket" />
-    <link rel="stylesheet" href="index-Dwvduj-H.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalised Photo Fleece Blanket | ONJJEM</title>
+<meta name="description" content="Your photo printed on a super-soft fleece blanket. From £49.99 with free UK delivery.">
+<link rel="canonical" href="https://onjjem.com/blanket">
+<meta property="og:title" content="Personalised Photo Fleece Blanket | ONJJEM">
+<meta property="og:description" content="Your photo printed on a super-soft fleece blanket. From £49.99 with free UK delivery.">
+<meta property="og:image" content="https://onjjem.com/products/IMG_8759.jpeg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<link rel="stylesheet" href="/landing.css">
+<link rel="stylesheet" href="/cartoonify-shared.css">
 </head>
 <body>
-
-    <!-- Main Navigation -->
-    <header class="site-header">
-        <div class="logo">ONJJEM</div>
-        <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="help.html">Help</a>
-        </nav>
-    </header>
-
-    <main class="product-container">
-        <!-- Left Column: Product Mockups & Preview Images -->
-        <div class="product-gallery">
-            <div class="main-image-wrapper">
-                <img id="product-mockup" src="/products/fleece-blanket.jpg" alt="Custom Photo Fleece Blanket">
-            </div>
-            <div class="badge-row">
-                <span class="badge badge-uk">🇬🇧 Printed in UK</span>
-                <span class="badge badge-shipping">🚚 Free UK Shipping</span>
-                <span class="badge badge-eco">💧 Water Repellent</span>
-            </div>
-        </div>
-
-        <!-- Right Column: Product Detail and Interactive Checkout Form -->
-        <div class="product-details">
-            <span class="product-tag">SUPER SOFT & COSY</span>
-            <h1>Custom Photo Fleece Blanket</h1>
-            <p class="product-model-info">285gsm Spun Polyester | Dye Sublimation Printed | Machine Washable</p>
-            
-            <!-- Pricing Structure -->
-            <div class="product-price-box">
-                <span class="current-price" id="price-display">£44.99</span>
-                <span class="shipping-tag">+ Free Tracked UK Delivery</span>
-            </div>
-
-            <p class="product-brief">
-                Your favorite photo transformed into a cosy fleece blanket perfect for sofas, beds, picnics, or cuddles. Choose your size and color backing, upload your photo, and we'll print it beautifully with water-resistant dye sublimation. Machine washable, 10-year print guarantee.
-            </p>
-
-            <!-- Dynamic Ordering Form -->
-            <form id="blanket-order-form" class="customization-form" action="/create-checkout-session" method="POST">
-                
-                <!-- 1. Size Selection -->
-                <div class="form-group">
-                    <label for="size-select" class="form-label">1. Choose Size:</label>
-                    <select id="size-select" name="size" class="styled-dropdown" required onchange="updatePrice()">
-                        <option value="" disabled selected>-- Select Size --</option>
-                        <option value="S">Small (28×28″ / 70×70cm) — £44.99</option>
-                        <option value="M">Medium (26×40″ / 60×100cm) — £47.99</option>
-                        <option value="L">Large (40×60″ / 100×150cm) — £57.99</option>
-                        <option value="GIANT">Giant (59×50″ / 150×127cm) — £84.99</option>
-                    </select>
-                </div>
-
-                <!-- 2. Color/Backing Selection (Swatches) -->
-                <div class="form-group">
-                    <label class="form-label">2. Choose Backing Colour:</label>
-                    <div class="color-swatch-grid">
-                        <label class="swatch-container"><input type="radio" name="color" value="WHITE" required checked><span class="swatch-circle" style="background-color: #FFFFFF; border: 1px solid #ccc;"></span> White</label>
-                        <label class="swatch-container"><input type="radio" name="color" value="BLUE"><span class="swatch-circle" style="background-color: #ADD8E6;"></span> Baby Blue</label>
-                        <label class="swatch-container"><input type="radio" name="color" value="PINK"><span class="swatch-circle" style="background-color: #FFB6C1;"></span> Pastel Pink</label>
-                    </div>
-                    <p class="color-note" id="giant-note" style="display: none; color: #666; font-size: 0.9em;">Giant size available in white backing only.</p>
-                </div>
-
-                <!-- 3. Photo Upload Integration Field -->
-                <div class="form-group">
-                    <label class="form-label">3. Upload Your Photo:</label>
-                    <div class="upload-zone-wrapper">
-                        <input type="file" id="photo-upload" name="customer_photo" accept="image/png, image/jpeg" required style="display: none;">
-                        <button type="button" onclick="document.getElementById('photo-upload').click();" class="btn btn-secondary">📸 Choose Photo from Phone</button>
-                        <p class="upload-hint">Best results: Landscape photos work great. We'll print it across the full blanket. Recommended: 150dpi or higher.</p>
-                    </div>
-                </div>
-
-                <!-- 4. Artwork Preview Acknowledgement -->
-                <div class="form-group checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="preview_acknowledgement" required>
-                        <span class="custom-checkbox"></span>
-                        I want to see my blanket proof before printing.
-                    </label>
-                </div>
-
-                <!-- Submission Checkout Trigger -->
-                <button type="submit" id="checkout-button" class="btn btn-primary btn-block">
-                    🛒 Continue to Checkout
-                </button>
-            </form>
-
-            <div class="trust-section">
-                <p>✓ Secure checkout via Stripe | ✓ Water repellent & machine washable | ✓ 10-year print guarantee</p>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function updatePrice() {
-            const sizeSelect = document.getElementById('size-select');
-            const priceDisplay = document.getElementById('price-display');
-            const giantNote = document.getElementById('giant-note');
-            const colorInputs = document.querySelectorAll('input[name="color"]');
-            
-            const prices = {
-                'S': '£44.99',
-                'M': '£47.99',
-                'L': '£57.99',
-                'GIANT': '£84.99'
-            };
-            
-            priceDisplay.textContent = prices[sizeSelect.value] || '£44.99';
-            
-            // Show warning for giant size color restriction
-            if (sizeSelect.value === 'GIANT') {
-                giantNote.style.display = 'block';
-                colorInputs.forEach(input => {
-                    if (input.value !== 'WHITE') {
-                        input.disabled = true;
-                    } else {
-                        input.disabled = false;
-                        input.checked = true;
-                    }
-                });
-            } else {
-                giantNote.style.display = 'none';
-                colorInputs.forEach(input => {
-                    input.disabled = false;
-                });
-            }
-        }
-    </script>
-
-    <script src="index-Bm4a7mCV.js"></script>
+<div id="app"></div>
+<script>
+window.PAGE = {
+  kicker: "The cosiest gift of the year",
+  title: "Your photo on a super-soft fleece blanket",
+  sub: "Wrap up in your favourite memory. Your photo printed edge-to-edge on a soft, cosy fleece — a Christmas present they'll use all winter.",
+  heroImg: "/products/IMG_8759.jpeg",
+  heroAlt: "Folded personalised photo fleece blankets",
+  ticks: [
+    "Soft 285gsm fleece, machine washable",
+    "Vivid print that won't wash out",
+    "Free tracked UK delivery",
+    "Order early for Christmas"
+  ],
+  cta: "Make my blanket",
+  optionWord: "your size",
+  orderTitle: "Make your blanket",
+  cartoon: true,
+  photoHint: "Landscape photos work best. Use the original photo from your phone (not a screenshot) for the sharpest print.",
+  options: [
+    { sku: "H-BLA-PBSWHITE", name: "Small — 28×28″ (70×70cm)", note: "Lap or pet blanket, white back", price: 49.99 },
+    { sku: "H-BLA-PBMWHITE", name: "Medium — 26×40″ (60×100cm)", note: "Sofa throw, white back", price: 52.99, badge: "POPULAR", default: true },
+    { sku: "H-BLA-PBMPINK", name: "Medium — 26×40″, pink back", note: "Sofa throw, pastel pink back", price: 52.99 },
+    { sku: "H-BLA-PBLWHITE", name: "Large — 40×60″ (100×150cm)", note: "Bed or big sofa, white back", price: 60.99 },
+    { sku: "H-BLA-PBLPINK", name: "Large — 40×60″, pink back", note: "Bed or big sofa, pastel pink back", price: 60.99 },
+    { sku: "H-BLA-MINK-LARGE", name: "Giant — 150×127cm", note: "Big enough for two", price: 83.99 }
+  ],
+  faq: [
+    ["How long does it take?", "Made to order in the UK, usually 3–5 working days, then posted with free tracked delivery."],
+    ["How do I wash it?", "Machine washable at 30°C. The print is dyed into the fabric so it won't crack or peel."],
+    ["What's the cartoon option?", "After you add your photo we show you a free cartoon version. Add it for £1.99 if you love it — otherwise we print your original photo."],
+    ["What if something's wrong?", "Email hello@onjjem.com with a photo and we'll put it right with a replacement or refund."]
+  ]
+};
+</script>
+<script src="/landing.js"></script>
+<script src="/cartoonify-shared.js"></script>
 </body>
 </html>

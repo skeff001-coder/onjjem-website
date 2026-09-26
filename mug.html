@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Photo Mug | ONJJEM Personalised Gifts</title>
-<meta name="description" content="Custom photo mug printed with your photo. Sharp vivid colours on durable ceramic. Dishwasher safe. Free UK shipping.">
-<link rel="canonical" href="https://www.onjjem.com/mug.html">
+<title>Personalised Photo &amp; Cartoon Mugs | ONJJEM</title>
+<meta name="description" content="Your photo or cartoon on a mug. Colour-changing mug from £12.99. Free UK delivery.">
+<link rel="canonical" href="https://onjjem.com/mug">
+<meta property="og:title" content="Personalised Photo &amp; Cartoon Mugs | ONJJEM">
+<meta property="og:description" content="Your photo or cartoon on a mug. Colour-changing mug from £12.99. Free UK delivery.">
+<meta property="og:image" content="https://onjjem.com/products/magic-mug-final.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -13,146 +16,43 @@
   gtag('js', new Date());
   gtag('config', 'G-3L30Q5L3MW');
 </script>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #2a2a2a; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-  .header { background: #3a3a3a; padding: 1.2rem 1.5rem; border-bottom: 2px solid #d4af37; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-  .logo { font-size: 1.5rem; font-weight: 700; color: #d4af37; text-decoration: none; letter-spacing: 2px; }
-  .nav { display: flex; gap: 1.5rem; }
-  .nav a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
-  .nav a:hover { color: #d4af37; }
-  .page-header { text-align: center; padding: 2.5rem 1.5rem 1.5rem; }
-  .page-header h1 { color: #d4af37; font-size: 2rem; margin-bottom: 0.5rem; }
-  .page-header p { color: #ccc; max-width: 600px; margin: 0 auto; }
-  .products { max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-  .card { background: #fff; border-radius: 10px; overflow: hidden; }
-  .card img { width: 100%; height: 200px; object-fit: cover; display: block; background: #eee; }
-  .card-body { padding: 1.2rem; }
-  .card h3 { color: #1a1a1a; font-size: 1.1rem; margin-bottom: 0.3rem; }
-  .card .price { color: #b8892a; font-weight: 700; margin-bottom: 0.6rem; }
-  .card .desc { color: #666; font-size: 0.85rem; line-height: 1.5; margin-bottom: 1rem; }
-  select.variant { width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 0.8rem; font-size: 0.85rem; }
-  input[type=file] { width: 100%; font-size: 0.8rem; margin-bottom: 0.8rem; }
-  .buy-btn { display: block; width: 100%; background: #d4af37; color: #1a1a1a; font-weight: 700; padding: 0.8rem; border: none; border-radius: 6px; cursor: pointer; }
-  .buy-btn:hover { background: #e5c158; }
-  .status { font-size: 0.8rem; margin-top: 0.5rem; min-height: 14px; text-align: center; }
-  footer { text-align: center; padding: 2rem; color: #999; border-top: 1px solid #444; font-size: 0.85rem; }
-  footer a { color: #d4af37; text-decoration: none; margin: 0 8px; }
-</style>
+<link rel="stylesheet" href="/landing.css">
+<link rel="stylesheet" href="/cartoonify-shared.css">
 </head>
 <body>
-
-<header class="header">
-  <a href="/" class="logo">ONJJEM</a>
-  <nav class="nav">
-    <a href="/">Home</a>
-    <a href="/#help">Help</a>
-    <a href="/gift-cards.html">Gift Cards</a>
-  </nav>
-</header>
-
-<div class="page-header">
-  <h1>Photo Mugs</h1>
-  <p>Classic custom mugs with your photo in sharp, vivid colour. Dishwasher and microwave safe.</p>
-</div>
-
-<div class="products" id="products"></div>
-
-<footer>
-  <a href="/delivery.html">Delivery Info</a>
-  <a href="/terms.html">Terms</a>
-  <a href="/privacy.html">Privacy</a>
-</footer>
-
+<div id="app"></div>
 <script>
-const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
-
-const ITEMS = [
-  {
-    name: "Photo Mug (11oz)",
-    img: "/products/photo-mugs-v2.jpg",
-    desc: "Perfect everyday size. Sharp, vivid photo on classic ceramic mug.",
-    variants: [{ sku: "mug-11oz", label: "11oz Mug - £11.99" }]
-  },
-  {
-    name: "Photo Mug (15oz Large)",
-    img: "/products/photo-mugs-v2.jpg",
-    desc: "Extra large for coffee lovers. Great for travel or home.",
-    variants: [{ sku: "mug-15oz", label: "15oz Large Mug - £17.99" }]
-  }
-];
-
-function renderProducts() {
-  const container = document.getElementById('products');
-  container.innerHTML = ITEMS.map((item, idx) => `
-    <div class="card">
-      <img src="${item.img}" alt="${item.name}">
-      <div class="card-body">
-        <h3>${item.name}</h3>
-        <p class="desc">${item.desc}</p>
-        <p class="price">${item.variants[0].label.split(' - ')[1]}</p>
-        <input type="file" accept="image/*" onchange="handleFileUpload(this, event)" data-sku="${item.variants[0].sku}" style="display:none;" id="fileInput${idx}">
-        <button class="buy-btn" style="background:#8e7cc3; margin-bottom:0.5rem;" onclick="document.getElementById('fileInput${idx}').click()">📸 Pick your pic and click</button>
-        <button class="buy-btn" onclick="startCheckout(this)">Buy Now</button>
-        <div class="status" id="status"></div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function handleFileUpload(input, event) {
-  const file = event.target.files?.[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      input.dataset.photo = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-async function startCheckout(btn) {
-  const card = btn.closest('.card-body');
-  const fileInput = card.querySelector('input[type=file]');
-  const status = card.querySelector('.status');
-  
-  const sku = fileInput.dataset.sku;
-  const photo = fileInput.dataset.photo;
-  
-  if (!photo) {
-    status.textContent = 'Please pick your pic first!';
-    return;
-  }
-  
-  btn.disabled = true;
-  status.textContent = 'Starting checkout...';
-  
-  try {
-    const res = await fetch(`${API_BASE}/api/stripe/checkout`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sku,
-        photoBase64: photo,
-        successUrl: window.location.origin + '/?order=success',
-        cancelUrl: window.location.href
-      })
-    });
-    
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      throw new Error(data.error || 'Checkout failed');
-    }
-  } catch (err) {
-    status.textContent = err.message || 'Something went wrong.';
-    btn.disabled = false;
-  }
-}
-
-renderProducts();
+window.PAGE = {
+  kicker: "The gift they'll use every day",
+  title: "Your photo on a mug — or as a cartoon",
+  sub: "Your dog, your kids, your family — printed on a mug they'll smile at every morning. Try the colour-changing mug: it looks plain black until the tea goes in.",
+  heroImg: "/products/magic-mug-final.png",
+  heroAlt: "Colour-changing mug revealing a photo of pets when hot",
+  ticks: [
+    "Free cartoon preview of your photo — see it before you pay",
+    "Printed in the UK, dishwasher safe",
+    "Free tracked UK delivery",
+    "Order early for Christmas"
+  ],
+  cta: "Make my mug",
+  optionWord: "your mug",
+  orderTitle: "Make your mug",
+  cartoon: true,
+  photoHint: "Pets and faces look great. A clear, bright photo works best.",
+  options: [
+    { sku: "magic-mug", name: "Colour-changing mug (11oz)", note: "Black when cold — your photo appears with a hot drink", price: 12.99, badge: "BEST GIFT", default: true },
+    { sku: "mug-11oz", name: "Classic photo mug (11oz)", note: "Full-colour photo, wraps around the mug", price: 14.99 },
+    { sku: "mug-15oz", name: "Large photo mug (15oz)", note: "Extra big for serious tea drinkers", price: 17.99 }
+  ],
+  faq: [
+    ["How long does it take?", "Each mug is made to order. Please allow 2–5 working days to make it, then it's posted with free tracked UK delivery."],
+    ["What's the cartoon option?", "After you add your photo we show you a free cartoon version. If you love it, add it for £1.99 and that exact cartoon is printed. If not, we print your original photo."],
+    ["Is it dishwasher safe?", "Yes. For the colour-changing mug we recommend hand washing to keep the effect at its best for years."],
+    ["What if something's wrong?", "Email hello@onjjem.com with a photo and we'll put it right with a replacement or refund."]
+  ]
+};
 </script>
-
+<script src="/landing.js"></script>
+<script src="/cartoonify-shared.js"></script>
 </body>
 </html>

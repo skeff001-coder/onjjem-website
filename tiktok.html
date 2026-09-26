@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONJJEM | From TikTok</title>
+<meta name="description" content="The personalised gifts from our TikTok videos: mugs, magnets, blankets and more.">
+<link rel="canonical" href="https://onjjem.com/tiktok">
+<meta property="og:title" content="ONJJEM | From TikTok">
+<meta property="og:description" content="The personalised gifts from our TikTok videos: mugs, magnets, blankets and more.">
+<meta property="og:image" content="https://onjjem.com/products/cartoonify-preview.jpeg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<link rel="stylesheet" href="/landing.css">
+</head>
+<body>
+<div id="hdr"></div>
+
+<main>
+  <section class="wrap" style="text-align:center;padding:1.5rem 0 0.5rem">
+    <h1 style="font-size:1.7rem;margin-bottom:0.4rem">Hi from TikTok 👋</h1>
+    <p style="color:var(--muted)">Tap the gift you saw in the video. Every one comes with a free cartoon preview and free UK delivery.</p>
+  </section>
+  <section class="l-section wrap" style="padding-top:1rem">
+    <div class="tiles">
+      <a class="tile" href="/mug"><img src="/products/magic-mug-final.png" alt="Colour-changing photo mug" loading="lazy"><div class="t-body"><h3>Photo &amp; cartoon mugs</h3><div class="t-price">From £12.99</div><div class="t-tag">Colour-changing favourite</div></div></a>
+      <a class="tile" href="/magnets"><img src="/products/IMG_8533.jpeg" alt="Photo fridge magnets" loading="lazy"><div class="t-body"><h3>Fridge magnets</h3><div class="t-price">From £8.99</div><div class="t-tag">Perfect stocking filler</div></div></a>
+      <a class="tile" href="/blanket"><img src="/products/IMG_8759.jpeg" alt="Photo fleece blanket" loading="lazy"><div class="t-body"><h3>Fleece blankets</h3><div class="t-price">From £49.99</div><div class="t-tag">The cosy Christmas gift</div></div></a>
+      <a class="tile" href="/prints.html"><img src="/products/glow-poster-premium.webp" alt="Photo prints and posters" loading="lazy"><div class="t-body"><h3>Prints &amp; posters</h3><div class="t-price">From £7.99</div><div class="t-tag">Frame-ready photo art</div></div></a>
+    </div>
+    <div style="margin-top:1rem"><a class="btn btn-ghost" href="/christmas.html">🎄 Christmas stockings &amp; sacks</a></div>
+    <div style="margin-top:0.6rem"><a class="btn btn-ghost" href="/">See everything</a></div>
+  </section>
+  <div id="reviews"></div>
+</main>
+
+<div id="ftr"></div>
+<script src="/landing.js"></script>
+<script>
+document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
+document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();
+var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_reviewsHtml();
+
+</script>
+</body>
+</html>
