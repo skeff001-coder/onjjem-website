@@ -53,8 +53,11 @@ function ONJJEM_headerHtml() {
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">
     <a href="/" class="l-logo">ONJJEM</a>
-    <nav class="l-nav"><a href="/">Shop</a><a href="/#faq">Help</a></nav>
-  </header>`;
+    <nav class="l-nav"><a href="/#gifts">All gifts</a><a href="/#faq">Help</a></nav>
+  </header>
+  <nav class="cat-bar" aria-label="Gift categories">
+    <a href="/christmas">🎄 Christmas</a><a href="/halloween">🎃 Halloween</a><a href="/mug">Mugs</a><a href="/stickers">Stickers</a><a href="/magnets">Magnets</a><a href="/cushions">Cushions &amp; towels</a><a href="/blanket">Blankets</a><a href="/prints">Prints</a><a href="/poster-sale">Posters</a><a href="/kids.html">Kids</a><a href="/household.html">Home</a><a href="/frames-gifts.html">Frames</a><a href="/gift-cards.html">Gift cards</a>
+  </nav>`;
 }
 
 function ONJJEM_footerHtml() {
@@ -401,6 +404,8 @@ function ONJJEM_renderLanding(P) {
     </section>
 
     ${ONJJEM_reviewsHtml()}
+
+    <section class="l-section wrap" style="text-align:center"><a class="btn btn-ghost" href="/#gifts" style="max-width:420px">See all our gifts →</a></section>
 
     ${P.faq && P.faq.length ? `
     <section class="l-section wrap faq">

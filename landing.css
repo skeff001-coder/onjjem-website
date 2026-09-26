@@ -143,3 +143,11 @@ a { color: var(--gold); }
 .basket-remove { background: none; border: none; color: inherit; opacity: 0.6; font-size: 1rem; cursor: pointer; padding: 0.3rem; }
 .basket-sum { display: flex; justify-content: space-between; padding: 0.3rem 0; font-size: 0.95rem; }
 .basket-total { font-weight: 800; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.15); margin-top: 0.3rem; padding-top: 0.5rem; }
+
+/* Category bar + grouped gift grid */
+.cat-bar { display: flex; gap: 0.45rem; overflow-x: auto; padding: 0.6rem 1rem; border-bottom: 1px solid var(--line); scrollbar-width: none; max-width: 1100px; margin: 0 auto; -webkit-overflow-scrolling: touch; }
+.cat-bar::-webkit-scrollbar { display: none; }
+.cat-bar a { flex: 0 0 auto; background: var(--card); color: var(--text); text-decoration: none; font-size: 0.88rem; padding: 0.45rem 0.8rem; border-radius: 999px; border: 1px solid var(--line); white-space: nowrap; }
+.cat-bar a:hover { border-color: var(--gold); }
+.gift-group { font-size: 1.1rem; margin: 1.4rem 0 0.7rem; color: var(--gold); }
+.tile .t-body h3 { line-height: 1.25; }
