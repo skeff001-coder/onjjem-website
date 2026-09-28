@@ -40,6 +40,7 @@
   footer a { color:#d4af37; text-decoration:none; margin:0 8px; }
 </style>
 <link rel="stylesheet" href="/cartoonify-shared.css">
+<link rel="stylesheet" href="/basket.css">
 </head>
 <body>
 
@@ -65,8 +66,9 @@
   <a href="/privacy.html">Privacy</a>
 </footer>
 
+<script src="/landing.js"></script>
 <script>
-const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+// API_BASE comes from /landing.js
 
 const ITEMS = [
 
@@ -74,15 +76,15 @@ const ITEMS = [
     name: "Custom Photo Fleece Blanket (Small 28x28\")",
     img: "/products/IMG_8759.jpeg",
     desc: "Premium fleece blanket with your photo printed edge-to-edge. Ultra-soft, perfect for cuddles. White backing with stitched edges. Washable to 30°C.",
-    variants: [{ sku: "H-BLA-PBSWHITE", label: "Small 28x28\" - £49.99" }]
+    variants: [{ sku: "H-BLA-PBSWHITE", label: "Small 28x28\" - £47.99" }]
   },
   {
     name: "Custom Photo Fleece Blanket (Medium 26x40\")",
     img: "/products/IMG_8758.jpeg",
     desc: "Our most popular size. Premium fleece with your photo in full colour. Available in White or Pastel Pink backing. Perfect gift for all ages.",
     variants: [
-      { sku: "H-BLA-PBMWHITE", label: "Medium 26x40\" White Backing - £52.99" },
-      { sku: "H-BLA-PBMPINK", label: "Medium 26x40\" Pastel Pink Backing - £52.99" }
+      { sku: "H-BLA-PBMWHITE", label: "Medium 26x40\" White Backing - £50.99" },
+      { sku: "H-BLA-PBMPINK", label: "Medium 26x40\" Pastel Pink Backing - £50.99" }
     ]
   },
   {
@@ -90,8 +92,8 @@ const ITEMS = [
     img: "/products/IMG_8757.jpeg",
     desc: "Generous large-size fleece blanket. Perfect for family cuddles or draping over a sofa. White or Pastel Pink backing. Premium photo printing.",
     variants: [
-      { sku: "H-BLA-PBLWHITE", label: "Large 40x60\" White Backing - £60.99" },
-      { sku: "H-BLA-PBLPINK", label: "Large 40x60\" Pastel Pink Backing - £60.99" }
+      { sku: "H-BLA-PBLWHITE", label: "Large 40x60\" White Backing - £58.99" },
+      { sku: "H-BLA-PBLPINK", label: "Large 40x60\" Pastel Pink Backing - £58.99" }
     ]
   },
   {
@@ -204,5 +206,6 @@ document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
 });
 </script>
 <script src="/cartoonify-shared.js"></script>
+<script src="/basket-bridge.js"></script>
 </body>
 </html>

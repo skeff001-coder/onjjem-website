@@ -40,6 +40,7 @@
   footer a { color:#d4af37; text-decoration:none; margin:0 8px; }
 </style>
 <link rel="stylesheet" href="/cartoonify-shared.css">
+<link rel="stylesheet" href="/basket.css">
 </head>
 <body>
 
@@ -65,8 +66,9 @@
   <a href="/privacy.html">Privacy</a>
 </footer>
 
+<script src="/landing.js"></script>
 <script>
-const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+// API_BASE comes from /landing.js
 
 const ITEMS = [
   {
@@ -118,13 +120,13 @@ const ITEMS = [
     name: "Personalised Chef's Apron (Child)",
     img: "/products/Chef.PNG",
     desc: "Premium 360gsm canvas apron, machine washable. Photo printed large across the front. White strap and ties.",
-    variants: [{ sku: "H-APR-CA-WTIE", label: "Child Size (19.5\" x 25\") - £19.95" }]
+    variants: [{ sku: "H-APR-CA-WTIE", label: "Child Size (19.5\" x 25\") - £18.95" }]
   },
   {
     name: "Personalised Chef's Apron (Adult)",
     img: "/products/Chef2.PNG",
     desc: "The grown-up match to our Child's Apron. Same premium canvas, black strap and ties. Perfect matching set.",
-    variants: [{ sku: "H-APR-AA-BTIE", label: "Adult Size (25\" x 35\") - £24.49" }]
+    variants: [{ sku: "H-APR-AA-BTIE", label: "Adult Size (25\" x 35\") - £23.49" }]
   },
 
 
@@ -234,5 +236,6 @@ document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
 });
 </script>
 <script src="/cartoonify-shared.js"></script>
+<script src="/basket-bridge.js"></script>
 </body>
 </html>

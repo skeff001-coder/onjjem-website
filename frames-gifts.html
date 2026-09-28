@@ -41,6 +41,7 @@
   footer a { color:#d4af37; text-decoration:none; margin:0 8px; }
 </style>
 <link rel="stylesheet" href="/cartoonify-shared.css">
+<link rel="stylesheet" href="/basket.css">
 </head>
 <body>
 
@@ -66,8 +67,9 @@
   <a href="/privacy.html">Privacy</a>
 </footer>
 
+<script src="/landing.js"></script>
 <script>
-const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+// API_BASE comes from /landing.js
 
 const ITEMS = [
   {
@@ -206,5 +208,6 @@ document.querySelectorAll('button[data-type="checkout"]').forEach(btn => {
 });
 </script>
 <script src="/cartoonify-shared.js"></script>
+<script src="/basket-bridge.js"></script>
 </body>
 </html>
