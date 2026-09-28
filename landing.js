@@ -397,7 +397,7 @@ function ONJJEM_renderLanding(P) {
         <div class="order-total"><span>Total <small style="color:var(--muted)">(free UK delivery)</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
         <button class="btn" id="basketBtn">🧺 Add to basket</button>
         <button class="btn btn-ghost" id="buyBtn" style="margin-top:0.5rem">Buy just this one now →</button>
-        <p class="order-note" style="margin-top:0.5rem">🎁 Bundle &amp; save: <strong>10% off 2 gifts</strong>, <strong>15% off 3 or more</strong>, applied automatically in your basket.</p>
+        <p class="order-note" style="margin-top:0.5rem">🎁 Bundle &amp; save: <strong>10% off 2 gifts</strong>, <strong>12% off 3 or more</strong>, applied automatically in your basket.</p>
         <div class="order-status" id="status"></div>
         <p class="order-note">🔒 Secure payment by Stripe${ONJJEM_PROMO.active ? ` · Code <strong>${esc(ONJJEM_PROMO.code)}</strong> goes in at checkout` : ""}</p>
       </div>
@@ -693,7 +693,7 @@ const ONJJEM_Basket = (() => {
   };
 })();
 
-function ONJJEM_bundlePercent(n) { return n >= 3 ? 15 : n === 2 ? 10 : 0; }
+function ONJJEM_bundlePercent(n) { return n >= 3 ? 12 : n === 2 ? 10 : 0; }
 
 function ONJJEM_updateBasketButton(items) {
   let btn = document.getElementById("basketFab");
@@ -712,7 +712,7 @@ function ONJJEM_showAddedToast(thumb, name) {
   t.className = "cartoon-preview-overlay";
   ONJJEM_Basket.load().then(items => {
     const n = items.length, next = ONJJEM_bundlePercent(n + 1), now = ONJJEM_bundlePercent(n);
-    const nudge = next > now ? `Add ${n === 1 ? "one more gift to save 10%" : "one more gift to save 15%"} on everything 🎁` : `You're saving ${now}% on your whole basket 🎉`;
+    const nudge = next > now ? `Add ${n === 1 ? "one more gift to save 10%" : "one more gift to save 12%"} on everything 🎁` : `You're saving ${now}% on your whole basket 🎉`;
     t.innerHTML = `
       <div class="cartoon-preview-card" style="text-align:center">
         <img src="${thumb}" alt="" style="max-height:130px;margin:0 auto 0.6rem;border-radius:10px">
@@ -753,7 +753,7 @@ async function ONJJEM_openBasket() {
         <div class="basket-sum"><span>UK delivery</span><span>FREE</span></div>
         <div class="basket-sum basket-total"><span>Total</span><span>${money(sub - disc)}</span></div>
         ${pct ? `<p class="cartoon-email-note" style="font-size:0.8rem">Your bundle discount is applied instead of promo codes.</p>` : ""}
-        ${nextPct > pct ? `<p class="cartoon-email-note" style="color:#F3D078;font-weight:700">Add ${items.length === 1 ? "1 more gift to save 10%" : "1 more gift to save 15%"} 🎁</p>` : ""}
+        ${nextPct > pct ? `<p class="cartoon-email-note" style="color:#F3D078;font-weight:700">Add ${items.length === 1 ? "1 more gift to save 10%" : "1 more gift to save 12%"} 🎁</p>` : ""}
         <button class="cartoon-btn-primary" id="basketCheckout" style="width:100%;margin-top:0.6rem">Checkout securely →</button>
         <div id="basketStatus" class="cartoon-email-note" style="min-height:1.2em;margin-top:0.4rem"></div>` : ""}
       <button class="cartoon-btn-secondary" id="basketMore" style="width:100%;margin-top:0.5rem">Keep shopping</button>
