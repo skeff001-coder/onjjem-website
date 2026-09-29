@@ -373,6 +373,13 @@ function ONJJEM_renderLanding(P) {
               <span class="o-price">${money(o.price)}</span>
             </label>`).join("")}
         </div>
+        <div id="variantWrap" style="display:none;margin-top:0.7rem">
+          <span style="font-weight:700;display:block;margin-bottom:0.35rem">👕 Choose the T-shirt size &amp; colour</span>
+          <div style="display:flex;gap:0.5rem">
+          <select id="sizeSel" aria-label="Size" style="flex:1;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem"></select>
+          <select id="colourSel" aria-label="Colour" style="flex:1;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem"></select>
+          </div>
+        </div>
 
         <span class="order-label">2. Add your photo${opts.some(o => o.multi) ? "s" : ""}, drawing or words</span>
         <input type="file" id="photoInput" accept="image/*" style="display:none">
@@ -419,6 +426,30 @@ function ONJJEM_renderLanding(P) {
 
   // Option selection
   const optionEls = app.querySelectorAll(".option");
+  // Size / colour choices for options that have them (e.g. T-shirts).
+  const variantWrap = document.getElementById("variantWrap");
+  const sizeSel = document.getElementById("sizeSel");
+  const colourSel = document.getElementById("colourSel");
+  function showVariants() {
+    const o = opts[selected];
+    if (!o.skuPattern) { variantWrap.style.display = "none"; return; }
+    sizeSel.innerHTML = `<option value="">Choose a size…</option>` + o.sizes.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
+    colourSel.innerHTML = o.colours.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
+    variantWrap.style.display = "block";
+  }
+  // The option as it will be ordered, with the chosen size and colour.
+  function chosen() {
+    const o = opts[selected];
+    if (!o.skuPattern) return o;
+    const size = o.sizes.find(x => x[0] === sizeSel.value);
+    const colour = o.colours.find(x => x[0] === colourSel.value) || o.colours[0];
+    if (!size) return null;
+    return Object.assign({}, o, {
+      sku: o.skuPattern.replace("{size}", size[0]).replace("{colour}", colour[0]),
+      name: `${o.name} (${size[1]}, ${colour[1]})`
+    });
+  }
+  showVariants();
   const input = document.getElementById("photoInput");
   const box = document.getElementById("uploadBox");
   const status = document.getElementById("status");
@@ -485,6 +516,7 @@ function ONJJEM_renderLanding(P) {
     optionEls.forEach(e => e.classList.toggle("selected", e === el));
     el.querySelector("input").checked = true;
     document.getElementById("total").textContent = money(opts[selected].price);
+    showVariants();
     input.multiple = isMulti();
     await refreshPhoto();
   }));
@@ -531,6 +563,7 @@ function ONJJEM_renderLanding(P) {
   const buyBtn = document.getElementById("buyBtn");
   const basketBtn = document.getElementById("basketBtn");
   function startFlow(then) {
+    if (!chosen()) { status.textContent = "Please choose a size first 👕"; variantWrap.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     if (!photo) { status.textContent = "Please add your photo first 📸"; box.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     status.textContent = "";
     const collage = isMulti() && photos.length > 1; // cartoons are for single photos
@@ -545,7 +578,7 @@ function ONJJEM_renderLanding(P) {
 
   // Make the exact print file for this gift and put it in the basket.
   async function addToBasket(cartoonOpts) {
-    const o = opts[selected];
+    const o = chosen();
     basketBtn.disabled = true; buyBtn.disabled = true;
     status.style.color = "var(--muted)";
     status.textContent = "Adding to your basket…";
@@ -582,7 +615,7 @@ function ONJJEM_renderLanding(P) {
   }
 
   async function checkout(cartoonOpts) {
-    const o = opts[selected];
+    const o = chosen();
     buyBtn.disabled = true;
     status.style.color = "var(--muted)";
     status.textContent = "Taking you to secure checkout…";
