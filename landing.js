@@ -421,7 +421,7 @@ function ONJJEM_renderLanding(P) {
     </section>` : ""}
   </main>
   ${ONJJEM_footerHtml()}
-  <div class="sticky-buy" id="stickyBuy"><a href="#order" class="btn">${esc(P.cta || "Create yours now")} — ${money(fromPrice)}</a></div>
+  <div class="sticky-buy" id="stickyBuy"><a href="#order" class="btn">${P.stickyCta ? esc(P.stickyCta) : `${esc(P.cta || "Create yours now")} — ${money(fromPrice)}`}</a></div>
   `;
 
   // Option selection
