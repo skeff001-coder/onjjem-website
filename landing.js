@@ -425,7 +425,7 @@ function ONJJEM_renderLanding(P) {
   `;
 
   // Pages can ask for the photo step first (it's the step that leads to the free preview).
-  if (P.photoFirst) {
+  if (P.photoFirst !== false) {
     const ob = app.querySelector(".order-box");
     const [lab1, lab2] = ob.querySelectorAll(".order-label");
     const total = ob.querySelector(".order-total");
@@ -470,7 +470,7 @@ function ONJJEM_renderLanding(P) {
   const status = document.getElementById("status");
   let photos = []; // every photo the customer picked (for collage options)
   const isMulti = () => !!opts[selected].multi;
-  const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Tap to choose up to " + opts[selected].multi + " photos" : "Tap to choose a photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div>`;
+  const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Add up to " + opts[selected].multi + " photos" : "Add your photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div><span class="u-btn">📷 Choose from my phone</span>${P.cartoon ? `<div class="u-free">✨ Free cartoon preview before you pay</div>` : ""}`;
 
   let isTextDesign = false;
   const capText = document.getElementById("captionText");

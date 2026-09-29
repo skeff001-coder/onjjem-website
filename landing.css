@@ -76,12 +76,16 @@ a { color: var(--gold); }
 .option.selected { border-color: var(--gold); }
 .option .o-badge { background: var(--gold); color: #1a1a1a; font-size: 0.68rem; font-weight: 800; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.35rem; vertical-align: middle; }
 
-.upload { border: 2px dashed var(--line); border-radius: 12px; padding: 1.1rem; text-align: center; cursor: pointer; background: var(--card-2); }
-.upload:hover { border-color: var(--gold); }
-.upload .u-icon { font-size: 1.8rem; }
-.upload .u-text { font-weight: 700; }
-.upload .u-hint { color: var(--muted); font-size: 0.82rem; }
-.upload.has-photo { border-style: solid; border-color: var(--green); }
+.upload { border: 3px solid var(--gold); border-radius: 16px; padding: 1.4rem 1.1rem; text-align: center; cursor: pointer; background: rgba(212,175,55,0.12); box-shadow: 0 0 0 0 rgba(212,175,55,0.5); animation: uploadGlow 2.4s ease-in-out infinite; }
+.upload:hover { background: rgba(212,175,55,0.2); }
+.upload .u-icon { font-size: 2.6rem; line-height: 1; margin-bottom: 0.3rem; }
+.upload .u-text { font-weight: 800; font-size: 1.15rem; }
+.upload .u-hint { color: var(--muted); font-size: 0.85rem; margin-top: 0.3rem; }
+.upload .u-btn { display: inline-block; margin-top: 0.8rem; background: var(--gold); color: #1a1a1a; font-weight: 800; font-size: 1.05rem; padding: 0.75rem 1.6rem; border-radius: 999px; }
+.upload .u-free { color: var(--gold-light); font-weight: 700; font-size: 0.9rem; margin-top: 0.6rem; }
+@keyframes uploadGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.45); } 50% { box-shadow: 0 0 18px 4px rgba(212,175,55,0.35); } }
+@media (prefers-reduced-motion: reduce) { .upload { animation: none; } }
+.upload.has-photo { border-style: solid; border-color: var(--green); background: var(--card-2); animation: none; }
 .upload img.u-preview { max-height: 180px; margin: 0 auto 0.5rem; border-radius: 8px; }
 
 .order-total { display: flex; justify-content: space-between; align-items: center; margin: 1.1rem 0 0.8rem; font-size: 1.05rem; }
