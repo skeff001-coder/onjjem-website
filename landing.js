@@ -373,7 +373,7 @@ function ONJJEM_renderLanding(P) {
               <span class="o-price">${money(o.price)}</span>
             </label>`).join("")}
         </div>
-        <div id="variantWrap" style="display:none;margin-top:0.7rem">
+        <div id="variantWrap" style="display:none;margin:0.7rem 0 0.9rem">
           <span style="font-weight:700;display:block;margin-bottom:0.35rem">👕 Choose the T-shirt size &amp; colour</span>
           <div style="display:flex;gap:0.5rem">
           <select id="sizeSel" aria-label="Size" style="flex:1;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem"></select>
@@ -424,6 +424,19 @@ function ONJJEM_renderLanding(P) {
   <div class="sticky-buy" id="stickyBuy"><a href="#order" class="btn">${P.stickyCta ? esc(P.stickyCta) : `${esc(P.cta || "Create yours now")} — ${money(fromPrice)}`}</a></div>
   `;
 
+  // Pages can ask for the photo step first (it's the step that leads to the free preview).
+  if (P.photoFirst) {
+    const ob = app.querySelector(".order-box");
+    const [lab1, lab2] = ob.querySelectorAll(".order-label");
+    const total = ob.querySelector(".order-total");
+    const moving = [];
+    for (let n = lab2; n && n !== total; n = n.nextSibling) moving.push(n);
+    moving.forEach(n => ob.insertBefore(n, lab1));
+    lab2.textContent = lab2.textContent.replace(/^2\./, "1.");
+    lab1.textContent = lab1.textContent.replace(/^1\./, "2.");
+    lab1.style.marginTop = "1rem";
+  }
+
   // Option selection
   const optionEls = app.querySelectorAll(".option");
   // Size / colour choices for options that have them (e.g. T-shirts).
@@ -436,6 +449,8 @@ function ONJJEM_renderLanding(P) {
     sizeSel.innerHTML = `<option value="">Choose a size…</option>` + o.sizes.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
     colourSel.innerHTML = o.colours.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
     variantWrap.style.display = "block";
+    const selEl = app.querySelectorAll(".option")[selected];
+    if (selEl) selEl.after(variantWrap);
   }
   // The option as it will be ordered, with the chosen size and colour.
   function chosen() {
@@ -790,10 +805,16 @@ async function ONJJEM_openBasket() {
         <button class="cartoon-btn-primary" id="basketCheckout" style="width:100%;margin-top:0.6rem">Checkout securely →</button>
         <div id="basketStatus" class="cartoon-email-note" style="min-height:1.2em;margin-top:0.4rem"></div>` : ""}
       <button class="cartoon-btn-secondary" id="basketMore" style="width:100%;margin-top:0.5rem">Keep shopping</button>
+      ${items.length ? `<button type="button" id="basketEmpty" style="display:block;margin:0.8rem auto 0;background:none;border:none;color:#bbb;text-decoration:underline;font-size:0.9rem;cursor:pointer">🗑️ Empty basket</button>` : ""}
     </div>`;
   document.body.appendChild(panel);
   panel.addEventListener("click", e => { if (e.target === panel) panel.remove(); });
   panel.querySelector("#basketMore").onclick = () => { panel.remove(); if (!window.PAGE) location.href = "/tiktok"; };
+  const emptyBtn = panel.querySelector("#basketEmpty");
+  if (emptyBtn) emptyBtn.onclick = async () => {
+    if (!confirm("Remove everything from your basket?")) return;
+    await ONJJEM_Basket.clear(); ONJJEM_openBasket();
+  };
   panel.querySelectorAll(".basket-remove").forEach(b => b.onclick = async () => { await ONJJEM_Basket.remove(b.dataset.id); ONJJEM_openBasket(); });
   const go = panel.querySelector("#basketCheckout");
   if (go) go.onclick = async () => {

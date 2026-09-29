@@ -140,7 +140,7 @@ a { color: var(--gold); }
 .basket-info { flex: 1; font-size: 0.9rem; }
 .basket-info small { display: block; opacity: 0.75; }
 .basket-price { font-weight: 800; white-space: nowrap; }
-.basket-remove { background: none; border: none; color: inherit; opacity: 0.6; font-size: 1rem; cursor: pointer; padding: 0.3rem; }
+.basket-remove { background: none; border: none; color: inherit; opacity: 0.95; font-size: 1.3rem; cursor: pointer; padding: 0.3rem; }
 .basket-sum { display: flex; justify-content: space-between; padding: 0.3rem 0; font-size: 0.95rem; }
 .basket-total { font-weight: 800; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.15); margin-top: 0.3rem; padding-top: 0.5rem; }
 
