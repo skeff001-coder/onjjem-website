@@ -223,7 +223,6 @@ function ONJJEM_printAnythingHtml() {
   const items = [
     ["📸", "Photos", "Family, friends, holidays"],
     ["🐶", "Pets", "Dogs, cats, even the hamster"],
-    ["✏️", "Your words", "Slogans, names, in-jokes, quotes"],
     ["🖍️", "Kids' drawings", "Snap a photo of their artwork"],
     ["🎨", "Cartoons", "We turn your photo into one"],
     ["📱", "Screenshots", "A funny message or a sweet text"]
@@ -231,7 +230,7 @@ function ONJJEM_printAnythingHtml() {
   return `
   <section class="l-section wrap">
     <h2>Print <span class="gold">anything</span></h2>
-    <p style="text-align:center;color:var(--muted);margin:-0.4rem auto 1rem;max-width:520px">If it's on your phone, we can print it. No photo? Type your words and we'll design it for you.</p>
+    <p style="text-align:center;color:var(--muted);margin:-0.4rem auto 1rem;max-width:520px">If it's on your phone, we can print it.</p>
     <div class="tiles" style="grid-template-columns:repeat(3,1fr)">
       ${items.map(i => `<div class="tile" style="padding:0.9rem 0.6rem;text-align:center"><div style="font-size:1.8rem">${i[0]}</div><h3 style="margin-top:0.3rem">${i[1]}</h3><div class="t-tag">${i[2]}</div></div>`).join("")}
     </div>
@@ -352,7 +351,7 @@ function ONJJEM_renderLanding(P) {
     <section class="l-section wrap">
       <h2>How it works</h2>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div><h3>Pick a photo or type words</h3><p>Pets, kids, family, a drawing, or your own slogan.</p></div></div>
+        <div class="step"><div class="step-num">1</div><div><h3>Pick a photo</h3><p>Kids, family, couples, pets or a child's drawing.</p></div></div>
         <div class="step"><div class="step-num">2</div><div><h3>${P.cartoon ? "Cartoon it (optional)" : "Choose your option"}</h3><p>${P.cartoon ? "See a free preview of your photo as a cartoon. Add it for £1.99, or keep the original." : "Pick the size or style you want."}</p></div></div>
         <div class="step"><div class="step-num">3</div><div><h3>We make it &amp; post it</h3><p>Printed to order in the UK and sent with free delivery.</p></div></div>
       </div>
@@ -381,7 +380,7 @@ function ONJJEM_renderLanding(P) {
           </div>
         </div>
 
-        <span class="order-label">2. Add your photo${opts.some(o => o.multi) ? "s" : ""}, drawing or words</span>
+        <span class="order-label">2. Add your photo${opts.some(o => o.multi) ? "s" : ""}</span>
         <input type="file" id="photoInput" accept="image/*" style="display:none">
         <div class="upload" id="uploadBox" role="button" tabindex="0"></div>
         <div id="orientWrap" style="display:none;margin-top:0.7rem">
@@ -399,7 +398,6 @@ function ONJJEM_renderLanding(P) {
             <button type="button" class="btn btn-ghost capPos" data-pos="top" style="padding:0.45rem;font-size:0.85rem">Words at top</button>
           </div>
         </div>
-        <button type="button" class="btn btn-ghost" id="typeBtn" style="margin-top:0.6rem;font-size:0.95rem;padding:0.75rem">✏️ No photo? Type your own words or slogan</button>
 
         <div class="order-total"><span>Total <small style="color:var(--muted)">(free UK delivery)</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
         <button class="btn" id="basketBtn">🧺 Add to basket</button>
@@ -561,7 +559,7 @@ function ONJJEM_renderLanding(P) {
   });
 
   // Typed words / slogans
-  document.getElementById("typeBtn").addEventListener("click", () => {
+  document.getElementById("typeBtn")?.addEventListener("click", () => {
     const o = opts[selected];
     const tr = targetRatio(o);
     ONJJEM_openTextMaker(o.wrap ? 1.3 : (tr ? tr[0] / tr[1] : (o.aspect || P.textAspect || 1)), async dataUrl => {
