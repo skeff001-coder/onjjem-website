@@ -479,15 +479,17 @@ function ONJJEM_renderLanding(P) {
   const designWrap = document.getElementById("designWrap");
   function showDesigns() {
     if (!designWrap) return;
-    designWrap.style.display = "block";
+    const on = !!opts[selected].designs;
+    designWrap.style.display = on ? "block" : "none";
+    // Our designs are only for the options that allow them (towels): drop a picked design otherwise.
+    if (!on && isPresetDesign) {
+      isPresetDesign = false; photos = [];
+      designWrap.querySelectorAll(".design-tile").forEach(x => x.classList.remove("picked"));
+      refreshPhoto();
+    }
   }
   if (designWrap) designWrap.querySelectorAll(".design-tile").forEach(t => t.addEventListener("click", async () => {
     const d = P.designs[Number(t.dataset.d)];
-    if (!opts[selected].designs) {
-      // Designs are made for towels: switch to the first towel option.
-      const firstDesignOpt = app.querySelectorAll(".option")[opts.findIndex(o => o.designs)];
-      if (firstDesignOpt) firstDesignOpt.click();
-    }
     designWrap.querySelectorAll(".design-tile").forEach(x => x.classList.toggle("picked", x === t));
     status.textContent = "";
     box.innerHTML = `<div class="u-text">Loading ${esc(d.name)}…</div>`;
