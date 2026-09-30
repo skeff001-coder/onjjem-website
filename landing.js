@@ -383,6 +383,10 @@ function ONJJEM_renderLanding(P) {
         <span class="order-label">2. Add your photo${opts.some(o => o.multi) ? "s" : ""}</span>
         <input type="file" id="photoInput" accept="image/*" style="display:none">
         <div class="upload" id="uploadBox" role="button" tabindex="0"></div>
+        ${P.designs ? `<div id="designWrap" style="display:none;margin-top:0.9rem">
+          <span style="font-weight:700;display:block;margin-bottom:0.45rem">${esc(P.designsLabel || "…or pick one of our designs 👇")}</span>
+          <div class="design-grid">${P.designs.map((d, i) => `<button type="button" class="design-tile" data-d="${i}"><img src="${d.thumb}" alt="${esc(d.name)}" loading="lazy"><span>${esc(d.name)}</span></button>`).join("")}</div>
+        </div>` : ""}
         <div id="orientWrap" style="display:none;margin-top:0.7rem">
           <span style="font-weight:700;display:block;margin-bottom:0.35rem">Which way round?</span>
           <div style="display:flex;gap:0.4rem">
@@ -471,6 +475,26 @@ function ONJJEM_renderLanding(P) {
   const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Add up to " + opts[selected].multi + " photos" : "Add your photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div><span class="u-btn">📷 Choose from my phone</span>${P.cartoon ? `<div class="u-free">✨ Free cartoon preview before you pay</div>` : ""}`;
 
   let isTextDesign = false;
+  let isPresetDesign = false; // one of our ready-made designs (no cartoon step)
+  const designWrap = document.getElementById("designWrap");
+  function showDesigns() {
+    if (!designWrap) return;
+    designWrap.style.display = "block";
+  }
+  if (designWrap) designWrap.querySelectorAll(".design-tile").forEach(t => t.addEventListener("click", async () => {
+    const d = P.designs[Number(t.dataset.d)];
+    if (!opts[selected].designs) {
+      // Designs are made for towels: switch to the first towel option.
+      const firstDesignOpt = app.querySelectorAll(".option")[opts.findIndex(o => o.designs)];
+      if (firstDesignOpt) firstDesignOpt.click();
+    }
+    designWrap.querySelectorAll(".design-tile").forEach(x => x.classList.toggle("picked", x === t));
+    status.textContent = "";
+    box.innerHTML = `<div class="u-text">Loading ${esc(d.name)}…</div>`;
+    photos = [d.img]; isTextDesign = false; isPresetDesign = true; orient = null;
+    await refreshPhoto();
+    onjjemGa("event", "select_content", { content_type: "design", item_id: d.name });
+  }));
   const capText = document.getElementById("captionText");
   let capPos = "bottom", capTimer;
   capText.addEventListener("input", () => { clearTimeout(capTimer); capTimer = setTimeout(refreshPhoto, 250); });
@@ -520,7 +544,7 @@ function ONJJEM_renderLanding(P) {
     const shown = await finalize(photo, isTextDesign ? "" : capText.value, false);
     const o1 = opts[selected];
     const label = o1.wrap ? "This wraps around your mug (your picture shows on both sides)" : (o1.ratio ? "This is exactly how it will print" : "Tap to change");
-    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}"><div class="u-text">✓ ${n > 1 ? n + " photos added" : "Photo added"}</div><div class="u-hint">${label} · tap to change</div>`;
+    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}"><div class="u-text">✓ ${isPresetDesign ? "Design chosen" : (n > 1 ? n + " photos added" : "Photo added")}</div><div class="u-hint">${label} · tap to change</div>`;
   }
 
   optionEls.forEach(el => el.addEventListener("click", async () => {
@@ -530,11 +554,13 @@ function ONJJEM_renderLanding(P) {
     el.querySelector("input").checked = true;
     document.getElementById("total").textContent = money(opts[selected].price);
     showVariants();
+    showDesigns();
     input.multiple = isMulti();
     await refreshPhoto();
   }));
   input.multiple = isMulti();
   box.innerHTML = emptyBox();
+  showDesigns();
 
   // Photo upload
   box.addEventListener("click", () => input.click());
@@ -570,7 +596,7 @@ function ONJJEM_renderLanding(P) {
       box.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   });
-  input.addEventListener("change", () => { isTextDesign = false; }, true);
+  input.addEventListener("change", () => { isTextDesign = false; isPresetDesign = false; if (designWrap) designWrap.querySelectorAll(".design-tile").forEach(x => x.classList.remove("picked")); }, true);
 
   // Buy
   const buyBtn = document.getElementById("buyBtn");
@@ -580,7 +606,7 @@ function ONJJEM_renderLanding(P) {
     if (!photo) { status.textContent = "Please add your photo first 📸"; box.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     status.textContent = "";
     const collage = isMulti() && photos.length > 1; // cartoons are for single photos
-    if (P.cartoon && !collage && !isTextDesign && typeof ONJJEM_showPhotoPreview === "function") {
+    if (P.cartoon && !collage && !isTextDesign && !isPresetDesign && typeof ONJJEM_showPhotoPreview === "function") {
       ONJJEM_showPhotoPreview(photo, cartoonOpts => then(cartoonOpts));
     } else {
       then(null);

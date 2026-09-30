@@ -155,3 +155,10 @@ a { color: var(--gold); }
 .cat-bar a:hover { border-color: var(--gold); }
 .gift-group { font-size: 1.1rem; margin: 1.4rem 0 0.7rem; color: var(--gold); }
 .tile .t-body h3 { line-height: 1.25; }
+
+.design-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.45rem; }
+.design-tile { background: var(--card-2); border: 2px solid var(--line); border-radius: 10px; padding: 0; overflow: hidden; cursor: pointer; color: inherit; font: inherit; }
+.design-tile img { display: block; width: 100%; aspect-ratio: 1 / 2; object-fit: cover; }
+.design-tile span { display: block; font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.1rem; }
+.design-tile.picked { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+@media (max-width: 420px) { .design-grid { grid-template-columns: repeat(3, 1fr); } }

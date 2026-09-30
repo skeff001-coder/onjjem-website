@@ -38,12 +38,20 @@ window.PAGE = {
   optionWord: "your gift",
   orderTitle: "Make your cushion or towel",
   cartoon: true,
+  designsLabel: "…or pick one of our towel designs 👇",
+  designs: [
+    { name: "Mermaid", img: "/products/designs/mermaid.jpg", thumb: "/products/designs/mermaid-thumb.jpg" },
+    { name: "Lagoon", img: "/products/designs/lagoon.jpg", thumb: "/products/designs/lagoon-thumb.jpg" },
+    { name: "Cocktails", img: "/products/designs/cocktails.jpg", thumb: "/products/designs/cocktails-thumb.jpg" },
+    { name: "Sunset", img: "/products/designs/sunset.jpg", thumb: "/products/designs/sunset-thumb.jpg" },
+    { name: "Beach ball", img: "/products/designs/beachball.jpg", thumb: "/products/designs/beachball-thumb.jpg" }
+  ],
   photoHint: "Clear, bright photos work best. Use the original from your phone, not a screenshot.",
   options: [
     { sku: "cushion-12-single", ratio: [1, 1], name: "Cushion — 12×12″ (30cm)", note: "Faux linen, filled. Picture on the front", price: 23.49, default: true },
     { sku: "cushion-18-double", ratio: [1, 1], name: "Big cushion — 18×18″ (46cm)", note: "Faux linen, filled. Picture on both sides", price: 30.49, badge: "BOTH SIDES" },
-    { sku: "printed-towel-shower", ratio: [70, 140], name: "Towel — 70×140cm", note: "Plush microfibre print, cotton back", price: 31.99 },
-    { sku: "towel-bath", ratio: [80, 160], name: "Big bath towel — 80×160cm", note: "Plush microfibre print, cotton back", price: 38.99 }
+    { sku: "printed-towel-shower", ratio: [70, 140], designs: true, name: "Towel — 70×140cm", note: "Plush microfibre print, cotton back. Your photo or one of our designs", price: 31.99 },
+    { sku: "towel-bath", ratio: [80, 160], designs: true, name: "Big bath towel — 80×160cm", note: "Plush microfibre print, cotton back. Your photo or one of our designs", price: 38.99 }
   ],
   faq: [
     ["How big are they?", "The small cushion is 30cm square, the big cushion is 46cm square. Towels are 70×140cm or 80×160cm and hang tall, so the preview shows your picture in a tall shape."],
