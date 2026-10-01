@@ -474,11 +474,17 @@ function ONJJEM_renderLanding(P) {
         </div>
 
         <div class="order-total"><span>Total <small style="color:var(--muted)">(${ONJJEM_deliveryWord()})</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
+        <ul class="trust-line">
+          <li>👀 You see your picture before you pay</li>
+          <li>🔒 Secure payment by Stripe</li>
+          <li>🚚 ${ONJJEM_isUS() ? "Free US shipping, made in the USA" : "Free UK delivery"}</li>
+          <li>🛡️ Arrives damaged or misprinted? Free replacement</li>
+        </ul>
         <button class="btn" id="basketBtn">🧺 Add to basket</button>
         <button class="btn btn-ghost" id="buyBtn" style="margin-top:0.5rem">Buy just this one now →</button>
         <p class="order-note" style="margin-top:0.5rem">🎁 Bundle &amp; save: <strong>10% off 2 gifts</strong>, <strong>12% off 3 or more</strong>, applied automatically in your basket.</p>
         <div class="order-status" id="status"></div>
-        <p class="order-note">🔒 Secure payment by Stripe${ONJJEM_PROMO.active ? ` · Code <strong>${esc(ONJJEM_PROMO.code)}</strong> goes in at checkout` : ""}</p>
+        ${ONJJEM_PROMO.active ? `<p class="order-note">Code <strong>${esc(ONJJEM_PROMO.code)}</strong> goes in at checkout</p>` : ""}
       </div>
     </section>
 

@@ -233,3 +233,6 @@ a { color: var(--gold); }
 .hw-text p{margin:0 0 .9rem;color:#e9dccf;font-size:.92rem;line-height:1.45}
 .hw-btn{display:inline-block;background:#f26b1d;color:#fff;font-weight:700;padding:.75rem 1.4rem;border-radius:999px}
 @media(min-width:800px){.hw-banner{display:grid;grid-template-columns:1fr 1fr;align-items:center}.hw-banner img{height:100%;aspect-ratio:auto}.hw-text{text-align:left;padding:1.5rem 2rem}}
+
+.trust-line{list-style:none;margin:0.2rem 0 0.8rem;padding:0.7rem 0.85rem;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,0.03);display:grid;gap:0.3rem;font-size:0.88rem;color:var(--text)}
+.trust-line li{line-height:1.35}
