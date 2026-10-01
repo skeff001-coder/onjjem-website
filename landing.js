@@ -25,7 +25,14 @@ const ONJJEM_REVIEWS = [
 
 function onjjemGa() { if (typeof gtag === "function") { try { gtag.apply(null, arguments); } catch (e) {} } }
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
-function money(p) { return "£" + Number(p).toFixed(2); }
+// US shop pages set window.ONJJEM_REGION = "us" before loading this file.
+function ONJJEM_isUS() { return window.ONJJEM_REGION === "us"; }
+function money(p) { return (ONJJEM_isUS() ? "$" : "£") + Number(p).toFixed(2); }
+function ONJJEM_cur() { return ONJJEM_isUS() ? "USD" : "GBP"; }
+function ONJJEM_home() { return ONJJEM_isUS() ? "/us/" : "/"; }
+function ONJJEM_deliveryWord() { return ONJJEM_isUS() ? "free US shipping" : "free UK delivery"; }
+// The cartoon is free in the US shop and on Christmas sweatshirts.
+function ONJJEM_cartoonFee(sku) { return ONJJEM_isUS() || String(sku || "").startsWith("XSWEAT-") ? 0 : 1.99; }
 
 function ONJJEM_offerBarHtml() {
   if (!ONJJEM_PROMO.active) return "";
@@ -49,11 +56,20 @@ function ONJJEM_reviewsHtml() {
 }
 
 function ONJJEM_headerHtml() {
+  if (ONJJEM_isUS()) return `
+  ${ONJJEM_offerBarHtml()}
+  <header class="l-header">
+    <a href="/us/" class="l-logo">ONJJEM <span style="font-size:0.7em">🇺🇸</span></a>
+    <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/" title="UK shop">🇬🇧 UK</a></nav>
+  </header>
+  <nav class="cat-bar" aria-label="Gift categories">
+    <a href="/us/halloween">🎃 Halloween</a><a href="/us/#cat-christmas">🎄 Christmas</a><a href="/us/blanket">Blankets</a><a href="/us/candle">Candles</a><a href="/us/clock">Clocks</a><a href="/us/prints">Prints &amp; posters</a><a href="/us/pickleball">Pickleball</a>
+  </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">
     <a href="/" class="l-logo">ONJJEM</a>
-    <nav class="l-nav"><a href="/#gifts">All gifts</a><a href="/#faq">Help</a></nav>
+    <nav class="l-nav"><a href="/#gifts">All gifts</a><a href="/#faq">Help</a><a href="/us/" title="US shop">🇺🇸 US</a></nav>
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
     <a href="/christmas">🎄 Christmas</a><a href="/halloween">🎃 Halloween</a><a href="/mug">Mugs</a><a href="/stickers">Stickers</a><a href="/magnets">Magnets</a><a href="/cushions">Cushions &amp; towels</a><a href="/blanket">Blankets</a><a href="/prints">Prints</a><a href="/poster-sale">Posters</a><a href="/kids.html">Kids</a><a href="/household.html">Home</a><a href="/frames-gifts.html">Frames</a><a href="/gift-cards.html">Gift cards</a>
@@ -61,6 +77,11 @@ function ONJJEM_headerHtml() {
 }
 
 function ONJJEM_footerHtml() {
+  if (ONJJEM_isUS()) return `
+  <footer class="l-footer">
+    <p style="margin-bottom:0.5rem">Personalized gifts, made to order in the USA · <a href="mailto:hello@onjjem.com">hello@onjjem.com</a></p>
+    <a href="/us/shipping">Shipping</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/">🇬🇧 UK shop</a>
+  </footer>`;
   return `
   <footer class="l-footer">
     <p style="margin-bottom:0.5rem">Personalised gifts, handmade to order in the UK · <a href="mailto:hello@onjjem.com">hello@onjjem.com</a></p>
@@ -346,7 +367,7 @@ function ONJJEM_renderLanding(P) {
         <div class="l-kicker">${esc(P.kicker)}</div>
         <h1>${esc(P.title)}</h1>
         <p class="sub">${esc(P.sub)}</p>
-        <div class="l-price">${opts.length > 1 ? "From " : ""}${money(fromPrice)} <small>· free UK delivery</small></div>
+        <div class="l-price">${opts.length > 1 ? "From " : ""}${money(fromPrice)} <small>· ${ONJJEM_deliveryWord()}</small></div>
         <ul class="l-ticks">${P.ticks.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
         <a href="#order" class="btn">${esc(P.cta || "Create yours now")}</a>
       </div>
@@ -356,8 +377,8 @@ function ONJJEM_renderLanding(P) {
       <h2>How it works</h2>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div><h3>Pick a photo</h3><p>Kids, family, couples, pets or a child's drawing.</p></div></div>
-        <div class="step"><div class="step-num">2</div><div><h3>${P.cartoon ? "Cartoon it (optional)" : "Choose your option"}</h3><p>${P.cartoon ? "See a free preview of your photo as a cartoon. Add it for £1.99, or keep the original." : "Pick the size or style you want."}</p></div></div>
-        <div class="step"><div class="step-num">3</div><div><h3>We make it &amp; post it</h3><p>Printed to order in the UK and sent with free delivery.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div><h3>${P.cartoon ? "Cartoon it (optional)" : "Choose your option"}</h3><p>${P.cartoon ? (ONJJEM_isUS() ? "See your photo as a cartoon. It's FREE, or keep the original." : "See a free preview of your photo as a cartoon. Add it for £1.99, or keep the original.") : "Pick the size or style you want."}</p></div></div>
+        <div class="step"><div class="step-num">3</div><div><h3>We make it &amp; post it</h3><p>${ONJJEM_isUS() ? "Printed to order in the USA and shipped free." : "Printed to order in the UK and sent with free delivery."}</p></div></div>
       </div>
     </section>
 
@@ -407,7 +428,7 @@ function ONJJEM_renderLanding(P) {
           </div>
         </div>
 
-        <div class="order-total"><span>Total <small style="color:var(--muted)">(free UK delivery)</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
+        <div class="order-total"><span>Total <small style="color:var(--muted)">(${ONJJEM_deliveryWord()})</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
         <button class="btn" id="basketBtn">🧺 Add to basket</button>
         <button class="btn btn-ghost" id="buyBtn" style="margin-top:0.5rem">Buy just this one now →</button>
         <p class="order-note" style="margin-top:0.5rem">🎁 Bundle &amp; save: <strong>10% off 2 gifts</strong>, <strong>12% off 3 or more</strong>, applied automatically in your basket.</p>
@@ -455,7 +476,7 @@ function ONJJEM_renderLanding(P) {
     const lbl = document.getElementById("variantLabel");
     if (!o.sizes) {
       sizeSel.style.display = "none"; sizeSel.innerHTML = "";
-      if (lbl) lbl.textContent = "🎨 Choose " + (P.variantWord || "the") + " colour";
+      if (lbl) lbl.textContent = P.colourLabel || ("🎨 Choose " + (P.variantWord || "the") + " colour");
     } else {
       sizeSel.style.display = "";
       if (lbl) lbl.innerHTML = "👕 Choose " + esc(P.variantWord || "the T-shirt") + " size &amp; colour";
@@ -604,7 +625,7 @@ function ONJJEM_renderLanding(P) {
       orient = null;
       await refreshPhoto();
       input.value = "";
-      onjjemGa("event", "add_to_cart", { currency: "GBP", value: opts[selected].price, items: [{ item_id: opts[selected].sku, item_name: opts[selected].name, price: opts[selected].price }] });
+      onjjemGa("event", "add_to_cart", { currency: ONJJEM_cur(), value: opts[selected].price, items: [{ item_id: opts[selected].sku, item_name: opts[selected].name, price: opts[selected].price }] });
     } catch (err) {
       photos = []; await refreshPhoto();
       status.textContent = err.message;
@@ -669,7 +690,7 @@ function ONJJEM_renderLanding(P) {
       const preview = await finalize(source, words, false);
       const thumb = await ONJJEM_limitSize(preview, 240);
       await ONJJEM_Basket.add({ sku: o.sku, name: o.name, price: o.price, cartoon, photo: print, thumb, page: location.pathname });
-      onjjemGa("event", "add_to_cart", { currency: "GBP", value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
+      onjjemGa("event", "add_to_cart", { currency: ONJJEM_cur(), value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
       status.textContent = "";
       ONJJEM_showAddedToast(thumb, o.name);
     } catch (err) {
@@ -685,7 +706,7 @@ function ONJJEM_renderLanding(P) {
     buyBtn.disabled = true;
     status.style.color = "var(--muted)";
     status.textContent = "Taking you to secure checkout…";
-    onjjemGa("event", "begin_checkout", { currency: "GBP", value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
+    onjjemGa("event", "begin_checkout", { currency: ONJJEM_cur(), value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
     try {
       const words = isTextDesign ? "" : capText.value;
       let finalPhoto = await finalize(photo, words, true);
@@ -704,7 +725,8 @@ function ONJJEM_renderLanding(P) {
         body: JSON.stringify(Object.assign({
           sku: o.sku,
           photoBase64: photoToSend,
-          successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
+          ...(ONJJEM_isUS() ? { region: "us" } : {}),
+          successUrl: window.location.origin + ONJJEM_home() + "?order=success&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: window.location.href.split("#")[0] + "#order"
         }, extra))
       });
@@ -733,7 +755,7 @@ function ONJJEM_renderLanding(P) {
     }, { passive: true });
   }
 
-  onjjemGa("event", "view_item", { currency: "GBP", value: fromPrice, items: opts.map(o => ({ item_id: o.sku, item_name: o.name, price: o.price })) });
+  onjjemGa("event", "view_item", { currency: ONJJEM_cur(), value: fromPrice, items: opts.map(o => ({ item_id: o.sku, item_name: o.name, price: o.price })) });
 }
 
 // ── Basket ───────────────────────────────────────────────────────────────────
@@ -767,7 +789,7 @@ const ONJJEM_Basket = (() => {
     try {
       const d = await db();
       return await new Promise(res => {
-        const r = d.transaction("basket").objectStore("basket").get("items");
+        const r = d.transaction("basket").objectStore("basket").get(ONJJEM_isUS() ? "items-us" : "items");
         r.onsuccess = () => res(r.result || []);
         r.onerror = () => res(memory);
       });
@@ -777,7 +799,7 @@ const ONJJEM_Basket = (() => {
     memory = items;
     try {
       const d = await db();
-      await new Promise(res => { const t = d.transaction("basket", "readwrite"); t.objectStore("basket").put(items, "items"); t.oncomplete = res; t.onerror = res; });
+      await new Promise(res => { const t = d.transaction("basket", "readwrite"); t.objectStore("basket").put(items, ONJJEM_isUS() ? "items-us" : "items"); t.oncomplete = res; t.onerror = res; });
     } catch (e) {}
     ONJJEM_updateBasketButton(items);
   }
@@ -824,7 +846,7 @@ function ONJJEM_showAddedToast(thumb, name) {
         <button class="cartoon-btn-secondary" data-a="basket" style="width:100%;margin-top:0.5rem">View basket &amp; checkout (${n})</button>
       </div>`;
     document.body.appendChild(t);
-    t.querySelector('[data-a="more"]').onclick = () => { t.remove(); location.href = "/tiktok"; };
+    t.querySelector('[data-a="more"]').onclick = () => { t.remove(); location.href = ONJJEM_isUS() ? "/us/" : "/tiktok"; };
     t.querySelector('[data-a="basket"]').onclick = () => { t.remove(); ONJJEM_openBasket(); };
   });
 }
@@ -834,7 +856,7 @@ async function ONJJEM_openBasket() {
   const old = document.getElementById("basketPanel"); if (old) old.remove();
   const panel = document.createElement("div");
   panel.id = "basketPanel"; panel.className = "cartoon-preview-overlay";
-  const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? 1.99 : 0), 0);
+  const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku) : 0), 0);
   const pct = ONJJEM_bundlePercent(items.length);
   const disc = Math.round(sub * pct) / 100;
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
@@ -844,14 +866,14 @@ async function ONJJEM_openBasket() {
       ${items.length ? items.map(i => `
         <div class="basket-row">
           <img src="${i.thumb}" alt="">
-          <div class="basket-info"><strong>${esc(i.name)}</strong>${i.cartoon ? "<small>+ cartoon £1.99</small>" : ""}</div>
-          <div class="basket-price">${money(i.price + (i.cartoon ? 1.99 : 0))}</div>
+          <div class="basket-info"><strong>${esc(i.name)}</strong>${i.cartoon ? (ONJJEM_cartoonFee(i.sku) ? "<small>+ cartoon £1.99</small>" : "<small>+ FREE cartoon</small>") : ""}</div>
+          <div class="basket-price">${money(i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku) : 0))}</div>
           <button type="button" class="basket-remove" data-id="${i.id}" aria-label="Remove">✕</button>
         </div>`).join("") : `<p class="cartoon-email-note">Your basket is empty.</p>`}
       ${items.length ? `
         <div class="basket-sum"><span>Subtotal</span><span>${money(sub)}</span></div>
         ${pct ? `<div class="basket-sum" style="color:#7ee2a0"><span>Bundle discount (${pct}%)</span><span>−${money(disc)}</span></div>` : ""}
-        <div class="basket-sum"><span>UK delivery</span><span>FREE</span></div>
+        <div class="basket-sum"><span>${ONJJEM_isUS() ? "US shipping" : "UK delivery"}</span><span>FREE</span></div>
         <div class="basket-sum basket-total"><span>Total</span><span>${money(sub - disc)}</span></div>
         ${pct ? `<p class="cartoon-email-note" style="font-size:0.8rem">Your bundle discount is applied instead of promo codes.</p>` : ""}
         ${nextPct > pct ? `<p class="cartoon-email-note" style="color:#F3D078;font-weight:700">Add ${items.length === 1 ? "1 more gift to save 10%" : "1 more gift to save 12%"} 🎁</p>` : ""}
@@ -862,7 +884,7 @@ async function ONJJEM_openBasket() {
     </div>`;
   document.body.appendChild(panel);
   panel.addEventListener("click", e => { if (e.target === panel) panel.remove(); });
-  panel.querySelector("#basketMore").onclick = () => { panel.remove(); if (!window.PAGE) location.href = "/tiktok"; };
+  panel.querySelector("#basketMore").onclick = () => { panel.remove(); if (!window.PAGE) location.href = ONJJEM_isUS() ? "/us/" : "/tiktok"; };
   const emptyBtn = panel.querySelector("#basketEmpty");
   if (emptyBtn) emptyBtn.onclick = async () => {
     if (!confirm("Remove everything from your basket?")) return;
@@ -873,13 +895,14 @@ async function ONJJEM_openBasket() {
   if (go) go.onclick = async () => {
     const st = panel.querySelector("#basketStatus");
     go.disabled = true; st.textContent = "Taking you to secure checkout…";
-    onjjemGa("event", "begin_checkout", { currency: "GBP", value: sub - disc, items: items.map(i => ({ item_id: i.sku, item_name: i.name, price: i.price })) });
+    onjjemGa("event", "begin_checkout", { currency: ONJJEM_cur(), value: sub - disc, items: items.map(i => ({ item_id: i.sku, item_name: i.name, price: i.price })) });
     try {
       const res = await fetch(`${API_BASE}/api/stripe/cart-checkout`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           items: items.map(i => ({ sku: i.sku, photoBase64: i.photo, cartoon: !!i.cartoon })),
-          successUrl: location.origin + "/?order=success&basket=1&session_id={CHECKOUT_SESSION_ID}",
+          ...(ONJJEM_isUS() ? { region: "us" } : {}),
+          successUrl: location.origin + ONJJEM_home() + "?order=success&basket=1&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: location.href.split("#")[0]
         })
       });
