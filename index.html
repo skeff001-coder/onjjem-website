@@ -22,7 +22,7 @@
   } catch (e) {}
   gtag('config', 'G-3L30Q5L3MW');
 </script>
-<link rel="stylesheet" href="/landing.css?v=20261001c">
+<link rel="stylesheet" href="/landing.css?v=20261001d">
 </head>
 <body>
 <div id="hdr"></div>
@@ -43,14 +43,35 @@
     </div>
   </section>
 
+  <section class="wrap" id="hw-banner">
+    <a class="hw-banner" href="/halloween">
+      <img src="/cat-halloween.jpg" alt="Two kids turned into Halloween cartoons">
+      <div class="hw-text">
+        <div class="hw-kicker">🎃 Halloween specials · <span id="hw-days"></span></div>
+        <h2>Turn your kids into Halloween cartoons</h2>
+        <p>Free Halloween cartoon of your kids on T-shirts, mugs, magnets and stickers. Order by 22 October.</p>
+        <span class="hw-btn">See Halloween specials →</span>
+      </div>
+    </a>
+  </section>
+  <script>
+  (function () {
+    var end = new Date(new Date().getFullYear(), 10, 1); // hides from 1 November
+    var b = document.getElementById("hw-banner");
+    var left = Math.ceil((new Date(new Date().getFullYear(), 9, 31) - new Date()) / 864e5);
+    if (new Date() >= end) { b.style.display = "none"; return; }
+    document.getElementById("hw-days").textContent = left > 1 ? left + " days to go" : left === 1 ? "tomorrow!" : "it's today!";
+  })();
+  </script>
+
   <section class="wrap home-shop" id="shop">
     <h2 class="home-h2">Shop by category</h2>
     <div class="cat-grid">
       <a class="cat-card" href="#cat-walls"><img src="/cat-poster.jpg" alt="" loading="lazy"><span>Photo prints &amp; posters</span></a>
       <a class="cat-card" href="#cat-home"><img src="/cat-home-uk.jpg" alt="" loading="lazy"><span>For the home</span></a>
+      <a class="cat-card" href="#cat-halloween"><img src="/cat-halloween-uk.jpg" alt="" loading="lazy"><span>Halloween</span></a>
       <a class="cat-card" href="#cat-kids"><img src="/cat-kids.jpg" alt="" loading="lazy"><span>For kids &amp; fun</span></a>
       <a class="cat-card" href="#cat-christmas"><img src="/cat-christmas.jpg" alt="" loading="lazy"><span>Christmas</span></a>
-      <a class="cat-card" href="#cat-halloween"><img src="/cat-halloween-uk.jpg" alt="" loading="lazy"><span>Halloween</span></a>
       <a class="cat-card" href="/gift-cards.html"><img src="/products/gift-card-onjjem-sq.jpg" alt="" loading="lazy"><span>Gift cards</span></a>
     </div>
     <p class="home-deal">Save 10% on 2 gifts · 12% on 3 or more</p>
@@ -78,6 +99,13 @@
     </div>
   </section>
 
+  <section class="wrap home-sec" id="cat-halloween">
+    <div class="home-sec-head"><h2>🎃 Halloween</h2><a href="#shop">All categories ↑</a></div>
+    <div class="tiles">
+        <a class="tile" href="/halloween"><img src="/halloween-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Halloween cartoon packs</h3><div class="t-price">From £5.99</div></div></a>
+    </div>
+  </section>
+
   <section class="wrap home-sec" id="cat-kids">
     <div class="home-sec-head"><h2>🧒 For kids &amp; fun</h2><a href="#shop">All categories ↑</a></div>
     <div class="tiles">
@@ -96,13 +124,6 @@
         <a class="tile" href="/christmas"><img src="/christmas-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Christmas baubles &amp; Santa sacks</h3><div class="t-price">From £5.99</div></div></a>
         <a class="tile" href="/blanket"><img src="/products/IMG_8759.jpeg" alt="" loading="lazy"><div class="t-body"><h3>Fleece blankets</h3><div class="t-price">From £47.99</div></div></a>
         <a class="tile" href="/gift-cards.html"><img src="/products/gift-card-onjjem-sq.jpg" alt="" loading="lazy"><div class="t-body"><h3>Gift cards</h3><div class="t-price">From £20</div></div></a>
-    </div>
-  </section>
-
-  <section class="wrap home-sec" id="cat-halloween">
-    <div class="home-sec-head"><h2>🎃 Halloween</h2><a href="#shop">All categories ↑</a></div>
-    <div class="tiles">
-        <a class="tile" href="/halloween"><img src="/halloween-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Halloween cartoon packs</h3><div class="t-price">From £5.99</div></div></a>
     </div>
   </section>
 
@@ -128,7 +149,7 @@
 </main>
 
 <div id="ftr"></div>
-<script src="/landing.js?v=20261001c"></script>
+<script src="/landing.js?v=20261001d"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();

@@ -100,7 +100,7 @@ function ONJJEM_headerHtml() {
     <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/?uk=1" title="UK shop">🇬🇧 UK</a></nav>
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/us/#cat-walls">📸 Photo prints &amp; posters</a><a href="/us/#cat-home">For the home</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-halloween">🎃 Halloween</a><a href="/us/#cat-christmas">🎄 Christmas</a>
+    <a href="/us/#cat-walls">📸 Photo prints &amp; posters</a><a href="/us/#cat-home">For the home</a><a href="/us/halloween">🎃 Halloween</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-christmas">🎄 Christmas</a>
   </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
@@ -109,7 +109,7 @@ function ONJJEM_headerHtml() {
     <nav class="l-nav"><a href="/#gifts">All gifts</a><a href="/#faq">Help</a><a href="/us/" title="US shop">🇺🇸 US</a></nav>
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/#cat-walls">📸 Photo prints &amp; posters</a><a href="/#cat-home">For the home</a><a href="/#cat-kids">Kids &amp; fun</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/#cat-halloween">🎃 Halloween</a><a href="/gift-cards.html">Gift cards</a>
+    <a href="/#cat-walls">📸 Photo prints &amp; posters</a><a href="/#cat-home">For the home</a><a href="/halloween">🎃 Halloween</a><a href="/#cat-kids">Kids &amp; fun</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/gift-cards.html">Gift cards</a>
   </nav>`;
 }
 

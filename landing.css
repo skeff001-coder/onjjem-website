@@ -223,3 +223,13 @@ a { color: var(--gold); }
 .opt-details-title{font-weight:700;margin-bottom:.4rem}
 .opt-details ul{margin:0;padding-left:1.1rem}
 .opt-details li{margin:.25rem 0;line-height:1.45;font-size:.92rem;color:var(--muted)}
+
+/* Halloween specials banner (auto-hides after Halloween) */
+.hw-banner{display:block;text-decoration:none;color:#fff;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#2a1440,#5a2a0e);border:2px solid #f26b1d;margin:.4rem 0 .6rem}
+.hw-banner img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 30%;display:block}
+.hw-text{padding:1rem 1.1rem 1.2rem;text-align:center}
+.hw-kicker{color:#ffb070;font-weight:700;font-size:.85rem;letter-spacing:.02em;margin-bottom:.35rem}
+.hw-text h2{margin:0 0 .4rem;font-size:1.35rem;line-height:1.2}
+.hw-text p{margin:0 0 .9rem;color:#e9dccf;font-size:.92rem;line-height:1.45}
+.hw-btn{display:inline-block;background:#f26b1d;color:#fff;font-weight:700;padding:.75rem 1.4rem;border-radius:999px}
+@media(min-width:800px){.hw-banner{display:grid;grid-template-columns:1fr 1fr;align-items:center}.hw-banner img{height:100%;aspect-ratio:auto}.hw-text{text-align:left;padding:1.5rem 2rem}}

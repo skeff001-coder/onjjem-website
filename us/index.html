@@ -24,7 +24,7 @@
   } catch (e) {}
   gtag('config', 'G-3L30Q5L3MW');
 </script>
-<link rel="stylesheet" href="/landing.css?v=20261001c">
+<link rel="stylesheet" href="/landing.css?v=20261001d">
 </head>
 <body>
 <div id="hdr"></div>
@@ -45,14 +45,35 @@
     </div>
   </section>
 
+  <section class="wrap" id="hw-banner">
+    <a class="hw-banner" href="/us/halloween">
+      <img src="/cat-halloween.jpg" alt="Two kids turned into Halloween cartoons">
+      <div class="hw-text">
+        <div class="hw-kicker">🎃 Halloween specials · <span id="hw-days"></span></div>
+        <h2>Turn your kids into Halloween cartoons</h2>
+        <p>Free Halloween cartoon of your kids on T-shirts, trick-or-treat pillowcases, mugs and more. Order by October 20.</p>
+        <span class="hw-btn">See Halloween specials →</span>
+      </div>
+    </a>
+  </section>
+  <script>
+  (function () {
+    var end = new Date(new Date().getFullYear(), 10, 1); // hides from 1 November
+    var b = document.getElementById("hw-banner");
+    var left = Math.ceil((new Date(new Date().getFullYear(), 9, 31) - new Date()) / 864e5);
+    if (new Date() >= end) { b.style.display = "none"; return; }
+    document.getElementById("hw-days").textContent = left > 1 ? left + " days to go" : left === 1 ? "tomorrow!" : "it's today!";
+  })();
+  </script>
+
   <section class="wrap home-shop" id="shop">
     <h2 class="home-h2">Shop by category</h2>
     <div class="cat-grid">
       <a class="cat-card" href="#cat-walls"><img src="/cat-poster.jpg" alt="" loading="lazy"><span>Photo prints &amp; posters</span></a>
       <a class="cat-card" href="#cat-home"><img src="/cat-home-us.jpg" alt="" loading="lazy"><span>For the home</span></a>
+      <a class="cat-card" href="#cat-halloween"><img src="/cat-halloween-us.jpg" alt="" loading="lazy"><span>Halloween</span></a>
       <a class="cat-card" href="#cat-clothing"><img src="/cat-kids.jpg" alt="" loading="lazy"><span>T-shirts &amp; hoodies</span></a>
       <a class="cat-card" href="#cat-sports"><img src="/cat-sports.jpg" alt="" loading="lazy"><span>Golf &amp; pickleball</span></a>
-      <a class="cat-card" href="#cat-halloween"><img src="/cat-halloween.jpg" alt="" loading="lazy"><span>Halloween</span></a>
       <a class="cat-card" href="#cat-christmas"><img src="/cat-christmas.jpg" alt="" loading="lazy"><span>Christmas</span></a>
     </div>
     <p class="home-deal">Save 10% on 2 gifts · 12% on 3 or more</p>
@@ -80,6 +101,14 @@
     </div>
   </section>
 
+  <section class="wrap home-sec" id="cat-halloween">
+    <div class="home-sec-head"><h2>🎃 Halloween</h2><a href="#shop">All categories ↑</a></div>
+    <div class="tiles">
+        <a class="tile" href="/us/halloween"><img src="/halloween-before-after.jpg" alt="" loading="lazy"><div class="t-body"><h3>Halloween T-shirts &amp; gifts</h3><div class="t-price">From $24.99</div></div></a>
+        <a class="tile" href="/us/pillowcase"><img src="/us/pillowcase-hero.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Trick-or-treat pillowcase</h3><div class="t-price">$39.99</div></div></a>
+    </div>
+  </section>
+
   <section class="wrap home-sec" id="cat-clothing">
     <div class="home-sec-head"><h2>👕 T-shirts &amp; hoodies</h2><a href="#shop">All categories ↑</a></div>
     <div class="tiles">
@@ -93,14 +122,6 @@
     <div class="tiles">
         <a class="tile" href="/us/golf"><img src="/us/golf-hero.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo golf balls (6-pack)</h3><div class="t-price">$59.99</div></div></a>
         <a class="tile" href="/us/pickleball"><img src="/us/pickleball-hero.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo pickleball paddles</h3><div class="t-price">From $49.99</div></div></a>
-    </div>
-  </section>
-
-  <section class="wrap home-sec" id="cat-halloween">
-    <div class="home-sec-head"><h2>🎃 Halloween</h2><a href="#shop">All categories ↑</a></div>
-    <div class="tiles">
-        <a class="tile" href="/us/halloween"><img src="/halloween-before-after.jpg" alt="" loading="lazy"><div class="t-body"><h3>Halloween T-shirts &amp; gifts</h3><div class="t-price">From $24.99</div></div></a>
-        <a class="tile" href="/us/pillowcase"><img src="/us/pillowcase-hero.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Trick-or-treat pillowcase</h3><div class="t-price">$39.99</div></div></a>
     </div>
   </section>
 
@@ -134,7 +155,7 @@
 
 <div id="ftr"></div>
 <script>window.ONJJEM_REGION = "us";</script>
-<script src="/landing.js?v=20261001c"></script>
+<script src="/landing.js?v=20261001d"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();
