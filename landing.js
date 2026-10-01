@@ -377,7 +377,7 @@ function ONJJEM_renderLanding(P) {
             </label>`).join("")}
         </div>
         <div id="variantWrap" style="display:none;margin:0.7rem 0 0.9rem">
-          <span style="font-weight:700;display:block;margin-bottom:0.35rem">👕 Choose ${esc(P.variantWord || "the T-shirt")} size &amp; colour</span>
+          <span id="variantLabel" style="font-weight:700;display:block;margin-bottom:0.35rem">👕 Choose ${esc(P.variantWord || "the T-shirt")} size &amp; colour</span>
           <div style="display:flex;gap:0.5rem">
           <select id="sizeSel" aria-label="Size" style="flex:1;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem"></select>
           <select id="colourSel" aria-label="Colour" style="flex:1;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem"></select>
@@ -452,7 +452,15 @@ function ONJJEM_renderLanding(P) {
   function showVariants() {
     const o = opts[selected];
     if (!o.skuPattern) { variantWrap.style.display = "none"; return; }
-    sizeSel.innerHTML = `<option value="">Choose a size…</option>` + o.sizes.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
+    const lbl = document.getElementById("variantLabel");
+    if (!o.sizes) {
+      sizeSel.style.display = "none"; sizeSel.innerHTML = "";
+      if (lbl) lbl.textContent = "🎨 Choose " + (P.variantWord || "the") + " colour";
+    } else {
+      sizeSel.style.display = "";
+      if (lbl) lbl.innerHTML = "👕 Choose " + esc(P.variantWord || "the T-shirt") + " size &amp; colour";
+    }
+    if (o.sizes) sizeSel.innerHTML = `<option value="">Choose a size…</option>` + o.sizes.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
     colourSel.innerHTML = o.colours.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
     variantWrap.style.display = "block";
     const selEl = app.querySelectorAll(".option")[selected];
@@ -462,8 +470,9 @@ function ONJJEM_renderLanding(P) {
   function chosen() {
     const o = opts[selected];
     if (!o.skuPattern) return o;
-    const size = o.sizes.find(x => x[0] === sizeSel.value);
     const colour = o.colours.find(x => x[0] === colourSel.value) || o.colours[0];
+    if (!o.sizes) return Object.assign({}, o, { sku: o.skuPattern.replace("{colour}", colour[0]), name: `${o.name} (${colour[1]})` });
+    const size = o.sizes.find(x => x[0] === sizeSel.value);
     if (!size) return null;
     return Object.assign({}, o, {
       sku: o.skuPattern.replace("{size}", size[0]).replace("{colour}", colour[0]),
@@ -560,8 +569,8 @@ function ONJJEM_renderLanding(P) {
     if (!orient) { const im = await ONJJEM_loadImg(photo); orient = im.width > im.height ? "landscape" : "portrait"; document.querySelectorAll(".orientBtn").forEach(x => x.style.borderColor = x.dataset.o === orient ? "var(--gold)" : ""); }
     const shown = await finalize(photo, isTextDesign ? "" : capText.value, false);
     const o1 = opts[selected];
-    const label = o1.wrap ? "This wraps around your mug (your picture shows on both sides)" : (o1.ratio ? "This is exactly how it will print" : "Tap to change");
-    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}"><div class="u-text">✓ ${isPresetDesign ? "Design chosen" : (n > 1 ? n + " photos added" : "Photo added")}</div><div class="u-hint">${label}${P.designsOnly || label === "Tap to change" ? "" : " · tap to change"}</div>`;
+    const label = o1.wrap ? "This wraps around your " + (P.wrapWord || "mug") + " (your picture shows on both sides)" : (o1.ratio ? "This is exactly how it will print" : "Tap to change");
+    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}${P.round ? ";border-radius:50%" : ""}"><div class="u-text">✓ ${isPresetDesign ? "Design chosen" : (n > 1 ? n + " photos added" : "Photo added")}</div><div class="u-hint">${label}${P.designsOnly || label === "Tap to change" ? "" : " · tap to change"}</div>`;
     applySwatch();
   }
 
