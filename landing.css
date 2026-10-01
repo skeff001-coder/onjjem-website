@@ -174,3 +174,22 @@ a { color: var(--gold); }
 .gift-cat-head h3 { font-size: 1.25rem; margin: 0; color: var(--text); }
 .gift-cat-head p { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.88rem; }
 .gift-cat-count { margin-left: auto; flex: 0 0 auto; font-size: 0.78rem; font-weight: 700; color: var(--gold); border: 1px solid var(--gold); border-radius: 999px; padding: 0.2rem 0.55rem; }
+
+/* ---- Simplified homepage ---- */
+.home-hero{text-align:center;padding-top:2.2rem;padding-bottom:1.2rem}
+.home-hero h1{font-size:1.9rem;line-height:1.2;margin:0 0 .6rem}
+.home-hero p{color:var(--muted);margin:0 0 1.2rem;font-size:.95rem}
+.home-btn{display:inline-block;width:auto;padding:.85rem 2.2rem;border-radius:999px;background:var(--gold);color:#1a1a1a;font-weight:700;text-decoration:none}
+.home-shop{padding-top:1.2rem;padding-bottom:1.6rem}
+.home-h2{text-align:center;font-size:1.3rem;margin:0 0 1rem;letter-spacing:.02em}
+.home-cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.home-cat{position:relative;display:block;aspect-ratio:1/1;border-radius:14px;overflow:hidden;text-decoration:none}
+.home-cat:last-child:nth-child(odd){grid-column:1/-1;aspect-ratio:2/1}
+.home-cat img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+.home-cat span{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .8rem .7rem;background:linear-gradient(transparent,rgba(0,0,0,.78));color:#fff;font-weight:700;font-size:1.05rem}
+.home-deal{text-align:center;color:var(--gold);font-weight:600;font-size:.9rem;margin:1rem 0 0}
+.home-sec{border-top:1px solid rgba(212,175,55,.35);padding-top:1.6rem;padding-bottom:1.4rem}
+.home-sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:1rem}
+.home-sec-head h2{margin:0;font-size:1.35rem}
+.home-sec-head a{color:var(--muted);font-size:.8rem;text-decoration:none;white-space:nowrap}
+@media(min-width:800px){.home-cat-grid{grid-template-columns:repeat(5,1fr)}.home-cat:last-child:nth-child(odd){grid-column:auto;aspect-ratio:1/1}.home-hero h1{font-size:2.4rem}}
