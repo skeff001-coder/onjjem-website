@@ -150,9 +150,10 @@ function ONJJEM_addCaption(dataUrl, text, pos) {
       const W = c.width, H = c.height;
       const maxW = W * 0.86;
       const words = text.split(/\s+/);
-      let size = Math.round(Math.min(W, H) * 0.13), lines = [];
+      const cs = (window.PAGE && window.PAGE.captionStyle) || {};
+      let size = Math.round(Math.min(W, H) * (cs.scale || 0.13)), lines = [];
       for (; size > 12; size -= 2) {
-        ctx.font = `900 ${size}px -apple-system, 'Helvetica Neue', Impact, Arial, sans-serif`;
+        ctx.font = cs.font ? cs.font.replace("{size}", size) : `900 ${size}px -apple-system, 'Helvetica Neue', Impact, Arial, sans-serif`;
         lines = []; let line = "";
         for (const w of words) {
           const t = line ? line + " " + w : w;
@@ -163,7 +164,7 @@ function ONJJEM_addCaption(dataUrl, text, pos) {
       }
       ctx.textAlign = "center"; ctx.textBaseline = "middle";
       ctx.lineJoin = "round"; ctx.lineWidth = Math.max(4, size * 0.16);
-      ctx.strokeStyle = "rgba(0,0,0,0.9)"; ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = cs.stroke || "rgba(0,0,0,0.9)"; ctx.fillStyle = cs.fill || "#ffffff";
       const lh = size * 1.15, margin = Math.min(W, H) * 0.12;
       const block = lines.length * lh;
       const top = pos === "top" ? margin + lh / 2 : H - margin - block + lh / 2;
@@ -380,12 +381,12 @@ function ONJJEM_renderLanding(P) {
           </div>
         </div>
 
-        <span class="order-label">2. Add your photo${opts.some(o => o.multi) ? "s" : ""}</span>
+        <span class="order-label">2. ${P.photoLabel ? esc(P.photoLabel) : "Add your photo" + (opts.some(o => o.multi) ? "s" : "")}</span>
         <input type="file" id="photoInput" accept="image/*" style="display:none">
-        <div class="upload" id="uploadBox" role="button" tabindex="0"></div>
+        <div class="upload" id="uploadBox" role="button" tabindex="0"${P.designsOnly ? ' style="display:none"' : ""}></div>
         ${P.designs ? `<div id="designWrap" style="display:none;margin-top:0.9rem">
           <span style="font-weight:700;display:block;margin-bottom:0.45rem">${esc(P.designsLabel || "…or pick one of our designs 👇")}</span>
-          <div class="design-grid">${P.designs.map((d, i) => `<button type="button" class="design-tile" data-d="${i}"><img src="${d.thumb}" alt="${esc(d.name)}" loading="lazy"><span>${esc(d.name)}</span></button>`).join("")}</div>
+          <div class="design-grid">${P.designs.map((d, i) => `<button type="button" class="design-tile" data-d="${i}"><img src="${d.thumb}" alt="${esc(d.name)}" loading="lazy"${P.designAspect ? ` style="aspect-ratio:${P.designAspect}"` : ""}><span>${esc(d.name)}</span></button>`).join("")}</div>
         </div>` : ""}
         <div id="orientWrap" style="display:none;margin-top:0.7rem">
           <span style="font-weight:700;display:block;margin-bottom:0.35rem">Which way round?</span>
@@ -395,8 +396,8 @@ function ONJJEM_renderLanding(P) {
           </div>
         </div>
         <div id="captionWrap" style="display:none;margin-top:0.7rem">
-          <label for="captionText" style="font-weight:700;display:block;margin-bottom:0.35rem">Add funny words to your picture? <span style="color:var(--muted);font-weight:400">(optional)</span></label>
-          <input id="captionText" maxlength="60" placeholder="e.g. Chief Treat Inspector 🐾" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem">
+          <label for="captionText" style="font-weight:700;display:block;margin-bottom:0.35rem">${esc(P.captionLabel || "Add funny words to your picture?")} <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+          <input id="captionText" maxlength="60" placeholder="${esc(P.captionPlaceholder || "e.g. Chief Treat Inspector 🐾")}" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem">
           <div style="display:flex;gap:0.4rem;margin-top:0.4rem">
             <button type="button" class="btn btn-ghost capPos" data-pos="bottom" style="padding:0.45rem;font-size:0.85rem;border-color:var(--gold)">Words at bottom</button>
             <button type="button" class="btn btn-ghost capPos" data-pos="top" style="padding:0.45rem;font-size:0.85rem">Words at top</button>
@@ -494,6 +495,7 @@ function ONJJEM_renderLanding(P) {
     status.textContent = "";
     box.innerHTML = `<div class="u-text">Loading ${esc(d.name)}…</div>`;
     photos = [d.img]; isTextDesign = false; isPresetDesign = true; orient = null;
+    box.style.display = "";
     await refreshPhoto();
     onjjemGa("event", "select_content", { content_type: "design", item_id: d.name });
   }));
@@ -546,7 +548,7 @@ function ONJJEM_renderLanding(P) {
     const shown = await finalize(photo, isTextDesign ? "" : capText.value, false);
     const o1 = opts[selected];
     const label = o1.wrap ? "This wraps around your mug (your picture shows on both sides)" : (o1.ratio ? "This is exactly how it will print" : "Tap to change");
-    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}"><div class="u-text">✓ ${isPresetDesign ? "Design chosen" : (n > 1 ? n + " photos added" : "Photo added")}</div><div class="u-hint">${label} · tap to change</div>`;
+    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}"><div class="u-text">✓ ${isPresetDesign ? "Design chosen" : (n > 1 ? n + " photos added" : "Photo added")}</div><div class="u-hint">${label}${P.designsOnly ? "" : " · tap to change"}</div>`;
   }
 
   optionEls.forEach(el => el.addEventListener("click", async () => {
@@ -565,7 +567,7 @@ function ONJJEM_renderLanding(P) {
   showDesigns();
 
   // Photo upload
-  box.addEventListener("click", () => input.click());
+  box.addEventListener("click", () => { if (!P.designsOnly) input.click(); });
   box.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") input.click(); });
   input.addEventListener("change", async () => {
     const files = Array.from(input.files || []);
@@ -605,7 +607,7 @@ function ONJJEM_renderLanding(P) {
   const basketBtn = document.getElementById("basketBtn");
   function startFlow(then) {
     if (!chosen()) { status.textContent = "Please choose a size first 👕"; variantWrap.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
-    if (!photo) { status.textContent = "Please add your photo first 📸"; box.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+    if (!photo) { status.textContent = P.needPhotoMsg || "Please add your photo first 📸"; (P.designsOnly && designWrap ? designWrap : box).scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     status.textContent = "";
     const collage = isMulti() && photos.length > 1; // cartoons are for single photos
     if (P.cartoon && !collage && !isTextDesign && !isPresetDesign && typeof ONJJEM_showPhotoPreview === "function") {
