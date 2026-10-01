@@ -17,6 +17,16 @@ export default {
         return Response.redirect(url.origin + '/us/' + url.search, 302);
       }
     }
+    // US visitors on the UK Halloween / Christmas pages (e.g. from the TikTok
+    // bio link onjjem.com/halloween) go to the US versions.
+    const US_PAGES = { '/halloween': '/us/halloween', '/halloween.html': '/us/halloween', '/christmas': '/us/christmas', '/christmas.html': '/us/christmas' };
+    if (US_PAGES[url.pathname] && !url.searchParams.has('uk')) {
+      const country = (request.cf && request.cf.country) || '';
+      const cookie = request.headers.get('cookie') || '';
+      if (country === 'US' && !cookie.includes('onjjem_shop=uk')) {
+        return Response.redirect(url.origin + US_PAGES[url.pathname] + url.search, 302);
+      }
+    }
     if (url.pathname === '/' && url.searchParams.has('uk')) {
       const res = await env.ASSETS.fetch(new Request(url.origin + '/index.html', request));
       const r2 = new Response(res.body, res);
