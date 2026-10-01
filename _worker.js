@@ -8,6 +8,22 @@ export default {
       return fetch(new Request(target, request));
     }
 
+    // Visitors in the USA landing on the UK homepage go to the US shop
+    // (unless they chose the UK shop on purpose: /?uk=1 or the uk cookie).
+    if (url.pathname === '/' && !url.searchParams.has('order') && !url.searchParams.has('uk')) {
+      const country = (request.cf && request.cf.country) || '';
+      const cookie = request.headers.get('cookie') || '';
+      if (country === 'US' && !cookie.includes('onjjem_shop=uk')) {
+        return Response.redirect(url.origin + '/us/' + url.search, 302);
+      }
+    }
+    if (url.pathname === '/' && url.searchParams.has('uk')) {
+      const res = await env.ASSETS.fetch(new Request(url.origin + '/index.html', request));
+      const r2 = new Response(res.body, res);
+      r2.headers.append('Set-Cookie', 'onjjem_shop=uk; Path=/; Max-Age=2592000; SameSite=Lax');
+      return r2;
+    }
+
     // Old landing page redirect
     if (url.pathname === '/onjjem-landing.html') {
       return Response.redirect(url.origin + '/', 301);

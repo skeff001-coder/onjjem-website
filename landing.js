@@ -60,7 +60,7 @@ function ONJJEM_headerHtml() {
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">
     <a href="/us/" class="l-logo">ONJJEM <span style="font-size:0.7em">🇺🇸</span></a>
-    <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/" title="UK shop">🇬🇧 UK</a></nav>
+    <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/?uk=1" title="UK shop">🇬🇧 UK</a></nav>
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
     <a href="/us/halloween">🎃 Halloween</a><a href="/us/christmas">🎄 Christmas</a><a href="/us/tshirts">T-shirts &amp; hoodies</a><a href="/us/mug">Mugs</a><a href="/us/tumbler">Tumblers</a><a href="/us/blanket">Blankets</a><a href="/us/candle">Candles</a><a href="/us/clock">Clocks</a><a href="/us/prints">Prints &amp; posters</a><a href="/us/golf">Golf</a><a href="/us/pickleball">Pickleball</a>
@@ -80,7 +80,7 @@ function ONJJEM_footerHtml() {
   if (ONJJEM_isUS()) return `
   <footer class="l-footer">
     <p style="margin-bottom:0.5rem">Personalized gifts, made to order in the USA · <a href="mailto:hello@onjjem.com">hello@onjjem.com</a></p>
-    <a href="/us/shipping">Shipping</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/">🇬🇧 UK shop</a>
+    <a href="/us/shipping">Shipping</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/?uk=1">🇬🇧 UK shop</a>
   </footer>`;
   return `
   <footer class="l-footer">
