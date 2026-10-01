@@ -28,7 +28,7 @@ a { color: var(--gold); }
 .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
 
 /* Hero */
-.l-hero { display: grid; grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem 0 1rem; align-items: center; }
+.l-hero { display: grid; grid-template-columns: 1fr; gap: 1.5rem; padding-top: 1.5rem; padding-bottom: 1rem; align-items: center; }
 .l-hero-img { border-radius: 14px; overflow: hidden; background: #fff; aspect-ratio: 1 / 1; }
 .l-hero-img img { width: 100%; height: 100%; object-fit: contain; }
 .l-kicker { color: var(--gold); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.4rem; }
@@ -45,12 +45,12 @@ a { color: var(--gold); }
 .btn-ghost:hover { background: var(--card); }
 
 @media (min-width: 820px) {
-  .l-hero { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 2.5rem 0 1.5rem; }
+  .l-hero { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding-top: 2.5rem; padding-bottom: 1.5rem; }
   .l-hero h1 { font-size: 2.6rem; }
 }
 
 /* Sections */
-.l-section { padding: 2rem 0; }
+.l-section { padding-top: 2rem; padding-bottom: 2rem; }
 .l-section h2 { font-size: 1.5rem; margin-bottom: 1rem; text-align: center; }
 .l-section h2 .gold { color: var(--gold); }
 
