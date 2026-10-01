@@ -162,3 +162,15 @@ a { color: var(--gold); }
 .design-tile span { display: block; font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.1rem; }
 .design-tile.picked { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
 @media (max-width: 420px) { .design-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Homepage gift categories: clear panels with their own heading */
+.gift-jump { position: sticky; top: 0; z-index: 20; display: flex; gap: 0.45rem; overflow-x: auto; padding: 0.6rem 0; margin: 0 0 0.8rem; background: var(--bg); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.gift-jump::-webkit-scrollbar { display: none; }
+.gift-jump a { flex: 0 0 auto; background: var(--card); color: var(--text); text-decoration: none; font-weight: 700; font-size: 0.9rem; padding: 0.5rem 0.9rem; border-radius: 999px; border: 1px solid var(--line); white-space: nowrap; }
+.gift-jump a:hover { border-color: var(--gold); }
+.gift-cat { border: 1px solid var(--line); border-top: 6px solid var(--cat); border-radius: 16px; padding: 0 0.8rem 0.9rem; margin: 0 0 1.6rem; background: linear-gradient(180deg, color-mix(in srgb, var(--cat) 28%, transparent) 0, transparent 140px); scroll-margin-top: 64px; }
+.gift-cat-head { display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 0.1rem 0.8rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--line); }
+.gift-cat-emoji { font-size: 1.9rem; line-height: 1; }
+.gift-cat-head h3 { font-size: 1.25rem; margin: 0; color: var(--text); }
+.gift-cat-head p { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.88rem; }
+.gift-cat-count { margin-left: auto; flex: 0 0 auto; font-size: 0.78rem; font-weight: 700; color: var(--gold); border: 1px solid var(--gold); border-radius: 999px; padding: 0.2rem 0.55rem; }
