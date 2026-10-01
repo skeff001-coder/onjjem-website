@@ -204,6 +204,14 @@ function ONJJEM_loadImg(src) {
   return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
 }
 // Centre-crop a picture to an exact shape (w:h) so what they see is what prints.
+// Turn an image link (e.g. one of our ready-made designs) into image data.
+async function ONJJEM_inlineImage(src) {
+  const img = await ONJJEM_loadImg(src);
+  const c = document.createElement("canvas");
+  c.width = img.naturalWidth || img.width; c.height = img.naturalHeight || img.height;
+  c.getContext("2d").drawImage(img, 0, 0);
+  return /\.png($|\?)/i.test(src) ? c.toDataURL("image/png") : c.toDataURL("image/jpeg", 0.93);
+}
 async function ONJJEM_cropTo(dataUrl, w, h) {
   const img = await ONJJEM_loadImg(dataUrl);
   const target = w / h, have = img.width / img.height;
@@ -568,6 +576,8 @@ function ONJJEM_renderLanding(P) {
     out = await ONJJEM_addCaption(out, words, capPos);
     if (o.wrap) out = await ONJJEM_mugWrap(out, o.wrap);
     else if (forPrint && r && r[0] !== r[1] && (r[0] > r[1]) !== (o.ratio[0] > o.ratio[1])) out = await ONJJEM_rotate90(out);
+    // Ready-made designs are file links; always send the actual picture.
+    if (forPrint && typeof out === "string" && !out.startsWith("data:")) out = await ONJJEM_inlineImage(out);
     return out;
   }
   document.querySelectorAll(".orientBtn").forEach(b => b.addEventListener("click", () => { orient = b.dataset.o; refreshPhoto(); }));
