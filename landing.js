@@ -143,8 +143,10 @@ function ONJJEM_addCaption(dataUrl, text, pos) {
   return new Promise(resolve => {
     const img = new Image();
     img.onload = () => {
+      const cs0 = (window.PAGE && window.PAGE.captionStyle) || {};
+      const below = !!(window.PAGE && window.PAGE.captionBelow);
       const c = document.createElement("canvas");
-      c.width = img.width; c.height = img.height;
+      c.width = img.width; c.height = below ? Math.round(img.height * 1.28) : img.height;
       const ctx = c.getContext("2d");
       ctx.drawImage(img, 0, 0);
       const W = c.width, H = c.height;
@@ -167,9 +169,10 @@ function ONJJEM_addCaption(dataUrl, text, pos) {
       ctx.strokeStyle = cs.stroke || "rgba(0,0,0,0.9)"; ctx.fillStyle = cs.fill || "#ffffff";
       const lh = size * 1.15, margin = Math.min(W, H) * 0.12;
       const block = lines.length * lh;
-      const top = pos === "top" ? margin + lh / 2 : H - margin - block + lh / 2;
+      const top = below ? img.height + (H - img.height - block) / 2 + lh / 2 : (pos === "top" ? margin + lh / 2 : H - margin - block + lh / 2);
       lines.forEach((l, i) => { const y = top + i * lh; ctx.strokeText(l, W / 2, y); ctx.fillText(l, W / 2, y); });
-      resolve(c.toDataURL("image/jpeg", 0.93));
+      const png = below || /^data:image\/png/.test(dataUrl) || /\.png($|\?)/.test(dataUrl);
+      resolve(png ? c.toDataURL("image/png") : c.toDataURL("image/jpeg", 0.93));
     };
     img.onerror = () => resolve(dataUrl);
     img.src = dataUrl;
@@ -374,7 +377,7 @@ function ONJJEM_renderLanding(P) {
             </label>`).join("")}
         </div>
         <div id="variantWrap" style="display:none;margin:0.7rem 0 0.9rem">
-          <span style="font-weight:700;display:block;margin-bottom:0.35rem">👕 Choose the T-shirt size &amp; colour</span>
+          <span style="font-weight:700;display:block;margin-bottom:0.35rem">👕 Choose ${esc(P.variantWord || "the T-shirt")} size &amp; colour</span>
           <div style="display:flex;gap:0.5rem">
           <select id="sizeSel" aria-label="Size" style="flex:1;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem"></select>
           <select id="colourSel" aria-label="Colour" style="flex:1;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem"></select>
@@ -398,7 +401,7 @@ function ONJJEM_renderLanding(P) {
         <div id="captionWrap" style="display:none;margin-top:0.7rem">
           <label for="captionText" style="font-weight:700;display:block;margin-bottom:0.35rem">${esc(P.captionLabel || "Add funny words to your picture?")} <span style="color:var(--muted);font-weight:400">(optional)</span></label>
           <input id="captionText" maxlength="60" placeholder="${esc(P.captionPlaceholder || "e.g. Chief Treat Inspector 🐾")}" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem">
-          <div style="display:flex;gap:0.4rem;margin-top:0.4rem">
+          <div style="display:${P.captionBelow ? "none" : "flex"};gap:0.4rem;margin-top:0.4rem">
             <button type="button" class="btn btn-ghost capPos" data-pos="bottom" style="padding:0.45rem;font-size:0.85rem;border-color:var(--gold)">Words at bottom</button>
             <button type="button" class="btn btn-ghost capPos" data-pos="top" style="padding:0.45rem;font-size:0.85rem">Words at top</button>
           </div>
@@ -471,6 +474,16 @@ function ONJJEM_renderLanding(P) {
   const input = document.getElementById("photoInput");
   const box = document.getElementById("uploadBox");
   const status = document.getElementById("status");
+  // Show the picture on the chosen garment colour (colours entries can carry a hex as 3rd item).
+  function applySwatch() {
+    const o = opts[selected];
+    const img = box.querySelector("img.u-preview");
+    if (!o.colours || !o.colours[0][2]) { window.ONJJEM_THUMB_BG = null; if (img) img.style.background = ""; return; }
+    const c = o.colours.find(x => x[0] === colourSel.value) || o.colours[0];
+    window.ONJJEM_THUMB_BG = c[2];
+    if (img) { img.style.background = c[2]; img.style.padding = "12px"; img.style.borderRadius = "12px"; }
+  }
+  colourSel.addEventListener("change", applySwatch);
   let photos = []; // every photo the customer picked (for collage options)
   const isMulti = () => !!opts[selected].multi;
   const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Add up to " + opts[selected].multi + " photos" : "Add your photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div><span class="u-btn">📷 Choose from my phone</span>${P.cartoon ? `<div class="u-free">✨ Free cartoon preview before you pay</div>` : ""}`;
@@ -548,7 +561,8 @@ function ONJJEM_renderLanding(P) {
     const shown = await finalize(photo, isTextDesign ? "" : capText.value, false);
     const o1 = opts[selected];
     const label = o1.wrap ? "This wraps around your mug (your picture shows on both sides)" : (o1.ratio ? "This is exactly how it will print" : "Tap to change");
-    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}"><div class="u-text">✓ ${isPresetDesign ? "Design chosen" : (n > 1 ? n + " photos added" : "Photo added")}</div><div class="u-hint">${label}${P.designsOnly ? "" : " · tap to change"}</div>`;
+    box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}"><div class="u-text">✓ ${isPresetDesign ? "Design chosen" : (n > 1 ? n + " photos added" : "Photo added")}</div><div class="u-hint">${label}${P.designsOnly || label === "Tap to change" ? "" : " · tap to change"}</div>`;
+    applySwatch();
   }
 
   optionEls.forEach(el => el.addEventListener("click", async () => {
@@ -722,7 +736,9 @@ async function ONJJEM_limitSize(dataUrl, maxPx) {
   if (scale === 1 && dataUrl.startsWith("data:image/jpeg")) return dataUrl;
   const c = document.createElement("canvas");
   c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
-  c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+  const cx = c.getContext("2d");
+  cx.fillStyle = window.ONJJEM_THUMB_BG || "#ffffff"; cx.fillRect(0, 0, c.width, c.height);
+  cx.drawImage(img, 0, 0, c.width, c.height);
   return c.toDataURL("image/jpeg", 0.9);
 }
 

@@ -1,3 +1,15 @@
+// Pages can set window.ONJJEM_CARTOON_FREE = true to include the cartoon at no charge.
+function ONJJEM_freeText(html) {
+  if (!window.ONJJEM_CARTOON_FREE) return html;
+  return html
+    .replace(/,? for just £1\.99\./g, ", free with your order.")
+    .replace(/ — for just £1\.99\./g, ", free with your order.")
+    .replace(/you can still add a Custom Cartoon upgrade for £1\.99/g, "you can still add your free Custom Cartoon")
+    .replace(/For just £1\.99, we'll add/g, "We'll add")
+    .replace(/ — £1\.99/g, " (FREE)")
+    .replace(/ for £1\.99/g, " (FREE)")
+    .replace(/£1\.99/g, "FREE");
+}
 // ── ONJJEM Shared Cartoonify Flow ────────────────────────────────────────────
 // Include this file on any product page with:
 //   <script src="/cartoonify-shared.js"></script>
@@ -18,7 +30,7 @@ function ONJJEM_showPhotoPreview(photoBase64, onProceed) {
   const mimeType = ONJJEM_toDataUrlParts(photoBase64);
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
-  overlay.innerHTML = `
+  overlay.innerHTML = ONJJEM_freeText(`
     <div class="cartoon-preview-card">
       <div class="cartoon-preview-title">Check Your Photo 👀</div>
       <p class="cartoon-email-note">Take a look — is everything in the frame the way you want it? Check nothing important is too close to the edge.</p>
@@ -28,7 +40,7 @@ function ONJJEM_showPhotoPreview(photoBase64, onProceed) {
         <button class="cartoon-btn-secondary" data-role="choose-again" style="width:100%">Choose a Different Photo</button>
       </div>
     </div>
-  `;
+  `);
   document.body.appendChild(overlay);
 
   overlay.querySelector('[data-role="choose-again"]').addEventListener("click", () => {
@@ -51,7 +63,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
   let previewId;
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
-  overlay.innerHTML = `
+  overlay.innerHTML = ONJJEM_freeText(`
     <div class="cartoon-preview-card">
       <div class="cartoon-sparkle-badge">${isHalloween ? "🎃 HALLOWEEN 🎃" : isChristmas ? "🎄 CHRISTMAS 🎄" : "✨ NEW ✨"}</div>
       <div class="cartoon-preview-title">${isHalloween ? "See Them as a Halloween Cartoon! 🎃" : isChristmas ? "See Them as a Christmas Cartoon! 🎄" : "See Yourself as a Cartoon! 🎨"}</div>
@@ -62,7 +74,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
         <button class="cartoon-btn-secondary" data-role="skip" style="width:100%">No Thanks, Just My Order</button>
       </div>
     </div>
-  `;
+  `);
   document.body.appendChild(overlay);
 
   overlay.querySelector('[data-role="skip"]').addEventListener("click", () => {
@@ -72,11 +84,11 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
 
   overlay.querySelector('[data-role="generate"]').addEventListener("click", async () => {
     const card = overlay.querySelector(".cartoon-preview-card");
-    card.innerHTML = `
+    card.innerHTML = ONJJEM_freeText(`
       <div class="cartoon-preview-title">Working our magic... ✨</div>
       <p class="cartoon-email-note">This takes a few seconds — creating your one-of-a-kind cartoon now.</p>
       <div class="cartoon-preview-loading"></div>
-    `;
+    `);
     try {
       const res = await fetch(`${API_BASE}/api/cartoonify`, {
         method: "POST",
@@ -86,14 +98,14 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
       const data = await res.json();
 
       if (data.alreadyUsed) {
-        card.innerHTML = `
+        card.innerHTML = ONJJEM_freeText(`
           <div class="cartoon-preview-title">You've used your free previews ✨</div>
           <p class="cartoon-email-note">No problem — you can still add a Custom Cartoon upgrade for £1.99 and see the real, unwatermarked result once your order is placed.</p>
           <button class="cartoon-btn-primary" data-role="yes-blind" style="width:100%; margin-top:10px;">Add Custom Cartoon — £1.99</button>
           <div style="margin-top: 10px;">
             <button class="cartoon-btn-secondary" data-role="skip2" style="width:100%">No Thanks, Just My Order</button>
           </div>
-        `;
+        `);
         card.querySelector('[data-role="yes-blind"]').addEventListener("click", () => {
           overlay.remove();
           onProceed({ addCartoon: true });
@@ -111,7 +123,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
 
       previewId = data.previewId;
       const previewSrc = `data:${data.mimeType};base64,${data.base64Image}`;
-      card.innerHTML = `
+      card.innerHTML = ONJJEM_freeText(`
         <div class="cartoon-preview-title">Here's your cartoon! ✨</div>
         <img class="cartoon-preview-img" src="${previewSrc}" alt="Your cartoon preview" style="display:block; margin-bottom: 14px; border-radius: 12px;">
         <p class="cartoon-email-note" style="font-weight:700; color:#F3D078;">This exact cartoon can be printed on your gift today — watermark-free.</p>
@@ -120,14 +132,14 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
         <div style="margin-top: 10px;">
           <button class="cartoon-btn-secondary" data-role="no" style="width:100%">No Thanks, Use My Plain Photo</button>
         </div>
-      `;
+      `);
 
       card.querySelector('[data-role="yes"]').addEventListener("click", async () => {
-        card.innerHTML = `
+        card.innerHTML = ONJJEM_freeText(`
           <div class="cartoon-preview-title">Locking in your cartoon... ✨</div>
           <p class="cartoon-email-note">One moment — preparing the full-quality version for your order.</p>
           <div class="cartoon-preview-loading"></div>
-        `;
+        `);
         try {
           const finalRes = await fetch(`${API_BASE}/api/cartoonify`, {
             method: "POST",
@@ -144,11 +156,11 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
           // what ships is guaranteed to match what the customer approved.
           onProceed({ addCartoon: true, confirmedCartoonBase64: finalData.base64Image });
         } catch (err) {
-          card.innerHTML = `
+          card.innerHTML = ONJJEM_freeText(`
             <div class="cartoon-preview-title">Something went wrong</div>
             <p class="cartoon-email-note">We couldn't prepare the full-quality cartoon just now. You can continue with your order as a standard photo instead.</p>
             <button class="cartoon-btn-primary" data-role="continue-anyway" style="width:100%; margin-top:10px;">Continue With My Order</button>
-          `;
+          `);
           card.querySelector('[data-role="continue-anyway"]').addEventListener("click", () => {
             overlay.remove();
             onProceed(null);
@@ -160,11 +172,11 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
         onProceed(null);
       });
     } catch (err) {
-      card.innerHTML = `
+      card.innerHTML = ONJJEM_freeText(`
         <div class="cartoon-preview-title">Couldn't generate a preview</div>
         <p class="cartoon-email-note">Something went wrong on our end. You can still continue with your order as a standard photo.</p>
         <button class="cartoon-btn-primary" data-role="continue-anyway" style="width:100%; margin-top:10px;">Continue With My Order</button>
-      `;
+      `);
       card.querySelector('[data-role="continue-anyway"]').addEventListener("click", () => {
         overlay.remove();
         onProceed(null);
