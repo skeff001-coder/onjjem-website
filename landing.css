@@ -217,3 +217,9 @@ a { color: var(--gold); }
 .cat-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
 .cat-card span{display:block;padding:.65rem .5rem;text-align:center;font-weight:700;font-size:.95rem}
 @media(min-width:800px){.home-top{display:grid;grid-template-columns:1.2fr 1fr;gap:2.5rem;align-items:center;padding-top:2rem}.home-top-text{text-align:left;padding:0}.home-top-text p{margin-left:0}.home-top-text h1{font-size:2.6rem}.cat-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* About this item */
+.opt-details{margin:.2rem 0 1rem;padding:.85rem 1rem;border:1px solid rgba(212,175,55,.35);border-radius:12px;background:rgba(212,175,55,.06)}
+.opt-details-title{font-weight:700;margin-bottom:.4rem}
+.opt-details ul{margin:0;padding-left:1.1rem}
+.opt-details li{margin:.25rem 0;line-height:1.45;font-size:.92rem;color:var(--muted)}

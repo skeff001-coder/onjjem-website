@@ -24,6 +24,42 @@ const ONJJEM_REVIEWS = [
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 
+
+// ── "About this item" facts, by SKU prefix (from Prodigi's product lists) ──
+const ONJJEM_CLOTHES_CARE = "Wash inside out on cold, tumble dry low, and don't iron over the print.";
+const ONJJEM_DETAILS = [
+  ["US-KTEE", ["Gildan Softstyle youth T-shirt", "100% ring-spun cotton: soft and light (Sport Grey has a little polyester)", "Your photo or cartoon is printed on the front in full colour", "Youth sizes: XS fits about 4–5, S 6–8, M 10–12, L 14–16, XL 18–20", ONJJEM_CLOTHES_CARE]],
+  ["US-TTEE", ["Rabbit Skins toddler T-shirt", "100% combed ring-spun cotton, soft on little ones' skin", "Printed on the front in full colour", "Sizes 2T to 5/6", ONJJEM_CLOTHES_CARE]],
+  ["US-BTEE", ["Rabbit Skins baby T-shirt", "100% combed ring-spun cotton", "Envelope shoulders for easy on and off", "Printed on the front in full colour", ONJJEM_CLOTHES_CARE]],
+  ["US-ATEE", ["District classic unisex T-shirt", "100% ring-spun cotton, soft and light (heather colours are a cotton mix)", "Printed on the front in full colour", "True to size. If you're between sizes, go up one", ONJJEM_CLOTHES_CARE]],
+  ["US-AHOOD", ["Gildan Heavy Blend pullover hoodie", "50% cotton, 50% polyester fleece: warm and cosy", "Double-lined hood with drawstring, front pouch pocket, ribbed cuffs and waistband", "Classic unisex fit. If you're between sizes, go up one", "Printed on the front in full colour", ONJJEM_CLOTHES_CARE]],
+  ["US-KHOOD", ["Gildan Heavy Blend youth pullover hoodie", "50% cotton, 50% polyester fleece: warm and cosy", "Hood, front pouch pocket, ribbed cuffs and waistband", "Youth sizes: XS fits about 4–5, S 6–8, M 10–12, L 14–16, XL 18–20", "Printed on the front in full colour", ONJJEM_CLOTHES_CARE]],
+  ["US-KSWEAT", ["Gildan Heavy Blend youth crew-neck sweatshirt", "50% cotton, 50% polyester fleece: warm and cosy", "Ribbed collar, cuffs and waistband", "Youth sizes: XS fits about 4–5, S 6–8, M 10–12, L 14–16, XL 18–20", "Printed on the front in full colour", ONJJEM_CLOTHES_CARE]],
+  ["XSWEAT-AD", ["AWDis crew-neck sweatshirt", "80% cotton, 20% polyester with a soft brushed fleece inside", "Ribbed collar, cuffs and waistband", "Unisex fit, S to 2XL", "Printed on the front in full colour", ONJJEM_CLOTHES_CARE]],
+  ["XSWEAT-KD", ["AWDis kids' crew-neck sweatshirt", "80% cotton, 20% polyester with a soft brushed fleece inside", "Ribbed collar, cuffs and waistband", "Ages 3–4 up to 12–13", "Printed on the front in full colour", ONJJEM_CLOTHES_CARE]],
+  ["TEE-STTK184", ["Stanley/Stella kids' T-shirt", "100% organic ring-spun cotton", "Printed on the front in full colour", "Ages 3–4 up to 12–14", ONJJEM_CLOTHES_CARE]],
+  ["US-MUG", ["White ceramic mug: 11oz, or 15oz for the big one", "Your picture wraps around the mug in full colour", "Hand wash to keep the colours bright for longest"]],
+  ["US-TUMB20", ["20oz (600ml) copper-lined, vacuum-insulated stainless steel tumbler", "Comes with a lid and a stainless steel straw", "Keeps drinks cold or hot for hours", "Your picture is printed around the tumbler", "Hand wash only"]],
+  ["US-TUMB22", ["22oz (650ml) vacuum-insulated stainless steel tumbler with lid", "Keeps drinks cold or hot for hours", "Your picture is printed around the tumbler", "Hand wash only"]],
+  ["US-BOTTLE32", ["32oz (950ml) vacuum-insulated water bottle", "Keeps drinks cold for hours", "Your picture is printed around the bottle", "Hand wash only"]],
+  ["US-BLANKET", ["Premium soft fleece throw blanket", "Your picture is printed edge to edge on the front", "Machine wash cold, gentle cycle, tumble dry low"]],
+  ["US-SPREAD", ["Quilted polyester bedspread with a chevron stitch pattern", "Your picture is printed across the top, with a grey back and hemmed edges", "Machine wash cold, gentle cycle, tumble dry low"]],
+  ["US-CURTAIN-LINER", ["71×74″ polyester shower curtain with 12 button holes for hooks", "Comes with a waterproof PVC liner", "Hooks not included"]],
+  ["US-CURTAIN", ["71×74″ polyester shower curtain with 12 button holes for hooks", "Use with a liner (or choose the version with a liner included)", "Hooks not included"]],
+  ["US-PILLOWCASE", ["Standard size 30×22″ pillowcase", "Soft microfibre: your picture on the front, brushed taupe back", "Machine wash cold"]],
+  ["US-CANDLE", ["11oz apothecary-style glass jar candle", "Two scents: Ocean Mist & Moss, or White Tea & Fig", "Your picture is printed on the label"]],
+  ["US-CLOCK", ["10″ round wall clock with a wooden frame (black, white or natural)", "Your picture is the clock face, with black hands"]],
+  ["US-PRINT", ["Archival professional photo paper with a lustre finish", "Ships flat and unframed, ready for your frame"]],
+  ["US-POSTER", ["Enhanced matte art paper, 200gsm", "Ships unframed"]],
+  ["US-MOUSEMAT", ["8×10″ mouse mat", "Anti-slip rubber base, smooth printed top"]],
+  ["US-GOLF", ["Pack of 6 standard golf balls", "The same picture printed on each ball"]],
+  ["US-PADDLE", ["Full-size pickleball paddle", "Your picture is printed on the paddle face"]],
+];
+function ONJJEM_detailsFor(sku) {
+  const hit = ONJJEM_DETAILS.find(([p]) => String(sku || "").startsWith(p));
+  return hit ? hit[1] : null;
+}
+
 function onjjemGa() { if (typeof gtag === "function") { try { gtag.apply(null, arguments); } catch (e) {} } }
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 // US shop pages set window.ONJJEM_REGION = "us" before loading this file.
@@ -64,7 +100,7 @@ function ONJJEM_headerHtml() {
     <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/?uk=1" title="UK shop">🇬🇧 UK</a></nav>
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/us/halloween">🎃 Halloween</a><a href="/us/christmas">🎄 Christmas</a><a href="/us/tshirts">T-shirts &amp; hoodies</a><a href="/us/mug">Mugs</a><a href="/us/tumbler">Tumblers</a><a href="/us/blanket">Blankets</a><a href="/us/candle">Candles</a><a href="/us/clock">Clocks</a><a href="/us/prints">Prints &amp; posters</a><a href="/us/golf">Golf</a><a href="/us/pickleball">Pickleball</a>
+    <a href="/us/prints">📸 Photo prints &amp; posters</a><a href="/us/mug">Mugs</a><a href="/us/tumbler">Tumblers</a><a href="/us/blanket">Blankets</a><a href="/us/tshirts">T-shirts &amp; hoodies</a><a href="/us/candle">Candles</a><a href="/us/clock">Clocks</a><a href="/us/golf">Golf</a><a href="/us/pickleball">Pickleball</a><a href="/us/halloween">🎃 Halloween</a><a href="/us/christmas">🎄 Christmas</a>
   </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
@@ -73,7 +109,7 @@ function ONJJEM_headerHtml() {
     <nav class="l-nav"><a href="/#gifts">All gifts</a><a href="/#faq">Help</a><a href="/us/" title="US shop">🇺🇸 US</a></nav>
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/christmas">🎄 Christmas</a><a href="/halloween">🎃 Halloween</a><a href="/mug">Mugs</a><a href="/stickers">Stickers</a><a href="/magnets">Magnets</a><a href="/cushions">Cushions &amp; towels</a><a href="/blanket">Blankets</a><a href="/prints">Prints</a><a href="/poster-sale">Posters</a><a href="/kids.html">Kids</a><a href="/household.html">Home</a><a href="/frames-gifts.html">Frames</a><a href="/gift-cards.html">Gift cards</a>
+    <a href="/prints">📸 Photo prints</a><a href="/poster-sale">Posters</a><a href="/photo-tiles">Frames</a><a href="/mug">Mugs</a><a href="/blanket">Blankets</a><a href="/cushions">Cushions &amp; towels</a><a href="/magnets">Magnets</a><a href="/household.html">Home</a><a href="/stickers">Stickers</a><a href="/kids.html">Kids</a><a href="/christmas">🎄 Christmas</a><a href="/halloween">🎃 Halloween</a><a href="/gift-cards.html">Gift cards</a>
   </nav>`;
 }
 
@@ -479,7 +515,21 @@ function ONJJEM_renderLanding(P) {
   const variantWrap = document.getElementById("variantWrap");
   const sizeSel = document.getElementById("sizeSel");
   const colourSel = document.getElementById("colourSel");
-  function showVariants() {
+  // "About this item" box: what it's made of, fit, care. Options can carry details: [..].
+  function renderDetails() {
+    const o = opts[selected];
+    let d = document.getElementById("optDetails");
+    if (!d) { d = document.createElement("div"); d.id = "optDetails"; d.className = "opt-details"; }
+    const facts = o.details || ONJJEM_detailsFor(o.sku);
+    if (!facts || !facts.length) { d.style.display = "none"; return; }
+    const us = t => ONJJEM_isUS() ? String(t).replace(/colour/g, "color").replace(/Colour/g, "Color") : t;
+    d.innerHTML = `<div class="opt-details-title">About this item</div><ul>${facts.map(x => `<li>${esc(us(x))}</li>`).join("")}</ul>`;
+    d.style.display = "block";
+    const anchor = variantWrap.style.display === "block" ? variantWrap : app.querySelectorAll(".option")[selected];
+    if (anchor) anchor.after(d);
+  }
+  function showVariants() { showVariantsInner(); renderDetails(); }
+  function showVariantsInner() {
     const o = opts[selected];
     if (!o.skuPattern) { variantWrap.style.display = "none"; return; }
     const lbl = document.getElementById("variantLabel");
@@ -488,7 +538,7 @@ function ONJJEM_renderLanding(P) {
       if (lbl) lbl.textContent = P.colourLabel || ("🎨 Choose " + (P.variantWord || "the") + " colour");
     } else {
       sizeSel.style.display = "";
-      if (lbl) lbl.innerHTML = "👕 Choose " + esc(P.variantWord || "the T-shirt") + " size &amp; colour";
+      if (lbl) lbl.innerHTML = "👕 Choose " + esc(P.variantWord || "the T-shirt") + " size &amp; " + (ONJJEM_isUS() ? "color" : "colour");
     }
     if (o.sizes) sizeSel.innerHTML = `<option value="">Choose a size…</option>` + o.sizes.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
     colourSel.innerHTML = o.colours.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
