@@ -63,7 +63,7 @@ function ONJJEM_headerHtml() {
     <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/" title="UK shop">🇬🇧 UK</a></nav>
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/us/halloween">🎃 Halloween</a><a href="/us/christmas">🎄 Christmas</a><a href="/us/tshirts">T-shirts &amp; hoodies</a><a href="/us/mug">Mugs</a><a href="/us/tumbler">Tumblers</a><a href="/us/blanket">Blankets</a><a href="/us/candle">Candles</a><a href="/us/clock">Clocks</a><a href="/us/prints">Prints &amp; posters</a><a href="/us/pickleball">Pickleball</a>
+    <a href="/us/halloween">🎃 Halloween</a><a href="/us/christmas">🎄 Christmas</a><a href="/us/tshirts">T-shirts &amp; hoodies</a><a href="/us/mug">Mugs</a><a href="/us/tumbler">Tumblers</a><a href="/us/blanket">Blankets</a><a href="/us/candle">Candles</a><a href="/us/clock">Clocks</a><a href="/us/prints">Prints &amp; posters</a><a href="/us/golf">Golf</a><a href="/us/pickleball">Pickleball</a>
   </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
@@ -868,7 +868,9 @@ async function ONJJEM_openBasket() {
   panel.id = "basketPanel"; panel.className = "cartoon-preview-overlay";
   const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku) : 0), 0);
   const pct = ONJJEM_bundlePercent(items.length);
-  const disc = Math.round(sub * pct) / 100;
+  // Low-margin gifts (golf balls) count towards the deal but aren't discounted themselves.
+  const eligibleSub = items.filter(i => !String(i.sku || "").startsWith("US-GOLF")).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku) : 0), 0);
+  const disc = Math.round(eligibleSub * pct) / 100;
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
   panel.innerHTML = `
     <div class="cartoon-preview-card basket-card">
@@ -882,7 +884,7 @@ async function ONJJEM_openBasket() {
         </div>`).join("") : `<p class="cartoon-email-note">Your basket is empty.</p>`}
       ${items.length ? `
         <div class="basket-sum"><span>Subtotal</span><span>${money(sub)}</span></div>
-        ${pct ? `<div class="basket-sum" style="color:#7ee2a0"><span>Bundle discount (${pct}%)</span><span>−${money(disc)}</span></div>` : ""}
+        ${pct ? `<div class="basket-sum" style="color:#7ee2a0"><span>Bundle discount (${pct}%${eligibleSub < sub ? " off eligible gifts" : ""})</span><span>−${money(disc)}</span></div>` : ""}
         <div class="basket-sum"><span>${ONJJEM_isUS() ? "US shipping" : "UK delivery"}</span><span>FREE</span></div>
         <div class="basket-sum basket-total"><span>Total</span><span>${money(sub - disc)}</span></div>
         ${pct ? `<p class="cartoon-email-note" style="font-size:0.8rem">Your bundle discount is applied instead of promo codes.</p>` : ""}
