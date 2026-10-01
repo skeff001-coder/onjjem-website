@@ -63,7 +63,7 @@ function ONJJEM_headerHtml() {
     <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/" title="UK shop">🇬🇧 UK</a></nav>
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/us/halloween">🎃 Halloween</a><a href="/us/christmas">🎄 Christmas</a><a href="/us/tshirts">T-shirts &amp; hoodies</a><a href="/us/mug">Mugs</a><a href="/us/blanket">Blankets</a><a href="/us/candle">Candles</a><a href="/us/clock">Clocks</a><a href="/us/prints">Prints &amp; posters</a><a href="/us/pickleball">Pickleball</a>
+    <a href="/us/halloween">🎃 Halloween</a><a href="/us/christmas">🎄 Christmas</a><a href="/us/tshirts">T-shirts &amp; hoodies</a><a href="/us/mug">Mugs</a><a href="/us/tumbler">Tumblers</a><a href="/us/blanket">Blankets</a><a href="/us/candle">Candles</a><a href="/us/clock">Clocks</a><a href="/us/prints">Prints &amp; posters</a><a href="/us/pickleball">Pickleball</a>
   </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
