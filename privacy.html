@@ -6,6 +6,12 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('notrack') === '1') localStorage.setItem('onjjem_notrack', '1');
+    if (q.get('notrack') === '0') localStorage.removeItem('onjjem_notrack');
+    if (localStorage.getItem('onjjem_notrack')) window['ga-disable-G-3L30Q5L3MW'] = true;
+  } catch (e) {}
   gtag('config', 'G-3L30Q5L3MW');
 </script>
 <meta charset="UTF-8">
