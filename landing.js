@@ -498,6 +498,7 @@ function ONJJEM_renderLanding(P) {
           <li>🚚 ${ONJJEM_isUS() ? "Free US shipping, made in the USA" : "Free UK delivery"}</li>
           <li>🛡️ Arrives damaged or misprinted? Free replacement</li>
         </ul>
+        ${P.confirmText ? `<label class="ft-note" style="display:flex;gap:.5rem;align-items:flex-start;text-align:left;margin:0 0 .75rem;cursor:pointer"><input type="checkbox" id="confirmBox" style="margin-top:.2rem;flex:none;width:1.1rem;height:1.1rem"><span>${P.confirmText}</span></label>` : ""}
         <button class="btn" id="basketBtn">🧺 Add to basket</button>
         <button class="btn btn-ghost" id="buyBtn" style="margin-top:0.5rem">Buy just this one now →</button>
         <p class="order-note" style="margin-top:0.5rem">🎁 Bundle &amp; save: <strong>10% off 2 gifts</strong>, <strong>12% off 3 or more</strong>, applied automatically in your basket.</p>
@@ -742,7 +743,11 @@ function ONJJEM_renderLanding(P) {
   // Buy
   const buyBtn = document.getElementById("buyBtn");
   const basketBtn = document.getElementById("basketBtn");
+  const confirmBox = document.getElementById("confirmBox");
+  const confirmOk = () => !confirmBox || confirmBox.checked;
+  if (confirmBox) { basketBtn.disabled = true; buyBtn.disabled = true; confirmBox.addEventListener("change", () => { basketBtn.disabled = buyBtn.disabled = !confirmOk(); }); }
   function startFlow(then) {
+    if (!confirmOk()) return;
     if (!chosen()) { status.textContent = "Please choose a size first 👕"; variantWrap.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     if (!photo) { status.textContent = P.needPhotoMsg || "Please add your photo first 📸"; (P.designsOnly && designWrap ? designWrap : box).scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     status.textContent = "";
@@ -790,7 +795,7 @@ function ONJJEM_renderLanding(P) {
       status.style.color = "#ffb4a8";
       status.textContent = "Sorry, that didn't add (" + (err && err.message ? err.message : "please try again") + ").";
     } finally {
-      basketBtn.disabled = false; buyBtn.disabled = false;
+      basketBtn.disabled = !confirmOk(); buyBtn.disabled = !confirmOk();
     }
   }
 
