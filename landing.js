@@ -69,7 +69,7 @@ function ONJJEM_cur() { return ONJJEM_isUS() ? "USD" : "GBP"; }
 function ONJJEM_home() { return ONJJEM_isUS() ? "/us/" : "/"; }
 function ONJJEM_deliveryWord() { return ONJJEM_isUS() ? "free US shipping" : "free UK delivery"; }
 // The cartoon is free in the US shop and on Christmas sweatshirts.
-function ONJJEM_cartoonFee(sku) { return ONJJEM_isUS() || String(sku || "").startsWith("XSWEAT-") ? 0 : 1.99; }
+function ONJJEM_cartoonFee(sku, item) { return ONJJEM_isUS() || String(sku || "").startsWith("XSWEAT-") || (item && item.cartoonFree) || (!item && window.ONJJEM_CARTOON_FREE) ? 0 : 1.99; }
 
 function ONJJEM_offerBarHtml() {
   if (!ONJJEM_PROMO.active) return "";
@@ -422,7 +422,7 @@ function ONJJEM_renderLanding(P) {
       <h2>How it works</h2>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div><h3>Pick a photo</h3><p>Kids, family, couples, pets or a child's drawing.</p></div></div>
-        <div class="step"><div class="step-num">2</div><div><h3>${P.cartoon ? "Cartoon it (optional)" : "Choose your option"}</h3><p>${P.cartoon ? (ONJJEM_isUS() ? "See your photo as a cartoon. It's FREE, or keep the original." : "See a free preview of your photo as a cartoon. Add it for £1.99, or keep the original.") : "Pick the size or style you want."}</p></div></div>
+        <div class="step"><div class="step-num">2</div><div><h3>${P.cartoon ? "Cartoon it (optional)" : "Choose your option"}</h3><p>${P.cartoon ? (ONJJEM_isUS() || window.ONJJEM_CARTOON_FREE ? "See your photo as a cartoon. It's FREE, or keep the original." : "See a free preview of your photo as a cartoon. Add it for £1.99, or keep the original.") : "Pick the size or style you want."}</p></div></div>
         <div class="step"><div class="step-num">3</div><div><h3>We make it &amp; post it</h3><p>${ONJJEM_isUS() ? "Printed to order in the USA and shipped free." : "Printed to order in the UK and sent with free delivery."}</p></div></div>
       </div>
     </section>
@@ -756,7 +756,7 @@ function ONJJEM_renderLanding(P) {
       print = P.pngMaxPx ? await ONJJEM_toPng(print, P.pngMaxPx) : await ONJJEM_limitSize(print, 2600);
       const preview = await finalize(source, words, false);
       const thumb = await ONJJEM_limitSize(preview, 240);
-      await ONJJEM_Basket.add({ sku: o.sku, name: o.name, price: o.price, cartoon, photo: print, thumb, page: location.pathname });
+      await ONJJEM_Basket.add({ sku: o.sku, name: o.name, price: o.price, cartoon, cartoonFree: !!window.ONJJEM_CARTOON_FREE, photo: print, thumb, page: location.pathname });
       onjjemGa("event", "add_to_cart", { currency: ONJJEM_cur(), value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
       status.textContent = "";
       ONJJEM_showAddedToast(thumb, o.name);
@@ -793,6 +793,7 @@ function ONJJEM_renderLanding(P) {
           sku: o.sku,
           photoBase64: photoToSend,
           ...(ONJJEM_isUS() ? { region: "us" } : {}),
+          ...(window.ONJJEM_CARTOON_FREE ? { cartoonFree: true } : {}),
           successUrl: window.location.origin + ONJJEM_home() + "?order=success&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: window.location.href.split("#")[0] + "#order"
         }, extra))
@@ -923,10 +924,10 @@ async function ONJJEM_openBasket() {
   const old = document.getElementById("basketPanel"); if (old) old.remove();
   const panel = document.createElement("div");
   panel.id = "basketPanel"; panel.className = "cartoon-preview-overlay";
-  const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku) : 0), 0);
+  const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   const pct = ONJJEM_bundlePercent(items.length);
   // Low-margin gifts (golf balls) count towards the deal but aren't discounted themselves.
-  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE)|xmas-sack$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku) : 0), 0);
+  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE)|xmas-sack$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   const disc = Math.round(eligibleSub * pct) / 100;
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
   panel.innerHTML = `
@@ -935,8 +936,8 @@ async function ONJJEM_openBasket() {
       ${items.length ? items.map(i => `
         <div class="basket-row">
           <img src="${i.thumb}" alt="">
-          <div class="basket-info"><strong>${esc(i.name)}</strong>${i.cartoon ? (ONJJEM_cartoonFee(i.sku) ? "<small>+ cartoon £1.99</small>" : "<small>+ FREE cartoon</small>") : ""}</div>
-          <div class="basket-price">${money(i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku) : 0))}</div>
+          <div class="basket-info"><strong>${esc(i.name)}</strong>${i.cartoon ? (ONJJEM_cartoonFee(i.sku, i) ? "<small>+ cartoon £1.99</small>" : "<small>+ FREE cartoon</small>") : ""}</div>
+          <div class="basket-price">${money(i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0))}</div>
           <button type="button" class="basket-remove" data-id="${i.id}" aria-label="Remove">✕</button>
         </div>`).join("") : `<p class="cartoon-email-note">Your basket is empty.</p>`}
       ${items.length ? `
@@ -969,7 +970,7 @@ async function ONJJEM_openBasket() {
       const res = await fetch(`${API_BASE}/api/stripe/cart-checkout`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          items: items.map(i => ({ sku: i.sku, photoBase64: i.photo, cartoon: !!i.cartoon })),
+          items: items.map(i => ({ sku: i.sku, photoBase64: i.photo, cartoon: !!i.cartoon, cartoonFree: !!i.cartoonFree })),
           ...(ONJJEM_isUS() ? { region: "us" } : {}),
           successUrl: location.origin + ONJJEM_home() + "?order=success&basket=1&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: location.href.split("#")[0]
