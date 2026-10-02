@@ -469,6 +469,7 @@ function ONJJEM_renderLanding(P) {
 
         <span class="order-label">2. ${P.photoLabel ? esc(P.photoLabel) : "Add your photo" + (opts.some(o => o.multi) ? "s" : "")}</span>
         <input type="file" id="photoInput" accept="image/*" style="display:none">
+        ${P.makerHtml ? `<div id="makerWrap">${P.makerHtml}</div>` : ""}
         <div class="upload" id="uploadBox" role="button" tabindex="0"${P.designsOnly ? ' style="display:none"' : ""}></div>
         ${P.designs ? `<div id="designWrap" style="display:none;margin-top:0.9rem">
           <span style="font-weight:700;display:block;margin-bottom:0.45rem">${esc(P.designsLabel || "…or pick one of our designs 👇")}</span>
@@ -688,11 +689,19 @@ function ONJJEM_renderLanding(P) {
     showVariants();
     showDesigns();
     input.multiple = isMulti();
+    if (P.onOption) await P.onOption(opts[selected]);
     await refreshPhoto();
   }));
   input.multiple = isMulti();
   box.innerHTML = emptyBox();
   showDesigns();
+  // Pages that build their own design (e.g. football shirts) hand it over here.
+  window.ONJJEM_setDesign = async (dataUrl) => {
+    photos = dataUrl ? [dataUrl] : []; isTextDesign = true; isPresetDesign = true; orient = null;
+    box.style.display = dataUrl ? "" : (P.designsOnly ? "none" : "");
+    await refreshPhoto();
+  };
+  window.ONJJEM_currentOption = () => opts[selected];
 
   // Photo upload
   box.addEventListener("click", () => { if (!P.designsOnly) input.click(); });

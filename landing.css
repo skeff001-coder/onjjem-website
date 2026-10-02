@@ -255,3 +255,8 @@ a { color: var(--gold); }
 @keyframes hwbob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 @media (prefers-reduced-motion:reduce){.hw-spider{animation:none}}
 @media (max-width:420px){.hw-web{width:70px;height:70px}.hw-sp1{left:132px}}
+
+.ft-maker{display:grid;gap:0.35rem;margin-bottom:0.8rem}
+.ft-maker label{font-weight:700;margin-top:0.3rem}
+.ft-maker input{width:100%;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1.05rem}
+.ft-note{font-size:0.78rem;color:var(--muted);font-style:italic;margin-top:0.3rem}
