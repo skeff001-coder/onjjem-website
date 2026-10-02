@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kids Custom Football Shirts – Your Town, Name & Number | ONJJEM</title>
-<meta name="description" content="Kids custom football T-shirts in your town colours, with their own name and number. Local town football clothing, £17.99 with free UK delivery.">
+<meta name="description" content="Kids custom football T-shirts in your town colours, with their own name and number. Local town football clothing, £15.99 with free UK delivery.">
 <link rel="canonical" href="https://onjjem.com/football">
 <meta property="og:title" content="Kids Custom Football Shirts – Your Town, Name & Number | ONJJEM">
-<meta property="og:description" content="Kids custom football T-shirts in your town colours, with their own name and number. £17.99 with free UK delivery.">
+<meta property="og:description" content="Kids custom football T-shirts in your town colours, with their own name and number. £15.99 with free UK delivery.">
 <meta property="og:image" content="https://onjjem.com/football-hero.jpg">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
 <script>
@@ -24,8 +24,8 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Graduate&family=Oswald:wght@700&display=swap">
-<link rel="stylesheet" href="/landing.css?v=20261002f">
-<link rel="stylesheet" href="/cartoonify-shared.css?v=20261002f">
+<link rel="stylesheet" href="/landing.css?v=20261002g">
+<link rel="stylesheet" href="/cartoonify-shared.css?v=20261002g">
 </head>
 <body>
 <div id="app"></div>
@@ -107,7 +107,7 @@ window.PAGE = {
   pngMaxPx: 2400,
   needPhotoMsg: "Pick a size first, then type their name 🙂",
   options: Object.keys(FT).map((k, i) => ({
-    sku: `FTEE-${k}-7Y`, ratio: [8, 9], name: NAMES[k] + " football tee", note: FT[k].sw + " shirt", price: 17.99,
+    sku: `FTEE-${k}-7Y`, ratio: [8, 9], name: NAMES[k] + " football tee", note: FT[k].sw + " shirt", price: 15.99,
     skuPattern: `FTEE-${k}-{size}{colour}`, sizes: SIZES, colours: [["", FT[k].sw, FT[k].shirt]], ...(i === 0 ? { default: true } : {})
   })),
   onOption: () => ftRefresh(),
@@ -133,7 +133,7 @@ async function ftRefresh() {
 document.addEventListener("input", e => { if (e.target && (e.target.id === "ftName" || e.target.id === "ftNum")) { clearTimeout(ftTimer); ftTimer = setTimeout(ftRefresh, 300); } });
 window.addEventListener("load", () => setTimeout(ftRefresh, 300));
 </script>
-<script src="/landing.js?v=20261002f"></script>
-<script src="/cartoonify-shared.js?v=20261002f"></script>
+<script src="/landing.js?v=20261002g"></script>
+<script src="/cartoonify-shared.js?v=20261002g"></script>
 </body>
 </html>
