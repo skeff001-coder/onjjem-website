@@ -260,3 +260,15 @@ a { color: var(--gold); }
 .ft-maker label{font-weight:700;margin-top:0.3rem}
 .ft-maker input{width:100%;padding:0.75rem;border-radius:10px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1.05rem}
 .ft-note{font-size:0.78rem;color:var(--muted);font-style:italic;margin-top:0.3rem}
+
+/* Centred header + search */
+.l-header{display:block;text-align:center;padding:0.9rem 1rem 0.8rem}
+.l-header .l-logo{display:inline-block;font-size:2rem;letter-spacing:5px;padding:0.1rem 0 0.4rem}
+.l-header .l-nav{position:absolute;right:0.9rem;top:1.1rem}
+.l-header .l-nav a{margin-left:0;font-size:0.95rem}
+.l-search{max-width:520px;margin:0.2rem auto 0;position:relative;z-index:3}
+.l-search input{width:100%;box-sizing:border-box;padding:0.7rem 1rem;border-radius:999px;border:1px solid #555;background:#1f1f1f;color:#fff;font-size:1rem}
+.l-search input::placeholder{color:#9a9a9a}
+@media (max-width:420px){.l-header .l-logo{font-size:1.75rem;letter-spacing:4px}}
+.hw-sp1{left:98px}
+@media (max-width:420px){.hw-sp1{left:90px}}

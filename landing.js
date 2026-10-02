@@ -109,12 +109,50 @@ function ONJJEM_spookyHtml() {
     <circle cx="17.8" cy="11.3" r="1.5" fill="#ff8a1c"/><circle cx="22.2" cy="11.3" r="1.5" fill="#ff8a1c"/></svg></span>`;
   return web("hw-web-l") + web("hw-web-r") + spider("hw-sp1") + spider("hw-sp2");
 }
+function ONJJEM_searchHtml() {
+  return `<form class="l-search" role="search" onsubmit="return ONJJEM_search(event)"><input id="gsearch" type="search" placeholder="Search gifts: mug, blanket, tote…" autocomplete="off" enterkeyhint="search" aria-label="Search gifts" oninput="ONJJEM_search(event)"></form>`;
+}
+(function () {
+  const SYN = { cup: "mug", pillow: "cushion", jumper: "sweatshirt", throw: "blanket", soccer: "football", wallhanging: "tapestry", shirt: "tshirt|tee|shirt", tee: "tshirt|tee|shirt", tshirt: "tshirt|tee|shirt", sack: "sack", bag: "tote" };
+  const compact = x => String(x || "").toLowerCase().replace(/&amp;/g, "&").replace(/[^a-z0-9]/g, "");
+  window.ONJJEM_search = function (ev) {
+    const input = document.getElementById("gsearch");
+    const raw = input ? input.value.trim() : "";
+    const tiles = document.querySelectorAll(".home-sec .tile");
+    if (ev && ev.type === "submit") {
+      if (ev.preventDefault) ev.preventDefault();
+      if (!tiles.length) { if (raw) location.href = (ONJJEM_isUS() ? "/us/" : "/") + "?q=" + encodeURIComponent(raw); return false; }
+    }
+    if (!tiles.length) return false;
+    const words = raw.toLowerCase().split(/\s+/).filter(Boolean).map(w => { w = SYN[w] || w; return w.split("|").map(x => { x = compact(x); return x.length > 3 ? x.replace(/(es|s)$/, "") : x; }).filter(Boolean); }).filter(a => a.length);
+    let shown = 0;
+    tiles.forEach(t => {
+      const hay = compact(t.textContent + " " + (t.getAttribute("href") || ""));
+      const ok = words.every(alts => alts.some(w => hay.includes(w)));
+      t.style.display = ok ? "" : "none";
+      if (ok) shown++;
+    });
+    document.querySelectorAll(".home-sec").forEach(sec => {
+      sec.style.display = !words.length || [...sec.querySelectorAll(".tile")].some(t => t.style.display !== "none") ? "" : "none";
+    });
+    let msg = document.getElementById("searchMsg");
+    if (!msg) { msg = document.createElement("p"); msg.id = "searchMsg"; msg.style.cssText = "text-align:center;color:var(--muted);padding:1.5rem 1rem"; const first = document.querySelector(".home-sec"); if (first && first.parentNode) first.parentNode.insertBefore(msg, first); }
+    msg.textContent = words.length && !shown ? "No gifts match that. Try a shorter word like mug, blanket or tote, or email hello@onjjem.com and we'll help." : "";
+    if (words.length && shown && ev && ev.type === "submit") { const f = document.querySelector(".home-sec .tile:not([style*=\"none\"])"); if (f) f.scrollIntoView({ behavior: "smooth", block: "center" }); }
+    return false;
+  };
+  window.addEventListener("DOMContentLoaded", () => {
+    const q = new URLSearchParams(location.search).get("q");
+    if (q) setTimeout(() => { const i = document.getElementById("gsearch"); if (i) { i.value = q; ONJJEM_search({ type: "input" }); } }, 50);
+  });
+})();
 function ONJJEM_headerHtml() {
   if (ONJJEM_isUS()) return `
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">${ONJJEM_spookyHtml()}
-    <a href="/us/" class="l-logo">ONJJEM <span style="font-size:0.7em">🇺🇸</span></a>
-    <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/?uk=1" title="UK shop">🇬🇧 UK</a></nav>
+    <a href="/us/" class="l-logo">ONJJEM</a>
+    <nav class="l-nav"><a href="/?uk=1" title="UK shop">🇬🇧 UK</a></nav>
+    ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
     <a href="/us/#cat-walls">📸 Photo prints &amp; posters</a><a href="/us/#cat-home">For the home</a><a href="/us/halloween">🎃 Halloween</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-christmas">🎄 Christmas</a>
@@ -123,7 +161,8 @@ function ONJJEM_headerHtml() {
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">${ONJJEM_spookyHtml()}
     <a href="/" class="l-logo">ONJJEM</a>
-    <nav class="l-nav"><a href="/#gifts">All gifts</a><a href="/#faq">Help</a><a href="/us/" title="US shop">🇺🇸 US</a></nav>
+    <nav class="l-nav"><a href="/us/" title="US shop">🇺🇸 US</a></nav>
+    ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
     <a href="/#cat-walls">📸 Photo prints &amp; posters</a><a href="/#cat-home">For the home</a><a href="/halloween">🎃 Halloween</a><a href="/#cat-kids">Kids &amp; fun</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/gift-cards.html">Gift cards</a>
