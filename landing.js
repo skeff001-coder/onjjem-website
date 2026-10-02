@@ -1066,3 +1066,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 if (window.PAGE) {
   document.addEventListener("DOMContentLoaded", () => ONJJEM_renderLanding(window.PAGE));
 }
+
+// Reliable in-page jumps ("Make my blanket", category links). On phones the page keeps growing
+// while images and fonts load, so a single smooth scroll can stop short on the first tap.
+// Jump straight to the target, then re-check as the layout settles.
+(function () {
+  document.addEventListener("click", function (e) {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = decodeURIComponent((a.getAttribute("href") || "").slice(1));
+    const t = id && document.getElementById(id);
+    if (!t) return;
+    e.preventDefault();
+    const root = document.documentElement;
+    const off = () => parseFloat(getComputedStyle(t).scrollMarginTop) || 0;
+    const go = () => {
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
+      window.scrollTo(0, Math.max(0, t.getBoundingClientRect().top + window.pageYOffset - off()));
+      root.style.scrollBehavior = prev;
+    };
+    go();
+    [100, 350, 800, 1600].forEach(ms => setTimeout(() => { if (Math.abs(t.getBoundingClientRect().top - off()) > 3) go(); }, ms));
+    try { history.replaceState(null, "", "#" + id); } catch (err) {}
+  });
+})();
