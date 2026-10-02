@@ -28,6 +28,7 @@ const ONJJEM_REVIEWS = [
 // ── "About this item" facts, by SKU prefix (from Prodigi's product lists) ──
 const ONJJEM_CLOTHES_CARE = "Wash inside out on cold, tumble dry low, and don't iron over the print.";
 const ONJJEM_DETAILS = [
+  ["trick-bag", ["Light woven tote bag, 42×37cm, with long 65cm handles", "Your picture is printed on the front", "Big enough for a whole night of trick-or-treating", "Made in the UK, tracked delivery"]],
   ["US-KTEE", ["Gildan Softstyle youth T-shirt", "100% ring-spun cotton: soft and light (Sport Grey has a little polyester)", "Your photo or cartoon is printed on the front in full color", "Youth sizes: XS fits about 4–5, S 6–8, M 10–12, L 14–16, XL 18–20", ONJJEM_CLOTHES_CARE]],
   ["US-TTEE", ["Rabbit Skins toddler T-shirt", "100% combed ring-spun cotton, soft on little ones' skin", "Printed on the front in full color", "Sizes 2T to 5/6", ONJJEM_CLOTHES_CARE]],
   ["US-BTEE", ["Rabbit Skins baby T-shirt", "100% combed ring-spun cotton", "Envelope shoulders for easy on and off", "Printed on the front in full color", ONJJEM_CLOTHES_CARE]],
@@ -941,7 +942,7 @@ async function ONJJEM_openBasket() {
   const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   const pct = ONJJEM_bundlePercent(items.length);
   // Low-margin gifts (golf balls) count towards the deal but aren't discounted themselves.
-  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE)|xmas-sack$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
+  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE)|xmas-sack$|trick-bag$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   const disc = Math.round(eligibleSub * pct) / 100;
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
   panel.innerHTML = `
