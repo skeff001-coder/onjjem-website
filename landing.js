@@ -581,7 +581,7 @@ function ONJJEM_renderLanding(P) {
   colourSel.addEventListener("change", applySwatch);
   let photos = []; // every photo the customer picked (for collage options)
   const isMulti = () => !!opts[selected].multi;
-  const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Add up to " + opts[selected].multi + " photos" : "Add your photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div><span class="u-btn">📷 Choose from my phone</span>${P.cartoon ? `<div class="u-free">✨ Free cartoon preview before you pay</div>` : ""}`;
+  const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Add up to " + opts[selected].multi + " photos" : "Add your photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div><span class="u-btn">📷 Choose from my phone</span>${P.cartoon ? `<div class="u-free">✨ Free cartoon preview before you pay</div>` : ""}<div class="u-private">🔒 Your photo stays private. It's only used to make your gift.</div>`;
 
   let isTextDesign = false;
   let isPresetDesign = false; // one of our ready-made designs (no cartoon step)

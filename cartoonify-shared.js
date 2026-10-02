@@ -96,6 +96,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
         body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: true, style }),
       });
       const data = await res.json();
+      try { if (typeof gtag === "function") gtag("event", data.alreadyUsed ? "cartoon_preview_limit" : "cartoon_preview"); } catch (e) {}
 
       if (data.alreadyUsed) {
         card.innerHTML = ONJJEM_freeText(`
