@@ -155,7 +155,7 @@ function ONJJEM_headerHtml() {
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/us/#cat-walls">📸 Photo prints &amp; posters</a><a href="/us/#cat-home">For the home</a><a href="/us/halloween">🎃 Halloween</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-christmas">🎄 Christmas</a>
+    <a href="/us/#cat-home">🛋️ Blankets &amp; tapestries</a><a href="/us/#cat-walls">📸 Prints &amp; posters</a><a href="/us/halloween">🎃 Halloween</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-christmas">🎄 Christmas</a>
   </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
@@ -165,7 +165,7 @@ function ONJJEM_headerHtml() {
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/#cat-walls">📸 Photo prints &amp; posters</a><a href="/#cat-home">For the home</a><a href="/halloween">🎃 Halloween</a><a href="/#cat-kids">Kids &amp; fun</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/gift-cards.html">Gift cards</a>
+    <a href="/#cat-walls">🛋️ Blankets &amp; wall art</a><a href="/#cat-home">For the home &amp; desk</a><a href="/halloween">🎃 Halloween</a><a href="/#cat-kids">Kids &amp; small gifts</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/gift-cards.html">Gift cards</a>
   </nav>`;
 }
 
