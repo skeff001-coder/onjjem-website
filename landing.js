@@ -997,7 +997,7 @@ async function ONJJEM_openBasket() {
   const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   const pct = ONJJEM_bundlePercent(items.length);
   // Low-margin gifts (golf balls) count towards the deal but aren't discounted themselves.
-  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag$|FTEE-)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
+  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   const disc = Math.round(eligibleSub * pct) / 100;
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
   panel.innerHTML = `
