@@ -23,8 +23,8 @@
   } catch (e) {}
   gtag('config', 'G-3L30Q5L3MW');
 </script>
-<link rel="stylesheet" href="/landing.css?v=20261002g">
-<link rel="stylesheet" href="/cartoonify-shared.css?v=20261002g">
+<link rel="stylesheet" href="/landing.css?v=20261002h">
+<link rel="stylesheet" href="/cartoonify-shared.css?v=20261002h">
 </head>
 <body>
 <div id="app"></div>
@@ -50,11 +50,17 @@ window.PAGE = {
   photoFirst: true,
   photoHint: "Use a sharp, high-resolution photo. Big tapestries need big photos, so pick the original, not a screenshot.",
   confirmText: "I confirm that I own the copyright to this photo (or have explicit permission to use it) and that it does not infringe on any third-party trademarks, official club crests, or corporate brands.",
+  designsLabel: "…or pick one of our scenery designs 👇",
+  designs: [
+    { name: "Irish cliffs at sunset", img: "/products/designs/tap-cliffs-1.jpg", thumb: "/products/designs/tap-cliffs-1-thumb.jpg" },
+    { name: "Golden coast", img: "/products/designs/tap-cliffs-2.jpg", thumb: "/products/designs/tap-cliffs-2-thumb.jpg" },
+    { name: "Cliffs and flowers", img: "/products/designs/tap-cliffs-3.jpg", thumb: "/products/designs/tap-cliffs-3-thumb.jpg" }
+  ],
   options: [
-    { sku: "US-TAP-M", ratio: [17, 20], orient: true, name: "Wall tapestry — Medium 68×80″", note: "Fits over a bed or couch", price: 69.99, badge: "MOST POPULAR", default: true },
-    { sku: "US-TAP-XS", ratio: [13, 18], orient: true, name: "Wall tapestry — Extra small 26×36″", note: "Dorm, desk or small wall", price: 44.99 },
-    { sku: "US-TAP-S", ratio: [17, 20], orient: true, name: "Wall tapestry — Small 51×60″", note: "Great over a headboard", price: 54.99 },
-    { sku: "US-TAP-L", ratio: [11, 13], orient: true, name: "Wall tapestry — Large 88×104″", note: "A statement wall", price: 99.99 }
+    { sku: "US-TAP-M", ratio: [17, 20], orient: true, designs: true, name: "Wall tapestry — Medium 68×80″", note: "Fits over a bed or couch", price: 69.99, badge: "MOST POPULAR", default: true },
+    { sku: "US-TAP-XS", ratio: [13, 18], orient: true, designs: true, name: "Wall tapestry — Extra small 26×36″", note: "Dorm, desk or small wall", price: 44.99 },
+    { sku: "US-TAP-S", ratio: [17, 20], orient: true, designs: true, name: "Wall tapestry — Small 51×60″", note: "Great over a headboard", price: 54.99 },
+    { sku: "US-TAP-L", ratio: [11, 13], orient: true, designs: true, name: "Wall tapestry — Large 88×104″", note: "A statement wall", price: 99.99 }
   ],
   faq: [
     ["Is there anything you can't print?", "Please only send photos you have the right to use. We can't print sports team logos, brand logos, characters from movies and TV, or anything offensive."],
@@ -65,7 +71,7 @@ window.PAGE = {
   ]
 };
 </script>
-<script src="/landing.js?v=20261002g"></script>
-<script src="/cartoonify-shared.js?v=20261002g"></script>
+<script src="/landing.js?v=20261002h"></script>
+<script src="/cartoonify-shared.js?v=20261002h"></script>
 </body>
 </html>
