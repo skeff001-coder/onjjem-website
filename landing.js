@@ -28,6 +28,7 @@ const ONJJEM_REVIEWS = [
 // ── "About this item" facts, by SKU prefix (from Prodigi's product lists) ──
 const ONJJEM_CLOTHES_CARE = "Wash inside out on cold, tumble dry low, and don't iron over the print.";
 const ONJJEM_DETAILS = [
+  ["tote-canvas", ["Strong canvas tote bag, 36×47cm", "Your picture is printed on the front", "Made in the UK, tracked delivery"]],
   ["trick-bag", ["Light woven tote bag, 42×37cm, with long 65cm handles", "Your picture is printed on the front", "Big enough for a whole night of trick-or-treating", "Made in the UK, tracked delivery"]],
   ["US-TOTE", ["17×18″ woven tote bag: your picture is woven into the fabric", "Lined, with double-stitched seams and cotton webbing straps", "The picture shows on both sides", "Made in the USA"]],
   ["US-KTEE", ["Gildan Softstyle youth T-shirt", "100% ring-spun cotton: soft and light (Sport Grey has a little polyester)", "Your photo or cartoon is printed on the front in full color", "Youth sizes: XS fits about 4–5, S 6–8, M 10–12, L 14–16, XL 18–20", ONJJEM_CLOTHES_CARE]],
