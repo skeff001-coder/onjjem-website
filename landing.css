@@ -238,3 +238,20 @@ a { color: var(--gold); }
 .trust-line li{line-height:1.35}
 
 .u-private{font-size:0.78rem;color:var(--muted);margin-top:0.45rem}
+
+/* Halloween decorations */
+.l-header{position:relative;overflow:visible}
+.hw-web{position:absolute;top:0;width:92px;height:92px;pointer-events:none;z-index:1;opacity:0.85}
+.hw-web-l{left:0}
+.hw-web-r{right:0;transform:scaleX(-1)}
+.hw-spider{position:absolute;top:0;width:30px;pointer-events:none;z-index:2;animation:hwbob 3.2s ease-in-out infinite;filter:drop-shadow(0 0 3px rgba(255,138,28,0.55))}
+.hw-spider i{display:block;width:1.5px;margin:0 auto;background:rgba(240,240,240,0.75);height:var(--len,20px)}
+.hw-spider svg{display:block;width:30px;height:30px;margin-top:-3px}
+.hw-sp1{left:150px;--len:14px}
+.hw-sp2{right:36px;--len:0px;width:16px;animation:none;top:2px}
+.hw-sp2 svg{width:16px;height:16px}
+@media (min-width:700px){.hw-sp2{right:40%;--len:24px;width:30px;animation:hwbob 4.1s ease-in-out -1.3s infinite;top:0}.hw-sp2 svg{width:30px;height:30px}}
+.l-logo,.l-nav{position:relative;z-index:3}
+@keyframes hwbob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+@media (prefers-reduced-motion:reduce){.hw-spider{animation:none}}
+@media (max-width:420px){.hw-web{width:70px;height:70px}.hw-sp1{left:132px}}

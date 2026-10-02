@@ -92,10 +92,24 @@ function ONJJEM_reviewsHtml() {
   </section>`;
 }
 
+
+// ── Halloween decorations (cobwebs + dangling spiders), until 1 November ──
+function ONJJEM_spookyHtml() {
+  if (new Date() >= new Date("2026-11-01T00:00:00")) return "";
+  const web = (cls) => `<svg class="hw-web ${cls}" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="rgba(240,240,240,0.8)" stroke-width="1.1">
+    <path d="M0 0L100 8M0 0L88 40M0 0L60 70M0 0L32 92M0 0L8 100"/>
+    <path d="M22 2Q19 9 20 18Q13 16 7 21Q5 13 2 22"/><path d="M45 4Q40 18 40 34Q27 33 15 42Q11 27 4 45"/>
+    <path d="M70 6Q62 26 61 50Q42 50 24 64Q17 44 6 68"/><path d="M95 8Q85 34 82 63Q57 64 31 87Q23 62 8 92"/></g></svg>`;
+  const spider = (cls) => `<span class="hw-spider ${cls}" aria-hidden="true"><i></i><svg viewBox="0 0 40 40"><g stroke="#1a1a1a" stroke-width="2.4" fill="none" stroke-linecap="round">
+    <path d="M14 18L5 12L2 4M14 21L4 20L1 26M15 24L6 29L5 37M26 18L35 12L38 4M26 21L36 20L39 26M25 24L34 29L35 37"/></g>
+    <ellipse cx="20" cy="22" rx="8" ry="9" fill="#111"/><circle cx="20" cy="12" r="5.5" fill="#111"/>
+    <circle cx="17.8" cy="11.3" r="1.5" fill="#ff8a1c"/><circle cx="22.2" cy="11.3" r="1.5" fill="#ff8a1c"/></svg></span>`;
+  return web("hw-web-l") + web("hw-web-r") + spider("hw-sp1") + spider("hw-sp2");
+}
 function ONJJEM_headerHtml() {
   if (ONJJEM_isUS()) return `
   ${ONJJEM_offerBarHtml()}
-  <header class="l-header">
+  <header class="l-header">${ONJJEM_spookyHtml()}
     <a href="/us/" class="l-logo">ONJJEM <span style="font-size:0.7em">🇺🇸</span></a>
     <nav class="l-nav"><a href="/us/#shop">All gifts</a><a href="/?uk=1" title="UK shop">🇬🇧 UK</a></nav>
   </header>
@@ -104,7 +118,7 @@ function ONJJEM_headerHtml() {
   </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
-  <header class="l-header">
+  <header class="l-header">${ONJJEM_spookyHtml()}
     <a href="/" class="l-logo">ONJJEM</a>
     <nav class="l-nav"><a href="/#gifts">All gifts</a><a href="/#faq">Help</a><a href="/us/" title="US shop">🇺🇸 US</a></nav>
   </header>
