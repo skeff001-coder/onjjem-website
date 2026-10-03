@@ -66,6 +66,8 @@ function ONJJEM_detailsFor(sku) {
 function onjjemGa() { if (typeof gtag === "function") { try { gtag.apply(null, arguments); } catch (e) {} } }
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 // US shop pages set window.ONJJEM_REGION = "us" before loading this file.
+// Phones and tablets get "from my phone"; laptops and desktops get "from my computer".
+function ONJJEM_pickLabel() { const touch = window.matchMedia && matchMedia("(pointer: coarse)").matches; return touch ? "📷 Choose from my phone" : "🖼️ Choose a photo from my computer"; }
 function ONJJEM_isUS() { return window.ONJJEM_REGION === "us"; }
 function money(p) { return (ONJJEM_isUS() ? "$" : "£") + Number(p).toFixed(2); }
 function ONJJEM_cur() { return ONJJEM_isUS() ? "USD" : "GBP"; }
@@ -151,7 +153,7 @@ function ONJJEM_headerHtml() {
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">${ONJJEM_spookyHtml()}
     <a href="/us/" class="l-logo">ONJJEM</a>
-    <nav class="l-nav"><a href="/?uk=1" title="UK shop">🇬🇧 UK</a></nav>
+    <nav class="l-nav"><a href="/?uk=1" class="region-pill" title="Go to the UK shop"><img src="/flag-uk.svg" alt="" width="26" height="13">UK<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
@@ -161,7 +163,7 @@ function ONJJEM_headerHtml() {
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">${ONJJEM_spookyHtml()}
     <a href="/" class="l-logo">ONJJEM</a>
-    <nav class="l-nav"><a href="/us/" title="US shop">🇺🇸 US</a></nav>
+    <nav class="l-nav"><a href="/us/" class="region-pill" title="Go to the US shop"><img src="/flag-us.svg" alt="" width="25" height="13">US<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
@@ -356,7 +358,7 @@ function ONJJEM_printAnythingHtml() {
   return `
   <section class="l-section wrap">
     <h2>Print <span class="gold">anything</span></h2>
-    <p style="text-align:center;color:var(--muted);margin:-0.4rem auto 1rem;max-width:520px">If it's on your phone, we can print it.</p>
+    <p style="text-align:center;color:var(--muted);margin:-0.4rem auto 1rem;max-width:520px">If it's on your phone or computer, we can print it.</p>
     <div class="tiles" style="grid-template-columns:repeat(3,1fr)">
       ${items.map(i => `<div class="tile" style="padding:0.9rem 0.6rem;text-align:center"><div style="font-size:1.8rem">${i[0]}</div><h3 style="margin-top:0.3rem">${i[1]}</h3><div class="t-tag">${i[2]}</div></div>`).join("")}
     </div>
@@ -640,7 +642,7 @@ function ONJJEM_renderLanding(P) {
   colourSel.addEventListener("change", applySwatch);
   let photos = []; // every photo the customer picked (for collage options)
   const isMulti = () => !!opts[selected].multi;
-  const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Add up to " + opts[selected].multi + " photos" : "Add your photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div><span class="u-btn">📷 Choose from my phone</span>${P.cartoon ? `<div class="u-free">✨ Free cartoon preview before you pay</div>` : ""}<div class="u-private">🔒 Your photo stays private. It's only used to make your gift.</div>`;
+  const emptyBox = () => `<div class="u-icon">📸</div><div class="u-text">${isMulti() ? "Add up to " + opts[selected].multi + " photos" : "Add your photo"}</div><div class="u-hint">${esc(isMulti() ? (opts[selected].multiHint || "Pick 1, 4 or 9 photos for a perfect grid.") : (P.photoHint || "Clear, bright photos print best."))}</div><span class="u-btn">${ONJJEM_pickLabel()}</span>${P.cartoon ? `<div class="u-free">✨ Free cartoon preview before you pay</div>` : ""}<div class="u-private">🔒 Your photo stays private. It's only used to make your gift.</div>`;
 
   let isTextDesign = false;
   let isPresetDesign = false; // one of our ready-made designs (no cartoon step)
