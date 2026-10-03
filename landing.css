@@ -282,3 +282,6 @@ a { color: var(--gold); }
 .opt-details[open] summary{margin-bottom:.4rem}
 .opt-more{font-weight:400;font-size:.8rem;color:var(--muted);margin-left:auto}
 .opt-details[open] .opt-more{display:none}
+
+.cat-card.wide{grid-column:1/-1}.cat-card.wide img{aspect-ratio:2/1;object-position:center 30%}
+@media(min-width:800px){.cat-card.wide{grid-column:auto}.cat-card.wide img{aspect-ratio:1/1}}

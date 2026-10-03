@@ -155,7 +155,7 @@ function ONJJEM_headerHtml() {
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/us/#cat-home">🛋️ Blankets &amp; tapestries</a><a href="/us/#cat-walls">📸 Prints &amp; posters</a><a href="/us/halloween">🎃 Halloween</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-christmas">🎄 Christmas</a>
+    <a href="/us/#cat-tapestries">🏔️ Tapestries</a><a href="/us/#cat-home">🛋️ Blankets &amp; home</a><a href="/us/#cat-walls">📸 Prints &amp; posters</a><a href="/us/halloween">🎃 Halloween</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-christmas">🎄 Christmas</a>
   </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
