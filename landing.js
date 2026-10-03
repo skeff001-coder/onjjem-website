@@ -456,6 +456,7 @@ function ONJJEM_renderLanding(P) {
   const opts = P.options;
   let selected = Math.max(0, opts.findIndex(o => o.default));
   let photo = null;
+  let early = null; // instant free cartoon made straight after upload: { forPhoto, previewId, previewSrc }
 
   const fromPrice = Math.min(...opts.map(o => o.price));
 
@@ -702,7 +703,7 @@ function ONJJEM_renderLanding(P) {
     orientWrap.style.display = photos.length && o0.orient && !o0.wrap && o0.ratio && o0.ratio[0] !== o0.ratio[1] ? "block" : "none";
     document.querySelectorAll(".orientBtn").forEach(x => x.style.borderColor = x.dataset.o === orient ? "var(--gold)" : "");
     if (!photos.length) document.getElementById("captionWrap").style.display = "none";
-    if (!photos.length) { photo = null; box.classList.remove("has-photo"); box.innerHTML = emptyBox(); return; }
+    if (!photos.length) { photo = null; box.classList.remove("has-photo"); box.innerHTML = emptyBox(); showCartoonBtn(); return; }
     if (isMulti() && photos.length > 1) {
       box.innerHTML = `<div class="u-text">Building your collage…</div>`;
       photo = await ONJJEM_buildCollage(photos.slice(0, opts[selected].multi));
@@ -718,6 +719,42 @@ function ONJJEM_renderLanding(P) {
     const label = o1.wrap ? "This wraps around your " + (P.wrapWord || "mug") + " (your picture shows on both sides)" : (o1.ratio ? "This is exactly how it will print" : "Tap to change");
     box.innerHTML = `<img class="u-preview" src="${shown}" alt="Your photo" style="${o1.wrap ? "max-height:140px" : ""}${P.round ? ";border-radius:50%" : ""}"><div class="u-text">✓ ${isPresetDesign ? "Design chosen" : (n > 1 ? n + " photos added" : "Photo added")}</div><div class="u-hint">${label}${P.designsOnly || label === "Tap to change" ? "" : " · tap to change"}</div>`;
     applySwatch();
+    showCartoonBtn();
+  }
+
+  // "See my FREE cartoon" straight after upload, before any buying.
+  let cartoonBtn = null;
+  const earlyOk = () => !!(early && photo && early.forPhoto === photos[0] && !isTextDesign && !isPresetDesign && !(isMulti() && photos.length > 1));
+  function showCartoonBtn() {
+    if (!P.cartoon || typeof ONJJEM_quickCartoon !== "function") return;
+    if (!cartoonBtn) {
+      cartoonBtn = document.createElement("button");
+      cartoonBtn.type = "button";
+      cartoonBtn.className = "btn";
+      cartoonBtn.id = "cartoonNowBtn";
+      cartoonBtn.style.marginTop = "0.7rem";
+      box.insertAdjacentElement("afterend", cartoonBtn);
+      cartoonBtn.addEventListener("click", async () => {
+        if (earlyOk()) { early = null; await refreshPhoto(); return; }
+        const forPhoto = photos[0];
+        ONJJEM_quickCartoon(photo, async r => {
+          early = { forPhoto, previewId: r.previewId, previewSrc: r.previewSrc };
+          await refreshPhoto();
+          box.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      });
+    }
+    const can = photo && !isTextDesign && !isPresetDesign && !(isMulti() && photos.length > 1);
+    cartoonBtn.style.display = can ? "" : "none";
+    if (!can) return;
+    if (earlyOk()) {
+      box.innerHTML = `<img class="u-preview" src="${early.previewSrc}" alt="Your cartoon"><div class="u-text">✓ Your cartoon is on your gift</div><div class="u-hint">The preview mark won't be printed · tap to change photo</div>`;
+      cartoonBtn.textContent = "↩ Use my original photo instead";
+      cartoonBtn.style.background = "transparent"; cartoonBtn.style.color = "var(--gold-light)"; cartoonBtn.style.border = "1px solid var(--gold)";
+    } else {
+      cartoonBtn.textContent = "✨ See my FREE cartoon now";
+      cartoonBtn.style.background = ""; cartoonBtn.style.color = ""; cartoonBtn.style.border = "";
+    }
   }
 
   optionEls.forEach(el => el.addEventListener("click", async () => {
@@ -790,6 +827,15 @@ function ONJJEM_renderLanding(P) {
     if (!chosen()) { status.textContent = "Please choose a size first 👕"; variantWrap.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     if (!photo) { status.textContent = P.needPhotoMsg || "Please add your photo first 📸"; (P.designsOnly && designWrap ? designWrap : box).scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     status.textContent = "";
+    if (earlyOk()) {
+      const e = early;
+      status.style.color = "var(--muted)";
+      status.textContent = "Preparing your cartoon…";
+      ONJJEM_finalCartoon(photo, e.previewId)
+        .then(c => { status.textContent = ""; then({ addCartoon: true, confirmedCartoonBase64: c }); })
+        .catch(() => { status.textContent = ""; then({ addCartoon: true }); });
+      return;
+    }
     const collage = isMulti() && photos.length > 1; // cartoons are for single photos
     if (P.cartoon && !collage && !isTextDesign && !isPresetDesign && typeof ONJJEM_showPhotoPreview === "function") {
       ONJJEM_showPhotoPreview(photo, cartoonOpts => then(cartoonOpts));

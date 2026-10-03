@@ -185,3 +185,82 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
     }
   });
 }
+
+// ── Instant free cartoon (straight after upload, no buying needed) ──────────
+// onDone({ addCartoon: true, confirmedCartoonBase64 }) when they choose to use it.
+function ONJJEM_quickCartoon(photoBase64, onDone) {
+  const mimeType = ONJJEM_toDataUrlParts(photoBase64);
+  const style = window.ONJJEM_CARTOON_STYLE || undefined;
+  const free = window.ONJJEM_CARTOON_FREE || window.ONJJEM_REGION === "us";
+  const overlay = document.createElement("div");
+  overlay.className = "cartoon-preview-overlay";
+  overlay.innerHTML = `<div class="cartoon-preview-card">
+      <div class="cartoon-preview-title">Making your cartoon… ✨</div>
+      <p class="cartoon-email-note">This takes a few seconds.</p>
+      <div class="cartoon-preview-loading"></div></div>`;
+  document.body.appendChild(overlay);
+  const card = overlay.querySelector(".cartoon-preview-card");
+  const close = () => overlay.remove();
+  (async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/cartoonify`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ base64Image: photoBase64, mimeType, watermark: true, style }) });
+      const data = await res.json();
+      try { if (typeof gtag === "function") gtag("event", data.alreadyUsed ? "cartoon_preview_limit" : "cartoon_preview", { where: "instant" }); } catch (e) {}
+      if (data.alreadyUsed) {
+        card.innerHTML = `<div class="cartoon-preview-title">You've used your free previews ✨</div>
+          <p class="cartoon-email-note">You can still have your photo made into a cartoon when you order. Just tick yes at checkout.</p>
+          <button class="cartoon-btn-primary" data-role="ok" style="width:100%;margin-top:10px">OK</button>`;
+        card.querySelector('[data-role="ok"]').onclick = close;
+        return;
+      }
+      if (!res.ok || !data.base64Image) throw new Error("preview failed");
+      const src = `data:${data.mimeType};base64,${data.base64Image}`;
+      card.innerHTML = `<div class="cartoon-preview-title">Here's your cartoon! ✨</div>
+        <img class="cartoon-preview-img" src="${src}" alt="Your cartoon preview" style="display:block;margin-bottom:12px;border-radius:12px">
+        <button class="cartoon-btn-primary" data-role="use" style="width:100%">Put this cartoon on my gift${free ? " (FREE)" : " (+£1.99)"}</button>
+        <button class="cartoon-btn-secondary" data-role="share" style="width:100%;margin-top:10px">📲 Share my cartoon</button>
+        <button class="cartoon-btn-secondary" data-role="no" style="width:100%;margin-top:10px">Keep my original photo</button>`;
+      card.querySelector('[data-role="share"]').onclick = () => ONJJEM_shareCartoon(src);
+      card.querySelector('[data-role="no"]').onclick = close;
+      card.querySelector('[data-role="use"]').onclick = () => {
+        close();
+        onDone({ addCartoon: true, previewId: data.previewId, previewSrc: src });
+      };
+    } catch (e) {
+      card.innerHTML = `<div class="cartoon-preview-title">Couldn't make a preview</div><p class="cartoon-email-note">Please try again, or try a brighter photo with clear faces.</p><button class="cartoon-btn-primary" data-role="ok" style="width:100%">OK</button>`;
+      card.querySelector('[data-role="ok"]').onclick = close;
+    }
+  })();
+}
+
+// Share the preview with a small "made free at onjjem.com" strip, so friends find us.
+async function ONJJEM_shareCartoon(src) {
+  try { if (typeof gtag === "function") gtag("event", "cartoon_share"); } catch (e) {}
+  const site = window.ONJJEM_REGION === "us" ? "onjjem.com/us" : "onjjem.com";
+  const pageUrl = location.origin + location.pathname + "?utm_source=share&utm_medium=cartoon";
+  const img = await new Promise((ok, bad) => { const i = new Image(); i.onload = () => ok(i); i.onerror = bad; i.src = src; });
+  const w = img.width, strip = Math.round(w * 0.11);
+  const c = document.createElement("canvas"); c.width = w; c.height = img.height + strip;
+  const x = c.getContext("2d");
+  x.drawImage(img, 0, 0);
+  x.fillStyle = "#14110d"; x.fillRect(0, img.height, w, strip);
+  x.fillStyle = "#F3D078"; x.textAlign = "center"; x.textBaseline = "middle";
+  x.font = `bold ${Math.round(strip * 0.42)}px system-ui, sans-serif`;
+  x.fillText(`Make yours FREE at ${site}`, w / 2, img.height + strip / 2);
+  const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.9));
+  const file = new File([blob], "my-cartoon.jpg", { type: "image/jpeg" });
+  const text = `Look at my cartoon! 😂 Make yours free at ${site}`;
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text, url: pageUrl }); return; }
+    if (navigator.share) { await navigator.share({ text, url: pageUrl }); return; }
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "my-cartoon.jpg"; document.body.appendChild(a); a.click(); a.remove();
+}
+
+// The full-quality (unwatermarked) version of a preview, made at checkout time.
+async function ONJJEM_finalCartoon(photoBase64, previewId) {
+  const r = await fetch(`${API_BASE}/api/cartoonify`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ base64Image: photoBase64, mimeType: ONJJEM_toDataUrlParts(photoBase64), watermark: false, style: window.ONJJEM_CARTOON_STYLE || undefined, previewId }) });
+  const d = await r.json();
+  if (!r.ok || !d.base64Image) throw new Error("the cartoon couldn't be prepared");
+  return d.base64Image;
+}
