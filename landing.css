@@ -272,3 +272,13 @@ a { color: var(--gold); }
 @media (max-width:420px){.l-header .l-logo{font-size:1.75rem;letter-spacing:4px}}
 .hw-sp1{left:98px}
 @media (max-width:420px){.hw-sp1{left:90px}}
+
+/* Keep the option list short: "About this item" is folded away until tapped */
+.opt-details{padding:.6rem .9rem;margin:.2rem 0 .8rem}
+.opt-details summary{cursor:pointer;list-style:none;margin:0;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.opt-details summary::-webkit-details-marker{display:none}
+.opt-details summary::after{content:"▾";color:var(--gold)}
+.opt-details[open] summary::after{content:"▴"}
+.opt-details[open] summary{margin-bottom:.4rem}
+.opt-more{font-weight:400;font-size:.8rem;color:var(--muted);margin-left:auto}
+.opt-details[open] .opt-more{display:none}

@@ -583,11 +583,11 @@ function ONJJEM_renderLanding(P) {
   function renderDetails() {
     const o = opts[selected];
     let d = document.getElementById("optDetails");
-    if (!d) { d = document.createElement("div"); d.id = "optDetails"; d.className = "opt-details"; }
+    if (!d) { d = document.createElement("details"); d.id = "optDetails"; d.className = "opt-details"; if (opts.length <= 2) d.open = true; }
     const facts = o.details || ONJJEM_detailsFor(o.sku);
     if (!facts || !facts.length) { d.style.display = "none"; return; }
     const us = t => ONJJEM_isUS() ? String(t).replace(/colour/g, "color").replace(/Colour/g, "Color") : t;
-    d.innerHTML = `<div class="opt-details-title">About this item</div><ul>${facts.map(x => `<li>${esc(us(x))}</li>`).join("")}</ul>`;
+    d.innerHTML = `<summary class="opt-details-title">About this item <span class="opt-more">tap to read</span></summary><ul>${facts.map(x => `<li>${esc(us(x))}</li>`).join("")}</ul>`;
     d.style.display = "block";
     const anchor = variantWrap.style.display === "block" ? variantWrap : app.querySelectorAll(".option")[selected];
     if (anchor) anchor.after(d);
