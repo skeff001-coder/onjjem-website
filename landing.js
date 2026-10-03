@@ -1068,16 +1068,18 @@ if (window.PAGE) {
 }
 
 // Reliable in-page jumps ("Make my blanket", category links). On phones the page keeps growing
-// while images and fonts load, so a single smooth scroll can stop short on the first tap.
-// Jump straight to the target, then re-check as the layout settles.
+// while images and fonts load, so a single smooth scroll can stop short on the first tap, and iOS
+// can swallow the first tap while the toolbar is moving. Jump straight to the target on touch end
+// (or click), then re-check as the layout settles.
 (function () {
-  document.addEventListener("click", function (e) {
-    const a = e.target.closest && e.target.closest('a[href^="#"]');
-    if (!a) return;
+  let lastJump = 0, startX = 0, startY = 0, startT = 0;
+  function jump(a, e) {
     const id = decodeURIComponent((a.getAttribute("href") || "").slice(1));
     const t = id && document.getElementById(id);
-    if (!t) return;
-    e.preventDefault();
+    if (!t) return false;
+    if (e && e.cancelable) e.preventDefault();
+    if (Date.now() - lastJump < 700) return true; // already handled by touchend
+    lastJump = Date.now();
     const root = document.documentElement;
     const off = () => parseFloat(getComputedStyle(t).scrollMarginTop) || 0;
     const go = () => {
@@ -1089,5 +1091,15 @@ if (window.PAGE) {
     go();
     [100, 350, 800, 1600].forEach(ms => setTimeout(() => { if (Math.abs(t.getBoundingClientRect().top - off()) > 3) go(); }, ms));
     try { history.replaceState(null, "", "#" + id); } catch (err) {}
+    return true;
+  }
+  const link = e => e.target && e.target.closest && e.target.closest('a[href^="#"]');
+  document.addEventListener("touchstart", e => { const t = e.touches && e.touches[0]; if (t) { startX = t.clientX; startY = t.clientY; startT = Date.now(); } }, { passive: true });
+  document.addEventListener("touchend", e => {
+    const a = link(e); const t = e.changedTouches && e.changedTouches[0];
+    if (!a || !t) return;
+    if (Math.abs(t.clientX - startX) > 10 || Math.abs(t.clientY - startY) > 10 || Date.now() - startT > 600) return; // a scroll or long press, not a tap
+    jump(a, e);
   });
+  document.addEventListener("click", e => { const a = link(e); if (a) jump(a, e); });
 })();
