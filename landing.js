@@ -334,14 +334,22 @@ async function ONJJEM_mugWrap(dataUrl, aspect) {
   const c = document.createElement("canvas"); c.width = W; c.height = H;
   const ctx = c.getContext("2d");
   const s = Math.max(W / img.width, H / img.height);
-  ctx.filter = "blur(40px) brightness(0.9)";
-  ctx.drawImage(img, (W - img.width * s) / 2, (H - img.height * s) / 2, img.width * s, img.height * s);
-  ctx.filter = "none";
-  const ph = H * 0.9, pw = Math.min(ph * img.width / img.height, W * 0.46);
+  const seamless = window.PAGE && window.PAGE.wrapSeamless;
+  if (seamless) {
+    // Designs with a plain background: stretch the design's own edge colours
+    // across the gaps, so the two copies sit on one continuous background.
+    ctx.drawImage(img, 0, 0, Math.max(2, img.width * 0.03), img.height, 0, 0, W, H);
+    ctx.filter = "blur(30px)"; ctx.drawImage(c, 0, 0); ctx.filter = "none";
+  } else {
+    ctx.filter = "blur(40px) brightness(0.9)";
+    ctx.drawImage(img, (W - img.width * s) / 2, (H - img.height * s) / 2, img.width * s, img.height * s);
+    ctx.filter = "none";
+  }
+  const ph = H * (seamless ? 1 : 0.9), pw = Math.min(ph * img.width / img.height, W * (seamless ? 0.5 : 0.46));
   const fh = pw * img.height / img.width;
   const slots = pw * 2 <= W * 0.96 ? [0.25, 0.75] : [0.5];
   for (const f of slots) {
-    ctx.save(); ctx.shadowColor = "rgba(0,0,0,0.25)"; ctx.shadowBlur = 24;
+    ctx.save(); if (!seamless) { ctx.shadowColor = "rgba(0,0,0,0.25)"; ctx.shadowBlur = 24; }
     ctx.drawImage(img, W * f - pw / 2, (H - fh) / 2, pw, fh); ctx.restore();
   }
   return c.toDataURL("image/jpeg", 0.93);
