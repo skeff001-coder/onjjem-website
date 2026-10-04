@@ -111,38 +111,116 @@ function ONJJEM_spookyHtml() {
     <circle cx="17.8" cy="11.3" r="1.5" fill="#ff8a1c"/><circle cx="22.2" cy="11.3" r="1.5" fill="#ff8a1c"/></svg></span>`;
   return web("hw-web-l") + web("hw-web-r") + spider("hw-sp1") + spider("hw-sp2");
 }
+// ── Gift search: live suggestions from the first few letters ("mag" → magnets) ──
+const ONJJEM_GIFTS_UK = [
+  ["Fridge magnets", "/magnets", "magnet fridge photo grid acrylic"],
+  ["✨ Magic Reveal mug (colour-changing)", "/mug", "mug cup magic colour color changing heat reveal tea coffee"],
+  ["Photo mugs", "/mug", "mug cup tea coffee photo 11oz 15oz"],
+  ["Luxury photo throws (fleece blankets)", "/blanket", "blanket throw fleece sofa bed cosy"],
+  ["Scenic fine art prints", "/scenic-prints", "print poster scenery landscape fine art wall art santorini highlands amalfi"],
+  ["Giant posters & wall stickers", "/poster-sale", "poster giant wall sticker decal a1 a2 a3"],
+  ["Photo prints & postcards", "/prints", "print photo postcard 6x4 frame"],
+  ["Peel & Go photo frames", "/photo-tiles", "frame tile peel stick wall photo"],
+  ["Cushions", "/cushions", "cushion pillow sofa"],
+  ["Towels", "/cushions", "towel beach bath"],
+  ["Photo tote bags", "/tote", "tote bag shopping canvas"],
+  ["Baby reveal mug (it's a boy / girl)", "/baby-reveal", "baby gender reveal pregnancy announcement mug"],
+  ["Photo mouse mats", "/mousemat", "mouse mat mousepad desk computer"],
+  ["Coasters, tea towels & aprons", "/household.html", "coaster tea towel apron kitchen"],
+  ["Photo water bottles", "/water-bottle", "water bottle flask drink steel"],
+  ["Halloween cartoon gifts", "/halloween", "halloween spooky witch pumpkin costume trick treat"],
+  ["Kids football tees", "/football", "football soccer kit shirt kids"],
+  ["Kids t-shirts, jigsaws & cards", "/kids.html", "kids children tshirt tee shirt jigsaw puzzle card"],
+  ["Cartoon stickers", "/stickers", "sticker cartoon decal"],
+  ["Photo pin badges", "/badges", "badge pin button"],
+  ["Photo tattoos & iron-on patches", "/frames-gifts.html", "tattoo patch iron on"],
+  ["Christmas sweatshirts", "/christmas-sweatshirt", "christmas xmas jumper sweatshirt family"],
+  ["Christmas baubles & Santa sacks", "/christmas", "christmas xmas bauble santa sack stocking ornament"],
+  ["Your dog on a Christmas bauble", "/bauble", "bauble dog pet ornament christmas tree"],
+  ["Gift cards", "/gift-cards.html", "gift card voucher present"]
+];
+const ONJJEM_GIFTS_US = [
+  ["Wall tapestries (scenery or your photo)", "/us/tapestry", "tapestry wall hanging scenery landscape santorini alps"],
+  ["Photo fleece blankets", "/us/blanket", "blanket throw fleece cozy"],
+  ["Photo bedspreads", "/us/bedspread", "bedspread bed cover quilt twin queen king"],
+  ["Shower curtains", "/us/shower-curtain", "shower curtain bathroom beach"],
+  ["Woven photo tote bags", "/us/tote", "tote bag shopping"],
+  ["Photo wall clocks", "/us/clock", "clock wall time"],
+  ["Photo candles", "/us/candle", "candle jar scented"],
+  ["Photo prints & giant posters", "/us/prints", "print poster photo wall art"],
+  ["Photo mugs", "/us/mug", "mug cup coffee tea"],
+  ["Tumblers & water bottles", "/us/tumbler", "tumbler bottle water drink straw"],
+  ["Photo mouse mats", "/us/mousemat", "mouse mat mousepad desk"],
+  ["Halloween T-shirts & gifts", "/us/halloween", "halloween spooky witch pumpkin costume trick treat"],
+  ["Trick-or-treat pillowcase", "/us/pillowcase", "pillowcase pillow candy trick treat"],
+  ["Photo T-shirts & hoodies", "/us/tshirts", "tshirt tee shirt hoodie kids baby adult"],
+  ["Photo golf balls", "/us/golf", "golf ball"],
+  ["Photo pickleball paddles", "/us/pickleball", "pickleball paddle"],
+  ["Family Christmas sweatshirts & hoodies", "/us/christmas", "christmas xmas sweatshirt hoodie family"]
+];
 function ONJJEM_searchHtml() {
-  return `<form class="l-search" role="search" onsubmit="return ONJJEM_search(event)"><input id="gsearch" type="search" placeholder="Search gifts: mug, blanket, tote…" autocomplete="off" enterkeyhint="search" aria-label="Search gifts" oninput="ONJJEM_search(event)"></form>`;
+  return `<form class="l-search" role="search" onsubmit="return ONJJEM_search(event)"><input id="gsearch" type="search" placeholder="Search gifts: mug, blanket, tote…" autocomplete="off" enterkeyhint="search" aria-label="Search gifts" oninput="ONJJEM_search(event)" onfocus="ONJJEM_search(event)"><div id="gsuggest" class="l-suggest" role="listbox"></div></form>`;
 }
 (function () {
-  const SYN = { cup: "mug", pillow: "cushion", jumper: "sweatshirt", throw: "blanket", soccer: "football", wallhanging: "tapestry", shirt: "tshirt|tee|shirt", tee: "tshirt|tee|shirt", tshirt: "tshirt|tee|shirt", sack: "sack", bag: "tote" };
-  const compact = x => String(x || "").toLowerCase().replace(/&amp;/g, "&").replace(/[^a-z0-9]/g, "");
+  const norm = x => String(x || "").toLowerCase().replace(/&amp;/g, "&").replace(/[^a-z0-9 ]/g, " ");
+  const compact = x => norm(x).replace(/ /g, "");
+  // One typo allowed in longer words ("magents" → magnets).
+  const near = (a, b) => {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    let i = 0, j = 0, e = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j]) { i++; j++; continue; }
+      if (++e > 1) return false;
+      if (a.length > b.length) i++; else if (b.length > a.length) j++; else if (a[i + 1] === b[j] && a[i] === b[j + 1]) { i += 2; j += 2; } else { i++; j++; }
+    }
+    return e + (a.length - i) + (b.length - j) <= 1;
+  };
+  const wordScore = (q, words) => {
+    let best = 0;
+    for (const w of words) {
+      if (w === q) return 3;
+      if (w.startsWith(q)) best = Math.max(best, 2);
+      else if (q.length >= 4 && (w.includes(q) || near(q, w.slice(0, q.length)) || near(q, w))) best = Math.max(best, 1);
+    }
+    return best;
+  };
+  const rank = (raw) => {
+    const qs = norm(raw).split(/\s+/).filter(Boolean);
+    if (!qs.length) return [];
+    const list = ONJJEM_isUS() ? ONJJEM_GIFTS_US : ONJJEM_GIFTS_UK;
+    return list.map(([name, url, kw], i) => {
+      const words = norm(name + " " + kw).split(/\s+/).filter(Boolean);
+      let total = 0;
+      for (const q of qs) { const s = wordScore(q, words); if (!s) return null; total += s; }
+      if (norm(name).split(/\s+/).some(w => w.startsWith(qs[0]))) total += 1;
+      return { name, url, total, i };
+    }).filter(Boolean).sort((a, b) => b.total - a.total || a.i - b.i);
+  };
   window.ONJJEM_search = function (ev) {
     const input = document.getElementById("gsearch");
+    const box = document.getElementById("gsuggest");
     const raw = input ? input.value.trim() : "";
-    const tiles = document.querySelectorAll(".home-sec .tile");
+    const hits = rank(raw);
     if (ev && ev.type === "submit") {
       if (ev.preventDefault) ev.preventDefault();
-      if (!tiles.length) { if (raw) location.href = (ONJJEM_isUS() ? "/us/" : "/") + "?q=" + encodeURIComponent(raw); return false; }
+      if (hits.length) { location.href = hits[0].url; return false; }
     }
-    if (!tiles.length) return false;
-    const words = raw.toLowerCase().split(/\s+/).filter(Boolean).map(w => { w = SYN[w] || w; return w.split("|").map(x => { x = compact(x); return x.length > 3 ? x.replace(/(es|s)$/, "") : x; }).filter(Boolean); }).filter(a => a.length);
-    let shown = 0;
-    tiles.forEach(t => {
-      const hay = compact(t.textContent + " " + (t.getAttribute("href") || ""));
-      const ok = words.every(alts => alts.some(w => hay.includes(w)));
-      t.style.display = ok ? "" : "none";
-      if (ok) shown++;
-    });
-    document.querySelectorAll(".home-sec").forEach(sec => {
-      sec.style.display = !words.length || [...sec.querySelectorAll(".tile")].some(t => t.style.display !== "none") ? "" : "none";
-    });
-    let msg = document.getElementById("searchMsg");
-    if (!msg) { msg = document.createElement("p"); msg.id = "searchMsg"; msg.style.cssText = "text-align:center;color:var(--muted);padding:1.5rem 1rem"; const first = document.querySelector(".home-sec"); if (first && first.parentNode) first.parentNode.insertBefore(msg, first); }
-    msg.textContent = words.length && !shown ? "No gifts match that. Try a shorter word like mug, blanket or tote, or email hello@onjjem.com and we'll help." : "";
-    if (words.length && shown && ev && ev.type === "submit") { const f = document.querySelector(".home-sec .tile:not([style*=\"none\"])"); if (f) f.scrollIntoView({ behavior: "smooth", block: "center" }); }
+    if (box) {
+      box.innerHTML = !raw ? "" : hits.length
+        ? hits.slice(0, 6).map(h => `<a href="${h.url}" role="option">${esc(h.name)}</a>`).join("")
+        : `<div class="l-suggest-none">No match. Try mug, blanket, print or tote, or email hello@onjjem.com</div>`;
+      box.style.display = raw ? "block" : "none";
+    }
+    // On the homepage, also narrow the tiles to what matches.
+    const tiles = document.querySelectorAll(".home-sec .tile");
+    if (tiles.length) {
+      const urls = new Set(hits.map(h => h.url.replace(/\.html$/, "")));
+      tiles.forEach(t => { const href = (t.getAttribute("href") || "").replace(/\.html$/, "").split("#")[0]; t.style.display = !raw || urls.has(href) ? "" : "none"; });
+      document.querySelectorAll(".home-sec").forEach(sec => { sec.style.display = !raw || [...sec.querySelectorAll(".tile")].some(t => t.style.display !== "none") ? "" : "none"; });
+    }
     return false;
   };
+  document.addEventListener("click", e => { const b = document.getElementById("gsuggest"); if (b && !e.target.closest(".l-search")) b.style.display = "none"; });
   window.addEventListener("DOMContentLoaded", () => {
     const q = new URLSearchParams(location.search).get("q");
     if (q) setTimeout(() => { const i = document.getElementById("gsearch"); if (i) { i.value = q; ONJJEM_search({ type: "input" }); } }, 50);
@@ -175,11 +253,13 @@ function ONJJEM_footerHtml() {
   if (ONJJEM_isUS()) return `
   <footer class="l-footer">
     <p style="margin-bottom:0.5rem">Personalized gifts, made to order in the USA · <a href="mailto:hello@onjjem.com">hello@onjjem.com</a></p>
+<p class="l-social" style="margin:0.4rem 0 0.7rem"><a href="https://www.tiktok.com/@onjjem123" target="_blank" rel="noopener">▶ Watch us on TikTok</a><a href="https://www.instagram.com/onjjemgifts" target="_blank" rel="noopener">📸 Instagram</a></p>
     <a href="/us/shipping">Shipping</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/?uk=1">🇬🇧 UK shop</a>
   </footer>`;
   return `
   <footer class="l-footer">
     <p style="margin-bottom:0.5rem">Personalised gifts, handmade to order in the UK · <a href="mailto:hello@onjjem.com">hello@onjjem.com</a></p>
+<p class="l-social" style="margin:0.4rem 0 0.7rem"><a href="https://www.tiktok.com/@onjjem123" target="_blank" rel="noopener">▶ Watch us on TikTok</a><a href="https://www.instagram.com/onjjemgifts" target="_blank" rel="noopener">📸 Instagram</a></p>
     <a href="/delivery.html">Delivery</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a>
   </footer>`;
 }
