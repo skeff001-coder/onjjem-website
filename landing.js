@@ -648,7 +648,7 @@ function ONJJEM_renderLanding(P) {
     </section>` : ""}
   </main>
   ${ONJJEM_footerHtml()}
-  <div class="sticky-buy" id="stickyBuy"><a href="#order" class="btn">${P.stickyCta ? esc(P.stickyCta) : `${esc(P.cta || "Create yours now")} — ${money(fromPrice)}`}</a></div>
+  <div class="sticky-buy" id="stickyBuy"><a href="#order" class="btn">${P.stickyCta ? esc(P.stickyCta) : `${esc(P.cta || "Create yours now")} — ${opts.length > 1 ? "from " : ""}${money(fromPrice)}`}</a></div>
   `;
 
   // Pages can ask for the photo step first (it's the step that leads to the free preview).
