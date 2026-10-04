@@ -554,6 +554,7 @@ function ONJJEM_renderLanding(P) {
   ${ONJJEM_headerHtml()}
   <main>
     <section class="wrap l-hero">
+      ${P.cartoon && window.ONJJEM_CARTOON_STYLE ? `<div class="quick-cta"><button type="button" class="btn quick-cta-btn" id="quickCartoonBtn">${window.ONJJEM_CARTOON_STYLE === "christmas" ? "🎄 See YOUR Christmas cartoon FREE" : "🎃 See YOUR Halloween cartoon FREE"}</button><div class="quick-cta-sub">Pick a photo of your kids, family or pet. Ready in seconds, nothing to pay.</div></div>` : ""}
       <div class="l-hero-img"><img src="${P.heroImg}" alt="${esc(P.heroAlt || P.title)}"></div>
       <div>
         <div class="l-kicker">${esc(P.kicker)}</div>
@@ -870,6 +871,16 @@ function ONJJEM_renderLanding(P) {
   };
   window.ONJJEM_currentOption = () => opts[selected];
 
+  // Big "See YOUR cartoon FREE" button at the top: straight to the photo picker,
+  // then straight to the free cartoon. No scrolling, no product choice first.
+  let quickMode = false;
+  const qBtn = document.getElementById("quickCartoonBtn");
+  if (qBtn) qBtn.addEventListener("click", () => {
+    quickMode = true;
+    onjjemGa("event", "quick_cartoon_click");
+    input.click();
+  });
+
   // Photo upload
   box.addEventListener("click", () => { if (!P.designsOnly) input.click(); });
   box.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") input.click(); });
@@ -885,6 +896,10 @@ function ONJJEM_renderLanding(P) {
       orient = null;
       await refreshPhoto();
       input.value = "";
+      if (quickMode) {
+        quickMode = false;
+        if (cartoonBtn && cartoonBtn.style.display !== "none") { box.scrollIntoView({ behavior: "smooth", block: "center" }); cartoonBtn.click(); }
+      }
       onjjemGa("event", "add_to_cart", { currency: ONJJEM_cur(), value: opts[selected].price, items: [{ item_id: opts[selected].sku, item_name: opts[selected].name, price: opts[selected].price }] });
     } catch (err) {
       photos = []; await refreshPhoto();

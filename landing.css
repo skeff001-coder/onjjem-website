@@ -298,3 +298,8 @@ a { color: var(--gold); }
 .l-suggest a:first-child{background:#2a2620}
 .l-suggest a:hover{background:#3a3326;color:var(--gold-light)}
 .l-suggest-none{padding:0.8rem 1rem;color:#bbb;font-size:0.95rem}
+
+.quick-cta{grid-column:1/-1;text-align:center;margin:0 0 1rem}
+.quick-cta-btn{font-size:1.25rem;padding:1.1rem 1rem;box-shadow:0 0 0 3px rgba(243,208,120,.35),0 8px 24px rgba(0,0,0,.4);animation:qpulse 2s ease-in-out infinite}
+.quick-cta-sub{color:var(--muted);font-size:.92rem;margin-top:.5rem}
+@keyframes qpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
