@@ -19,7 +19,7 @@ function readPage(file) {
 }
 
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const plain = s => String(s || "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const plain = s => String(s || "").replace(/<[^>]+>/g, "").replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, "").replace(/\s+/g, " ").trim();
 const abs = u => !u ? "" : /^https?:/.test(u) ? u : SITE + (u.startsWith("/") ? u : "/" + u);
 
 const LATE = /(halloween|christmas|bauble|baby-reveal|poster-sale|winter-warmers|football)/; // seasonal pages: only for products no other page sells
@@ -42,6 +42,7 @@ for (const f of files) {
     const word = us ? "Personalized" : "Personalised";
     let title = plain(o.name).replace(/\s+—\s+/g, " ");
     const g = f.replace(/\.html$/, "");
+    if (o.sku === "magic-mug") title += " – colour-changing";
     if (/^(Small|Medium|Large|Giant|Extra)\b/.test(title) && NOUN[g]) title = NOUN[g] + " " + title.charAt(0).toLowerCase() + title.slice(1);
     const desc = plain([o.note, page.sub].filter(Boolean).join(". "));
     feeds[region].set(o.sku, {
