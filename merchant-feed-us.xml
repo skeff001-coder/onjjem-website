@@ -159,7 +159,7 @@
 <g:title>Photo mouse mat 8×10″ – Personalized with your photo</g:title>
 <g:description>Anti-slip base, wipe-clean top. The kids, the dog or the whole family looking up at you all day at the desk. A great gift for Dad, Grandpa and anyone who works from home.</g:description>
 <g:link>https://onjjem.com/us/mousemat?utm_source=google&amp;utm_medium=shopping</g:link>
-<g:image_link>https://onjjem.com/mousemat-hero.jpg</g:image_link>
+<g:image_link>https://onjjem.com/mousemat-hero.jpg?v=3</g:image_link>
 <g:availability>in_stock</g:availability>
 <g:price>22.99 USD</g:price>
 <g:condition>new</g:condition>
@@ -414,7 +414,7 @@
 <g:title>Woven photo tote bag 17×18″ – Personalized with your photo</g:title>
 <g:description>Lined, double-stitched, cotton straps. The kids, the dog or the whole family woven right into a lined tote bag. A gift for Mom or Grandma she'll carry every day.</g:description>
 <g:link>https://onjjem.com/us/tote?utm_source=google&amp;utm_medium=shopping</g:link>
-<g:image_link>https://onjjem.com/tote-hero.jpg</g:image_link>
+<g:image_link>https://onjjem.com/tote-hero.jpg?v=2</g:image_link>
 <g:availability>in_stock</g:availability>
 <g:price>45.99 USD</g:price>
 <g:condition>new</g:condition>
@@ -437,6 +437,11 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>us/tshirts</g:item_group_id>
+<g:color>Orange/Black/Purple</g:color>
+<g:size>Youth XS (4-5)</g:size>
+<g:gender>unisex</g:gender>
+<g:age_group>kids</g:age_group>
+<g:google_product_category>212</g:google_product_category>
 <g:shipping><g:country>US</g:country><g:price>0.00 USD</g:price></g:shipping>
 </item>
 <item>
@@ -452,6 +457,11 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>us/tshirts</g:item_group_id>
+<g:color>Orange/Black/Purple</g:color>
+<g:size>2T</g:size>
+<g:gender>unisex</g:gender>
+<g:age_group>toddler</g:age_group>
+<g:google_product_category>212</g:google_product_category>
 <g:shipping><g:country>US</g:country><g:price>0.00 USD</g:price></g:shipping>
 </item>
 <item>
@@ -467,6 +477,11 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>us/tshirts</g:item_group_id>
+<g:color>White/Black/Pink</g:color>
+<g:size>6-12 months</g:size>
+<g:gender>unisex</g:gender>
+<g:age_group>infant</g:age_group>
+<g:google_product_category>212</g:google_product_category>
 <g:shipping><g:country>US</g:country><g:price>0.00 USD</g:price></g:shipping>
 </item>
 <item>
@@ -482,6 +497,11 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>us/tshirts</g:item_group_id>
+<g:color>Black/White/Purple</g:color>
+<g:size>S</g:size>
+<g:gender>unisex</g:gender>
+<g:age_group>adult</g:age_group>
+<g:google_product_category>212</g:google_product_category>
 <g:shipping><g:country>US</g:country><g:price>0.00 USD</g:price></g:shipping>
 </item>
 <item>
@@ -497,6 +517,11 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>us/tshirts</g:item_group_id>
+<g:color>Red/Kelly Green/Navy</g:color>
+<g:size>S</g:size>
+<g:gender>unisex</g:gender>
+<g:age_group>adult</g:age_group>
+<g:google_product_category>212</g:google_product_category>
 <g:shipping><g:country>US</g:country><g:price>0.00 USD</g:price></g:shipping>
 </item>
 <item>
@@ -512,6 +537,11 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>us/tshirts</g:item_group_id>
+<g:color>Red/Navy/White</g:color>
+<g:size>Youth S (6-8)</g:size>
+<g:gender>unisex</g:gender>
+<g:age_group>kids</g:age_group>
+<g:google_product_category>212</g:google_product_category>
 <g:shipping><g:country>US</g:country><g:price>0.00 USD</g:price></g:shipping>
 </item>
 <item>
@@ -572,6 +602,11 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>us/christmas</g:item_group_id>
+<g:color>Red/Navy/White</g:color>
+<g:size>Youth XS (4-5)</g:size>
+<g:gender>unisex</g:gender>
+<g:age_group>kids</g:age_group>
+<g:google_product_category>212</g:google_product_category>
 <g:shipping><g:country>US</g:country><g:price>0.00 USD</g:price></g:shipping>
 </item>
 </channel>

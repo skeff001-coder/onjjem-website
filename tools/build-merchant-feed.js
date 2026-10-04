@@ -23,6 +23,15 @@ const plain = s => String(s || "").replace(/<[^>]+>/g, "").replace(/[\u{1F300}-\
 const abs = u => !u ? "" : /^https?:/.test(u) ? u : SITE + (u.startsWith("/") ? u : "/" + u);
 
 const LATE = /(halloween|christmas|bauble|baby-reveal|poster-sale|winter-warmers|football)/; // seasonal pages: only for products no other page sells
+// Clothing needs colour, size, gender and age group for Google Shopping.
+function apparelInfo(o, title) {
+  if (!/t-shirt|tee\b|sweatshirt|hoodie/i.test(title)) return null;
+  const cols = (o.colours || []).map(c => c[1]).slice(0, 3);
+  const colour = cols.length ? cols.join("/") : (/christmas/i.test(title) ? "Red/Green/Navy" : "Black/White");
+  const size = o.sizes && o.sizes.length ? String(o.sizes[0][1]).replace(/[–]/g, "-") : (/kid|youth|toddler|baby/i.test(title) ? "5-6 years" : "M");
+  const age = /baby/i.test(title) ? "infant" : /toddler/i.test(title) ? "toddler" : /kid|youth/i.test(title) ? "kids" : "adult";
+  return { colour, size, age };
+}
 const files = fs.readdirSync(ROOT).filter(f => f.endsWith(".html")).concat(fs.readdirSync(path.join(ROOT, "us")).filter(f => f.endsWith(".html")).map(f => "us/" + f))
   .sort((a, b) => (LATE.test(a) ? 1 : 0) - (LATE.test(b) ? 1 : 0));
 const NOUN = { blanket: "Luxury photo throw", prints: "Photo print", "us/blanket": "", cushions: "" };
@@ -52,7 +61,8 @@ for (const f of files) {
       link, image: abs(o.img || o.image) || img,
       price: `${Number(o.price).toFixed(2)} ${us ? "USD" : "GBP"}`,
       country: us ? "US" : "GB",
-      group: f.replace(/\.html$/, "")
+      group: f.replace(/\.html$/, ""),
+      apparel: apparelInfo(o, title)
     });
   }
 }
@@ -77,7 +87,12 @@ ${[...items.values()].map(i => `<item>
 <g:brand>ONJJEM</g:brand>
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
-<g:item_group_id>${esc(i.group)}</g:item_group_id>
+<g:item_group_id>${esc(i.group)}</g:item_group_id>${i.apparel ? `
+<g:color>${esc(i.apparel.colour)}</g:color>
+<g:size>${esc(i.apparel.size)}</g:size>
+<g:gender>unisex</g:gender>
+<g:age_group>${i.apparel.age}</g:age_group>
+<g:google_product_category>212</g:google_product_category>` : ""}
 <g:shipping><g:country>${i.country}</g:country><g:price>0.00 ${cur}</g:price></g:shipping>
 </item>`).join("\n")}
 </channel>
