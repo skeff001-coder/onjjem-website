@@ -1175,7 +1175,7 @@ async function ONJJEM_openBasket() {
     </div>`;
   document.body.appendChild(panel);
   panel.addEventListener("click", e => { if (e.target === panel) panel.remove(); });
-  panel.querySelector("#basketMore").onclick = () => { panel.remove(); if (!window.PAGE) location.href = ONJJEM_isUS() ? "/us/" : "/tiktok"; };
+  panel.querySelector("#basketMore").onclick = () => { panel.remove(); if (!window.PAGE && !/^\/(us\/)?(index\.html)?$/.test(location.pathname)) location.href = ONJJEM_isUS() ? "/us/" : "/"; };
   const emptyBtn = panel.querySelector("#basketEmpty");
   if (emptyBtn) emptyBtn.onclick = async () => {
     if (!confirm("Remove everything from your basket?")) return;
