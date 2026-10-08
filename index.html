@@ -22,7 +22,9 @@
   } catch (e) {}
   gtag('config', 'G-3L30Q5L3MW');
 </script>
-<link rel="stylesheet" href="/landing.css?v=20261008b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/landing.css?v=20261008c">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a">
 </head>
 <body>
@@ -35,48 +37,39 @@
     <p style="margin-top:0.6rem"><strong>Love it when it arrives?</strong> Email a photo of it to <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> and we'll send you <strong>20% off</strong> your next order.</p>
   </div></div>
 
-  <section class="wrap home-top">
-    <a href="#cat-walls" class="home-top-img"><img src="/cat-prints.jpg" alt="Family photo prints on a table"></a>
-    <div class="home-top-text">
-      <h1>Your photos on blankets, wall art and keepsakes made to last</h1>
-      <p>Fleece blankets, giant posters, framed prints, cushions and personalised gifts made from any photo on your phone or computer. Made in the UK, free UK delivery.</p>
-      <a class="btn home-btn" href="#cat-walls">Shop blankets &amp; wall art</a>
+  <section class="wrap lx-hero">
+    <div class="lx-kicker">Personalised gifts · Made in the UK</div>
+    <h1 class="lx-h1">Your photos, made into beautiful gifts</h1>
+    <p class="lx-sub">Blankets, wall art, cushions, mugs and more, made from any photo. Free UK delivery.</p>
+  </section>
+
+  <section class="wrap" id="shop">
+    <div class="lx-grid">
+      <a class="lx-card" href="/blanket"><img src="/home/blankets.jpg?v=1" alt="Luxury blankets & throws" loading="eager"><span class="lx-name">Luxury blankets & throws</span><span class="lx-price">From £47.99</span></a>
+      <a class="lx-card" href="/scenic-prints"><img src="/home/wall-art.jpg?v=1" alt="Wall art & framed prints" loading="eager"><span class="lx-name">Wall art & framed prints</span><span class="lx-price">From £15.49</span></a>
+      <a class="lx-card" href="/cushions"><img src="/home/cushions.jpg?v=1" alt="Cushions" loading="eager"><span class="lx-name">Cushions</span><span class="lx-price">From £23.49</span></a>
+      <a class="lx-card" href="/mug"><img src="/home/mugs.jpg?v=1" alt="Mugs & Magic Reveal mugs" loading="eager"><span class="lx-name">Mugs & Magic Reveal mugs</span><span class="lx-price">From £13.99</span></a>
+      <a class="lx-card" href="/photo-tiles"><img src="/home/frames.jpg?v=1" alt="Photo frames" loading="lazy"><span class="lx-name">Photo frames</span><span class="lx-price">From £22.99</span></a>
+      <a class="lx-card" href="/prints"><img src="/home/prints.jpg?v=1" alt="Photo prints" loading="lazy"><span class="lx-name">Photo prints</span><span class="lx-price">From £3.99</span></a>
+      <a class="lx-card" href="/tote"><img src="/home/totes.jpg?v=1" alt="Tote bags" loading="lazy"><span class="lx-name">Tote bags</span><span class="lx-price">£27.99</span></a>
+      <a class="lx-card" href="/poster-sale"><img src="/home/posters.jpg?v=1" alt="Posters & wall stickers" loading="lazy"><span class="lx-name">Posters & wall stickers</span><span class="lx-price">From £15.49</span></a>
     </div>
+    <div class="lx-more"><a href="#cat-walls">See all gifts ↓</a></div>
+    <div class="lx-trust"><span>✓ See your design before you pay</span><span>✓ Free UK delivery</span><span>✓ Secure checkout</span><span>✓ Family business, Preston</span></div>
   </section>
 
   <section class="wrap" id="hw-banner">
-    <a class="hw-banner" href="/halloween">
-      <img src="/cat-halloween.jpg" alt="Two kids turned into Halloween cartoons">
-      <div class="hw-text">
-        <div class="hw-kicker">🎃 Halloween specials · <span id="hw-days"></span></div>
-        <h2>Turn your kids into Halloween cartoons</h2>
-        <p>Free Halloween cartoon of your kids on T-shirts, mugs, magnets and stickers. Order by 22 October.</p>
-        <span class="hw-btn">See Halloween specials →</span>
-      </div>
-    </a>
+    <a class="lx-strip" href="/halloween">🎃 <strong>Halloween gifts</strong> · free cartoon of your kids or pets · <span id="hw-days"></span> →</a>
   </section>
   <script>
   (function () {
-    var end = new Date(new Date().getFullYear(), 10, 1); // hides from 1 November
+    var end = new Date(new Date().getFullYear(), 10, 1);
     var b = document.getElementById("hw-banner");
     var left = Math.ceil((new Date(new Date().getFullYear(), 9, 31) - new Date()) / 864e5);
     if (new Date() >= end) { b.style.display = "none"; return; }
     document.getElementById("hw-days").textContent = left > 1 ? left + " days to go" : left === 1 ? "tomorrow!" : "it's today!";
   })();
   </script>
-
-  <section class="wrap home-shop" id="shop">
-    <h2 class="home-h2">Shop by category</h2>
-    <div class="cat-grid">
-      <a class="cat-card" href="#cat-walls"><img src="/cat-poster.jpg" alt="" loading="lazy"><span>Blankets, prints &amp; wall art</span></a>
-      <a class="cat-card" href="#cat-home"><img src="/cat-home-uk.jpg?v=2" alt="" loading="lazy"><span>For the home &amp; desk</span></a>
-      <a class="cat-card" href="#cat-halloween"><img src="/cat-halloween-uk.jpg" alt="" loading="lazy"><span>Halloween</span></a>
-      <a class="cat-card" href="#cat-kids"><img src="/cat-kids.jpg" alt="" loading="lazy"><span>Kids &amp; small gifts</span></a>
-      <a class="cat-card" href="#cat-christmas"><img src="/cat-christmas.jpg" alt="" loading="lazy"><span>Christmas</span></a>
-      <a class="cat-card" href="#cat-giftcards"><img src="/products/gift-card-onjjem-sq.jpg" alt="" loading="lazy"><span>Gift cards</span></a>
-    </div>
-    <p class="home-deal">Save 10% on 2 gifts · 12% on 3 or more</p>
-  </section>
 
   <section class="wrap home-sec home-sec-main" id="cat-walls">
     <div class="home-sec-head"><h2>🛋️ Blankets, wall art &amp; statement gifts</h2><a href="#shop">All categories ↑</a></div>
@@ -160,7 +153,7 @@
 </main>
 
 <div id="ftr"></div>
-<script src="/landing.js?v=20261008b"></script>
+<script src="/landing.js?v=20261008c"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();

@@ -101,6 +101,7 @@ function ONJJEM_reviewsHtml() {
 // ── Halloween decorations (cobwebs + dangling spiders), until 1 November ──
 function ONJJEM_spookyHtml() {
   if (new Date() >= new Date("2026-11-01T00:00:00")) return "";
+  if (/^\/(us\/)?(index\.html)?$/.test(location.pathname)) return ""; // keep the homepage clean
   const web = (cls) => `<svg class="hw-web ${cls}" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="rgba(240,240,240,0.8)" stroke-width="1.1">
     <path d="M0 0L100 8M0 0L88 40M0 0L60 70M0 0L32 92M0 0L8 100"/>
     <path d="M22 2Q19 9 20 18Q13 16 7 21Q5 13 2 22"/><path d="M45 4Q40 18 40 34Q27 33 15 42Q11 27 4 45"/>
