@@ -155,6 +155,36 @@
 <g:shipping><g:country>GB</g:country><g:price>0.00 GBP</g:price></g:shipping>
 </item>
 <item>
+<g:id>UK-card-giant-a4</g:id>
+<g:title>GIANT card (A4 size) – Personalised with your photo</g:title>
+<g:description>Twice the size of a normal card. Sent to you with a big envelope. Your photo, your pet or a free cartoon on the front of a greeting card, with your own words. Our giant A4 card is the one everybody laughs at, keeps and stands on the shelf.</g:description>
+<g:link>https://onjjem.com/cards?utm_source=google&amp;utm_medium=shopping</g:link>
+<g:image_link>https://onjjem.com/cards-hero.jpg?v=1</g:image_link>
+<g:availability>in_stock</g:availability>
+<g:price>9.99 GBP</g:price>
+<g:condition>new</g:condition>
+<g:brand>ONJJEM</g:brand>
+<g:identifier_exists>no</g:identifier_exists>
+<g:is_bundle>no</g:is_bundle>
+<g:item_group_id>cards</g:item_group_id>
+<g:shipping><g:country>GB</g:country><g:price>0.00 GBP</g:price></g:shipping>
+</item>
+<item>
+<g:id>UK-card-7x5</g:id>
+<g:title>Greeting card (7×5″) – Personalised with your photo</g:title>
+<g:description>Standard card size. Sent to you with an envelope. Your photo, your pet or a free cartoon on the front of a greeting card, with your own words. Our giant A4 card is the one everybody laughs at, keeps and stands on the shelf.</g:description>
+<g:link>https://onjjem.com/cards?utm_source=google&amp;utm_medium=shopping</g:link>
+<g:image_link>https://onjjem.com/cards-hero.jpg?v=1</g:image_link>
+<g:availability>in_stock</g:availability>
+<g:price>5.99 GBP</g:price>
+<g:condition>new</g:condition>
+<g:brand>ONJJEM</g:brand>
+<g:identifier_exists>no</g:identifier_exists>
+<g:is_bundle>no</g:is_bundle>
+<g:item_group_id>cards</g:item_group_id>
+<g:shipping><g:country>GB</g:country><g:price>0.00 GBP</g:price></g:shipping>
+</item>
+<item>
 <g:id>UK-cushion-12-single</g:id>
 <g:title>Cushion 12×12″ (30cm) – Personalised with your photo</g:title>
 <g:description>Faux linen, filled. Picture on the front. Put the dog on the sofa (officially), or wrap up in your favourite holiday photo. Soft faux-linen cushions and plush towels, printed edge to edge.</g:description>

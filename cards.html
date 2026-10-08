@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalised Photo Greeting Cards &amp; Giant Cards | ONJJEM</title>
+<meta name="description" content="Your photo or cartoon on a greeting card, with your words on the front. Giant A4 cards £9.99, 7×5 cards £5.99. Free UK delivery.">
+<link rel="canonical" href="https://onjjem.com/cards">
+<meta property="og:title" content="Personalised Photo Greeting Cards &amp; Giant Cards | ONJJEM">
+<meta property="og:description" content="Your photo or cartoon on a greeting card, with your words on the front. Giant A4 cards £9.99, 7×5 cards £5.99. Free UK delivery.">
+<meta property="og:image" content="https://onjjem.com/cards-hero.jpg?v=2">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('notrack') === '1') localStorage.setItem('onjjem_notrack', '1');
+    if (q.get('notrack') === '0') localStorage.removeItem('onjjem_notrack');
+    if (localStorage.getItem('onjjem_notrack')) window['ga-disable-G-3L30Q5L3MW'] = true;
+  } catch (e) {}
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<link rel="stylesheet" href="/landing.css?v=20261008g">
+<link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.PAGE = {
+  kicker: "New · Personalised cards",
+  title: "Their face on a GIANT birthday card",
+  sub: "Your photo, your pet or a free cartoon on the front of a greeting card, with your own words. Our giant A4 card is the one everybody laughs at, keeps and stands on the shelf.",
+  heroImg: "/cards-hero.jpg?v=1",
+  heroAlt: "Giant personalised greeting card with a family photo",
+  ticks: [
+    "Your photo or cartoon on the front, with your own words",
+    "Blank inside for your own message, with an envelope",
+    "Thick premium 324gsm card, matte finish",
+    "Made in the UK with free delivery"
+  ],
+  cta: "Make my card",
+  optionWord: "your card",
+  orderTitle: "Make your card",
+  cartoon: true,
+  captionLabel: "Words on the front of the card?",
+  captionPlaceholder: "e.g. Happy Birthday Nan! 🎂",
+  photoHint: "Faces and pets look brilliant. A clear, bright photo works best.",
+  options: [
+    { sku: "card-giant-a4", ratio: [210, 297], name: "🎉 GIANT card (A4 size)", note: "Twice the size of a normal card. Sent to you with a big envelope", price: 9.99, badge: "MOST POPULAR", default: true },
+    { sku: "card-7x5", ratio: [5, 7], name: "Greeting card (7×5″)", note: "Standard card size. Sent to you with an envelope", price: 5.99 }
+  ],
+  faq: [
+    ["Who is the card posted to?", "To you, with a blank envelope, so you can write your own message inside and give it or post it yourself."],
+    ["What's printed?", "Your photo (or cartoon) on the front, with your words if you add them. The inside is left blank for your own message."],
+    ["How long does it take?", "Made in the UK in 1–2 working days, then 2–3 days in the post."],
+    ["Is there anything you can't print?", "Please only send pictures you have the right to use. We can't print football club badges, brand logos or cartoon characters from films and TV, or anything offensive."],
+    ["What if something's wrong?", "If your card arrives damaged or misprinted, email hello@onjjem.com with a photo and we'll replace it free."]
+  ]
+};
+</script>
+<script src="/landing.js?v=20261008g"></script>
+<script src="/cartoonify-shared.js?v=20261005a"></script>
+</body>
+</html>
