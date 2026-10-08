@@ -317,9 +317,15 @@ a { color: var(--gold); }
 .lx-card{display:flex;flex-direction:column;text-decoration:none;color:var(--text)}
 .lx-card img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;background:#2a2a2a;transition:transform .25s}
 .lx-card:hover img{transform:scale(1.02)}
-.lx-name{font-weight:600;font-size:0.95rem;margin-top:0.5rem;line-height:1.25}
-.lx-price{color:var(--gold);font-size:0.85rem;margin-top:0.15rem}
+.lx-name{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.12rem;line-height:1.2;color:#f0c75e;margin:0 0 0.45rem;padding-left:0.55rem;border-left:3px solid #f0c75e;min-height:2.4em;display:flex;align-items:center}
+.lx-price{color:var(--text);font-size:0.88rem;font-weight:600;margin-top:0.4rem}
 .lx-more{text-align:center;margin:1.1rem 0 0.4rem}
 .lx-more a{display:inline-block;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:0.55rem 1.3rem;text-decoration:none;font-size:0.9rem}
 .lx-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:0.35rem 1rem;margin:0.8rem 0 0.4rem;font-size:0.8rem;color:var(--muted)}
 .lx-strip{display:block;text-align:center;margin:0.8rem 0 0.4rem;padding:0.7rem 1rem;border-radius:10px;background:rgba(255,140,0,0.08);border:1px solid rgba(255,140,0,0.35);color:var(--text);text-decoration:none;font-size:0.9rem}
+
+/* Lower category tiles: name on top, bold serif in gold */
+.tile .t-body{order:-1;padding:0.8rem 0.85rem 0.6rem;min-height:6.2em;display:flex;flex-direction:column;justify-content:space-between}
+.tile h3,.tile .t-body h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.08rem;color:#f0c75e;line-height:1.2}
+.tile .t-price{color:var(--text);font-weight:600}
+.home-sec-head h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:0.01em}
