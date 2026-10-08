@@ -563,6 +563,7 @@ function ONJJEM_renderLanding(P) {
         <div class="l-price">${opts.length > 1 ? "From " : ""}${money(fromPrice)} <small>· ${ONJJEM_deliveryWord()}</small></div>
         <ul class="l-ticks">${P.ticks.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
         <a href="#order" class="btn">${esc(P.cta || "Create yours now")}</a>
+        <div class="hero-trust"><span>👀 See it before you pay</span><span>🔒 Secure checkout</span><span>🚚 Free delivery</span>${P.cartoon ? "<span>🎁 Free cartoon to keep</span>" : ""}<span>👋 Family business, Preston</span></div>
       </div>
     </section>
 
@@ -624,10 +625,12 @@ function ONJJEM_renderLanding(P) {
 
         <div class="order-total"><span>Total <small style="color:var(--muted)">(${ONJJEM_deliveryWord()})</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
         <ul class="trust-line">
-          <li>👀 You see your picture before you pay</li>
-          <li>🔒 Secure payment by Stripe</li>
-          <li>🚚 ${ONJJEM_isUS() ? "Free US shipping, made in the USA" : "Free UK delivery"}</li>
-          <li>🛡️ Arrives damaged or misprinted? Free replacement</li>
+          <li>👀 <strong>See your design before you pay</strong>: what you see is what you get</li>
+          ${P.cartoon ? `<li>🎁 <strong>FREE gift</strong>: choose a cartoon and we'll email it to you to keep as a wallpaper</li>` : ""}
+          <li>🔒 <strong>Secure checkout</strong> by Stripe: card, Apple Pay or Google Pay</li>
+          <li>🚚 ${ONJJEM_isUS() ? "Free US shipping, made in the USA" : "Free UK delivery"} · arrives damaged? Replaced free</li>
+          ${!ONJJEM_isUS() && new Date() < new Date("2026-10-25T00:00:00") ? `<li>🎃 <strong>Order by 24 October</strong> for Halloween delivery</li>` : ""}
+          <li>👋 A small family business from Preston, England</li>
         </ul>
         ${P.confirmText ? `<label class="ft-note" style="display:flex;gap:.5rem;align-items:flex-start;text-align:left;margin:0 0 .75rem;cursor:pointer"><input type="checkbox" id="confirmBox" style="margin-top:.2rem;flex:none;width:1.1rem;height:1.1rem"><span>${P.confirmText}</span></label>` : ""}
         <button class="btn" id="basketBtn">🧺 Add to basket</button>

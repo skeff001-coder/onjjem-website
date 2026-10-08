@@ -303,3 +303,6 @@ a { color: var(--gold); }
 .quick-cta-btn{font-size:1.25rem;padding:1.1rem 1rem;box-shadow:0 0 0 3px rgba(243,208,120,.35),0 8px 24px rgba(0,0,0,.4);animation:qpulse 2s ease-in-out infinite}
 .quick-cta-sub{color:var(--muted);font-size:.92rem;margin-top:.5rem}
 @keyframes qpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+
+.hero-trust{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.8rem}
+.hero-trust span{font-size:0.8rem;color:var(--text);background:rgba(255,255,255,0.06);border:1px solid var(--line);border-radius:999px;padding:0.3rem 0.65rem;white-space:nowrap}
