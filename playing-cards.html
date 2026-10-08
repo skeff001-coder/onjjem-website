@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalised Photo Playing Cards | ONJJEM</title>
+<meta name="description" content="Your family, pet or cartoon on a full deck of 54 playing cards. £15.99 with free UK delivery.">
+<link rel="canonical" href="https://onjjem.com/playing-cards">
+<meta property="og:title" content="Personalised Photo Playing Cards | ONJJEM">
+<meta property="og:description" content="Your family, pet or cartoon on a full deck of 54 playing cards. £15.99 with free UK delivery.">
+<meta property="og:image" content="https://onjjem.com/playing-cards-hero.jpg?v=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('notrack') === '1') localStorage.setItem('onjjem_notrack', '1');
+    if (q.get('notrack') === '0') localStorage.removeItem('onjjem_notrack');
+    if (localStorage.getItem('onjjem_notrack')) window['ga-disable-G-3L30Q5L3MW'] = true;
+  } catch (e) {}
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<link rel="stylesheet" href="/landing.css?v=20261008f">
+<link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.PAGE = {
+  kicker: "Games night, made personal",
+  title: "Your family on a deck of playing cards",
+  sub: "A full deck of 54 playing cards with your photo, your pet or a cartoon of the family. A brilliant stocking filler and a gift they'll actually use at every games night.",
+  heroImg: "/playing-cards-hero.jpg?v=1",
+  heroAlt: "Personalised playing cards with family photos",
+  ticks: [
+    "Full deck of 54 cards: hearts, diamonds, clubs and spades",
+    "Your photo, your pet or a free cartoon preview",
+    "Perfect stocking filler for Christmas",
+    "Made in the UK with free delivery"
+  ],
+  cta: "Make my cards",
+  optionWord: "your cards",
+  orderTitle: "Make your playing cards",
+  cartoon: true,
+  photoHint: "Faces, pets and family photos work best. A clear, bright photo looks great on a card.",
+  options: [
+    { sku: "playing-cards", ratio: [2, 3], name: "Deck of 54 photo playing cards", note: "Standard size cards (6×9cm), full colour", price: 15.99, badge: "GREAT GIFT", default: true }
+  ],
+  faq: [
+    ["How big are the cards?", "Standard playing card size, 6×9cm, a full deck of 54 cards."],
+    ["How long does it take?", "Made to order in the UK in 1–3 working days, then a few days in the post. Order by mid-December for Christmas."],
+    ["Is there anything you can't print?", "Please only send pictures you have the right to use. We can't print football club badges, brand logos or cartoon characters from films and TV, or anything offensive."],
+    ["What if something's wrong?", "If your cards arrive damaged or misprinted, email hello@onjjem.com with a photo and we'll replace them free."]
+  ]
+};
+</script>
+<script src="/landing.js?v=20261008f"></script>
+<script src="/cartoonify-shared.js?v=20261005a"></script>
+</body>
+</html>
