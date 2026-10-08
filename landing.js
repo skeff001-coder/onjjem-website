@@ -246,7 +246,7 @@ function ONJJEM_headerHtml() {
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/#cat-walls">🛋️ Blankets &amp; wall art</a><a href="/#cat-home">For the home &amp; desk</a><a href="/halloween">🎃 Halloween</a><a href="/#cat-kids">Kids &amp; small gifts</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/gift-cards.html">Gift cards</a>
+    <a href="/#cat-living">🛋️ Living room</a><a href="/#cat-walls">🖼️ Wall art</a><a href="/#cat-kitchen">☕ Kitchen</a><a href="/#cat-kids">🧸 Kids &amp; baby</a><a href="/#cat-desk">💼 Desk &amp; bags</a><a href="/halloween">🎃 Halloween</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/gift-cards.html">🎁 Gift cards</a>
   </nav>`;
 }
 

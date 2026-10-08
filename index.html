@@ -24,7 +24,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/landing.css?v=20261008d">
+<link rel="stylesheet" href="/landing.css?v=20261008e">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a">
 </head>
 <body>
@@ -44,17 +44,18 @@
   </section>
 
   <section class="wrap" id="shop">
+    <h2 class="lx-shop">Shop by room</h2>
     <div class="lx-grid">
-      <a class="lx-card" href="/blanket"><span class="lx-name">Luxury blankets & throws</span><img src="/home/blankets.jpg?v=1" alt="Luxury blankets & throws" loading="eager"><span class="lx-price">From £47.99</span></a>
-      <a class="lx-card" href="/scenic-prints"><span class="lx-name">Wall art & framed prints</span><img src="/home/wall-art.jpg?v=1" alt="Wall art & framed prints" loading="eager"><span class="lx-price">From £15.49</span></a>
-      <a class="lx-card" href="/cushions"><span class="lx-name">Cushions</span><img src="/home/cushions.jpg?v=1" alt="Cushions" loading="eager"><span class="lx-price">From £23.49</span></a>
-      <a class="lx-card" href="/mug"><span class="lx-name">Mugs & Magic Reveal mugs</span><img src="/home/mugs.jpg?v=1" alt="Mugs & Magic Reveal mugs" loading="eager"><span class="lx-price">From £13.99</span></a>
-      <a class="lx-card" href="/photo-tiles"><span class="lx-name">Photo frames</span><img src="/home/frames.jpg?v=1" alt="Photo frames" loading="lazy"><span class="lx-price">From £22.99</span></a>
-      <a class="lx-card" href="/prints"><span class="lx-name">Photo prints</span><img src="/home/prints.jpg?v=1" alt="Photo prints" loading="lazy"><span class="lx-price">From £3.99</span></a>
-      <a class="lx-card" href="/tote"><span class="lx-name">Tote bags</span><img src="/home/totes.jpg?v=1" alt="Tote bags" loading="lazy"><span class="lx-price">£27.99</span></a>
-      <a class="lx-card" href="/poster-sale"><span class="lx-name">Posters & wall stickers</span><img src="/home/posters.jpg?v=1" alt="Posters & wall stickers" loading="lazy"><span class="lx-price">From £15.49</span></a>
+      <a class="lx-card" href="#cat-living"><span class="lx-name">Living Room &amp; Bedroom</span><img src="/home/blankets.jpg?v=1" alt="" loading="eager"><span class="lx-what">Throws · Cushions · Towels · Frames</span><span class="lx-price">From £22.99</span></a>
+      <a class="lx-card" href="#cat-walls"><span class="lx-name">Wall Art &amp; Prints</span><img src="/home/wall-art.jpg?v=1" alt="" loading="eager"><span class="lx-what">Fine art · Posters · Photo prints</span><span class="lx-price">From £3.99</span></a>
+      <a class="lx-card" href="#cat-kitchen"><span class="lx-name">Kitchen &amp; Dining</span><img src="/home/mugs.jpg?v=1" alt="" loading="eager"><span class="lx-what">Mugs · Coasters · Tea towels · Bottles</span><span class="lx-price">From £7.49</span></a>
+      <a class="lx-card" href="#cat-kids"><span class="lx-name">Kids &amp; Baby</span><img src="/home/kids.jpg?v=1" alt="" loading="eager"><span class="lx-what">T-shirts · Stickers · Badges · Baby reveal</span><span class="lx-price">From £5.99</span></a>
+      <a class="lx-card" href="#cat-desk"><span class="lx-name">Desk &amp; On the Go</span><img src="/home/totes.jpg?v=1" alt="" loading="lazy"><span class="lx-what">Mouse mats · Tote bags</span><span class="lx-price">From £14.99</span></a>
+      <a class="lx-card" href="/halloween"><span class="lx-name">Halloween</span><img src="/home/halloween.jpg?v=1" alt="" loading="lazy"><span class="lx-what">Cartoon packs, T-shirts &amp; more</span><span class="lx-price">From £5.99</span></a>
+      <a class="lx-card" href="#cat-christmas"><span class="lx-name">Christmas</span><img src="/home/christmas.jpg?v=1" alt="" loading="lazy"><span class="lx-what">Sweatshirts · Baubles · Santa sacks</span><span class="lx-price">From £5.99</span></a>
+      <a class="lx-card" href="/gift-cards.html"><span class="lx-name">Gift Cards</span><img src="/home/giftcard.jpg?v=1" alt="" loading="lazy"><span class="lx-what">Let them choose · sent by email</span><span class="lx-price">From £20</span></a>
     </div>
-    <div class="lx-more"><a href="#cat-walls">See all gifts ↓</a></div>
+    <div class="lx-more"><a href="#cat-living">See all gifts ↓</a></div>
     <div class="lx-trust"><span>✓ See your design before you pay</span><span>✓ Free UK delivery</span><span>✓ Secure checkout</span><span>✓ Family business, Preston</span></div>
   </section>
 
@@ -71,52 +72,64 @@
   })();
   </script>
 
-  <section class="wrap home-sec home-sec-main" id="cat-walls">
-    <div class="home-sec-head"><h2>🛋️ Blankets, wall art &amp; statement gifts</h2><a href="#shop">All categories ↑</a></div>
+  <section class="wrap home-sec" id="cat-living">
+    <div class="home-sec-head"><h2>🛋️ Living Room &amp; Bedroom</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
-        <a class="tile" href="/scenic-prints"><img src="/prints-hero-scenic.jpg" alt="" loading="lazy"><div class="t-body"><h3>Scenic fine art prints: your photo or a landscape</h3><div class="t-price">From £15.49</div></div></a>
         <a class="tile" href="/blanket"><img src="/products/IMG_8759.jpeg" alt="" loading="lazy"><div class="t-body"><h3>Luxury photo throws</h3><div class="t-price">From £47.99</div></div></a>
-        <a class="tile" href="/poster-sale"><img src="/posters-hero.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Giant posters &amp; wall stickers</h3><div class="t-price">From £15.49</div></div></a>
-        <a class="tile" href="/photo-tiles"><img src="/products/framed-photo-tiles.jpg" alt="" loading="lazy"><div class="t-body"><h3>Peel &amp; Go photo frames</h3><div class="t-price">From £22.99</div></div></a>
-        <a class="tile" href="/prints"><img src="/prints-postcards.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo prints &amp; postcards</h3><div class="t-price">From £3.99</div></div></a>
         <a class="tile" href="/cushions"><img src="/cushion-mockup.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Cushions</h3><div class="t-price">From £23.49</div></div></a>
         <a class="tile" href="/cushions"><img src="/towel-mockup.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Towels</h3><div class="t-price">£24.99</div></div></a>
-        <a class="tile" href="/tote"><img src="/tote-hero.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo tote bags</h3><div class="t-price">£27.99</div></div></a>
+        <a class="tile" href="/photo-tiles"><img src="/products/framed-photo-tiles.jpg" alt="" loading="lazy"><div class="t-body"><h3>Peel &amp; Go photo frames</h3><div class="t-price">From £22.99</div></div></a>
     </div>
   </section>
 
-  <section class="wrap home-sec" id="cat-home">
-    <div class="home-sec-head"><h2>🏠 For the home &amp; desk</h2><a href="#shop">All categories ↑</a></div>
+  <section class="wrap home-sec" id="cat-walls">
+    <div class="home-sec-head"><h2>🖼️ Wall Art &amp; Prints</h2><a href="#shop">All rooms ↑</a></div>
+    <div class="tiles">
+        <a class="tile" href="/scenic-prints"><img src="/prints-hero-scenic.jpg" alt="" loading="lazy"><div class="t-body"><h3>Scenic fine art prints: your photo or a landscape</h3><div class="t-price">From £15.49</div></div></a>
+        <a class="tile" href="/poster-sale"><img src="/posters-hero.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Giant posters &amp; wall stickers</h3><div class="t-price">From £15.49</div></div></a>
+        <a class="tile" href="/prints"><img src="/prints-postcards.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo prints &amp; postcards</h3><div class="t-price">From £3.99</div></div></a>
+    </div>
+  </section>
+
+  <section class="wrap home-sec" id="cat-kitchen">
+    <div class="home-sec-head"><h2>☕ Kitchen &amp; Dining</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
         <a class="tile" href="/mug"><img src="/magic-mug-cat.jpg?v=1" alt="" loading="lazy"><div class="t-body"><h3>✨ Magic Reveal mugs &amp; photo mugs</h3><div class="t-price">From £13.99</div></div></a>
-        <a class="tile" href="/baby-reveal"><img src="/baby-reveal-hero.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Baby reveal mug: it's a boy or girl</h3><div class="t-price">£19.99</div></div></a>
-        <a class="tile" href="/mousemat"><img src="/mousemat-hero.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo mouse mats</h3><div class="t-price">£14.99</div></div></a>
         <a class="tile" href="/household.html"><img src="/coasters-mockup.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Coasters, tea towels &amp; aprons</h3><div class="t-price">From £10.99</div></div></a>
         <a class="tile" href="/water-bottle"><img src="/bottle-hero.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo water bottles</h3><div class="t-price">From £22.99</div></div></a>
         <a class="tile" href="/magnets"><img src="/products/IMG_8533.jpeg" alt="" loading="lazy"><div class="t-body"><h3>Fridge magnets</h3><div class="t-price">From £7.49</div></div></a>
     </div>
   </section>
 
-  <section class="wrap home-sec" id="cat-halloween">
-    <div class="home-sec-head"><h2>🎃 Halloween</h2><a href="#shop">All categories ↑</a></div>
-    <div class="tiles">
-        <a class="tile" href="/halloween"><img src="/halloween-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Halloween cartoon packs</h3><div class="t-price">From £5.99</div></div></a>
-    </div>
-  </section>
-
   <section class="wrap home-sec" id="cat-kids">
-    <div class="home-sec-head"><h2>🧒 Kids &amp; small gifts</h2><a href="#shop">All categories ↑</a></div>
+    <div class="home-sec-head"><h2>🧸 Kids &amp; Baby</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
         <a class="tile" href="/football"><img src="/football-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Kids football tees</h3><div class="t-price">£15.99</div></div></a>
         <a class="tile" href="/kids.html"><img src="/products/kids-tshirt.jpg" alt="" loading="lazy"><div class="t-body"><h3>Kids t-shirts, jigsaws &amp; cards</h3><div class="t-price">From £15.99</div></div></a>
         <a class="tile" href="/stickers"><img src="/products/cartoonify-preview.jpeg" alt="" loading="lazy"><div class="t-body"><h3>Cartoon stickers</h3><div class="t-price">From £5.99</div></div></a>
         <a class="tile" href="/badges"><img src="/badges-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Photo pin badges</h3><div class="t-price">From £7.49</div></div></a>
         <a class="tile" href="/frames-gifts.html"><img src="/products/tattoo-arm-sq.jpg" alt="" loading="lazy"><div class="t-body"><h3>Photo tattoos &amp; iron-on patches</h3><div class="t-price">From £8.99</div></div></a>
+        <a class="tile" href="/baby-reveal"><img src="/baby-reveal-hero.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Baby reveal mug: it's a boy or girl</h3><div class="t-price">£19.99</div></div></a>
+    </div>
+  </section>
+
+  <section class="wrap home-sec" id="cat-desk">
+    <div class="home-sec-head"><h2>💼 Desk &amp; On the Go</h2><a href="#shop">All rooms ↑</a></div>
+    <div class="tiles">
+        <a class="tile" href="/mousemat"><img src="/mousemat-hero.jpg?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo mouse mats</h3><div class="t-price">£14.99</div></div></a>
+        <a class="tile" href="/tote"><img src="/tote-hero.jpg?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo tote bags</h3><div class="t-price">£27.99</div></div></a>
+    </div>
+  </section>
+
+  <section class="wrap home-sec" id="cat-halloween">
+    <div class="home-sec-head"><h2>🎃 Halloween</h2><a href="#shop">All rooms ↑</a></div>
+    <div class="tiles">
+        <a class="tile" href="/halloween"><img src="/halloween-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Halloween cartoon packs</h3><div class="t-price">From £5.99</div></div></a>
     </div>
   </section>
 
   <section class="wrap home-sec" id="cat-christmas">
-    <div class="home-sec-head"><h2>🎄 Christmas</h2><a href="#shop">All categories ↑</a></div>
+    <div class="home-sec-head"><h2>🎄 Christmas</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
         <a class="tile" href="/christmas-sweatshirt"><img src="/christmas-sweatshirt-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Christmas sweatshirts for the family</h3><div class="t-price">£29.99</div></div></a>
         <a class="tile" href="/christmas"><img src="/christmas-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Christmas baubles &amp; Santa sacks</h3><div class="t-price">From £5.99</div></div></a>
@@ -125,7 +138,7 @@
   </section>
 
   <section class="wrap home-sec" id="cat-giftcards">
-    <div class="home-sec-head"><h2>🎁 Gift cards</h2><a href="#shop">All categories ↑</a></div>
+    <div class="home-sec-head"><h2>🎁 Gift Cards</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
         <a class="tile" href="/gift-cards.html"><img src="/products/gift-card-onjjem-sq.jpg" alt="" loading="lazy"><div class="t-body"><h3>Can't decide? Let them choose with an ONJJEM gift card</h3><div class="t-price">From £20 · sent by email</div></div></a>
     </div>
@@ -153,7 +166,7 @@
 </main>
 
 <div id="ftr"></div>
-<script src="/landing.js?v=20261008c"></script>
+<script src="/landing.js?v=20261008e"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();

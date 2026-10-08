@@ -329,3 +329,7 @@ a { color: var(--gold); }
 .tile h3,.tile .t-body h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.08rem;color:#f0c75e;line-height:1.2}
 .tile .t-price{color:var(--text);font-weight:600}
 .home-sec-head h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:0.01em}
+
+.lx-shop{font-family:'Playfair Display',Georgia,serif;font-weight:700;text-align:center;font-size:1.5rem;margin:0.4rem 0 0.8rem}
+.lx-what{color:var(--muted);font-size:0.8rem;margin-top:0.45rem;line-height:1.3}
+.lx-card .lx-price{margin-top:0.15rem}
