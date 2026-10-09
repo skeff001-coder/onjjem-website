@@ -866,6 +866,18 @@ function ONJJEM_renderLanding(P) {
   }));
   input.multiple = isMulti();
   box.innerHTML = emptyBox();
+  // Came from the free cartoon page (/cartoon)? Bring their photo and cartoon with them.
+  (async () => {
+    try {
+      const pc = JSON.parse(sessionStorage.getItem("onjjem_pending_cartoon") || "null");
+      if (!pc || !pc.photo || !P.cartoon || P.designsOnly) return;
+      sessionStorage.removeItem("onjjem_pending_cartoon");
+      photos = [pc.photo];
+      if (pc.previewId && pc.previewSrc) early = { forPhoto: photos[0], previewId: pc.previewId, previewSrc: pc.previewSrc };
+      await refreshPhoto();
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (e) {}
+  })();
   showDesigns();
   // Pages that build their own design (e.g. football shirts) hand it over here.
   window.ONJJEM_setDesign = async (dataUrl) => {
