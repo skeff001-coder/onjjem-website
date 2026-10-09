@@ -1,3 +1,56 @@
+// ── Faster cartoons: send a smaller copy of the photo to the cartoon maker ──
+// Phone photos are 2–5 MB; uploading that on mobile data and having the AI
+// read it is most of the wait. The cartoon only needs ~1500px, so every
+// /api/cartoonify request gets a shrunk JPEG. The original photo is still
+// used for printing. While it works, the waiting text changes every few
+// seconds so people can see it's still going.
+(function () {
+  if (window.__onjjemCartoonFetch) return;
+  window.__onjjemCartoonFetch = true;
+  const MAX = 1536, cache = new Map();
+  function shrink(dataUrl) {
+    if (typeof dataUrl !== "string" || !dataUrl.startsWith("data:image") || dataUrl.length < 400000) return Promise.resolve(dataUrl);
+    if (cache.has(dataUrl)) return cache.get(dataUrl);
+    const job = new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+          const c = document.createElement("canvas");
+          c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+          c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+          const out = c.toDataURL("image/jpeg", 0.88);
+          resolve(out.length < dataUrl.length ? out : dataUrl);
+        } catch (e) { resolve(dataUrl); }
+      };
+      img.onerror = () => resolve(dataUrl);
+      img.src = dataUrl;
+    });
+    cache.set(dataUrl, job);
+    return job;
+  }
+  const steps = ["Finding the faces… 🔍", "Drawing the outlines… ✏️", "Adding the colours… 🎨", "Adding the magic… ✨", "Nearly there… 🎁"];
+  const realFetch = window.fetch.bind(window);
+  window.fetch = async function (url, opts) {
+    if (typeof url !== "string" || url.indexOf("/api/cartoonify") === -1 || !opts || typeof opts.body !== "string") return realFetch(url, opts);
+    let body;
+    try { body = JSON.parse(opts.body); } catch (e) { return realFetch(url, opts); }
+    let i = 0;
+    const tick = setInterval(() => {
+      const notes = document.querySelectorAll(".cartoon-preview-overlay .cartoon-email-note");
+      const n = notes[notes.length - 1];
+      if (n && document.querySelector(".cartoon-preview-overlay .cartoon-preview-loading")) n.textContent = steps[Math.min(i++, steps.length - 1)];
+    }, 2500);
+    try {
+      if (body && body.base64Image) {
+        const small = await shrink(body.base64Image);
+        if (small !== body.base64Image) { body.base64Image = small; body.mimeType = "image/jpeg"; }
+      }
+      return await realFetch(url, Object.assign({}, opts, { body: JSON.stringify(body) }));
+    } finally { clearInterval(tick); }
+  };
+})();
+
 // Pages can set window.ONJJEM_CARTOON_FREE = true to include the cartoon at no charge.
 function ONJJEM_freeText(html) {
   if (!window.ONJJEM_CARTOON_FREE) return html;
