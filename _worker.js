@@ -1,6 +1,9 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // Search engines and link previews crawl from the USA. Never send them to
+    // the US shop, or Google lists the US page for UK searches.
+    const isBot = /bot|crawler|spider|slurp|facebookexternalhit|Google-InspectionTool|Mediapartners-Google|APIs-Google/i.test(request.headers.get('user-agent') || '');
 
     // API proxy to Railway backend
     if (url.pathname.startsWith('/api/')) {
@@ -13,7 +16,7 @@ export default {
     if (url.pathname === '/' && !url.searchParams.has('order') && !url.searchParams.has('uk')) {
       const country = (request.cf && request.cf.country) || '';
       const cookie = request.headers.get('cookie') || '';
-      if (country === 'US' && !cookie.includes('onjjem_shop=uk')) {
+      if (country === 'US' && !isBot && !cookie.includes('onjjem_shop=uk')) {
         return Response.redirect(url.origin + '/us/' + url.search, 302);
       }
     }
@@ -23,7 +26,7 @@ export default {
     if (US_PAGES[url.pathname] && !url.searchParams.has('uk')) {
       const country = (request.cf && request.cf.country) || '';
       const cookie = request.headers.get('cookie') || '';
-      if (country === 'US' && !cookie.includes('onjjem_shop=uk')) {
+      if (country === 'US' && !isBot && !cookie.includes('onjjem_shop=uk')) {
         return Response.redirect(url.origin + US_PAGES[url.pathname] + url.search, 302);
       }
     }
