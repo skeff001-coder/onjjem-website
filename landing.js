@@ -17,6 +17,7 @@ const ONJJEM_PROMO = {
 };
 
 // 2. Real customer reviews only. Add new ones to the top as they come in.
+//    (Also add a short line to reviews-strip.js, the rotating quote on the homepages and /cartoon.)
 const ONJJEM_REVIEWS = [
   { name: "W Taylor", bought: "Cartoon prints", text: "My cartoon style prints of my kids arrived in just 3 days, and the colours look brilliant. Will definitely buy again! Thanks ONJJEM" },
   { name: "Kelly W.", bought: "Photo print", text: "I purchased a print of my children — fantastic quality, great value and super fast delivery. Will definitely be using ONJJEM again." },
