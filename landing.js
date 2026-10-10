@@ -19,6 +19,7 @@ const ONJJEM_PROMO = {
 // 2. Real customer reviews only. Add new ones to the top as they come in.
 //    (Also add a short line to reviews-strip.js, the rotating quote on the homepages and /cartoon.)
 const ONJJEM_REVIEWS = [
+  { name: "C. Murphy", bought: "Magic Reveal mug", text: "My Yorkshire terrier on the Magic mug is class in the cartoon style. Kids love it!" },
   { name: "W Taylor", bought: "Cartoon prints", text: "My cartoon style prints of my kids arrived in just 3 days, and the colours look brilliant. Will definitely buy again! Thanks ONJJEM" },
   { name: "Kelly W.", bought: "Photo print", text: "I purchased a print of my children — fantastic quality, great value and super fast delivery. Will definitely be using ONJJEM again." },
   { name: "Niamh", bought: "Colour-changing mug", text: "Love the mug I ordered. Such a cute design and the heat-activated effect works perfectly. Really happy with it!" }
