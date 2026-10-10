@@ -30,6 +30,15 @@ export default {
         return Response.redirect(url.origin + US_PAGES[url.pathname] + url.search, 302);
       }
     }
+    // US visitors on the free cartoon page (TikTok bio link) get the US gift list.
+    if ((url.pathname === '/cartoon' || url.pathname === '/cartoon.html') && !url.searchParams.has('region') && !url.searchParams.has('uk')) {
+      const country = (request.cf && request.cf.country) || '';
+      const cookie = request.headers.get('cookie') || '';
+      if (country === 'US' && !isBot && !cookie.includes('onjjem_shop=uk')) {
+        url.searchParams.set('region', 'us');
+        return Response.redirect(url.toString(), 302);
+      }
+    }
     if (url.pathname === '/' && url.searchParams.has('uk')) {
       const res = await env.ASSETS.fetch(new Request(url.origin + '/index.html', request));
       const r2 = new Response(res.body, res);

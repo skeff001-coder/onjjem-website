@@ -60,6 +60,23 @@
   <button id="again">Try another photo</button>
 </div>
 <input type="file" id="file" accept="image/*" hidden>
+<script>
+// US visitors (the worker adds ?region=us) see US gifts in dollars.
+(function () {
+  if (new URLSearchParams(location.search).get("region") !== "us") return;
+  window.ONJJEM_REGION = "us";
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("#gifts p").textContent = "Free US shipping · 10% off with WELCOME10";
+    document.querySelector(".grid").innerHTML =
+      '<a href="/us/mug">☕ Mug<span>from $24.99</span></a>' +
+      '<a href="/us/blanket">🛋️ Blanket<span>from $49.99</span></a>' +
+      '<a href="/us/tapestry">🖼️ Wall tapestry<span>from $44.99</span></a>' +
+      '<a href="/us/prints">📸 Print<span>from $19.99</span></a>' +
+      '<a href="/us/halloween">🎃 Halloween<span>from $24.99</span></a>' +
+      '<a href="/us/christmas">🎄 Christmas<span>from $24.99</span></a>';
+  });
+})();
+</script>
 <script>const API_BASE = "https://onjjem-production-5ef8.up.railway.app";</script>
 <script src="/cartoonify-shared.js?v=20261009a"></script>
 <script>
