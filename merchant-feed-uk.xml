@@ -17,6 +17,7 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>badges</g:item_group_id>
+<g:color>Multicolour</g:color>
 <g:shipping><g:country>GB</g:country><g:price>0.00 GBP</g:price></g:shipping>
 </item>
 <item>
@@ -32,6 +33,7 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>badges</g:item_group_id>
+<g:color>Multicolour</g:color>
 <g:shipping><g:country>GB</g:country><g:price>0.00 GBP</g:price></g:shipping>
 </item>
 <item>
@@ -47,6 +49,7 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>badges</g:item_group_id>
+<g:color>Multicolour</g:color>
 <g:shipping><g:country>GB</g:country><g:price>0.00 GBP</g:price></g:shipping>
 </item>
 <item>
@@ -62,6 +65,7 @@
 <g:identifier_exists>no</g:identifier_exists>
 <g:is_bundle>no</g:is_bundle>
 <g:item_group_id>badges</g:item_group_id>
+<g:color>Multicolour</g:color>
 <g:shipping><g:country>GB</g:country><g:price>0.00 GBP</g:price></g:shipping>
 </item>
 <item>
