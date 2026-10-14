@@ -1,4 +1,4 @@
-// Halloween decorations for the UK and US homepages: fine see-through cobwebs on
+// Halloween decorations (homepages + Halloween pages): fine see-through cobwebs on
 // the edges and two spiders that slowly drop to halfway down the screen and climb
 // back up. Never block taps (pointer-events: none). Switch off on 1 November.
 (function(){
@@ -21,5 +21,43 @@
   var h='';['tl','tr','ml','mr','bl','br'].forEach(function(c){h+=web.replace('CLS',c)});
   h+=spider.replace('CLS','s1')+spider.replace('CLS','s2');
   document.getElementById('hw2').innerHTML=h;
+
+  // Big spider: 3s after landing, drops from the top centre on its thread, wriggles,
+  // then climbs back up and disappears (once per visit; skipped for reduced motion).
+  try {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (sessionStorage.getItem('onjjem_bigspider')) return;
+    sessionStorage.setItem('onjjem_bigspider','1');
+  } catch (e) {}
+  var bs=document.createElement('style');
+  bs.textContent='.hwbig{position:absolute;top:0;left:50%;width:210px;margin-left:-105px;transform:translateY(-190px);animation:hwbigdrop 5.6s forwards}\n'+
+    '.hwbig i{position:absolute;bottom:calc(100% - 22px);left:50%;width:2px;margin-left:-1px;height:100vh;background:rgba(245,245,245,.85)}\n'+
+    '.hwbig svg{display:block;width:210px;height:210px;filter:drop-shadow(0 0 6px rgba(255,140,40,.55)) drop-shadow(0 8px 12px rgba(0,0,0,.5));animation:hwbigsway 1.1s ease-in-out infinite;transform-origin:50% 0}\n'+
+    '.hwbig .lg{animation:hwleg .16s ease-in-out infinite alternate;transform-origin:50px 52px}\n'+
+    '.hwbig .rg{animation:hwleg .16s ease-in-out infinite alternate-reverse;transform-origin:50px 52px}\n'+
+    '@keyframes hwbigdrop{0%{transform:translateY(-190px);animation-timing-function:cubic-bezier(.55,0,.9,.6)}'+
+      '14%{transform:translateY(40vh);animation-timing-function:ease-out}19%{transform:translateY(33vh);animation-timing-function:ease-in-out}'+
+      '24%{transform:translateY(38vh)}64%{transform:translateY(36vh);animation-timing-function:cubic-bezier(.5,0,.75,0)}100%{transform:translateY(-210px)}}\n'+
+    '@keyframes hwbigsway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}\n'+
+    '@keyframes hwleg{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}\n'+
+    '@media (max-width:600px){.hwbig{width:170px;margin-left:-85px}.hwbig svg{width:170px;height:170px}}';
+  document.head.appendChild(bs);
+  setTimeout(function(){
+    var b=document.createElement('div'); b.className='hwbig';
+    b.innerHTML='<i></i><svg viewBox="0 0 100 100">'+
+      '<g class="lg" stroke="#0b0b0b" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">'+
+        '<path d="M40 44L24 30L14 8"/><path d="M38 50L18 42L4 30"/><path d="M38 56L16 60L4 74"/><path d="M41 62L26 76L20 96"/></g>'+
+      '<g class="rg" stroke="#0b0b0b" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">'+
+        '<path d="M60 44L76 30L86 8"/><path d="M62 50L82 42L96 30"/><path d="M62 56L84 60L96 74"/><path d="M59 62L74 76L80 96"/></g>'+
+      '<ellipse cx="50" cy="64" rx="17" ry="20" fill="#121212"/>'+
+      '<ellipse cx="50" cy="62" rx="9" ry="11" fill="#2a0d00" opacity=".55"/>'+
+      '<circle cx="50" cy="40" r="12" fill="#151515"/>'+
+      '<circle cx="45" cy="38" r="3.4" fill="#ff3b1a"/><circle cx="55" cy="38" r="3.4" fill="#ff3b1a"/>'+
+      '<circle cx="45.8" cy="37.2" r="1.1" fill="#ffd2a0"/><circle cx="55.8" cy="37.2" r="1.1" fill="#ffd2a0"/>'+
+      '<circle cx="47" cy="33" r="1.6" fill="#ff3b1a"/><circle cx="53" cy="33" r="1.6" fill="#ff3b1a"/>'+
+      '<path d="M46 47L47.5 52L49 47M51 47L52.5 52L54 47" fill="#f2f2f2"/></svg>';
+    document.getElementById('hw2').appendChild(b);
+    setTimeout(function(){ if(b.parentNode) b.parentNode.removeChild(b); }, 6000);
+  }, 3000);
 
 })();
