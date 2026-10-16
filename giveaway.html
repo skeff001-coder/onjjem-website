@@ -83,8 +83,8 @@
   var f=document.getElementById('gw'), m=document.getElementById('gwmsg');
   try{ if(/^en-US/.test(navigator.language)||/region=us/.test(location.search)) f.country.value='US'; }catch(e){}
   if (new Date() >= new Date('2026-11-01T20:00:00Z')) { f.innerHTML='<p><b>This giveaway has now closed.</b> Thanks to everyone who entered!</p>'; return; }
-  var photoData='';
-  function shrink(file){ return new Promise(function(ok,bad){ var u=URL.createObjectURL(file), i=new Image(); i.onload=function(){ var M=2400, w=i.naturalWidth, h=i.naturalHeight, k=Math.min(1,M/Math.max(w,h)); var c=document.createElement('canvas'); c.width=Math.round(w*k); c.height=Math.round(h*k); c.getContext('2d').drawImage(i,0,0,c.width,c.height); URL.revokeObjectURL(u); var q=0.86, d=c.toDataURL('image/jpeg',q); while(d.length>4300000&&q>0.5){q-=0.08; d=c.toDataURL('image/jpeg',q);} ok(d); }; i.onerror=bad; i.src=u; }); }
+  var photoData='', photoSmall='';
+  function shrink(file){ return new Promise(function(ok,bad){ var u=URL.createObjectURL(file), i=new Image(); i.onload=function(){ var M=2400, w=i.naturalWidth, h=i.naturalHeight, k=Math.min(1,M/Math.max(w,h)); var c=document.createElement('canvas'); c.width=Math.round(w*k); c.height=Math.round(h*k); c.getContext('2d').drawImage(i,0,0,c.width,c.height); URL.revokeObjectURL(u); var q=0.86, d=c.toDataURL('image/jpeg',q); while(d.length>4300000&&q>0.5){q-=0.08; d=c.toDataURL('image/jpeg',q);} var k2=Math.min(1,1536/Math.max(w,h)), c2=document.createElement('canvas'); c2.width=Math.round(w*k2); c2.height=Math.round(h*k2); c2.getContext('2d').drawImage(i,0,0,c2.width,c2.height); photoSmall=c2.toDataURL('image/jpeg',0.85); ok(d); }; i.onerror=bad; i.src=u; }); }
   f.photo.addEventListener('change', async function(){ photoData=''; var pv=document.getElementById('gwprev'); pv.style.display='none'; var file=f.photo.files[0]; if(!file) return; m.style.color='#FFB347'; m.textContent='Preparing your photo…'; try{ photoData=await shrink(file); pv.src=photoData; pv.style.display='block'; m.textContent=''; }catch(_){ m.textContent='That photo couldn\'t be opened. Please try another one.'; } });
   fetch('/api/giveaway-count').then(function(r){return r.json()}).then(function(j){ if(j&&j.count>=10){ var c=document.getElementById('gwcount'); c.textContent='🎉 '+j.count+' people have entered so far!'; c.style.display='block'; } }).catch(function(){});
   f.addEventListener('submit', async function(e){
@@ -99,7 +99,9 @@
       var j=await r.json();
       if(!r.ok) throw new Error(j.error||'Something went wrong');
       try{gtag('event','giveaway_entry',{country:d.country});}catch(_){}
-      f.innerHTML='<p style="font-size:18px;color:#5DE391;font-weight:800">🎉 You\'re entered! Good luck to '+d.petName.replace(/[<>&]/g,'')+'!</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><a class="btn try" href="/cartoon'+(d.country==='US'?'?region=us':'')+'">See '+d.petName.replace(/[<>&]/g,'')+' as a cartoon FREE now ✨</a>';
+      var pn=d.petName.replace(/[<>&]/g,''), q=d.country==='US'?'region=us&':'';
+      var auto=false; try{ sessionStorage.setItem('onjjem_giveaway_photo', photoSmall); auto=true; }catch(_){}
+      f.innerHTML='<p style="font-size:18px;color:#5DE391;font-weight:800">🎉 You\'re entered! Good luck to '+pn+'!</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><p style="margin:14px 0 6px;font-weight:700;color:#FFD24A">Now see '+pn+' as a cartoon, free 👇</p><a class="btn try" href="/cartoon?'+q+(auto?'gw=1':'')+'">✨ Show me '+pn+' as a cartoon</a>';
     }catch(err){ m.textContent=err.message; btn.disabled=false; btn.textContent='Enter the giveaway →'; }
   });
 })();

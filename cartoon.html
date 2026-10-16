@@ -146,10 +146,7 @@
     document.getElementById("start").style.display = "none";
     document.getElementById("gifts").style.display = "block";
   }
-  file.onchange = async function () {
-    var f = file.files && file.files[0]; file.value = "";
-    if (!f) return;
-    var photo = await read(f);
+  function run(photo) {
     ONJJEM_quickCartoon(photo, function (r) {
       // Hand the photo + its cartoon to the gift page they pick, so they don't upload again.
       try { sessionStorage.setItem("onjjem_pending_cartoon", JSON.stringify({ photo: photo, previewId: r.previewId, previewSrc: r.previewSrc })); }
@@ -158,7 +155,17 @@
     });
     // If they close the preview without choosing, still offer the gifts.
     var t = setInterval(function () { if (!document.querySelector(".cartoon-preview-overlay")) { clearInterval(t); showGifts(); } }, 500);
+  }
+  file.onchange = async function () {
+    var f = file.files && file.files[0]; file.value = "";
+    if (!f) return;
+    run(await read(f));
   };
+  // Coming from the giveaway form: use the photo they just uploaded, no need to pick it again.
+  if (/[?&]gw=1/.test(location.search)) {
+    var gp = null; try { gp = sessionStorage.getItem("onjjem_giveaway_photo"); sessionStorage.removeItem("onjjem_giveaway_photo"); } catch (e) {}
+    if (gp) { try { gtag("event", "giveaway_cartoon"); } catch (e) {} setTimeout(function () { run(gp); }, 300); }
+  }
 })();
 </script>
 <script src="/reviews-strip.js?v=20261011b" defer></script>
