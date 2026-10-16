@@ -28,7 +28,11 @@
   .btn { display:block; text-align:center; margin:10px 0; padding:14px; border-radius:14px; font-weight:800; text-decoration:none; font-size:17px; }
   .tt { background:#fff; color:#000; } .fb { background:#1877F2; color:#fff; } .ig { background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af); color:#fff; }
   .try { background:#FFD24A; color:#1a0a28; }
-  ol li { margin-bottom: 6px; } small { color: rgba(245,237,216,0.6); }
+  ol li { margin-bottom: 6px; }
+  form label { display:block; margin:10px 0; font-size:14px; color:#F5EDD8; }
+  form input:not([type=checkbox]), form select { display:block; width:100%; box-sizing:border-box; margin-top:5px; padding:12px; border-radius:10px; border:1px solid #5a4520; background:#0f0b06; color:#fff; font-size:16px; }
+  form .ck { display:flex; gap:10px; align-items:flex-start; font-size:13px; color:rgba(245,237,216,0.85); }
+  form .ck input { margin-top:3px; width:18px; height:18px; flex:none; } small { color: rgba(245,237,216,0.6); }
 </style>
 </head>
 <body>
@@ -37,14 +41,20 @@
 <h1>Win a FREE poster of your pet as a cartoon</h1>
 <p>We'll turn the winner's pet into a cartoon and post it to them as a poster, completely free. Open to the UK and the US.</p>
 
-<div class="card">
-  <h2 style="margin-top:0">How to enter (it's free)</h2>
-  <ol>
-    <li>Find our <b>pinned giveaway post</b> on TikTok, Instagram or Facebook.</li>
-    <li><b>Comment your pet's name.</b> That's it, you're entered!</li>
-  </ol>
-  <a class="btn tt" href="https://www.tiktok.com/@onjjem123" target="_blank" rel="noopener">Enter on TikTok →</a>
-  <p style="margin:6px 0 0"><small>Also on Instagram and Facebook: just search <b>ONJJEM</b>.</small></p>
+<div class="card" id="enter">
+  <h2 style="margin-top:0">Enter here (it's free) 🎁</h2>
+  <form id="gw" novalidate>
+    <label>Your first name<input name="name" required maxlength="60" autocomplete="given-name"></label>
+    <label>Your pet's name<input name="petName" required maxlength="60" placeholder="e.g. Bella"></label>
+    <label>Email (so we can tell you if you win)<input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+    <label>Where do you live?<select name="country"><option value="GB">United Kingdom</option><option value="US">United States</option></select></label>
+    <input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <label class="ck"><input type="checkbox" name="adult" required> I'm 18 or over and agree to the terms below</label>
+    <label class="ck"><input type="checkbox" name="marketing"> Send me ONJJEM offers by email (optional, unsubscribe any time)</label>
+    <button type="submit" class="btn try" style="width:100%;border:0;cursor:pointer">Enter the giveaway →</button>
+    <p id="gwmsg" style="margin:8px 0 0;font-weight:700"></p>
+  </form>
+  <p style="margin:12px 0 0"><small>Or enter by commenting your pet's name on our pinned giveaway post on <a href="https://www.tiktok.com/@onjjem123" target="_blank" rel="noopener">TikTok</a>, Instagram or Facebook (search <b>ONJJEM</b>). One entry per person.</small></p>
 </div>
 
 <div class="card">
@@ -58,12 +68,33 @@
   <li><b>Promoter:</b> ONJJEM (onjjem.com), Preston, UK.</li>
   <li><b>No purchase necessary.</b> Entry is free. Buying anything does not improve your chances.</li>
   <li>Open to residents of the UK and the United States aged 18 or over. Void where prohibited.</li>
-  <li>To enter, comment on an official ONJJEM giveaway post on TikTok, Instagram or Facebook between Friday 16 October 2026 and 8pm UK time (3pm ET) on Sunday 18 October 2026. One entry per person; extra comments don't count twice.</li>
+  <li>To enter, either fill in the form on this page, or comment on an official ONJJEM giveaway post on TikTok, Instagram or Facebook, between Friday 16 October 2026 and 8pm UK time (3pm ET) on Sunday 18 October 2026. One entry per person; extra comments don't count twice.</li>
   <li>One winner will be picked at random from all valid entries across all three platforms after the closing time, and contacted by direct message by Monday 19 October 2026. If the winner doesn't reply within 7 days, we'll pick another winner.</li>
   <li><b>Prize:</b> one poster of the winner's pet as a cartoon, posted free: an A3 poster (UK) or an 8×10″ print (US). No cash alternative.</li>
-  <li>We will only use the winner's details to make and post the prize. <b>We will never ask for payment, card or bank details.</b> Any message asking for these is not from us.</li>
+  <li>We use entrants' details only to run this giveaway and contact the winner, and send offers only to people who tick the optional box. We use the winner's details only to make and post the prize. <b>We will never ask for payment, card or bank details.</b> Any message asking for these is not from us.</li>
   <li>We may share the winner's first name and their pet's cartoon on our pages, with their permission.</li>
   <li>This giveaway is not sponsored, endorsed or run by TikTok, Instagram or Facebook (Meta).</li>
 </ol>
+<script>
+(function(){
+  var f=document.getElementById('gw'), m=document.getElementById('gwmsg');
+  try{ if(/^en-US/.test(navigator.language)||/region=us/.test(location.search)) f.country.value='US'; }catch(e){}
+  if (new Date() >= new Date('2026-10-18T19:00:00Z')) { f.innerHTML='<p><b>This giveaway has now closed.</b> Thanks to everyone who entered!</p>'; return; }
+  f.addEventListener('submit', async function(e){
+    e.preventDefault(); m.style.color='#FFB347';
+    var d={name:f.name.value,petName:f.petName.value,email:f.email.value,country:f.country.value,adult:f.adult.checked,marketing:f.marketing.checked,website:f.website.value};
+    if(!d.name.trim()||!d.petName.trim()||!/\S+@\S+\.\S+/.test(d.email)){m.textContent='Please fill in your name, your pet\'s name and your email.';return;}
+    if(!d.adult){m.textContent='Please tick the box to confirm you\'re 18+ and agree to the terms.';return;}
+    var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Entering…';
+    try{
+      var r=await fetch('/api/giveaway-entry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+      var j=await r.json();
+      if(!r.ok) throw new Error(j.error||'Something went wrong');
+      try{gtag('event','giveaway_entry',{country:d.country});}catch(_){}
+      f.innerHTML='<p style="font-size:18px;color:#5DE391;font-weight:800">🎉 You\'re entered! Good luck to '+d.petName.replace(/[<>&]/g,'')+'!</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><a class="btn try" href="/cartoon'+(d.country==='US'?'?region=us':'')+'">See '+d.petName.replace(/[<>&]/g,'')+' as a cartoon FREE now ✨</a>';
+    }catch(err){ m.textContent=err.message; btn.disabled=false; btn.textContent='Enter the giveaway →'; }
+  });
+})();
+</script>
 </body>
 </html>
