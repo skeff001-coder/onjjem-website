@@ -1138,6 +1138,7 @@ function ONJJEM_updateBasketButton(items) {
   }
   btn.innerHTML = `🧺<span class="basket-count">${items.length}</span>`;
   btn.style.display = items.length ? "flex" : "none";
+  document.body.classList.toggle("has-basket", items.length > 0);
 }
 
 function ONJJEM_showAddedToast(thumb, name) {
