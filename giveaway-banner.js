@@ -2,9 +2,10 @@
 (function(){
   if (new Date() >= new Date("2026-11-01T20:00:00Z")) return;
   try { if (sessionStorage.getItem('onjjem_gw_closed')) return; } catch(e){}
+  var us=/^\/us(\/|$)/.test(location.pathname)||/region=us/.test(location.search);
   var b=document.createElement('div');
   b.setAttribute('style','position:relative;z-index:50;background:linear-gradient(90deg,#E8287F,#FF8A1C);color:#fff;font:700 15px/1.35 system-ui,sans-serif;text-align:center;padding:11px 40px 11px 14px');
-  b.innerHTML='🎁 <b>GIVEAWAY:</b> win a FREE surprise gift bundle starring your pet! <a href="/giveaway#enter" style="color:#fff;text-decoration:underline">Enter free →</a>'+
+  b.innerHTML='🎁 <b>GIVEAWAY:</b> win a '+(us?'$50':'£40')+' gift card to put your pet on anything! <a href="/giveaway#enter" style="color:#fff;text-decoration:underline">Enter free →</a>'+
     '<button aria-label="Close" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:20px;cursor:pointer">×</button>';
   b.querySelector('a').onclick=function(){try{gtag('event','giveaway_banner_click');}catch(e){}};
   b.querySelector('button').onclick=function(){b.remove();try{sessionStorage.setItem('onjjem_gw_closed','1')}catch(e){}};
