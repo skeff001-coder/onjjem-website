@@ -4,6 +4,8 @@
 // has an empty <div id="app"></div>.
 
 const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
+// Giveaway entrants get the cartoon free until 30 Nov 2026 (server double-checks the email).
+(function(){try{var g=JSON.parse(localStorage.getItem('onjjem_gw')||'null');if(g&&g.email&&Date.now()<Date.parse('2026-11-30T23:59:59Z')){window.ONJJEM_CARTOON_FREE=true;window.ONJJEM_GW_EMAIL=g.email;}}catch(e){}})();
 
 // ── EDIT THESE TWO THINGS IN ONE PLACE ──────────────────────────────────────
 // 1. The current offer. The code MUST exist in Stripe as a *promotion code*
@@ -1033,6 +1035,7 @@ function ONJJEM_renderLanding(P) {
           photoBase64: photoToSend,
           ...(ONJJEM_isUS() ? { region: "us" } : {}),
           ...(window.ONJJEM_CARTOON_FREE ? { cartoonFree: true } : {}),
+          ...(window.ONJJEM_GW_EMAIL ? { giveawayEmail: window.ONJJEM_GW_EMAIL } : {}),
           successUrl: window.location.origin + ONJJEM_home() + "?order=success&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: window.location.href.split("#")[0] + "#order"
         }, extra))
@@ -1211,6 +1214,7 @@ async function ONJJEM_openBasket() {
         body: JSON.stringify({
           items: items.map(i => ({ sku: i.sku, photoBase64: i.photo, cartoon: !!i.cartoon, cartoonFree: !!i.cartoonFree })),
           ...(ONJJEM_isUS() ? { region: "us" } : {}),
+          ...(window.ONJJEM_GW_EMAIL ? { giveawayEmail: window.ONJJEM_GW_EMAIL } : {}),
           successUrl: location.origin + ONJJEM_home() + "?order=success&basket=1&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: location.href.split("#")[0]
         })

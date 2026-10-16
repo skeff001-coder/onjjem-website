@@ -1,3 +1,5 @@
+// Giveaway entrants get the cartoon free until 30 Nov 2026 (server double-checks the email).
+(function(){try{var g=JSON.parse(localStorage.getItem('onjjem_gw')||'null');if(g&&g.email&&Date.now()<Date.parse('2026-11-30T23:59:59Z')){window.ONJJEM_CARTOON_FREE=true;window.ONJJEM_GW_EMAIL=g.email;}}catch(e){}})();
 // ── Faster cartoons: send a smaller copy of the photo to the cartoon maker ──
 // Phone photos are 2–5 MB; uploading that on mobile data and having the AI
 // read it is most of the wait. The cartoon only needs ~1500px, so every
