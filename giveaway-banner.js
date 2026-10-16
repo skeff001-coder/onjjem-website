@@ -1,6 +1,6 @@
-// Giveaway banner: shows on main pages until Sun 18 Oct 2026, 8pm UK (19:00 UTC).
+// Giveaway banner: shows on main pages until Sun 1 Nov 2026, 8pm UK (20:00 UTC).
 (function(){
-  if (new Date() >= new Date("2026-10-18T19:00:00Z")) return;
+  if (new Date() >= new Date("2026-11-01T20:00:00Z")) return;
   try { if (sessionStorage.getItem('onjjem_gw_closed')) return; } catch(e){}
   var b=document.createElement('div');
   b.setAttribute('style','position:relative;z-index:50;background:linear-gradient(90deg,#E8287F,#FF8A1C);color:#fff;font:700 15px/1.35 system-ui,sans-serif;text-align:center;padding:11px 40px 11px 14px');
