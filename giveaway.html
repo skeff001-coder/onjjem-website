@@ -43,10 +43,13 @@
 
 <div class="card" id="enter">
   <h2 style="margin-top:0">Enter here (it's free) 🎁</h2>
+  <p id="gwcount" style="display:none;margin:-4px 0 8px;color:#5DE391;font-weight:700"></p>
   <form id="gw" novalidate>
     <label>Your first name<input name="name" required maxlength="60" autocomplete="given-name"></label>
     <label>Your pet's name<input name="petName" required maxlength="60" placeholder="e.g. Bella"></label>
     <label>Email (so we can tell you if you win)<input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+    <label>📸 Upload the photo you'd like on your prize<input name="photo" type="file" accept="image/*" required style="padding:10px"></label>
+    <img id="gwprev" alt="" style="display:none;max-width:140px;max-height:140px;border-radius:12px;margin:-2px 0 6px;border:2px solid #FFD24A">
     <label>Where do you live?<select name="country"><option value="GB">United Kingdom</option><option value="US">United States</option></select></label>
     <input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <label class="ck"><input type="checkbox" name="adult" required> I'm 18 or over and agree to the terms below</label>
@@ -68,10 +71,10 @@
   <li><b>Promoter:</b> ONJJEM (onjjem.com), Preston, UK.</li>
   <li><b>No purchase necessary.</b> Entry is free. Buying anything does not improve your chances.</li>
   <li>Open to residents of the UK and the United States aged 18 or over. Void where prohibited.</li>
-  <li>To enter, either fill in the form on this page, or comment on an official ONJJEM giveaway post on TikTok, Instagram or Facebook, between Friday 16 October 2026 and 8pm UK time (3pm ET) on Sunday 1 November 2026. One entry per person; extra comments don't count twice.</li>
+  <li>To enter, either fill in the form on this page (including the photo you'd like on your prize), or comment on an official ONJJEM giveaway post on TikTok, Instagram or Facebook, between Friday 16 October 2026 and 8pm UK time (3pm ET) on Sunday 1 November 2026. One entry per person; extra comments don't count twice.</li>
   <li>One winner will be picked at random from all valid entries across all three platforms after the closing time, and contacted by direct message by Monday 2 November 2026. If the winner doesn't reply within 7 days, we'll pick another winner.</li>
   <li><b>Prize:</b> one surprise bundle of personalised gifts featuring the winner's pet as a cartoon, chosen by ONJJEM and posted free. Total retail value (at onjjem.com prices) of at least £25 for a UK winner or $40 for a US winner. Contents may arrive in separate parcels. No cash alternative.</li>
-  <li>We use entrants' details only to run this giveaway and contact the winner, and send offers only to people who tick the optional box. We use the winner's details only to make and post the prize. <b>We will never ask for payment, card or bank details.</b> Any message asking for these is not from us.</li>
+  <li>Only upload a photo you own or have permission to use. We use entrants' details and photos only to run this giveaway and make the winner's prize, and delete them after the giveaway (except for people who ask to hear about offers, whose email we keep). We send offers only to people who tick the optional box. If the winner entered by comment, we'll ask them for their photo. <b>We will never ask for payment, card or bank details.</b> Any message asking for these is not from us.</li>
   <li>We may share the winner's first name and their pet's cartoon on our pages, with their permission.</li>
   <li>This giveaway is not sponsored, endorsed or run by TikTok, Instagram or Facebook (Meta).</li>
 </ol>
@@ -80,10 +83,15 @@
   var f=document.getElementById('gw'), m=document.getElementById('gwmsg');
   try{ if(/^en-US/.test(navigator.language)||/region=us/.test(location.search)) f.country.value='US'; }catch(e){}
   if (new Date() >= new Date('2026-11-01T20:00:00Z')) { f.innerHTML='<p><b>This giveaway has now closed.</b> Thanks to everyone who entered!</p>'; return; }
+  var photoData='';
+  function shrink(file){ return new Promise(function(ok,bad){ var u=URL.createObjectURL(file), i=new Image(); i.onload=function(){ var M=2400, w=i.naturalWidth, h=i.naturalHeight, k=Math.min(1,M/Math.max(w,h)); var c=document.createElement('canvas'); c.width=Math.round(w*k); c.height=Math.round(h*k); c.getContext('2d').drawImage(i,0,0,c.width,c.height); URL.revokeObjectURL(u); var q=0.86, d=c.toDataURL('image/jpeg',q); while(d.length>4300000&&q>0.5){q-=0.08; d=c.toDataURL('image/jpeg',q);} ok(d); }; i.onerror=bad; i.src=u; }); }
+  f.photo.addEventListener('change', async function(){ photoData=''; var pv=document.getElementById('gwprev'); pv.style.display='none'; var file=f.photo.files[0]; if(!file) return; m.style.color='#FFB347'; m.textContent='Preparing your photo…'; try{ photoData=await shrink(file); pv.src=photoData; pv.style.display='block'; m.textContent=''; }catch(_){ m.textContent='That photo couldn\'t be opened. Please try another one.'; } });
+  fetch('/api/giveaway-count').then(function(r){return r.json()}).then(function(j){ if(j&&j.count>=10){ var c=document.getElementById('gwcount'); c.textContent='🎉 '+j.count+' people have entered so far!'; c.style.display='block'; } }).catch(function(){});
   f.addEventListener('submit', async function(e){
     e.preventDefault(); m.style.color='#FFB347';
-    var d={name:f.name.value,petName:f.petName.value,email:f.email.value,country:f.country.value,adult:f.adult.checked,marketing:f.marketing.checked,website:f.website.value};
+    var d={name:f.name.value,petName:f.petName.value,email:f.email.value,country:f.country.value,adult:f.adult.checked,marketing:f.marketing.checked,website:f.website.value,photo:photoData};
     if(!d.name.trim()||!d.petName.trim()||!/\S+@\S+\.\S+/.test(d.email)){m.textContent='Please fill in your name, your pet\'s name and your email.';return;}
+    if(!d.photo){m.textContent='Please upload the photo you\'d like on your prize.';return;}
     if(!d.adult){m.textContent='Please tick the box to confirm you\'re 18+ and agree to the terms.';return;}
     var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Entering…';
     try{
