@@ -43,16 +43,16 @@
 <a href="/" class="back">&larr; Back to Shop</a>
 <span class="tag">🎁 GIVEAWAY · ends Sun 1 Nov, 8pm UK</span>
 <h1>Win a £40 gift card + your photo printed 🎁</h1>
-<p style="margin:6px 0 0"><b>Free to enter</b> · UK &amp; US · 18+ · takes 30 seconds. Winner gets a <b>£40 gift card</b> (<b>$50</b> in the US) + their photo printed &amp; posted free. You also get a <b>free cartoon</b> of your photo straight away ✨</p>
+<p style="margin:6px 0 0"><b>Free to enter</b> · UK &amp; US · 18+ · just your name &amp; email. Winner gets a <b>£40 gift card</b> (<b>$50</b> in the US) + their photo printed &amp; posted free. You also get a <b>free cartoon</b> of your photo straight away ✨</p>
 
 <div class="card" id="enter">
   <h2 style="margin-top:0">Enter here (it's free) 🎁</h2>
   <p id="gwcount" style="display:none;margin:-4px 0 8px;color:#5DE391;font-weight:700"></p>
   <form id="gw" novalidate>
     <label>Your first name<input name="name" required maxlength="60" autocomplete="given-name"></label>
-    <label>Who's in your photo?<input name="petName" required maxlength="60" placeholder="e.g. Bella, Mum, Grandad"></label>
     <label>Email (so we can tell you if you win)<input name="email" type="email" required maxlength="200" autocomplete="email"></label>
-    <label>📸 Upload your photo (the winner gets it printed!)<input name="photo" type="file" accept="image/*" required style="padding:10px"></label>
+    <label>Who's in your photo? <small>(optional)</small><input name="petName" maxlength="60" placeholder="e.g. Bella, Mum, Grandad"></label>
+    <label>📸 Add your photo <small>(optional: the winner gets it printed, and you get a free cartoon of it)</small><input name="photo" type="file" accept="image/*" style="padding:10px"></label>
     <img id="gwprev" alt="" style="display:none;max-width:140px;max-height:140px;border-radius:12px;margin:-2px 0 6px;border:2px solid #FFD24A">
     <label>Where do you live?<select name="country"><option value="GB">United Kingdom</option><option value="US">United States</option></select></label>
     <input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
@@ -75,9 +75,9 @@
   <li><b>Promoter:</b> ONJJEM (onjjem.com), United Kingdom. Contact: <a href="mailto:hello@onjjem.com">hello@onjjem.com</a>.</li>
   <li><b>No purchase necessary.</b> Entry is free. Buying anything does not improve your chances.</li>
   <li>Open to residents of the UK and the United States aged 18 or over. Void where prohibited.</li>
-  <li>To enter, either fill in the form on this page (including the photo you'd like on your gift), or comment on an official ONJJEM giveaway post on TikTok, Instagram or Facebook, between Friday 16 October 2026 and 8pm UK time (3pm ET) on Sunday 1 November 2026. One entry per person across all platforms; extra comments or form entries don't count twice.</li>
+  <li>To enter, either fill in the form on this page (adding the photo you'd like on your gift is optional), or comment on an official ONJJEM giveaway post on TikTok, Instagram or Facebook, between Friday 16 October 2026 and 8pm UK time (3pm ET) on Sunday 1 November 2026. One entry per person across all platforms; extra comments or form entries don't count twice.</li>
   <li>After closing, every valid entry from the form and all three platforms will be listed and one winner picked using a random number generator. Odds of winning depend on the number of valid entries. The winner will be contacted by Monday 2 November 2026, by email if they entered on this page or by direct message if they entered by comment. If the winner doesn't reply within 7 days, we'll pick another winner the same way.</li>
-  <li><b>Prize:</b> one ONJJEM gift card worth £40 (UK winner, for onjjem.com) or $50 (US winner, for onjjem.com/us), sent by email as gift code(s), valid until 31 March 2027. Codes are used at checkout on single-item orders and cannot be combined with multi-buy discounts; any unused balance on a code is not refunded. Products are posted free. The winner also receives the photo they entered printed as one 6×4″ (15×10cm) postcard, as the real photo or a cartoon (their choice), posted free to a UK or US address. If the winner entered by comment, we'll ask them for their photo. No cash alternative.</li>
+  <li><b>Prize:</b> one ONJJEM gift card worth £40 (UK winner, for onjjem.com) or $50 (US winner, for onjjem.com/us), sent by email as gift code(s), valid until 31 March 2027. Codes are used at checkout on single-item orders and cannot be combined with multi-buy discounts; any unused balance on a code is not refunded. Products are posted free. The winner also receives the photo they entered printed as one 6×4″ (15×10cm) postcard, as the real photo or a cartoon (their choice), posted free to a UK or US address. If the winner didn't send a photo, we'll ask them for one. No cash alternative.</li>
   <li><b>Thank-you gift for entering:</b> everyone who enters using the form on this page gets the cartoon version of their photo free on any ONJJEM gift ordered by 30 November 2026 (normally £1.99 on UK orders; cartoons are always free in the US shop). To get it, order on the same phone or computer you entered on. This is not a prize, needs no purchase to enter, and doesn't affect your chances of winning.</li>
   <li>Only upload a photo you own or have permission to use. We use entrants' details and photos only to run this giveaway and make the winner's prize, and delete them after the giveaway (except for people who ask to hear about offers, whose email we keep). We send offers only to people who tick the optional box. <b>We will never ask for payment, card or bank details.</b> Any message asking for these is not from us.</li>
   <li>We may share the winner's first name and their cartoon on our pages, with their permission.</li>
@@ -88,15 +88,15 @@
   var f=document.getElementById('gw'), m=document.getElementById('gwmsg');
   try{ if(/^en-US/.test(navigator.language)||/region=us/.test(location.search)) f.country.value='US'; }catch(e){}
   if (new Date() >= new Date('2026-11-01T20:00:00Z')) { f.innerHTML='<p><b>This giveaway has now closed.</b> Thanks to everyone who entered!</p>'; return; }
-  var photoData='', photoSmall='';
+  var photoData='', photoSmall='', started=false;
+  f.addEventListener('focusin', function(){ if(started) return; started=true; try{gtag('event','giveaway_form_start');}catch(_){} });
   function shrink(file){ return new Promise(function(ok,bad){ var u=URL.createObjectURL(file), i=new Image(); i.onload=function(){ var M=2400, w=i.naturalWidth, h=i.naturalHeight, k=Math.min(1,M/Math.max(w,h)); var c=document.createElement('canvas'); c.width=Math.round(w*k); c.height=Math.round(h*k); c.getContext('2d').drawImage(i,0,0,c.width,c.height); URL.revokeObjectURL(u); var q=0.86, d=c.toDataURL('image/jpeg',q); while(d.length>4300000&&q>0.5){q-=0.08; d=c.toDataURL('image/jpeg',q);} var k2=Math.min(1,1536/Math.max(w,h)), c2=document.createElement('canvas'); c2.width=Math.round(w*k2); c2.height=Math.round(h*k2); c2.getContext('2d').drawImage(i,0,0,c2.width,c2.height); photoSmall=c2.toDataURL('image/jpeg',0.85); ok(d); }; i.onerror=bad; i.src=u; }); }
   f.photo.addEventListener('change', async function(){ photoData=''; var pv=document.getElementById('gwprev'); pv.style.display='none'; var file=f.photo.files[0]; if(!file) return; m.style.color='#FFB347'; m.textContent='Preparing your photo…'; try{ photoData=await shrink(file); pv.src=photoData; pv.style.display='block'; m.textContent=''; }catch(_){ m.textContent='That photo couldn\'t be opened. Please try another one.'; } });
   fetch('/api/giveaway-count').then(function(r){return r.json()}).then(function(j){ if(j&&j.count>=10){ var c=document.getElementById('gwcount'); c.textContent='🎉 '+j.count+' people have entered so far!'; c.style.display='block'; } }).catch(function(){});
   f.addEventListener('submit', async function(e){
     e.preventDefault(); m.style.color='#FFB347';
-    var d={name:f.name.value,petName:f.petName.value,email:f.email.value,country:f.country.value,adult:f.adult.checked,marketing:f.marketing.checked,website:f.website.value,photo:photoData};
-    if(!d.name.trim()||!d.petName.trim()||!/\S+@\S+\.\S+/.test(d.email)){m.textContent='Please fill in your name, who\'s in your photo and your email.';return;}
-    if(!d.photo){m.textContent='Please upload the photo you\'d like on your prize.';return;}
+    var d={name:f.name.value,petName:(f.petName.value.trim()||'you'),email:f.email.value,country:f.country.value,adult:f.adult.checked,marketing:f.marketing.checked,website:f.website.value,photo:photoData};
+    if(!d.name.trim()||!/\S+@\S+\.\S+/.test(d.email)){m.textContent='Please fill in your name and email.';try{gtag('event','giveaway_error',{reason:'missing'});}catch(_){}return;}
     if(!d.adult){m.textContent='Please tick the box to confirm you\'re 18+ and agree to the terms.';return;}
     var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Entering…';
     try{
@@ -104,10 +104,10 @@
       var j=await r.json();
       if(!r.ok) throw new Error(j.error||'Something went wrong');
       try{gtag('event','giveaway_entry',{country:d.country});}catch(_){}
-      var pn=d.petName.replace(/[<>&]/g,''), q=d.country==='US'?'region=us&':'';
-      var auto=false; try{ sessionStorage.setItem('onjjem_giveaway_photo', photoSmall); auto=true; }catch(_){}
+      var pn=d.petName.replace(/[<>&]/g,''), q=d.country==='US'?'region=us&':'', who=(pn==='you'?'your photo':pn);
+      var auto=false; if(photoSmall){ try{ sessionStorage.setItem('onjjem_giveaway_photo', photoSmall); auto=true; }catch(_){} }
       try{ localStorage.setItem('onjjem_gw', JSON.stringify({email:d.email.trim().toLowerCase()})); }catch(_){}
-      f.innerHTML='<p style="font-size:18px;color:#5DE391;font-weight:800">🎉 You\'re entered! Good luck to '+pn+'!</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><p style="margin:14px 0 6px;font-weight:700;color:#FFD24A">Now see '+pn+' as a cartoon, free 👇</p><p style="margin:0 0 8px">🎁 Thanks for entering: your cartoon is <b>FREE</b> on any gift until 30 November (normally £1.99).</p><a class="btn try" href="/cartoon?'+q+(auto?'gw=1':'')+'">✨ Show me '+pn+' as a cartoon</a>';
+      f.innerHTML='<p style="font-size:18px;color:#5DE391;font-weight:800">🎉 You\'re entered! Good luck to '+pn+'!</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><p style="margin:14px 0 6px;font-weight:700;color:#FFD24A">Now see '+who+' as a cartoon, free 👇</p><p style="margin:0 0 8px">🎁 Thanks for entering: your cartoon is <b>FREE</b> on any gift until 30 November (normally £1.99).</p><a class="btn try" href="/cartoon?'+q+(auto?'gw=1':'')+'">✨ Show me '+who+' as a cartoon</a>';
     }catch(err){ m.textContent=err.message; btn.disabled=false; btn.textContent='Enter the giveaway →'; }
   });
 })();
