@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalised 2027 Photo Calendar | ONJJEM</title>
+<meta name="description" content="Your own photos on every month of a 2027 A4 wall calendar. £24.99 with free UK delivery.">
+<link rel="canonical" href="https://onjjem.com/calendar">
+<meta property="og:title" content="Your photos on a 2027 calendar | ONJJEM">
+<meta property="og:description" content="12 months, 12 of your photos. A4 wall calendar, free delivery.">
+<meta property="og:image" content="https://onjjem.com/opengraph.jpg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  try { if (localStorage.getItem('onjjem_notrack')) window['ga-disable-G-3L30Q5L3MW'] = true; } catch (e) {}
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<script>window.ONJJEM_REGION = window.ONJJEM_REGION || "uk";</script>
+<style>
+  :root { --bg:#1f1f1f; --card:#2c2c2c; --card2:#353535; --gold:#d4af37; --gold2:#e8c75a; --text:#fff; --muted:#c9c9c9; --line:#444; --green:#5cc37c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  a { color:var(--gold); }
+  .hdr { display:flex; justify-content:space-between; align-items:center; padding:.9rem 1rem; border-bottom:1px solid var(--line); max-width:1000px; margin:0 auto; }
+  .logo { color:var(--gold); font-weight:800; letter-spacing:3px; font-size:1.3rem; text-decoration:none; }
+  .hdr nav a { color:var(--muted); text-decoration:none; font-size:.9rem; margin-left:1rem; }
+  .wrap { max-width:1000px; margin:0 auto; padding:0 16px; }
+  .hero { display:grid; gap:24px; padding:24px 0 8px; }
+    .hero > div { min-width:0; }
+  @media (min-width:820px){ .hero { grid-template-columns:1.1fr 1fr; align-items:center; padding-top:40px; } }
+  .kicker { color:var(--gold); font-weight:800; letter-spacing:3px; font-size:.8rem; text-transform:uppercase; }
+  h1 { font-size:clamp(2rem,6vw,2.8rem); line-height:1.1; margin:.3rem 0 .6rem; }
+  .sub { color:var(--muted); font-size:1.05rem; }
+  .price { margin:1rem 0 .4rem; font-size:1.9rem; font-weight:800; color:var(--gold); }
+  .price small { font-size:1rem; color:var(--muted); font-weight:500; }
+  .ticks { list-style:none; margin:.6rem 0 0; }
+  .ticks li { padding-left:1.6rem; position:relative; margin:.3rem 0; }
+  .ticks li::before { content:"✓"; color:var(--green); font-weight:900; position:absolute; left:0; }
+
+  /* Calendar mock-up */
+  .mock { position:relative; background:#fff; border-radius:6px; padding:18px 14px 14px; box-shadow:0 18px 40px rgba(0,0,0,.5); max-width:460px; margin:0 auto; width:100%; }
+  .rings { position:absolute; top:-9px; left:0; right:0; display:flex; justify-content:center; gap:7px; }
+  .rings i { width:6px; height:18px; border-radius:3px; background:linear-gradient(#999,#555); display:block; }
+  .mock-photo { aspect-ratio:297/210; background:#e9e6df center/cover no-repeat; border-radius:2px; display:flex; align-items:center; justify-content:center; color:#8a8476; font-weight:700; text-align:center; padding:10px; }
+  .mock-label { color:#222; text-align:center; font-weight:800; letter-spacing:2px; margin-top:10px; font-size:.95rem; }
+  .mock-tabs { display:flex; gap:6px; overflow-x:auto; margin-top:10px; scrollbar-width:none; }
+  .mock-tabs button { flex:none; border:1px solid var(--line); background:var(--card); color:var(--muted); border-radius:20px; padding:4px 10px; font-size:.8rem; cursor:pointer; }
+  .mock-tabs button.on { background:var(--gold); color:#1a1a1a; border-color:var(--gold); font-weight:700; }
+
+  .box { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; margin:28px 0; }
+  .box h2 { font-size:1.35rem; margin-bottom:.3rem; }
+  .hint { color:var(--muted); font-size:.92rem; }
+  .btn { display:block; width:100%; border:0; border-radius:12px; padding:1rem; font-size:1.1rem; font-weight:800; cursor:pointer; text-align:center; text-decoration:none; }
+  .btn-gold { background:var(--gold); color:#1a1a1a; }
+  .btn-gold:disabled { opacity:.5; cursor:default; }
+  .btn-ghost { background:transparent; color:var(--gold); border:2px solid var(--gold); }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:16px 0; }
+  @media (min-width:620px){ .grid { grid-template-columns:repeat(5,1fr); } }
+  .slot { position:relative; aspect-ratio:297/210; border-radius:8px; border:2px dashed #5a5a5a; background:var(--card2) center/cover no-repeat; cursor:pointer; overflow:hidden; }
+  .slot.has { border-style:solid; border-color:var(--gold); }
+  .slot.cover { grid-column:span 3; }
+  @media (min-width:620px){ .slot.cover { grid-column:span 2; grid-row:span 2; } }
+  .slot .lbl { position:absolute; left:6px; bottom:5px; background:rgba(0,0,0,.65); color:#fff; font-size:.72rem; font-weight:700; padding:1px 7px; border-radius:10px; }
+  .slot .plus { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#888; font-size:1.6rem; }
+  .slot.has .plus { display:none; }
+  .slot .x { display:none; position:absolute; top:4px; right:4px; width:26px; height:26px; border-radius:50%; border:0; background:rgba(0,0,0,.7); color:#fff; font-size:15px; cursor:pointer; line-height:26px; }
+  .slot.has .x { display:block; }
+  .slot .warn { position:absolute; bottom:5px; right:6px; background:#e2a03b; color:#1a1a1a; font-size:.65rem; font-weight:800; padding:1px 6px; border-radius:8px; display:none; }
+  .slot.lowres .warn { display:block; }
+  .count { font-weight:700; margin:.2rem 0 .8rem; }
+  .msg { margin-top:10px; font-weight:700; min-height:1.4em; }
+  .faq details { border-bottom:1px solid var(--line); padding:.8rem 0; }
+  .faq summary { cursor:pointer; font-weight:700; }
+  .faq p { color:var(--muted); margin-top:.4rem; }
+  .foot { text-align:center; color:#999; font-size:.85rem; padding:2rem 1rem; border-top:1px solid var(--line); margin-top:2rem; }
+  .foot a { margin:0 .5rem; text-decoration:none; }
+  .sticky { position:fixed; left:0; right:0; bottom:0; background:rgba(31,31,31,.97); border-top:1px solid var(--line); padding:.7rem 1rem; display:none; z-index:50; }
+  @media (max-width:819px){ .sticky.show { display:block; } body.has-sticky { padding-bottom:76px; } }
+</style>
+</head>
+<body class="has-sticky">
+<header class="hdr">
+  <a class="logo" id="homeLink" href="/">ONJJEM</a>
+  <nav><a id="shopLink" href="/">Shop</a><a href="/cartoon" id="cartoonLink">Free cartoon</a></nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="kicker">New · 2027 photo calendar</div>
+      <h1>A whole year of your favourite people</h1>
+      <p class="sub">Pick 12 photos, one for every month: the kids, the dog, the family holiday. We print a proper A4 wall calendar with all the 2027 dates and post it free. It's the gift they'll look at every single day.</p>
+      <div class="price"><span id="priceTxt">£24.99</span> <small id="deliveryTxt">· free UK delivery</small></div>
+      <ul class="ticks">
+        <li>A4 landscape, wire-bound, ready to hang</li>
+        <li>Thick 300gsm silk paper, full colour</li>
+        <li>Your own photo on the cover and every month</li>
+        <li id="madeTxt">Made in the UK, posted free</li>
+      </ul>
+    </div>
+    <div>
+      <div class="mock" aria-label="Calendar preview">
+        <div class="rings"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="mock-photo" id="mockPhoto">Your photo here 📸</div>
+        <div class="mock-label" id="mockLabel">2027</div>
+      </div>
+      <div class="mock-tabs" id="mockTabs"></div>
+    </div>
+  </section>
+
+  <section class="box" id="make">
+    <h2>Make your calendar</h2>
+    <p class="hint">Add up to 13 photos: one for the cover and one for each month. Got fewer? No problem, we'll repeat them across the year. Landscape (sideways) photos fit best.</p>
+    <div class="grid" id="grid"></div>
+    <p class="count" id="count">0 of 13 photos added</p>
+    <input type="file" id="multi" accept="image/*" multiple hidden>
+    <input type="file" id="single" accept="image/*" hidden>
+    <button class="btn btn-ghost" id="addBtn" type="button">📸 Add photos</button>
+    <div style="height:10px"></div>
+    <button class="btn btn-gold" id="buyBtn" type="button" disabled>Order my calendar</button>
+    <p class="msg" id="msg"></p>
+    <p class="hint" id="xmasTxt" style="margin-top:6px">🎄 Order by <b>Wednesday 9 December</b> for Christmas.</p>
+  </section>
+
+  <section class="box faq">
+    <h2>Questions</h2>
+    <details><summary>What size is it?</summary><p>A4 landscape (29.7 × 21cm, about 11.7 × 8.3"), wire-bound with a hanging hole. Each month has your photo on the top page and the 2027 dates on the bottom page.</p></details>
+    <details><summary>What if I don't have 13 photos?</summary><p>Add as many as you like, even just one. We'll repeat them in order so every month has a picture.</p></details>
+    <details><summary>Will my photo be cropped?</summary><p>Each page is landscape, so tall (portrait) photos get trimmed at the top and bottom. The previews above show exactly what will print.</p></details>
+    <details><summary>How long does delivery take?</summary><p id="deliveryFaq">Every calendar is made to order in about 5 working days, then posted free. Most arrive in 7–10 days.</p></details>
+    <details><summary>Is there anything you can't print?</summary><p>Please only use photos you have the right to use. We can't print brand logos, characters from films and TV, or anything offensive.</p></details>
+    <details><summary>What if something's wrong?</summary><p>Email <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> with a photo and we'll put it right with a free replacement or a refund.</p></details>
+  </section>
+</main>
+
+<div class="sticky" id="sticky"><a class="btn btn-gold" href="#make">Make my calendar</a></div>
+
+<footer class="foot">
+  <a id="footHome" href="/">Shop</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="mailto:hello@onjjem.com">Contact</a>
+  <p style="margin-top:.6rem">ONJJEM · UK family business</p>
+</footer>
+
+<script>
+(function(){
+  var US = window.ONJJEM_REGION === "us";
+  var API = "";
+  var MONTHS = ["Cover","January","February","March","April","May","June","July","August","September","October","November","December"];
+  var SHORT = ["Cover","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var photos = new Array(13).fill(null); // {data, w, h}
+  var current = 0, pickFor = -1;
+
+  if (US) {
+    document.getElementById("priceTxt").textContent = "$27.99";
+    document.getElementById("deliveryTxt").textContent = "· free US shipping";
+    document.getElementById("madeTxt").textContent = "Made in the USA, shipped free";
+    document.getElementById("deliveryFaq").textContent = "Every calendar is made to order in the USA in about 5 business days, then shipped free. Most arrive in 7–12 business days.";
+    document.getElementById("xmasTxt").innerHTML = "🎄 Order by <b>Thursday 3 December</b> for Christmas.";
+    ["homeLink","shopLink","footHome"].forEach(function(id){ document.getElementById(id).href = "/us/"; });
+    document.getElementById("cartoonLink").href = "/cartoon?region=us";
+  }
+
+  var grid = document.getElementById("grid"), tabs = document.getElementById("mockTabs");
+  MONTHS.forEach(function(m, i){
+    var d = document.createElement("div");
+    d.className = "slot" + (i === 0 ? " cover" : "");
+    d.innerHTML = '<span class="plus">+</span><span class="warn">LOW RES</span><span class="lbl">' + (i === 0 ? "Cover" : SHORT[i]) + '</span><button class="x" type="button" aria-label="Remove">×</button>';
+    d.addEventListener("click", function(e){
+      if (e.target.classList.contains("x")) { photos[i] = null; render(); return; }
+      pickFor = i; document.getElementById("single").click();
+    });
+    grid.appendChild(d);
+    var t = document.createElement("button");
+    t.type = "button"; t.textContent = SHORT[i];
+    t.addEventListener("click", function(){ current = i; renderMock(); });
+    tabs.appendChild(t);
+  });
+
+  // Shrink each photo in the browser (keeps uploads quick) and apply phone rotation.
+  function load(file) {
+    return new Promise(function(resolve, reject){
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function(){
+        var w = img.naturalWidth, h = img.naturalHeight, max = 2600, s = Math.min(1, max / Math.max(w, h));
+        var c = document.createElement("canvas"); c.width = Math.round(w * s); c.height = Math.round(h * s);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        resolve({ data: c.toDataURL("image/jpeg", 0.85), w: w, h: h });
+      };
+      img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error("bad image")); };
+      img.src = url;
+    });
+  }
+
+  async function addFiles(files, startAt) {
+    var msg = document.getElementById("msg");
+    msg.style.color = "#e8c75a"; msg.textContent = "Adding your photos…";
+    var list = Array.prototype.slice.call(files, 0, 13), failed = 0;
+    for (var k = 0; k < list.length; k++) {
+      var slot = startAt >= 0 && k === 0 ? startAt : photos.indexOf(null);
+      if (slot < 0) break;
+      try { photos[slot] = await load(list[k]); } catch (e) { failed++; }
+      render();
+    }
+    msg.textContent = failed ? (failed + " photo" + (failed > 1 ? "s" : "") + " couldn't be opened. Please try another.") : "";
+    try { gtag("event", "calendar_add_photos", { count: photos.filter(Boolean).length }); } catch (e) {}
+  }
+
+  document.getElementById("addBtn").onclick = function(){ document.getElementById("multi").click(); };
+  document.getElementById("multi").onchange = function(){ addFiles(this.files, -1); this.value = ""; };
+  document.getElementById("single").onchange = function(){ if (this.files[0]) addFiles(this.files, pickFor); this.value = ""; };
+
+  // Which photo prints on page i (fewer photos repeat in order).
+  function pageSource(i) {
+    var got = photos.filter(Boolean);
+    if (!got.length) return null;
+    return photos[i] || got[i % got.length];
+  }
+
+  function renderMock() {
+    var p = pageSource(current), el = document.getElementById("mockPhoto");
+    el.style.backgroundImage = p ? "url(" + p.data + ")" : "";
+    el.textContent = p ? "" : "Your photo here 📸";
+    document.getElementById("mockLabel").textContent = current === 0 ? "2027" : MONTHS[current].toUpperCase() + " 2027";
+    Array.prototype.forEach.call(tabs.children, function(b, i){ b.classList.toggle("on", i === current); });
+  }
+
+  function render() {
+    var n = photos.filter(Boolean).length;
+    Array.prototype.forEach.call(grid.children, function(d, i){
+      var p = photos[i];
+      d.classList.toggle("has", !!p);
+      d.classList.toggle("lowres", !!p && Math.max(p.w, p.h) < 1400);
+      d.style.backgroundImage = p ? "url(" + p.data + ")" : "";
+    });
+    document.getElementById("count").textContent = n + " of 13 photos added" + (n && n < 13 ? " (we'll repeat them to fill the year)" : "");
+    var buy = document.getElementById("buyBtn");
+    buy.disabled = !n;
+    buy.textContent = n ? "Order my calendar · " + (US ? "$27.99" : "£24.99") : "Add a photo to start";
+    document.getElementById("addBtn").textContent = n ? "📸 Add more photos" : "📸 Add photos";
+    renderMock();
+  }
+
+  document.getElementById("buyBtn").onclick = async function(){
+    var btn = this, msg = document.getElementById("msg");
+    var pages = []; for (var i = 0; i < 13; i++) pages.push(pageSource(i).data);
+    btn.disabled = true; msg.style.color = "#e8c75a"; msg.textContent = "Uploading your photos… (this can take up to a minute)";
+    try { gtag("event", "begin_checkout", { currency: US ? "USD" : "GBP", value: US ? 27.99 : 24.99, items: [{ item_id: US ? "US-CALENDAR-A4" : "calendar-a4", item_name: "2027 Photo Calendar" }] }); } catch (e) {}
+    try {
+      var home = location.origin + (US ? "/us/" : "/");
+      var r = await fetch(API + "/api/stripe/calendar-checkout", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ region: US ? "us" : "uk", photos: pages,
+          successUrl: home + "?order=success&session_id={CHECKOUT_SESSION_ID}",
+          cancelUrl: location.href.split("#")[0] })
+      });
+      var j = await r.json().catch(function(){ return {}; });
+      if (j.url) { location.href = j.url; return; }
+      throw new Error(j.error || "Checkout didn't start");
+    } catch (err) {
+      btn.disabled = false; msg.style.color = "#ffb4a8";
+      msg.textContent = "Sorry, checkout didn't start (" + (err && err.message ? err.message : "connection problem") + "). Please try again, or email hello@onjjem.com.";
+    }
+  };
+
+  // Sticky button on phones until the maker is on screen.
+  var sticky = document.getElementById("sticky"), make = document.getElementById("make");
+  function onScroll(){ var r = make.getBoundingClientRect(); sticky.classList.toggle("show", !(r.top < innerHeight && r.bottom > 0) && scrollY > 200); }
+  addEventListener("scroll", onScroll, { passive: true });
+
+  render();
+})();
+</script>
+</body>
+</html>
