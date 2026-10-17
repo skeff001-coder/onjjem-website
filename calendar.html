@@ -186,7 +186,8 @@
         var c = document.createElement("canvas"); c.width = Math.round(w * s); c.height = Math.round(h * s);
         c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
         URL.revokeObjectURL(url);
-        resolve({ data: c.toDataURL("image/jpeg", 0.85), w: w, h: h });
+        var q = 0.86, d = c.toDataURL("image/jpeg", q); while (d.length > 1500000 && q > 0.55) { q -= 0.07; d = c.toDataURL("image/jpeg", q); }
+        resolve({ data: d, w: w, h: h });
       };
       img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error("bad image")); };
       img.src = url;
