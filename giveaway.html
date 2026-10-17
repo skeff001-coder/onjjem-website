@@ -21,43 +21,52 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://onjjem.com/giveaway-og.jpg?v=2">
 <style>
-  body { background: #0A0804; color: #F5EDD8; font-family: system-ui, sans-serif; max-width: 640px; margin: 0 auto; padding: 32px 20px 60px; line-height: 1.65; }
-  h1 { color: #FFD24A; font-size: 30px; line-height: 1.2; margin: 6px 0 10px; }
-  h2 { color: #C9960C; font-size: 19px; margin-top: 30px; }
-  p, li { color: rgba(245,237,216,0.86); }
-  a { color: #FFB347; }
-  .back { display: inline-block; margin-bottom: 20px; color: #C9960C; text-decoration: none; font-size: 14px; }
-  .tag { display:inline-block; background:#E8287F; color:#fff; font-weight:700; padding:4px 12px; border-radius:20px; font-size:13px; }
-  .card { background:#1a130a; border:1px solid #3a2a12; border-radius:16px; padding:18px 20px; margin-top:18px; }
-  .btn { display:block; text-align:center; margin:10px 0; padding:14px; border-radius:14px; font-weight:800; text-decoration:none; font-size:17px; }
-  .tt { background:#fff; color:#000; } .fb { background:#1877F2; color:#fff; } .ig { background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af); color:#fff; }
-  .try { background:#FFD24A; color:#1a0a28; }
+  body { background: radial-gradient(120% 60% at 50% 0%, #6a1b8a 0%, #2a0d3d 45%, #14071f 100%) fixed; color: #FBEFFF; font-family: system-ui, -apple-system, sans-serif; max-width: 640px; margin: 0 auto; padding: 18px 16px 60px; line-height: 1.6; }
+  h1 { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+  h2 { color: #FFD24A; font-size: 20px; margin-top: 30px; }
+  p, li { color: rgba(251,239,255,0.88); }
+  a { color: #FFD24A; }
+  .back { display: inline-block; margin-bottom: 12px; color: #F7C6FF; text-decoration: none; font-size: 14px; }
+  .hero { display:block; width:100%; height:auto; border-radius:18px; box-shadow:0 14px 40px rgba(0,0,0,.45); }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 4px; }
+  .chips span { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); border-radius:20px; padding:5px 12px; font-size:13px; font-weight:700; color:#fff; }
+  .card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:18px; padding:18px 18px; margin-top:18px; backdrop-filter:blur(6px); }
+  .card.form { background:#fff; color:#2a0d3d; border:0; box-shadow:0 18px 40px rgba(0,0,0,.35); }
+  .card.form h2 { color:#2a0d3d; margin:0 0 4px; font-size:22px; }
+  .card.form p, .card.form small { color:#6b5675; }
+  .card.form a { color:#8E2DE2; }
+  .btn { display:block; text-align:center; margin:10px 0; padding:15px; border-radius:14px; font-weight:800; text-decoration:none; font-size:17px; }
+  .try { background:#FFD24A; color:#2a0d3d; }
+  .go { background:linear-gradient(90deg,#E8287F,#8E2DE2); color:#fff; box-shadow:0 8px 20px rgba(232,40,127,.35); }
   ol li { margin-bottom: 6px; }
-  form label { display:block; margin:10px 0; font-size:14px; color:#F5EDD8; }
-  form input:not([type=checkbox]), form select { display:block; width:100%; box-sizing:border-box; margin-top:5px; padding:12px; border-radius:10px; border:1px solid #5a4520; background:#0f0b06; color:#fff; font-size:16px; }
-  form .ck { display:flex; gap:10px; align-items:flex-start; font-size:13px; color:rgba(245,237,216,0.85); }
-  form .ck input { margin-top:3px; width:18px; height:18px; flex:none; } small { color: rgba(245,237,216,0.6); }
+  form label { display:block; margin:12px 0; font-size:14px; font-weight:600; color:#2a0d3d; }
+  form label small { font-weight:400; }
+  form input:not([type=checkbox]), form select { display:block; width:100%; box-sizing:border-box; margin-top:6px; padding:13px; border-radius:12px; border:1.5px solid #e3d6ea; background:#faf6fc; color:#2a0d3d; font-size:16px; }
+  form input:focus { outline:none; border-color:#E8287F; }
+  form .ck { display:flex; gap:10px; align-items:flex-start; font-size:13px; font-weight:400; color:#4a3554; }
+  form .ck input { margin-top:3px; width:18px; height:18px; flex:none; accent-color:#E8287F; }
+  small { color: rgba(251,239,255,0.65); }
 </style>
 </head>
 <body>
 <a href="/" class="back">&larr; Back to Shop</a>
-<span class="tag">🎁 GIVEAWAY · ends Sun 1 Nov, 8pm UK</span>
-<h1>Win a £40 gift card + your photo printed 🎁</h1>
-<p style="margin:6px 0 0"><b>Free to enter</b> · UK &amp; US · 18+ · just your name &amp; email. Winner gets a <b>£40 gift card</b> (<b>$50</b> in the US) + their photo printed &amp; posted free. You also get a <b>free cartoon</b> of your photo straight away ✨</p>
+<h1>Win a £40 gift card + your photo printed</h1>
+<img class="hero" src="/giveaway-og.jpg?v=2" alt="Giveaway: win a £40 ONJJEM gift card to spend on personalised photo gifts, plus your photo printed free" width="1200" height="630">
+<div class="chips"><span>✅ Free to enter</span><span>🇬🇧 UK &amp; 🇺🇸 US</span><span>⏰ Ends Sun 1 Nov, 8pm</span><span>✨ Free cartoon</span></div>
 
-<div class="card" id="enter">
-  <h2 style="margin-top:0">Enter here (it's free) 🎁</h2>
-  <p id="gwcount" style="display:none;margin:-4px 0 8px;color:#5DE391;font-weight:700"></p>
+<div class="card form" id="enter">
+  <h2>Enter the giveaway</h2><p style="margin:0 0 4px;font-size:14px">Takes 30 seconds. The winner is picked at random after it closes.</p>
+  <p id="gwcount" style="display:none;margin:-4px 0 8px;color:#1a9d55;font-weight:700"></p>
   <form id="gw" novalidate>
     <label>Your first name<input name="name" required maxlength="60" autocomplete="given-name"></label>
-    <label>Email (so we can tell you if you win)<input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+    <label>Email address <small>(to confirm your entry and contact the winner)</small><input name="email" type="email" required maxlength="200" autocomplete="email"></label>
     <label>📸 Your photo <small>(optional: the winner gets it printed + you get a free cartoon)</small><input name="photo" type="file" accept="image/*" style="padding:10px"></label>
     <img id="gwprev" alt="" style="display:none;max-width:140px;max-height:140px;border-radius:12px;margin:-2px 0 6px;border:2px solid #FFD24A">
     <input type="hidden" name="country" value="GB">
     <input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <label class="ck"><input type="checkbox" name="adult" required> I'm 18 or over and agree to the terms below</label>
-    <button type="submit" class="btn try" style="width:100%;border:0;cursor:pointer">Enter the giveaway →</button>
-    <label class="ck" style="font-size:12px;opacity:.8;margin-top:4px"><input type="checkbox" name="marketing"> Also send me ONJJEM offers (optional)</label>
+    <button type="submit" class="btn go" style="width:100%;border:0;cursor:pointer">Submit my entry</button>
+    <label class="ck" style="font-size:12px;margin-top:4px"><input type="checkbox" name="marketing"> Also send me ONJJEM offers and discounts (optional)</label>
     <p id="gwmsg" style="margin:8px 0 0;font-weight:700"></p>
   </form>
   <p style="margin:12px 0 0"><small>Or enter by commenting on our pinned giveaway post on <a href="https://www.tiktok.com/@onjjem123" target="_blank" rel="noopener">TikTok</a>, Instagram or Facebook (search <b>ONJJEM</b>). One entry per person.</small></p>
@@ -90,14 +99,14 @@
   var photoData='', photoSmall='', started=false;
   f.addEventListener('focusin', function(){ if(started) return; started=true; try{gtag('event','giveaway_form_start');}catch(_){} });
   function shrink(file){ return new Promise(function(ok,bad){ var u=URL.createObjectURL(file), i=new Image(); i.onload=function(){ var M=2400, w=i.naturalWidth, h=i.naturalHeight, k=Math.min(1,M/Math.max(w,h)); var c=document.createElement('canvas'); c.width=Math.round(w*k); c.height=Math.round(h*k); c.getContext('2d').drawImage(i,0,0,c.width,c.height); URL.revokeObjectURL(u); var q=0.86, d=c.toDataURL('image/jpeg',q); while(d.length>4300000&&q>0.5){q-=0.08; d=c.toDataURL('image/jpeg',q);} var k2=Math.min(1,1536/Math.max(w,h)), c2=document.createElement('canvas'); c2.width=Math.round(w*k2); c2.height=Math.round(h*k2); c2.getContext('2d').drawImage(i,0,0,c2.width,c2.height); photoSmall=c2.toDataURL('image/jpeg',0.85); ok(d); }; i.onerror=bad; i.src=u; }); }
-  f.photo.addEventListener('change', async function(){ photoData=''; var pv=document.getElementById('gwprev'); pv.style.display='none'; var file=f.photo.files[0]; if(!file) return; m.style.color='#FFB347'; m.textContent='Preparing your photo…'; try{ photoData=await shrink(file); pv.src=photoData; pv.style.display='block'; m.textContent=''; }catch(_){ m.textContent='That photo couldn\'t be opened. Please try another one.'; } });
+  f.photo.addEventListener('change', async function(){ photoData=''; var pv=document.getElementById('gwprev'); pv.style.display='none'; var file=f.photo.files[0]; if(!file) return; m.style.color='#c2410c'; m.textContent='Preparing your photo…'; try{ photoData=await shrink(file); pv.src=photoData; pv.style.display='block'; m.textContent=''; }catch(_){ m.textContent='That photo couldn\'t be opened. Please try another one.'; } });
   fetch('/api/giveaway-count').then(function(r){return r.json()}).then(function(j){ if(j&&j.count>=10){ var c=document.getElementById('gwcount'); c.textContent='🎉 '+j.count+' people have entered so far!'; c.style.display='block'; } }).catch(function(){});
   f.addEventListener('submit', async function(e){
-    e.preventDefault(); m.style.color='#FFB347';
+    e.preventDefault(); m.style.color='#c2410c';
     var d={name:f.name.value,petName:'you',email:f.email.value,country:f.country.value,adult:f.adult.checked,marketing:f.marketing.checked,website:f.website.value,photo:photoData};
     if(!d.name.trim()||!/\S+@\S+\.\S+/.test(d.email)){m.textContent='Please fill in your name and email.';try{gtag('event','giveaway_error',{reason:'missing'});}catch(_){}return;}
     if(!d.adult){m.textContent='Please tick the box to confirm you\'re 18+ and agree to the terms.';return;}
-    var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Entering…';
+    var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Submitting…';
     try{
       var r=await fetch('/api/giveaway-entry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
       var j=await r.json();
@@ -106,8 +115,8 @@
       var pn=d.petName.replace(/[<>&]/g,''), q=d.country==='US'?'region=us&':'', who=(pn==='you'?'your photo':pn);
       var auto=false; if(photoSmall){ try{ sessionStorage.setItem('onjjem_giveaway_photo', photoSmall); auto=true; }catch(_){} }
       try{ localStorage.setItem('onjjem_gw', JSON.stringify({email:d.email.trim().toLowerCase()})); }catch(_){}
-      f.innerHTML='<p style="font-size:18px;color:#5DE391;font-weight:800">🎉 You\'re entered! Good luck to '+pn+'!</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><p style="margin:14px 0 6px;font-weight:700;color:#FFD24A">Now see '+who+' as a cartoon, free 👇</p><p style="margin:0 0 8px">🎁 Thanks for entering: your cartoon is <b>FREE</b> on any gift until 30 November (normally £1.99).</p><a class="btn try" href="/cartoon?'+q+(auto?'gw=1':'')+'">✨ Show me '+who+' as a cartoon</a>';
-    }catch(err){ m.textContent=err.message; btn.disabled=false; btn.textContent='Enter the giveaway →'; }
+      f.innerHTML='<p style="font-size:18px;color:#1a9d55;font-weight:800">🎉 You\'re entered! Good luck to '+pn+'!</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><p style="margin:14px 0 6px;font-weight:700;color:#8E2DE2">Now see '+who+' as a cartoon, free 👇</p><p style="margin:0 0 8px">🎁 Thanks for entering: your cartoon is <b>FREE</b> on any gift until 30 November (normally £1.99).</p><a class="btn try" href="/cartoon?'+q+(auto?'gw=1':'')+'">✨ Show me '+who+' as a cartoon</a>';
+    }catch(err){ m.textContent=err.message; btn.disabled=false; btn.textContent='Submit my entry'; }
   });
 })();
 </script>
