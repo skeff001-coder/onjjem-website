@@ -294,27 +294,34 @@ function ONJJEM_readPhoto(file) {
   });
 }
 
-// Lay 1–9 photos out as a square grid (print-ready, 1800px = 6" at 300dpi).
-// 2–3 photos fill a 2x2 grid and 5–8 fill a 3x3 grid by repeating photos.
-function ONJJEM_buildCollage(dataUrls) {
+// Lay 1–9 photos out as a grid (print-ready). Square by default; pass ratio [w,h]
+// for other shapes (e.g. playing cards [2,3]). Fewer photos repeat to fill the grid.
+function ONJJEM_buildCollage(dataUrls, ratio) {
   const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });
   return Promise.all(dataUrls.map(load)).then(imgs => {
     imgs = imgs.filter(Boolean);
     const n = imgs.length;
-    const cols = n <= 1 ? 1 : n <= 4 ? 2 : 3;
-    const size = 1800, gap = 18;
-    const cell = (size - gap * (cols + 1)) / cols;
+    const square = !ratio || ratio[0] === ratio[1];
+    let cols, rows;
+    if (square) { cols = rows = n <= 1 ? 1 : n <= 4 ? 2 : 3; }
+    else { const tall = ratio[1] > ratio[0]; const g = n <= 1 ? [1, 1] : n === 2 ? [1, 2] : n <= 4 ? [2, 2] : n <= 6 ? [2, 3] : [3, 3]; cols = tall ? g[0] : g[1]; rows = tall ? g[1] : g[0]; }
+    const W = square ? 1800 : (ratio[0] >= ratio[1] ? 1800 : Math.round(1800 * ratio[0] / ratio[1]));
+    const H = square ? 1800 : (ratio[0] >= ratio[1] ? Math.round(1800 * ratio[1] / ratio[0]) : 1800);
+    const gap = 18;
+    const cw = (W - gap * (cols + 1)) / cols, ch = (H - gap * (rows + 1)) / rows;
     const c = document.createElement("canvas");
-    c.width = c.height = size;
+    c.width = W; c.height = H;
     const ctx = c.getContext("2d");
     ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, size, size);
-    for (let k = 0; k < cols * cols; k++) {
+    ctx.fillRect(0, 0, W, H);
+    for (let k = 0; k < cols * rows; k++) {
       const img = imgs[k % n];
-      const s = Math.min(img.width, img.height);
-      const sx = (img.width - s) / 2, sy = (img.height - s) / 2;
-      const x = gap + (k % cols) * (cell + gap), y = gap + Math.floor(k / cols) * (cell + gap);
-      ctx.drawImage(img, sx, sy, s, s, x, y, cell, cell);
+      const ar = cw / ch;
+      let sw = img.width, sh = img.width / ar;
+      if (sh > img.height) { sh = img.height; sw = img.height * ar; }
+      const sx = (img.width - sw) / 2, sy = (img.height - sh) / 2;
+      const x = gap + (k % cols) * (cw + gap), y = gap + Math.floor(k / cols) * (ch + gap);
+      ctx.drawImage(img, sx, sy, sw, sh, x, y, cw, ch);
     }
     return c.toDataURL("image/jpeg", 0.92);
   });
@@ -805,7 +812,7 @@ function ONJJEM_renderLanding(P) {
     if (!photos.length) { photo = null; box.classList.remove("has-photo"); box.innerHTML = emptyBox(); showCartoonBtn(); return; }
     if (isMulti() && photos.length > 1) {
       box.innerHTML = `<div class="u-text">Building your collage…</div>`;
-      photo = await ONJJEM_buildCollage(photos.slice(0, opts[selected].multi));
+      photo = await ONJJEM_buildCollage(photos.slice(0, opts[selected].multi), opts[selected].ratio);
     } else {
       photo = photos[0];
     }
