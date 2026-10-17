@@ -29,6 +29,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/landing.css?v=20261016b">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a">
+<style>
+.rm-list{display:flex;flex-direction:column;gap:8px;margin:12px 0 4px}
+.rm-row{display:flex;align-items:center;gap:12px;background:var(--card,#2c2c2c);border:1px solid var(--line,#444);border-radius:12px;padding:12px 14px;color:#fff;text-decoration:none}
+.rm-row.on{border-color:var(--gold,#d4af37);background:#33301f}
+.rm-new{border-color:var(--gold,#d4af37)}
+.rm-ico{font-size:1.5rem;width:2rem;text-align:center;flex:none}
+.rm-txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
+.rm-txt b{font-size:1rem}
+.rm-txt small{color:var(--muted,#c9c9c9);font-size:.82rem;margin-top:2px}
+.rm-p{color:var(--gold,#d4af37);font-weight:700;font-size:.85rem;white-space:nowrap}
+.home-sec.rm-hide{display:none}
+#rmOpen .home-sec{border-top:0;padding-top:.6rem}
+@media(min-width:800px){.rm-list{display:grid;grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
 <div id="hdr"></div>
@@ -47,36 +61,26 @@
   </section>
 
   <section class="wrap" id="shop">
-    <h2 class="lx-shop">Shop by room</h2>
-    <div class="lx-grid">
-      <a class="lx-card" href="#cat-living"><span class="lx-name">Living Room &amp; Bedroom</span><img src="/home/blankets.jpg?v=1" alt="" loading="eager"><span class="lx-what">Throws · Cushions · Towels · Frames</span><span class="lx-price">From £22.99</span></a>
-      <a class="lx-card" href="#cat-walls"><span class="lx-name">Wall Art &amp; Prints</span><img src="/home/wall-art.jpg?v=1" alt="" loading="eager"><span class="lx-what">Fine art · Posters · Photo prints</span><span class="lx-price">From £3.99</span></a>
-      <a class="lx-card" href="#cat-kitchen"><span class="lx-name">Kitchen &amp; Dining</span><img src="/home/mugs.jpg?v=1" alt="" loading="eager"><span class="lx-what">Mugs · Coasters · Tea towels · Bottles</span><span class="lx-price">From £7.49</span></a>
-      <a class="lx-card" href="#cat-clothing"><span class="lx-name">Clothing</span><img src="/home/clothing.jpg?v=1" alt="" loading="eager"><span class="lx-what">T-shirts · Sweatshirts · Football tees</span><span class="lx-price">From £15.99</span></a>
-      <a class="lx-card" href="#cat-kids"><span class="lx-name">Kids &amp; Baby</span><img src="/home/kids.jpg?v=1" alt="" loading="eager"><span class="lx-what">T-shirts · Stickers · Badges · Baby reveal</span><span class="lx-price">From £5.99</span></a>
-      <a class="lx-card" href="/halloween"><span class="lx-name">Halloween</span><img src="/home/halloween.jpg?v=1" alt="" loading="lazy"><span class="lx-what">Cartoon packs, T-shirts &amp; more</span><span class="lx-price">From £5.99</span></a>
-      <a class="lx-card" href="#cat-christmas"><span class="lx-name">Christmas</span><img src="/home/christmas.jpg?v=1" alt="" loading="lazy"><span class="lx-what">Sweatshirts · Baubles · Santa sacks</span><span class="lx-price">From £5.99</span></a>
-      <a class="lx-card" href="#cat-games"><span class="lx-name">Cards &amp; Games <em class="lx-new">NEW</em></span><img src="/home/greeting-cards.jpg?v=1" alt="" loading="lazy"><span class="lx-what">Giant birthday cards · Playing cards · Jigsaws</span><span class="lx-price">From £5.99</span></a>
+    <h2 class="lx-shop">What would you like to make?</h2>
+    <div class="rm-list" id="rmList">
+      <a class="rm-row rm-new" href="/calendar"><span class="rm-ico">📅</span><span class="rm-txt"><b>2027 Photo Calendar <em class="lx-new">NEW</em></b><small>12 of your photos, one for every month</small></span><span class="rm-p">£24.99 ›</span></a>
+      <a class="rm-row" href="#cat-living" data-sec="cat-living"><span class="rm-ico">🛋️</span><span class="rm-txt"><b>Living Room &amp; Bedroom</b><small>Throws, cushions, towels, frames</small></span><span class="rm-p">from £22.99 ›</span></a>
+      <a class="rm-row" href="#cat-walls" data-sec="cat-walls"><span class="rm-ico">🖼️</span><span class="rm-txt"><b>Wall Art &amp; Prints</b><small>Canvas, posters, photo prints</small></span><span class="rm-p">from £3.99 ›</span></a>
+      <a class="rm-row" href="#cat-kitchen" data-sec="cat-kitchen"><span class="rm-ico">☕</span><span class="rm-txt"><b>Kitchen &amp; Dining</b><small>Mugs, coasters, bottles</small></span><span class="rm-p">from £7.49 ›</span></a>
+      <a class="rm-row" href="#cat-clothing" data-sec="cat-clothing"><span class="rm-ico">👕</span><span class="rm-txt"><b>Clothing</b><small>T-shirts, sweatshirts, football tees</small></span><span class="rm-p">from £15.99 ›</span></a>
+      <a class="rm-row" href="#cat-kids" data-sec="cat-kids"><span class="rm-ico">🧸</span><span class="rm-txt"><b>Kids &amp; Baby</b><small>T-shirts, stickers, badges</small></span><span class="rm-p">from £5.99 ›</span></a>
+      <a class="rm-row" href="#cat-christmas" data-sec="cat-christmas"><span class="rm-ico">🎄</span><span class="rm-txt"><b>Christmas</b><small>Sweatshirts, baubles, Santa sacks</small></span><span class="rm-p">from £5.99 ›</span></a>
+      <a class="rm-row" href="#cat-games" data-sec="cat-games"><span class="rm-ico">🎉</span><span class="rm-txt"><b>Cards &amp; Games</b><small>Birthday cards, playing cards, jigsaws</small></span><span class="rm-p">from £5.99 ›</span></a>
+      <a class="rm-row" href="#cat-desk" data-sec="cat-desk"><span class="rm-ico">💼</span><span class="rm-txt"><b>Desk &amp; On the Go</b><small>Mouse mats, totes, bottles</small></span><span class="rm-p">from £7.49 ›</span></a>
+      <a class="rm-row" href="#cat-halloween" data-sec="cat-halloween"><span class="rm-ico">🎃</span><span class="rm-txt"><b>Halloween</b><small>Cartoon packs, trick-or-treat bags</small></span><span class="rm-p">from £5.99 ›</span></a>
+      <a class="rm-row" href="#cat-giftcards" data-sec="cat-giftcards"><span class="rm-ico">🎁</span><span class="rm-txt"><b>Gift Cards</b><small>Sent by email, from £5</small></span><span class="rm-p">from £5 ›</span></a>
     </div>
-    <div class="lx-more"><a href="#cat-living">See all gifts ↓</a></div>
+    <div id="rmOpen"></div>
     <div class="lx-trust"><span>✓ See your design before you pay</span><span>✓ Free UK delivery</span><span>✓ Secure checkout</span><span>✓ Family business, UK</span></div>
     <div class="rv-strip"></div>
   </section>
 
-  <section class="wrap" id="hw-banner">
-    <a class="lx-strip lx-strip-new" href="/cards">🎉 <strong>NEW: GIANT photo birthday cards</strong> · their face, your words · £9.99 →</a>
-    <a class="lx-strip lx-strip-gift" href="/gift-cards.html">🎁 <strong>Can't decide?</strong> Send an ONJJEM gift card by email · from £5 →</a>
-    <a class="lx-strip" href="/halloween">🎃 <strong>Halloween gifts</strong> · free cartoon of your kids or pets · <span id="hw-days"></span> →</a>
-  </section>
-  <script>
-  (function () {
-    var end = new Date(new Date().getFullYear(), 10, 1);
-    var b = document.getElementById("hw-banner");
-    var left = Math.ceil((new Date(new Date().getFullYear(), 9, 31) - new Date()) / 864e5);
-    if (new Date() >= end) { b.style.display = "none"; return; }
-    document.getElementById("hw-days").textContent = left > 1 ? left + " days to go" : left === 1 ? "tomorrow!" : "it's today!";
-  })();
-  </script>
+
 
   <section class="wrap home-sec" id="cat-living">
     <div class="home-sec-head"><h2>🛋️ Living Room &amp; Bedroom</h2><a href="#shop">All rooms ↑</a></div>
@@ -219,6 +223,27 @@ var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_revie
     }).catch(function () {});
 })();
 
+// Simple room list: each room's gifts stay hidden until it's tapped.
+(function () {
+  var secs = document.querySelectorAll(".home-sec");
+  var holder = document.getElementById("rmOpen");
+  secs.forEach(function (sec) { sec.classList.add("rm-hide"); });
+  document.querySelectorAll(".rm-row[data-sec]").forEach(function (row) {
+    row.addEventListener("click", function (e) {
+      e.preventDefault();
+      var id = row.getAttribute("data-sec"), sec = document.getElementById(id), wasOpen = row.classList.contains("on");
+      document.querySelectorAll(".rm-row.on").forEach(function (r) { r.classList.remove("on"); });
+      secs.forEach(function (x) { x.classList.add("rm-hide"); });
+      if (wasOpen || !sec) return;
+      row.classList.add("on");
+      row.insertAdjacentElement("afterend", sec);
+      sec.classList.remove("rm-hide");
+      var back = sec.querySelector(".home-sec-head a"); if (back) back.style.display = "none";
+      try { gtag("event", "open_room", { room: id }); } catch (_) {}
+      setTimeout(function () { row.scrollIntoView({ behavior: "smooth", block: "start" }); }, 30);
+    });
+  });
+})();
 </script>
 <script src="/halloween-decor.js?v=20261014a" defer></script>
 <script src="/reviews-strip.js?v=20261011b" defer></script>
