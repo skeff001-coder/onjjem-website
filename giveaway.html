@@ -115,7 +115,7 @@
       var pn=d.petName.replace(/[<>&]/g,''), q=d.country==='US'?'region=us&':'', who=(pn==='you'?'your photo':pn);
       var auto=false; if(photoSmall){ try{ sessionStorage.setItem('onjjem_giveaway_photo', photoSmall); auto=true; }catch(_){} }
       try{ localStorage.setItem('onjjem_gw', JSON.stringify({email:d.email.trim().toLowerCase()})); }catch(_){}
-      f.innerHTML='<p style="font-size:18px;color:#1a9d55;font-weight:800">🎉 You\'re entered! Good luck to '+pn+'!</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><p style="margin:14px 0 6px;font-weight:700;color:#8E2DE2">Now see '+who+' as a cartoon, free 👇</p><p style="margin:0 0 8px">🎁 Thanks for entering: your cartoon is <b>FREE</b> on any gift until 30 November (normally £1.99).</p><a class="btn try" href="/cartoon?'+q+(auto?'gw=1':'')+'">✨ Show me '+who+' as a cartoon</a>';
+      f.innerHTML='<p style="font-size:18px;color:#1a9d55;font-weight:800">🎉 You\'re entered! Good luck 🍀</p><p>'+(j.already?'(You were already entered, one entry per person.)':'Check your email for confirmation.')+'</p><p style="margin:14px 0 6px;font-weight:700;color:#8E2DE2">Now see '+who+' as a cartoon, free 👇</p><p style="margin:0 0 8px">🎁 Thanks for entering: your cartoon is <b>FREE</b> on any gift until 30 November (normally £1.99).</p><a class="btn try" href="/cartoon?'+q+(auto?'gw=1':'')+'">✨ Show me '+who+' as a cartoon</a>';
     }catch(err){ m.textContent=err.message; btn.disabled=false; btn.textContent='Submit my entry'; }
   });
 })();
