@@ -46,6 +46,18 @@
   form .ck { display:flex; gap:10px; align-items:flex-start; font-size:13px; font-weight:400; color:#4a3554; }
   form .ck input { margin-top:3px; width:18px; height:18px; flex:none; accent-color:#E8287F; }
   small { color: rgba(251,239,255,0.65); }
+  .trust { display:flex; flex-wrap:wrap; justify-content:center; gap:6px 14px; margin:10px 0 0; font-size:12.5px; color:rgba(251,239,255,.8); }
+  .shop-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:12px 0 4px; }
+  .shop-grid a { display:block; background:#fff; border-radius:14px; overflow:hidden; text-decoration:none; color:#2a0d3d; font-weight:700; font-size:14px; text-align:center; }
+  .shop-grid img { display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
+  .shop-grid span { display:block; padding:8px 6px; }
+  .why { list-style:none; padding:0; margin:8px 0 0; }
+  .why li { display:flex; gap:10px; margin:0 0 12px; font-size:15px; }
+  .why li b { color:#fff; }
+  .why .ic { flex:none; font-size:20px; line-height:1.3; }
+  .foot { margin-top:34px; padding-top:18px; border-top:1px solid rgba(255,255,255,.15); text-align:center; font-size:13px; color:rgba(251,239,255,.7); }
+  .foot .brand { font-size:20px; font-weight:900; letter-spacing:2px; color:#fff; }
+  .foot a { color:#F7C6FF; }
 </style>
 </head>
 <body>
@@ -53,6 +65,8 @@
 <h1>Win a £40 gift card + your photo printed</h1>
 <img class="hero" src="/giveaway-og.jpg?v=2" alt="Giveaway: win a £40 ONJJEM gift card to spend on personalised photo gifts, plus your photo printed free" width="1200" height="630">
 <div class="chips"><span>✅ Free to enter</span><span>🇬🇧 UK &amp; 🇺🇸 US</span><span>⏰ Ends Sun 1 Nov, 8pm</span><span>✨ Free cartoon for everyone</span></div>
+
+<p class="trust"><span>🔒 We never ask for card or bank details</span><span>🇬🇧 UK family business</span><span>✉️ hello@onjjem.com</span></p>
 
 <div class="card form" id="enter">
   <h2>Enter the giveaway</h2><p style="margin:0 0 4px;font-size:14px">Takes 30 seconds. The winner is picked at random after it closes.</p>
@@ -73,9 +87,28 @@
 </div>
 
 <div class="card">
-  <h2 style="margin-top:0">While you wait…</h2>
-  <p>See your photo as a cartoon right now, free and in seconds.</p>
+  <h2 style="margin-top:0">Visit our gift shop 🎁</h2>
+  <p style="margin:0">ONJJEM is our online shop for personalised photo gifts. Upload a photo, see your gift before you pay, and we print it and post it to your door.</p>
+  <div class="shop-grid">
+    <a href="/mug"><img src="/magic-mug-cat.jpg" alt="Personalised photo mug" loading="lazy"><span>Photo mugs</span></a>
+    <a href="/cushions"><img src="/cushion-mockup.jpg" alt="Personalised photo cushion" loading="lazy"><span>Cushions</span></a>
+    <a href="/christmas"><img src="/christmas-hero.jpg" alt="Personalised Christmas photo gifts" loading="lazy"><span>Christmas gifts</span></a>
+    <a href="/playing-cards"><img src="/playing-cards-hero.jpg" alt="Personalised photo playing cards" loading="lazy"><span>Playing cards</span></a>
+  </div>
+  <a class="btn go" href="/">Shop all gifts at onjjem.com →</a>
   <a class="btn try" href="/cartoon">See my photo as a cartoon FREE ✨</a>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Is this giveaway real? Yes 👍</h2>
+  <ul class="why">
+    <li><span class="ic">✅</span><span><b>Free, no catch.</b> No purchase needed, and buying doesn't improve your chances.</span></li>
+    <li><span class="ic">🔒</span><span><b>We will never ask for card or bank details,</b> to enter or to claim the prize. If anyone does, it isn't us.</span></li>
+    <li><span class="ic">🇬🇧</span><span><b>A real UK family business</b> with its own shop at <a href="/">onjjem.com</a>, selling personalised gifts in the UK and US.</span></li>
+    <li><span class="ic">🎲</span><span><b>A fair draw.</b> One winner, picked at random from every entry after it closes on Sun 1 Nov, 8pm.</span></li>
+    <li><span class="ic">🙈</span><span><b>Your details stay private.</b> We never sell or share them. See our <a href="/privacy.html">privacy policy</a>.</span></li>
+    <li><span class="ic">✉️</span><span><b>Questions?</b> Email <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> and a real person will reply.</span></li>
+  </ul>
 </div>
 
 <h2>Terms &amp; conditions</h2>
@@ -91,6 +124,13 @@
   <li>We may share the winner's first name and their cartoon on our pages, with their permission.</li>
   <li>This giveaway is not sponsored, endorsed or run by TikTok, Instagram or Facebook (Meta). By entering, you release TikTok and Meta from any responsibility for it.</li>
 </ol>
+<div class="foot">
+  <div class="brand">ONJJEM</div>
+  <p style="margin:4px 0 10px">Personalised photo gifts · UK family business</p>
+  <p style="margin:0 0 6px"><a href="/">Shop</a> · <a href="/delivery.html">Delivery</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p>
+  <p style="margin:0 0 6px"><a href="mailto:hello@onjjem.com">hello@onjjem.com</a> · <a href="https://www.tiktok.com/@onjjem123" target="_blank" rel="noopener">TikTok @onjjem123</a></p>
+  <p style="margin:0">Secure checkout by Stripe · © 2026 ONJJEM</p>
+</div>
 <script>
 (function(){
   var f=document.getElementById('gw'), m=document.getElementById('gwmsg');
