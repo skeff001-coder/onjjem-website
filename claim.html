@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Your free cartoon | ONJJEM</title>
+<style>body{background:#14071f;color:#fff;font-family:system-ui,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center;padding:16px}a{color:#FFD24A}</style>
+</head>
+<body>
+<p>🎁 Unlocking your free cartoon…<br><small><a id="go" href="/">Tap here if nothing happens</a></small></p>
+<script>
+(function(){
+  var p=new URLSearchParams(location.search), e=(p.get('e')||'').trim().toLowerCase(), us=p.get('us')==='1';
+  if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ try{ localStorage.setItem('onjjem_gw', JSON.stringify({email:e})); }catch(_){} }
+  try{ gtag('event','promo_claim'); }catch(_){}
+  var dest=us?'/us/':'/?uk=1'; document.getElementById('go').href=dest;
+  setTimeout(function(){ location.replace(dest); }, 400);
+})();
+</script>
+</body>
+</html>
