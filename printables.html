@@ -72,6 +72,15 @@
   .chips2{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
   .chips2 span{background:#fff;color:#2a0d3d;font-weight:800;font-size:13px;padding:5px 10px;border-radius:20px}
   .who p{margin:2px 0 0;color:var(--mut);font-size:14px}
+  .prize{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,#FFD24A,#FF962A);color:#2a0d3d;border-radius:16px;padding:12px 14px;margin:0 0 14px}
+  .prize .pz-ic{font-size:34px;line-height:1}
+  .prize b{font-size:16px} .prize p{margin:4px 0 0;font-size:14px;line-height:1.45}
+  .ctest{border-top:1px solid #eee;margin:16px 0 0;padding-top:14px}
+  .ctest label{display:block;margin:10px 0;font-size:14px;font-weight:700;color:#2a0d3d}
+  .ctest label small{font-weight:400;color:#6b5675}
+  .ctest input:not([type=checkbox]){display:block;width:100%;margin-top:5px;padding:12px;border-radius:12px;border:1.5px solid #e3d6ea;background:#faf6fc;font-size:16px}
+  .ctest .ck{display:flex;gap:9px;font-weight:400;font-size:13px}
+  .ctest .ck input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:#E8287F}
   .fun{display:grid;gap:10px;margin:4px 0 14px}
   .fun div{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:11px 13px}
   .fun span{font-size:28px;line-height:1}
@@ -104,6 +113,11 @@
     <b>Works with anyone in your photo:</b>
     <div class="chips2"><span>👶 Babies</span><span>🧒 Kids</span><span>🧑 Teens</span><span>👨‍👩‍👧 Mum &amp; Dad</span><span>👵 Nanna &amp; Grandad</span><span>🐶 Dogs</span><span>🐱 Cats</span><span>🐹 Hamsters</span><span>🐦 Budgies</span><span>🐰 Bunnies</span><span>🐴 Horses</span><span>👫 The whole family</span></div>
     <p>Everyone gets a fun Halloween costume, even the dog! 🎃</p>
+  </div>
+
+  <div class="prize">
+    <div class="pz-ic">🏆</div>
+    <div><b>Includes entry to our colouring competition!</b><p>Colour it in, send us a photo, and the best colouring wins <b>their artwork printed on a real mug</b> (worth £13.99), posted free. Judged on creativity, colour and effort. Closes Mon 2 Nov, 8pm UK.</p></div>
   </div>
 
   <div class="fun">
@@ -141,6 +155,18 @@
       <img id="doneImg" alt="Your colouring page" style="width:100%;border-radius:12px;border:1px solid #eee;margin:4px 0 10px;background:#fff">
       <a class="btn go" id="dl">⬇️ Download to print</a>
       <p class="trust">On iPhone: tap Download, then Share → Print. Or press and hold the picture and tap Save to Photos. We've emailed you a copy too.</p>
+      <div id="contest" class="ctest">
+        <h3 style="margin:0 0 4px">🏆 Enter the colouring competition</h3>
+        <p class="trust" style="margin:0 0 10px">Once it's coloured in, take a photo of it and send it here. The best colouring wins their artwork on a mug! Closes Mon 2 Nov, 8pm UK. One entry per order. You can come back to this page later using the link in your email.</p>
+        <form id="cform">
+          <label>Your first name<input name="name" autocomplete="given-name" required></label>
+          <label>Artist's first name <small>(optional, for the winner's announcement)</small><input name="child" autocomplete="off"></label>
+          <label>Photo of the coloured-in page<input type="file" name="photo" accept="image/*"></label>
+          <label class="ck"><input type="checkbox" name="adult"> I'm 18+ (a parent or carer) and agree to the competition rules below.</label>
+          <button class="btn go" type="submit">Send my entry 🖍️</button>
+          <p class="st" id="cst"></p>
+        </form>
+      </div>
       <a class="btn ghost" id="more">Make another one</a>
       <div style="border-top:1px solid #eee;margin:14px 0 0;padding-top:12px">
         <b>Love the cartoon?</b> We can print your family as a cartoon on a blanket, mug or canvas. <a id="shopLink" href="/" style="color:#E8287F;font-weight:800">See gifts →</a>
@@ -154,6 +180,7 @@
     <details><summary>When do I get it?</summary><p>Straight away. We draw it the moment you've paid (about 30 seconds), it appears on screen to download, and we email you a copy too.</p></details>
     <details><summary>Can I print it more than once?</summary><p>Yes, print as many copies as you like for your own family. Perfect for brothers, sisters and cousins to colour at the same time.</p></details>
     <details><summary>What photo works best?</summary><p>A clear, bright photo where you can see faces, with up to about 4 people or pets. Selfies, school photos and holiday snaps all work.</p></details>
+    <details><summary>🏆 Colouring competition rules</summary><p>Promoter: ONJJEM (onjjem.com), UK. Each colouring page order includes one free entry. Enter by uploading a photo of the coloured-in page from the link on your download page or email, by 8pm UK time on Monday 2 November 2026. Open to UK and US residents; the person entering must be 18+ (a parent or carer). This is a judged competition, not a prize draw: ONJJEM will pick the winner on creativity, use of colour and effort, and our decision is final. The winner is emailed by Thursday 5 November and receives one 11oz mug printed with a photo of their coloured page, posted free (UK or US). No cash alternative. With your permission we may share the winning artwork and artist's first name on our pages. Entries are only used to run the competition.</p></details>
     <details><summary>Can I cancel?</summary><p>Each page is personalised and drawn the moment you pay, so it can't be cancelled or exchanged. If your download doesn't come through, email hello@onjjem.com and we'll send it.</p></details>
   </div>
 </div>
@@ -210,6 +237,25 @@
     })();
     setTimeout(function(){ $("maker").scrollIntoView({block:"start"}); }, 100);
   }
+  // Competition entry (only works with a paid colouring page order).
+  var cf = $("cform");
+  if (cf) cf.addEventListener("submit", async function(e){
+    e.preventDefault(); var cst = $("cst"); cst.style.color = "#c2410c";
+    var file = cf.photo.files && cf.photo.files[0];
+    if (!cf.name.value.trim()) { cst.textContent = "Please add your first name."; return; }
+    if (!file) { cst.textContent = "Please add a photo of the coloured-in page."; return; }
+    if (!cf.adult.checked) { cst.textContent = "Please tick the box to confirm you're 18+."; return; }
+    var b = cf.querySelector("button"); b.disabled = true; b.textContent = "Sending…";
+    try {
+      var photo = await shrink(file);
+      var r = await fetch("/api/contest-entry",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:q.get("session_id"),name:cf.name.value,child:cf.child.value,photo:photo,adult:true})});
+      var j = {}; try { j = await r.json(); } catch(_) {}
+      if (!r.ok) throw new Error(j.error || "Something went wrong. Please try again.");
+      try { gtag("event","contest_entry"); } catch(_){}
+      cf.innerHTML = '<p style="font-size:18px;font-weight:900;color:#1a9d55;margin:8px 0">' + (j.already ? "You've already entered with this order. Good luck! 🍀" : "🎉 You're entered! Good luck to your little artist 🍀") + '</p><p class="trust">We\'ll pick the best colouring after Mon 2 Nov and email the winner by Thu 5 Nov.</p>';
+    } catch(err){ cst.textContent = err.message; b.disabled = false; b.textContent = "Send my entry 🖍️"; }
+  });
+  if (location.hash === "#contest" && q.get("paid")) setTimeout(function(){ var c = $("contest"); if (c) c.scrollIntoView({block:"start"}); }, 1500);
   if (q.get("back")) $("st").textContent = "No problem. Choose a photo whenever you're ready.";
   if ("IntersectionObserver" in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if (!q.get("paid")) $("sticky").style.display = e.isIntersecting ? "none" : ""; }); }).observe($("maker"));
 })();
