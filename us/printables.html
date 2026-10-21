@@ -174,7 +174,7 @@
     try { gtag("event","begin_checkout",{currency:cur,value:val,items:[{item_id:"printable-coloring",item_name:"Halloween colouring page",price:val}]}); } catch(e){}
     try {
       var r = await fetch("/api/printable-checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({photo:photo,region:US?"us":"uk",page:location.pathname})});
-      var j = await r.json(); if (!r.ok || !j.url) throw new Error(j.error || "Checkout didn't start");
+      var j = {}; try { j = await r.json(); } catch(_) {} if (!r.ok || !j.url) throw new Error(j.error || "Checkout couldn't start just now. Please try again in a minute.");
       location.href = j.url;
     } catch(err){ $("st").textContent = err.message; $("buy").disabled = false; }
   };
