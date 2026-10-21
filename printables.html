@@ -88,10 +88,9 @@
 
   <div class="card" id="maker">
     <div id="step1">
-      <h2>1. Choose</h2>
+      <h2>1. Your colouring page</h2>
       <div class="opts">
         <label class="opt on"><input type="radio" name="p" value="coloring" checked><div><b>Colouring page <span class="badge">BEST SELLER</span></b><small>A4 printable, black outlines to colour in</small></div><span class="pr" data-p="coloring"></span></label>
-        <label class="opt"><input type="radio" name="p" value="cartoon"><div><b>Halloween cartoon</b><small>Full colour, for phones, profiles or printing</small></div><span class="pr" data-p="cartoon"></span></label>
       </div>
       <h2>2. Add a photo</h2>
       <button class="btn go" id="pick">📸 Choose a photo, see it FREE</button>
@@ -148,8 +147,8 @@
   }
   document.querySelectorAll(".pr").forEach(function(e){ e.textContent = P[e.getAttribute("data-p")]; });
   document.getElementById("faqGet").textContent = US
-    ? "A high-quality printable coloring page (or full-color cartoon) of your own photo, drawn in cute Halloween costumes. It's a digital file: nothing is mailed to you."
-    : "A high-quality printable colouring page (or full-colour cartoon) of your own photo, drawn in cute Halloween costumes. It's a digital file: nothing is posted to you.";
+    ? "A high-quality printable coloring page of your own photo, drawn in cute Halloween costumes. It's a digital file: nothing is mailed to you."
+    : "A high-quality printable colouring page of your own photo, drawn in cute Halloween costumes. It's a digital file: nothing is posted to you.";
   var $ = function(id){ return document.getElementById(id); };
   var product = "coloring", id = null, busy = false;
   function setBuy(){ $("buy").textContent = "Download it now · " + P[product] + " →"; }
