@@ -83,6 +83,10 @@
   .ctest input:not([type=checkbox]){display:block;width:100%;margin-top:5px;padding:12px;border-radius:12px;border:1.5px solid #e3d6ea;background:#faf6fc;font-size:16px}
   .ctest .ck{display:flex;gap:9px;font-weight:400;font-size:13px}
   .ctest .ck input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:#E8287F}
+  .bonus{background:linear-gradient(135deg,#FFD24A,#FF962A);color:#2a0d3d;border-radius:16px;padding:12px 14px;margin:0 0 14px;font-size:14.5px;line-height:1.45}
+  .bonus b{font-weight:900}
+  .bonus>b{display:block;font-size:16px;margin:0 0 6px}
+  .bonus div{margin:0 0 5px}
   .fun{display:grid;gap:10px;margin:4px 0 14px}
   .fun div{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:11px 13px}
   .fun span{font-size:28px;line-height:1}
@@ -100,43 +104,31 @@
 <body>
 <div class="w">
   <a href="/" class="back" id="backLink">&larr; ONJJEM shop</a>
-  <div class="kick">🎃 HALLOWEEN SPECIAL · INSTANT DOWNLOAD</div>
-  <h1>Your kids, family or pets as a <span>Halloween colouring page</span> 🖍️</h1>
-  <p class="sub">Upload a photo and we draw your kids, family or pets as cute Halloween characters, ready to print and colour in. A witch hat here, a vampire cape there, pumpkins, friendly bats and a big spooky moon, all around <b>them</b>.</p>
+  <div class="kick">🎃 HALLOWEEN SPECIAL</div>
+  <h1>Turn your family into a <span>colouring page</span> 🖍️</h1>
+  <p class="sub">Send a photo. We draw everyone in cute Halloween costumes. Print it tonight and watch them colour <b>themselves</b>.</p>
 
   <div class="ex2">
     <figure><img src="/pr-photo.webp" alt="A photo of two children" width="520" height="640"><figcaption>Your photo</figcaption></figure>
     <div class="ar">➜</div>
-    <figure><img src="/pr-colouring.webp?v=2" alt="The same children drawn as a Halloween colouring page, a vampire and a witch with pumpkins and bats" width="520" height="640"><figcaption>Their colouring page 🖍️</figcaption></figure>
-  </div>
-  <p class="note" style="font-size:12px;color:var(--mut);text-align:center;margin:-6px 0 14px">Example. Yours is drawn fresh from your own photo.</p>
-
-  <div class="who">
-    <b>Works with anyone in your photo:</b>
-    <div class="chips2"><span>👶 Babies</span><span>🧒 Kids</span><span>🧑 Teens</span><span>👨‍👩‍👧 Mum &amp; Dad</span><span>👵 Nanna &amp; Grandad</span><span>🐶 Dogs</span><span>🐱 Cats</span><span>🐹 Hamsters</span><span>🐦 Budgies</span><span>🐰 Bunnies</span><span>🐴 Horses</span><span>👫 The whole family</span></div>
-    <p>Everyone gets a fun Halloween costume, even the dog! 🎃</p>
+    <figure><img src="/pr-colouring.webp?v=2" alt="The same children drawn as a Halloween colouring page" width="520" height="640"><figcaption>Their colouring page</figcaption></figure>
   </div>
 
-  <div class="prize">
-    <div class="pz-ic">🏆</div>
-    <div><b>Includes entry to our colouring competition!</b><p>Colour it in, send us a photo, and the best colouring wins <b>a personalised mug</b> (worth £13.99), posted free, <b>plus a £20 gift card</b> to spend at ONJJEM! The winner chooses what goes on their mug:</p><ul class="pz-ch"><li>🎄 <b>A Christmas cartoon of the family.</b> We use the same photo you sent for your colouring page and draw everyone in cosy Christmas outfits, just in time for the holidays.</li><li>🖍️ <b>Their coloured-in masterpiece,</b> printed just as they coloured it.</li></ul><p style="margin:4px 0 0"> Judged on creativity, colour and effort. Closes Mon 2 Nov, 8pm UK.</p></div>
-  </div>
+  <div class="ticks"><span>⚡ Instant download</span><span>🖨️ Print as many as you like</span><span>👨‍👩‍👧 Kids, grandparents &amp; pets</span></div>
 
-  <div class="fun">
-    <div><span>😍</span><p><b>"That's ME!"</b> Watch their faces light up when they spot themselves, their brother, sister or the dog in costume.</p></div>
-    <div><span>🖍️</span><p><b>Hours of quiet colouring</b> on a rainy half-term afternoon. Big, clear shapes that little hands can colour.</p></div>
-    <div><span>🎉</span><p><b>Perfect for Halloween parties.</b> Print a copy for every child and let them all colour the gang.</p></div>
-    <div><span>💌</span><p><b>Grandparents love them.</b> Send one to Nanna and Grandad to colour in too, then stick it on the fridge.</p></div>
+  <div class="bonus">
+    <b>Every £1.99 page also gets you:</b>
+    <div>🏆 <b>Entry to win £20</b> to spend at ONJJEM, plus their coloured artwork on a mug</div>
+    <div>🎄 <b>A FREE Christmas colouring page</b> of the same photo, emailed in December</div>
+    <div>💸 <b>10% off any gift</b> with code WELCOME10</div>
   </div>
-
-  <div class="ticks"><span>⚡ Ready about 30 seconds after paying</span><span>🖨️ Print at home tonight</span><span>♾️ Print as many as you like</span></div>
 
   <div class="card" id="maker">
     <div id="step1">
-      <h2>Make their colouring page</h2>
+      <h2>Make yours</h2>
       <div class="pricebox"><span class="now" id="now"></span><span class="tag">HALLOWEEN SPECIAL</span></div>
       <button class="btn go" id="pick">📸 Choose a photo</button>
-      <p class="trust">Kids, babies, grandparents or pets: anyone works! Clear, bright photos with faces work best. Up to 4 people or pets. Your photo stays private and is only used to draw your page.</p>
+      <p class="trust">A clear, bright photo with faces works best (up to 4 people or pets). Your photo stays private.</p>
     </div>
     <div id="ready" style="display:none;text-align:center">
       <img id="thumb" alt="Your photo" style="width:150px;height:150px;object-fit:cover;border-radius:14px;border:3px solid #FF962A">
@@ -159,7 +151,7 @@
       <p class="trust">On iPhone: tap Download, then Share → Print. Or press and hold the picture and tap Save to Photos. We've emailed you a copy too.</p>
       <div id="contest" class="ctest">
         <h3 style="margin:0 0 4px">🏆 Enter the colouring competition</h3>
-        <p class="trust" style="margin:0 0 10px">Once it's coloured in, take a photo of it and send it here. The best colouring wins a personalised mug (a Christmas cartoon of the family, or their coloured-in artwork: the winner chooses) plus a £20 gift card! Closes Mon 2 Nov, 8pm UK. One entry per order. You can come back to this page later using the link in your email.</p>
+        <p class="trust" style="margin:0 0 10px">Once it's coloured in, send us a photo. The best colouring wins £20 to spend at ONJJEM, plus their artwork on a mug. Closes Mon 2 Nov, 8pm UK. You can come back here later from your email.</p>
         <form id="cform">
           <label>Your first name<input name="name" autocomplete="given-name" required></label>
           <label>Artist's first name <small>(optional, for the winner's announcement)</small><input name="child" autocomplete="off"></label>
@@ -178,11 +170,9 @@
   </div>
 
   <div class="faq">
-    <details open><summary>What do I get?</summary><p id="faqGet"></p></details>
-    <details><summary>When do I get it?</summary><p>Straight away. We draw it the moment you've paid (about 30 seconds), it appears on screen to download, and we email you a copy too.</p></details>
-    <details><summary>Can I print it more than once?</summary><p>Yes, print as many copies as you like for your own family. Perfect for brothers, sisters and cousins to colour at the same time.</p></details>
-    <details><summary>What photo works best?</summary><p>A clear, bright photo where you can see faces, with up to about 4 people or pets. Selfies, school photos and holiday snaps all work.</p></details>
-    <details><summary>🏆 Colouring competition rules</summary><p>Promoter: ONJJEM (onjjem.com), UK. Each colouring page order includes one free entry. Enter by uploading a photo of the coloured-in page from the link on your download page or email, by 8pm UK time on Monday 2 November 2026. Open to UK and US residents; the person entering must be 18+ (a parent or carer). This is a judged competition, not a prize draw: ONJJEM will pick the winner on creativity, use of colour and effort, and our decision is final. The winner is emailed by Thursday 5 November and chooses either a Christmas cartoon made from the photo they used for their colouring page, or a photo of their coloured-in page. We email the winner a preview of the Christmas cartoon to approve before it is printed. They receive one 11oz mug with their choice, posted free (UK or US), plus an ONJJEM gift card worth £20 (UK winner) or $25 (US winner), sent by email and valid until 31 March 2027. No cash alternative. With your permission we may share the winning artwork and artist's first name on our pages. Entries are only used to run the competition.</p></details>
+    <details><summary>What do I get?</summary><p id="faqGet"></p></details>
+    <details><summary>When is the free Christmas page sent?</summary><p>In early December we'll email you a Christmas colouring page made from the same photo, free. Nothing to do: it just arrives.</p></details>
+    <details><summary>Competition rules</summary><p>Promoter: ONJJEM (onjjem.com), UK. Each colouring page order includes one free entry: upload a photo of the coloured-in page from your download page or email by 8pm UK time, Monday 2 November 2026. Open to UK and US residents; the person entering must be 18+ (a parent or carer). This is a judged competition, not a prize draw: we pick the best colouring on creativity, colour and effort, and our decision is final. The winner is emailed by Thursday 5 November and receives an ONJJEM gift card worth £20 (UK) or $25 (US), valid until 31 March 2027, plus one 11oz mug printed with their coloured artwork, posted free. No cash alternative. With permission we may share the winning artwork and artist's first name.</p></details>
     <details><summary>Can I cancel?</summary><p>Each page is personalised and drawn the moment you pay, so it can't be cancelled or exchanged. If your download doesn't come through, email hello@onjjem.com and we'll send it.</p></details>
   </div>
 </div>
@@ -202,7 +192,9 @@
   $("faqGet").textContent = US ? "A high-quality printable coloring page of your own photo, drawn in cute Halloween costumes, sized for US Letter or A4. It's a digital file: nothing is mailed to you." : "A high-quality printable A4 colouring page of your own photo, drawn in cute Halloween costumes. It's a digital file: nothing is posted to you.";
   var PAUSED = true; // Railway outage: checkout server not updated yet. Set to false to open.
   if (PAUSED && !new URLSearchParams(location.search).get("paid")) {
-    $("step1").innerHTML = '<h2>🎃 Opening very soon!</h2><p class="trust" style="font-size:15px">We\'re just putting the finishing touches to this. Please check back later today.</p><a class="btn go" href="' + (US ? "/us/" : "/") + '">Browse our gifts meanwhile →</a>';
+    $("pick").style.display = "none";
+    $("step1").insertAdjacentHTML("afterbegin", '<h2>🎃 Opening very soon!</h2><p class="trust" style="font-size:15px">We\'re just putting the finishing touches to this. Please check back later today.</p><a class="btn go" href="' + (US ? "/us/" : "/") + '">Browse our gifts meanwhile →</a>');
+    $("step1").querySelector("h2:nth-of-type(2)") && ($("step1").querySelector("h2:nth-of-type(2)").style.display = "none");
     $("sticky").style.display = "none";
   }
   var photo = null;
