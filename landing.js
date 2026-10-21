@@ -504,6 +504,14 @@ function ONJJEM_drawText(canvas, text, theme, font) {
   lines.forEach((l, i) => ctx.fillText(l, W / 2, top + i * size * 1.2));
 }
 
+
+// Optional "email me a link to finish" tick box (unticked by default). Only if ticked
+// do we email one reminder with their saved checkout if they don't finish paying.
+function ONJJEM_remindHtml(id) {
+  return `<label style="display:flex;gap:.5rem;align-items:flex-start;text-align:left;margin:.55rem 0 0;font-size:.8rem;line-height:1.4;color:#cfc6b4;cursor:pointer"><input type="checkbox" id="${id}" style="margin-top:.15rem;flex:none;width:1rem;height:1rem"><span>📧 If I get interrupted, email me one link to finish my order</span></label>`;
+}
+function ONJJEM_remindOn(id) { const el = document.getElementById(id); return !!(el && el.checked); }
+
 function ONJJEM_openTextMaker(aspect, onDone) {
   let theme = ONJJEM_TEXT_THEMES[0], font = ONJJEM_TEXT_FONTS[0];
   const long = 2400;
@@ -647,6 +655,7 @@ function ONJJEM_renderLanding(P) {
         ${P.confirmText ? `<label class="ft-note" style="display:flex;gap:.5rem;align-items:flex-start;text-align:left;margin:0 0 .75rem;cursor:pointer"><input type="checkbox" id="confirmBox" style="margin-top:.2rem;flex:none;width:1.1rem;height:1.1rem"><span>${P.confirmText}</span></label>` : ""}
         <button class="btn" id="basketBtn">🧺 Add to basket</button>
         <button class="btn btn-ghost" id="buyBtn" style="margin-top:0.5rem">Buy just this one now →</button>
+        ${ONJJEM_remindHtml("remindBuy")}
         <p class="order-note" style="margin-top:0.5rem">🎁 Bundle &amp; save: <strong>10% off 2 gifts</strong>, <strong>12% off 3 or more</strong>, applied automatically in your basket.</p>
         <div class="order-status" id="status"></div>
         ${ONJJEM_PROMO.active ? `<p class="order-note">Code <strong>${esc(ONJJEM_PROMO.code)}</strong> goes in at checkout</p>` : ""}
@@ -1040,6 +1049,7 @@ function ONJJEM_renderLanding(P) {
         body: JSON.stringify(Object.assign({
           sku: o.sku,
           photoBase64: photoToSend,
+          ...(ONJJEM_remindOn("remindBuy") ? { remindMe: true } : {}),
           ...(ONJJEM_isUS() ? { region: "us" } : {}),
           ...(window.ONJJEM_CARTOON_FREE ? { cartoonFree: true } : {}),
           ...(window.ONJJEM_GW_EMAIL ? { giveawayEmail: window.ONJJEM_GW_EMAIL } : {}),
@@ -1198,6 +1208,7 @@ async function ONJJEM_openBasket() {
         ${pct ? `<p class="cartoon-email-note" style="font-size:0.8rem">Your bundle discount is applied instead of promo codes.</p>` : ""}
         ${nextPct > pct ? `<p class="cartoon-email-note" style="color:#F3D078;font-weight:700">Add ${items.length === 1 ? "1 more gift to save 10%" : "1 more gift to save 12%"} 🎁</p>` : ""}
         <button class="cartoon-btn-primary" id="basketCheckout" style="width:100%;margin-top:0.6rem">Checkout securely →</button>
+        ${ONJJEM_remindHtml("remindBasket")}
         <div id="basketStatus" class="cartoon-email-note" style="min-height:1.2em;margin-top:0.4rem"></div>
         <div style="margin-top:0.5rem;font-size:0.82rem;line-height:1.5;color:#cfc6b4;text-align:left">
           <div>👀 <b>What you saw is what we print.</b> Your design was shown to you before adding it.</div>
@@ -1229,6 +1240,7 @@ async function ONJJEM_openBasket() {
           items: items.map(i => ({ sku: i.sku, photoBase64: i.photo, cartoon: !!i.cartoon, cartoonFree: !!i.cartoonFree })),
           ...(ONJJEM_isUS() ? { region: "us" } : {}),
           ...(window.ONJJEM_GW_EMAIL ? { giveawayEmail: window.ONJJEM_GW_EMAIL } : {}),
+          ...(ONJJEM_remindOn("remindBasket") ? { remindMe: true } : {}),
           successUrl: location.origin + ONJJEM_home() + "?order=success&basket=1&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: location.href.split("#")[0]
         })
