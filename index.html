@@ -260,17 +260,25 @@ var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_revie
   // Header chips and links from other pages (/#cat-...): open that room the same way.
   function openRoom(id) {
     var row = document.querySelector('.rm-row[data-sec="' + id + '"]');
-    if (row && !row.classList.contains("on")) row.click();
-    else if (row) row.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!row) return;
+    if (!row.classList.contains("on")) row.click();
+    // Scroll so the room's row sits just under the sticky header (retry while the page settles).
+    var go = function () {
+      var hdr = document.querySelector(".cat-bar"), off = hdr ? Math.max(0, hdr.getBoundingClientRect().bottom) + 8 : 8;
+      window.scrollTo(0, Math.max(0, row.getBoundingClientRect().top + window.pageYOffset - off));
+    };
+    [60, 300, 700].forEach(function (ms) { setTimeout(go, ms); });
   }
-  document.addEventListener("click", function (e) {
+  window.addEventListener("hashchange", function () { if (/^#cat-/.test(location.hash)) openRoom(location.hash.slice(1)); });
+  var onChip = function (e) {
     var a = e.target && e.target.closest && e.target.closest('a[href^="/#cat-"], a[href^="#cat-"]');
     if (!a || a.classList.contains("rm-row")) return;
     var id = a.getAttribute("href").split("#")[1];
     if (!document.querySelector('.rm-row[data-sec="' + id + '"]')) return;
     e.preventDefault(); e.stopPropagation();
     openRoom(id);
-  }, true);
+  };
+  document.addEventListener("click", onChip, true);
   if (/^#cat-/.test(location.hash)) setTimeout(function () { openRoom(location.hash.slice(1)); }, 50);
 })();
 </script>
