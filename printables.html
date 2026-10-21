@@ -200,6 +200,11 @@
   }
   $("now").textContent = price;
   $("faqGet").textContent = US ? "A high-quality printable coloring page of your own photo, drawn in cute Halloween costumes, sized for US Letter or A4. It's a digital file: nothing is mailed to you." : "A high-quality printable A4 colouring page of your own photo, drawn in cute Halloween costumes. It's a digital file: nothing is posted to you.";
+  var PAUSED = true; // Railway outage: checkout server not updated yet. Set to false to open.
+  if (PAUSED && !new URLSearchParams(location.search).get("paid")) {
+    $("step1").innerHTML = '<h2>🎃 Opening very soon!</h2><p class="trust" style="font-size:15px">We\'re just putting the finishing touches to this. Please check back later today.</p><a class="btn go" href="' + (US ? "/us/" : "/") + '">Browse our gifts meanwhile →</a>';
+    $("sticky").style.display = "none";
+  }
   var photo = null;
   $("buy").textContent = "Pay " + price + " & draw my page →";
   $("pick").onclick = function(){ $("file").click(); };
