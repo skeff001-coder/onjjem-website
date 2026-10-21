@@ -257,6 +257,21 @@ var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_revie
       setTimeout(function () { row.scrollIntoView({ behavior: "smooth", block: "start" }); }, 30);
     });
   });
+  // Header chips and links from other pages (/#cat-...): open that room the same way.
+  function openRoom(id) {
+    var row = document.querySelector('.rm-row[data-sec="' + id + '"]');
+    if (row && !row.classList.contains("on")) row.click();
+    else if (row) row.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href^="/#cat-"], a[href^="#cat-"]');
+    if (!a || a.classList.contains("rm-row")) return;
+    var id = a.getAttribute("href").split("#")[1];
+    if (!document.querySelector('.rm-row[data-sec="' + id + '"]')) return;
+    e.preventDefault(); e.stopPropagation();
+    openRoom(id);
+  }, true);
+  if (/^#cat-/.test(location.hash)) setTimeout(function () { openRoom(location.hash.slice(1)); }, 50);
 })();
 </script>
 <script src="/halloween-decor.js?v=20261014a" defer></script>
