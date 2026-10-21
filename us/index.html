@@ -27,7 +27,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media=\'all\'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="/landing.css?v=20261016b">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a" media="print" onload="this.media=\'all\'">
-<link rel="preload" as="image" href="/cat-prints.webp" fetchpriority="high" type="image/webp">
+<link rel="preload" as="image" href="/tapestry-hero.webp" fetchpriority="high" type="image/webp">
 </head>
 <body>
 <script>
@@ -55,11 +55,11 @@
   </div></div>
 
   <section class="wrap home-top">
-    <a href="#cat-walls" class="home-top-img"><img src="/cat-prints.webp" alt="Family photo prints on a table" fetchpriority="high" width="800" height="800"></a>
+    <a href="/cartoon?region=us" class="home-top-img" onclick="try{gtag('event','us_hero_cartoon',{where:'image'})}catch(e){}"><img src="/tapestry-hero.webp" alt="A baby turned into a cartoon and printed on a wall tapestry" fetchpriority="high" width="800" height="800"></a>
     <div class="home-top-text">
-      <h1>Your photos on blankets, tapestries and keepsakes made to last</h1>
-      <p>Fleece blankets, wall tapestries, bedspreads, giant posters and personalized gifts made from any photo on your phone or computer. Made in the USA, free US shipping.</p>
-      <a class="btn home-btn" href="/us/tapestry">Shop wall tapestries</a> <a class="btn home-btn" href="#cat-home" style="margin-top:.5rem">Shop blankets &amp; home</a>
+      <h1>Turn your photo into a cartoon, FREE ✨</h1>
+      <p>See your kids, family or pet as a cartoon in seconds. No sign-up. Love it? Put it on a blanket, tapestry, canvas or mug. Made in the USA, free shipping.</p>
+      <a class="btn home-btn" href="/cartoon?region=us" onclick="try{gtag('event','us_hero_cartoon',{where:'button'})}catch(e){}">🎨 Make my free cartoon</a> <a class="btn home-btn" href="#cat-home" style="margin-top:.5rem;background:transparent;border:1px solid currentColor">Shop blankets &amp; home</a>
       <div class="rv-strip"></div>
     </div>
   </section>
@@ -77,7 +77,7 @@
   </section>
   <script>
   (function () {
-    var end = new Date(new Date().getFullYear(), 10, 1); // hides from 1 November
+    var end = new Date(new Date().getFullYear(), 9, 21); // US order-by date (Oct 20) has passed, so hide it
     var b = document.getElementById("hw-banner");
     var left = Math.ceil((new Date(new Date().getFullYear(), 9, 31) - new Date()) / 864e5);
     if (new Date() >= end) { b.style.display = "none"; return; }
