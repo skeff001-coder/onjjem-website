@@ -25,6 +25,7 @@
   // Big spider: 3s after landing, drops from the top centre on its thread, wriggles,
   // then climbs back up and disappears (once per visit; skipped for reduced motion).
   try {
+    return; // Big drop-down spider switched off: it covered the headline on first visit.
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (sessionStorage.getItem('onjjem_bigspider')) return;
     sessionStorage.setItem('onjjem_bigspider','1');
