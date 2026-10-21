@@ -51,6 +51,20 @@
   @keyframes nudge{50%{transform:translateX(4px)}}
   .hw-link{display:block;max-width:520px;margin:16px auto 0;padding:14px;border-radius:16px;border:1px solid #ff8a1f;background:#2a1606;color:#ffb35c;font-weight:700;text-decoration:none}
   .ticks{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 14px;color:#d9cfb8;font-size:.88rem;margin-top:14px;max-width:520px}
+  .mock{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:4px 0 14px}
+  .mock a{display:block;text-decoration:none;color:#f3d078;font-weight:700;font-size:.9rem}
+  .mock a span{display:block;color:#b9ad92;font-weight:500;font-size:.78rem}
+  .mk{height:112px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;position:relative;overflow:hidden}
+  .mk-canvas{background:linear-gradient(#efe6d8,#d9c9b2)}
+  .mk-canvas img{width:70%;aspect-ratio:1;object-fit:cover;box-shadow:5px 7px 10px rgba(0,0,0,.35);border-right:4px solid rgba(0,0,0,.18);border-bottom:4px solid rgba(0,0,0,.25)}
+  .mk-mug{background:linear-gradient(#2a2418,#17130b)}
+  .mk-mug .cup{width:62%;height:74%;background:#fff;border-radius:6px 6px 14px 14px;position:relative;display:flex;align-items:center;justify-content:center}
+  .mk-mug .cup:after{content:"";position:absolute;right:-17px;top:22%;width:16px;height:42%;border:5px solid #fff;border-left:none;border-radius:0 14px 14px 0}
+  .mk-mug img{width:78%;aspect-ratio:1;object-fit:cover;border-radius:4px}
+  .mk-blanket{background:linear-gradient(#3a2f4a,#221a2c)}
+  .mk-blanket img{width:82%;aspect-ratio:1;object-fit:cover;border-radius:10px;transform:rotate(-6deg);box-shadow:0 6px 14px rgba(0,0,0,.4);outline:5px solid #f5efe4}
+  .love{font-size:1.05rem;color:#fff;margin:0 0 4px}
+  .code{display:inline-block;background:#f3d078;color:#17130b;font-weight:800;padding:2px 8px;border-radius:6px}
   #gifts{display:none;width:100%;max-width:520px;margin-top:8px}
   #gifts h2{font-size:1.35rem;margin-bottom:6px}
   #gifts p{color:#b9ad92;margin-bottom:16px}
@@ -81,7 +95,7 @@
   <div class="grid">
     <a href="/mug.html">☕ Mug<span>from £13.99</span></a>
     <a href="/blanket.html">🛋️ Blanket<span>from £47.99</span></a>
-    <a href="/prints.html">🖼️ Print<span>from £3.99</span></a>
+    <a href="/poster-hanger">🖼️ Poster hanger<span>from £24.99</span></a>
     <a href="/bauble.html">🎄 Bauble<span>from £12.99</span></a>
     <a href="/magnets.html">🧲 Magnets<span>from £7.49</span></a>
     <a href="/christmas.html">🎅 Christmas gifts<span>see all</span></a>
@@ -145,6 +159,25 @@
   function showGifts() {
     document.getElementById("start").style.display = "none";
     document.getElementById("gifts").style.display = "block";
+    // Show THEIR cartoon on real products, with the welcome discount, while they're excited.
+    try {
+      var pc = JSON.parse(sessionStorage.getItem("onjjem_pending_cartoon") || "null");
+      if (!pc || !pc.previewSrc || document.getElementById("mock")) return;
+      var us = window.ONJJEM_REGION === "us";
+      var items = us
+        ? [["/us/canvas", "canvas", "Canvas", "from $64.99"], ["/us/mug", "mug", "Mug", "from $24.99"], ["/us/blanket", "blanket", "Blanket", "from $49.99"]]
+        : [["/canvas", "canvas", "Canvas", "from £39.99"], ["/mug.html", "mug", "Mug", "from £13.99"], ["/blanket.html", "blanket", "Blanket", "from £47.99"]];
+      var src = pc.previewSrc.replace(/"/g, "");
+      var html = '<p class="love">😍 Love it? See it on a real gift:</p><div class="mock" id="mock">' + items.map(function (it) {
+        var inner = it[1] === "mug" ? '<div class="cup"><img src="' + src + '" alt=""></div>' : '<img src="' + src + '" alt="">';
+        return '<a href="' + it[0] + '" data-g="' + it[1] + '"><div class="mk mk-' + it[1] + '">' + inner + '</div>' + it[2] + '<span>' + it[3] + '</span></a>';
+      }).join("") + '</div>';
+      var h = document.querySelector("#gifts h2"); h.insertAdjacentHTML("afterend", html);
+      document.querySelector("#gifts p:not(.love)").innerHTML = (us ? "Free US shipping" : "Free UK delivery") + ' · <span class="code">WELCOME10</span> = 10% off your first order';
+      document.querySelectorAll("#mock a").forEach(function (a) { a.onclick = function () { try { gtag("event", "cartoon_mock_click", { gift: a.getAttribute("data-g") }); } catch (e) {} }; });
+      document.querySelectorAll(".grid a").forEach(function (a) { var h = a.getAttribute("href"); if (/mug|blanket/.test(h)) a.remove(); });
+      try { gtag("event", "cartoon_mock_shown"); } catch (e) {}
+    } catch (e) {}
   }
   function run(photo) {
     ONJJEM_quickCartoon(photo, function (r) {
