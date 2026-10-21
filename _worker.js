@@ -22,7 +22,7 @@ export default {
     }
     // US visitors on the UK Halloween / Christmas pages (e.g. from the TikTok
     // bio link onjjem.com/halloween) go to the US versions.
-    const US_PAGES = { '/halloween': '/us/halloween', '/halloween.html': '/us/halloween', '/christmas': '/us/christmas', '/christmas.html': '/us/christmas' };
+    const US_PAGES = { '/printables': '/us/printables', '/printables.html': '/us/printables', '/halloween': '/us/halloween', '/halloween.html': '/us/halloween', '/christmas': '/us/christmas', '/christmas.html': '/us/christmas' };
     if (US_PAGES[url.pathname] && !url.searchParams.has('uk')) {
       const country = (request.cf && request.cf.country) || '';
       const cookie = request.headers.get('cookie') || '';
