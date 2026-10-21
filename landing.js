@@ -1198,7 +1198,13 @@ async function ONJJEM_openBasket() {
         ${pct ? `<p class="cartoon-email-note" style="font-size:0.8rem">Your bundle discount is applied instead of promo codes.</p>` : ""}
         ${nextPct > pct ? `<p class="cartoon-email-note" style="color:#F3D078;font-weight:700">Add ${items.length === 1 ? "1 more gift to save 10%" : "1 more gift to save 12%"} 🎁</p>` : ""}
         <button class="cartoon-btn-primary" id="basketCheckout" style="width:100%;margin-top:0.6rem">Checkout securely →</button>
-        <div id="basketStatus" class="cartoon-email-note" style="min-height:1.2em;margin-top:0.4rem"></div>` : ""}
+        <div id="basketStatus" class="cartoon-email-note" style="min-height:1.2em;margin-top:0.4rem"></div>
+        <div style="margin-top:0.5rem;font-size:0.82rem;line-height:1.5;color:#cfc6b4;text-align:left">
+          <div>👀 <b>What you saw is what we print.</b> Your design was shown to you before adding it.</div>
+          <div>🚚 <b>${ONJJEM_isUS() ? "Free US shipping" : "Free UK delivery"}</b>, already included. No extra charges at checkout.</div>
+          <div>🔁 <b>Damaged or misprinted?</b> We replace it free.</div>
+          <div>🔒 Secure payment by Stripe: Apple Pay, Google Pay or card.</div>
+        </div>` : ""}
       <button class="cartoon-btn-secondary" id="basketMore" style="width:100%;margin-top:0.5rem">Keep shopping</button>
       ${items.length ? `<button type="button" id="basketEmpty" style="display:block;margin:0.8rem auto 0;background:none;border:none;color:#bbb;text-decoration:underline;font-size:0.9rem;cursor:pointer">🗑️ Empty basket</button>` : ""}
     </div>`;
