@@ -13,7 +13,7 @@
   function show(){
     try { if (sessionStorage.getItem("onjjem_prp")) return; sessionStorage.setItem("onjjem_prp","1"); } catch(e){}
     var d = document.createElement("div"); d.className = "prp"; d.setAttribute("role","dialog");
-    d.innerHTML = '<button class="x" aria-label="Close">×</button><div class="pi"><img src="/pr-promo.webp?v=3" alt=""><div><span class="k">NEW · INSTANT DOWNLOAD</span><h3><span class="em">🎃</span> Your family or pets as a Halloween ' + w + ' page!</h3><p>Plus a FREE Christmas page! Print tonight. Only ' + price + '. Best one wins a huge prize pack + ' + (US ? '$25' : '£20') + ' gift card 🏆</p></div></div><a class="b" href="' + href + '">🖍️ Make mine now</a>';
+    d.innerHTML = '<button class="x" aria-label="Close">×</button><div class="pi"><img src="/pr-promo.webp?v=3" alt=""><div><span class="k">NEW · INSTANT DOWNLOAD</span><h3><span class="em">🎃</span> Your family or pets as a Halloween ' + w + ' page!</h3><p>Plus a FREE Christmas page! Print tonight. Only ' + price + '. Best one wins a surprise prize worth over ' + (US ? '$90' : '£70') + '! 🏆</p></div></div><a class="b" href="' + href + '">🖍️ Make mine now</a>';
     document.body.appendChild(d);
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.classList.add("in"); }); });
     ga("shown");
