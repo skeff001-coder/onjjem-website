@@ -67,6 +67,11 @@
   .ex2 figure{margin:0;text-align:center} .ex2 figcaption{font-size:11px;color:var(--mut);margin-top:3px}
   .ph{aspect-ratio:13/16;border:3px dashed #FF962A;border-radius:10px;background:#fff;color:#2a0d3d;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px;gap:6px}
   .ph div{font-size:34px} .ph b{font-size:15px;line-height:1.2} .ph span{font-size:12px;color:#6b5675}
+  .who{background:rgba(255,150,42,.12);border:2px solid #FF962A;border-radius:16px;padding:12px 14px;margin:0 0 14px}
+  .who b{font-size:16px}
+  .chips2{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .chips2 span{background:#fff;color:#2a0d3d;font-weight:800;font-size:13px;padding:5px 10px;border-radius:20px}
+  .who p{margin:2px 0 0;color:var(--mut);font-size:14px}
   .fun{display:grid;gap:10px;margin:4px 0 14px}
   .fun div{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:11px 13px}
   .fun span{font-size:28px;line-height:1}
@@ -85,13 +90,19 @@
 <div class="w">
   <a href="/" class="back" id="backLink">&larr; ONJJEM shop</a>
   <div class="kick">🎃 HALLOWEEN SPECIAL · INSTANT DOWNLOAD</div>
-  <h1>Your kids as a <span>Halloween colouring page</span> 🖍️</h1>
+  <h1>Your kids, family or pets as a <span>Halloween colouring page</span> 🖍️</h1>
   <p class="sub">Upload a photo and we draw your kids, family or pets as cute Halloween characters, ready to print and colour in. A witch hat here, a vampire cape there, pumpkins, friendly bats and a big spooky moon, all around <b>them</b>.</p>
 
   <div class="ex2">
     <figure><img src="/pr-photo.webp" alt="A photo of two children" width="520" height="640"><figcaption>Your photo</figcaption></figure>
     <div class="ar">➜</div>
     <div class="ph"><div>🎃🖍️</div><b>Their Halloween colouring page</b><span>Bold black outlines on white, drawn in costume after you order</span></div>
+  </div>
+
+  <div class="who">
+    <b>Works with anyone in your photo:</b>
+    <div class="chips2"><span>👶 Babies</span><span>🧒 Kids</span><span>🧑 Teens</span><span>👨‍👩‍👧 Mum &amp; Dad</span><span>👵 Nanna &amp; Grandad</span><span>🐶 Dogs</span><span>🐱 Cats</span><span>🐹 Hamsters</span><span>🐦 Budgies</span><span>🐰 Bunnies</span><span>🐴 Horses</span><span>👫 The whole family</span></div>
+    <p>Everyone gets a fun Halloween costume, even the dog! 🎃</p>
   </div>
 
   <div class="fun">
@@ -108,7 +119,7 @@
       <h2>Make their colouring page</h2>
       <div class="pricebox"><span class="now" id="now"></span><span class="tag">HALLOWEEN SPECIAL</span></div>
       <button class="btn go" id="pick">📸 Choose a photo</button>
-      <p class="trust">Clear, bright photos with faces work best. Up to 4 people or pets. Your photo stays private and is only used to draw your page.</p>
+      <p class="trust">Kids, babies, grandparents or pets: anyone works! Clear, bright photos with faces work best. Up to 4 people or pets. Your photo stays private and is only used to draw your page.</p>
     </div>
     <div id="ready" style="display:none;text-align:center">
       <img id="thumb" alt="Your photo" style="width:150px;height:150px;object-fit:cover;border-radius:14px;border:3px solid #FF962A">
