@@ -1,6 +1,7 @@
 // Halloween colouring page promo: a bottom pop-up once per visit, plus a slim top bar.
 // Runs until 1 November. Never on the printables page itself.
 (function(){
+  return; // PAUSED: Railway outage, colouring checkout not live yet. Remove this line to switch back on.
   if (new Date() >= new Date("2026-11-01T00:00:00Z")) return;
   if (/printables/.test(location.pathname)) return;
   var US = /^\/us(\/|$)/.test(location.pathname) || /region=us/.test(location.search);
