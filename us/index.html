@@ -27,7 +27,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="/landing.css?v=20261016b">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a" media="print" onload="this.media='all'">
-<link rel="preload" as="image" href="/tapestry-hero.webp" fetchpriority="high" type="image/webp">
 </head>
 <body>
 <script>
@@ -54,17 +53,6 @@
     <p style="margin-top:0.6rem"><strong>Love it when it arrives?</strong> Email a photo of it to <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> and we'll send you <strong>20% off</strong> your next order.</p>
   </div></div>
 
-  <section class="wrap home-top">
-    <a href="/cartoon?region=us" class="home-top-img" onclick="try{gtag('event','us_hero_cartoon',{where:'image'})}catch(e){}"><img src="/tapestry-hero.webp" alt="A baby turned into a cartoon and printed on a wall tapestry" fetchpriority="high" width="800" height="800"></a>
-    <div class="home-top-text">
-      <h1>Turn your photo into a cartoon, FREE ✨</h1>
-      <p>See your kids, family or pet as a cartoon in seconds. No sign-up. Love it? Put it on a blanket, tapestry, canvas or mug. Made in the USA, free shipping.</p>
-      <a href="/us/printables" style="display:none;gap:10px;align-items:center;margin:0 0 12px;padding:10px 12px;border-radius:14px;background:linear-gradient(90deg,#E8287F,#FF8A1C);color:#fff;text-decoration:none;font-weight:800" onclick="try{gtag('event','printable_promo',{action:'us_hero'})}catch(e){}"><span style="font-size:26px">🖍️</span><span>NEW: Your kids as a Halloween coloring page. Instant download, print tonight! Only $2.99 →</span></a>
-      <a class="btn home-btn" href="/cartoon?region=us" onclick="try{gtag('event','us_hero_cartoon',{where:'button'})}catch(e){}">🎨 Make my free cartoon</a> <a class="btn home-btn" href="#cat-home" style="margin-top:.5rem;background:transparent;border:2px solid #d4af37;color:#d4af37">Shop blankets &amp; home</a>
-      <div class="rv-strip"></div>
-    </div>
-  </section>
-
   <section class="wrap" id="hw-banner">
     <a class="hw-banner" href="/us/halloween">
       <img src="/cat-halloween.webp" alt="Two kids turned into Halloween cartoons">
@@ -86,10 +74,16 @@
   })();
   </script>
 
+  <section class="wrap" style="text-align:center;padding-top:14px">
+    <h1 style="margin:0 0 6px;font-size:1.7rem;line-height:1.2">Personalized photo gifts, made in the USA</h1>
+    <p style="margin:0 auto;max-width:520px;color:var(--muted,#c9c9c9)">Blankets, wall tapestries, canvases, mugs and more from any photo. Free US shipping.</p>
+    <div class="rv-strip"></div>
+  </section>
+
   <section class="wrap home-shop" id="shop">
     <h2 class="home-h2">Shop by category</h2>
     <div class="cat-grid">
-      <a class="cat-card wide" href="#cat-tapestries"><img src="/tapestry-hero-scenic.webp" alt="" loading="lazy"><span>Wall tapestries: your photo or scenery</span></a>
+      <a class="cat-card wide" href="#cat-tapestries"><img src="/tapestry-hero-scenic.webp" alt="" fetchpriority="high"><span>Wall tapestries: your photo or scenery</span></a>
       <a class="cat-card" href="#cat-home"><img src="/cat-home-us.webp" alt="" loading="lazy"><span>Blankets, tapestries &amp; home</span></a>
       <a class="cat-card" href="#cat-walls"><img src="/cat-poster.webp" alt="" loading="lazy"><span>Prints &amp; posters</span></a>
       <a class="cat-card" href="#cat-halloween"><img src="/cat-halloween-us.webp" alt="" loading="lazy"><span>Halloween</span></a>
@@ -99,6 +93,17 @@
     </div>
     <p class="home-deal">Save 10% on 2 gifts · 12% on 3 or more</p>
   </section>
+
+  <section class="wrap home-top">
+    <a href="/cartoon?region=us" class="home-top-img" onclick="try{gtag('event','us_hero_cartoon',{where:'image'})}catch(e){}"><img src="/tapestry-hero.webp" alt="A baby turned into a cartoon and printed on a wall tapestry" loading="lazy" width="800" height="800"></a>
+    <div class="home-top-text">
+      <h2>Turn your photo into a cartoon, FREE ✨</h2>
+      <p>See your kids, family or pet as a cartoon in seconds. No sign-up. Love it? Put it on a blanket, tapestry, canvas or mug. Made in the USA, free shipping.</p>
+      <a href="/us/printables" style="display:none;gap:10px;align-items:center;margin:0 0 12px;padding:10px 12px;border-radius:14px;background:linear-gradient(90deg,#E8287F,#FF8A1C);color:#fff;text-decoration:none;font-weight:800" onclick="try{gtag('event','printable_promo',{action:'us_hero'})}catch(e){}"><span style="font-size:26px">🖍️</span><span>NEW: Your kids as a Halloween coloring page. Instant download, print tonight! Only $2.99 →</span></a>
+      <a class="btn home-btn" href="/cartoon?region=us" onclick="try{gtag('event','us_hero_cartoon',{where:'button'})}catch(e){}">🎨 Make my free cartoon</a> <a class="btn home-btn" href="#cat-home" style="margin-top:.5rem;background:transparent;border:2px solid #d4af37;color:#d4af37">Shop blankets &amp; home</a>
+    </div>
+  </section>
+
 
   <section class="wrap home-sec home-sec-main" id="cat-tapestries">
     <div class="home-sec-head"><h2>🏔️ Wall tapestries</h2><a href="#shop">All categories ↑</a></div>
