@@ -194,13 +194,20 @@
   }
   $("now").textContent = price;
   $("faqGet").textContent = US ? "A high-quality printable coloring page of your own photo, drawn in cute Halloween costumes, sized for US Letter or A4. It's a digital file: nothing is mailed to you." : "A high-quality printable A4 colouring page of your own photo, drawn in cute Halloween costumes. It's a digital file: nothing is posted to you.";
-  var PAUSED = true; // Railway outage: checkout server not updated yet. Set to false to open.
-  if (PAUSED && !new URLSearchParams(location.search).get("paid")) {
+  var q = new URLSearchParams(location.search);
+  function pausedUI(){
     $("pick").style.display = "none";
-    $("step1").insertAdjacentHTML("afterbegin", '<h2>🎃 Opening very soon!</h2><p class="trust" style="font-size:15px">We\'re just putting the finishing touches to this. Please check back later today.</p><a class="btn go" href="' + (US ? "/us/" : "/") + '">Browse our gifts meanwhile →</a>');
-    $("step1").querySelector("h2:nth-of-type(2)") && ($("step1").querySelector("h2:nth-of-type(2)").style.display = "none");
+    $("step1").insertAdjacentHTML("afterbegin", '<div id="pausedBox"><h2>🎃 Opening very soon!</h2><p class="trust" style="font-size:15px">We\'re just putting the finishing touches to this. Please check back later today.</p><a class="btn go" href="' + (US ? "/us/" : "/") + '">Browse our gifts meanwhile →</a></div>');
+    var h2b = $("step1").querySelector("h2:nth-of-type(2)"); if (h2b) { h2b.style.display = "none"; h2b.setAttribute("data-p","1"); }
     $("sticky").style.display = "none";
   }
+  function unpause(){
+    var pb = $("pausedBox"); if (pb) pb.remove();
+    $("pick").style.display = ""; var h2b = $("step1").querySelector("h2[data-p]"); if (h2b) h2b.style.display = "";
+    $("sticky").style.display = "";
+  }
+  // The checkout opens by itself as soon as the colouring-page server is ready.
+  if (!q.get("paid")) { pausedUI(); try { fetch("/api/pc-ready", {cache:"no-store"}).then(function(r){ return r.json(); }).then(function(j){ if (j && j.ready) unpause(); }).catch(function(){}); } catch(e){} }
   var photo = null;
   $("buy").textContent = "Pay " + price + " & draw my page →";
   $("pick").onclick = function(){ $("file").click(); };
@@ -219,26 +226,71 @@
     try {
       var r = await fetch("/api/printable-checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({photo:photo,region:US?"us":"uk",page:location.pathname})});
       var j = {}; try { j = await r.json(); } catch(_) {} if (!r.ok || !j.url) throw new Error(j.error || "Checkout couldn't start just now. Please try again in a minute.");
+      try { localStorage.setItem("pc_pending", JSON.stringify({sid:j.id,photo:photo,t:Date.now()})); } catch(e){}
       location.href = j.url;
     } catch(err){ $("st").textContent = err.message; $("buy").disabled = false; }
   };
-  var q = new URLSearchParams(location.search);
+  var JH = {"Content-Type":"application/json"};
+  function loadImg(src){ return new Promise(function(ok,bad){ var i=new Image(); i.onload=function(){ ok(i); }; i.onerror=function(){ bad(new Error("image")); }; i.src=src; }); }
+  // Clean black-and-white lines, centred on an A4 page (300dpi), ready to print.
+  async function makePage(b64,mime){
+    var im = await loadImg("data:"+mime+";base64,"+b64), w = im.naturalWidth, h = im.naturalHeight;
+    var c = document.createElement("canvas"); c.width = w; c.height = h; var x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0,0,w,h); x.drawImage(im,0,0);
+    var d = x.getImageData(0,0,w,h), a = d.data, g = new Uint8Array(w*h), mn = 255, mx = 0, i, v;
+    for (i=0;i<g.length;i++){ v = (a[i*4]*299 + a[i*4+1]*587 + a[i*4+2]*114)/1000 | 0; g[i] = v; if (v<mn) mn = v; if (v>mx) mx = v; }
+    var rg = Math.max(1, mx-mn);
+    for (i=0;i<g.length;i++){ v = ((g[i]-mn)*255/rg) >= 215 ? 255 : 0; a[i*4] = a[i*4+1] = a[i*4+2] = v; a[i*4+3] = 255; }
+    x.putImageData(d,0,0);
+    var s = Math.min(2180/w, 3100/h), dw = Math.round(w*s), dh = Math.round(h*s);
+    var p = document.createElement("canvas"); p.width = 2480; p.height = 3508; var px = p.getContext("2d"); px.fillStyle = "#fff"; px.fillRect(0,0,2480,3508);
+    px.imageSmoothingEnabled = true; px.imageSmoothingQuality = "high"; px.drawImage(c, Math.round((2480-dw)/2), Math.round((3508-dh)/2), dw, dh);
+    return new Promise(function(ok){ p.toBlob(function(bl){ ok(bl); }, "image/png"); });
+  }
+  function blobB64(bl){ return new Promise(function(ok){ var fr = new FileReader(); fr.onload = function(){ ok(String(fr.result).split(",")[1]); }; fr.readAsDataURL(bl); }); }
+  async function drawOne(sid,ph,theme){
+    for (var k=0;k<2;k++){
+      try {
+        var r = await fetch("/api/printable-draw",{method:"POST",headers:JH,body:JSON.stringify({session_id:sid,photo:ph,theme:theme})});
+        var j = {}; try { j = await r.json(); } catch(_) {}
+        if (!r.ok || !j.image) { if (r.status === 429 || r.status === 402) { var e1 = new Error(j.error || "Draw failed"); e1.stop = true; throw e1; } throw new Error(j.error || "Draw failed"); }
+        return await makePage(j.image, j.mime || "image/png");
+      } catch(e){ if (k === 1 || e.stop) throw e; }
+    }
+  }
   if (q.get("paid") && q.get("session_id")) {
-    var sid = q.get("session_id"), src = "/api/printable-download?session_id=" + encodeURIComponent(sid);
-    $("step1").style.display = "none"; $("load").style.display = "block"; $("sticky").style.display = "none";
-    var msgs = ["Thank you! Drawing your pages… ✏️","Picking their costumes… 🧙","Carving the pumpkins… 🎃","Adding friendly bats… 🦇","Inking the outlines… 🖊️","Adding the Christmas tree… 🎄","Nearly ready… ✨"], i = 0, pct = 5;
-    if (US) msgs = msgs.map(function(m){ return m; });
-    $("barI").style.width = "5%";
-    var t = setInterval(function(){ i = Math.min(i+1, msgs.length-1); pct = Math.min(95, pct+10); $("loadTxt").textContent = msgs[i]; $("barI").style.width = pct+"%"; }, 4500);
+    var sid = q.get("session_id"), prefix = US ? "halloween-coloring-page" : "halloween-colouring-page";
+    $("step1").style.display = "none"; $("sticky").style.display = "none";
     try { if (!sessionStorage.getItem("pr_"+sid)) { sessionStorage.setItem("pr_"+sid,"1"); gtag("event","purchase",{transaction_id:sid,currency:cur,value:val}); } } catch(e){}
-    var tries = 0;
-    (function load(){
-      var img = new Image();
-      img.onload = function(){ clearInterval(t); $("doneImg").src = src; $("dl").href = src + "&dl=1"; $("more").href = location.pathname; $("load").style.display = "none"; $("done").style.display = "block";
-        var xi = new Image(); xi.onload = function(){ $("xmasImg").src = xi.src; $("xdl").href = src + "&which=xmas&dl=1"; $("xmasBox").style.display = "block"; }; xi.src = src + "&which=xmas"; };
-      img.onerror = function(){ if (++tries < 4) setTimeout(load, 4000); else { clearInterval(t); $("load").style.display = "none"; $("st").innerHTML = "Your page is taking longer than usual. We'll email it to you shortly. Any problem, email <a href=\"mailto:hello@onjjem.com\">hello@onjjem.com</a>."; } };
-      img.src = src + (tries ? "&r=" + tries : "");
-    })();
+    var msgs = ["Thank you! Drawing your pages… ✏️","Picking their costumes… 🧙","Carving the pumpkins… 🎃","Adding friendly bats… 🦇","Inking the outlines… 🖊️","Adding the Christmas tree… 🎄","Nearly ready… ✨"], tmr = null;
+    var run = async function(ph){
+      $("st").innerHTML = ""; $("done").style.display = "none"; $("load").style.display = "block"; $("barI").style.width = "5%";
+      var i = 0, pct = 5; clearInterval(tmr); tmr = setInterval(function(){ i = Math.min(i+1, msgs.length-1); pct = Math.min(95, pct+8); $("loadTxt").textContent = msgs[i]; $("barI").style.width = pct+"%"; }, 4500);
+      try {
+        var res = await Promise.all([drawOne(sid,ph,"halloween"), drawOne(sid,ph,"christmas").catch(function(){ return null; })]);
+        clearInterval(tmr);
+        var hu = URL.createObjectURL(res[0]); $("doneImg").src = hu; $("doneImg").style.display = ""; $("dl").href = hu; $("dl").setAttribute("download", prefix + ".png"); $("dl").style.display = "";
+        if (res[1]) { var xu = URL.createObjectURL(res[1]); $("xmasImg").src = xu; $("xdl").href = xu; $("xdl").setAttribute("download", US ? "christmas-coloring-page.png" : "christmas-colouring-page.png"); $("xmasBox").style.display = "block"; }
+        $("more").href = location.pathname; $("load").style.display = "none"; $("done").style.display = "block";
+        try { localStorage.removeItem("pc_pending"); } catch(e){}
+        var files = [{filename: prefix + ".png", base64: await blobB64(res[0])}];
+        if (res[1]) files.push({filename: US ? "christmas-coloring-page.png" : "christmas-colouring-page.png", base64: await blobB64(res[1])});
+        fetch("/api/printable-email",{method:"POST",headers:JH,body:JSON.stringify({session_id:sid,files:files})}).catch(function(){});
+      } catch(err){
+        clearInterval(tmr); $("load").style.display = "none";
+        $("st").innerHTML = (err && err.stop ? (err.message || "") : "Something went wrong drawing your page.") + ' <a href="#" id="retry" style="font-weight:800;color:#E8287F">Tap here to try again</a>, or email <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> and we will sort it.';
+        var rt = $("retry"); if (rt) rt.onclick = function(ev){ ev.preventDefault(); run(ph); };
+      }
+    };
+    var pend = null; try { pend = JSON.parse(localStorage.getItem("pc_pending") || "null"); } catch(e){}
+    if (pend && pend.sid === sid && pend.photo) run(pend.photo);
+    else {
+      // Different phone or browser: show the competition entry, and let them choose the photo again to redraw.
+      $("doneImg").style.display = "none"; $("dl").style.display = "none"; $("xmasBox").style.display = "none"; $("done").style.display = "block";
+      $("st").innerHTML = 'Welcome back! If you need your pages again, <a href="#" id="redo" style="font-weight:800;color:#E8287F">choose your photo here</a> and we will redraw them.';
+      var rf = document.createElement("input"); rf.type = "file"; rf.accept = "image/*"; rf.hidden = true; document.body.appendChild(rf);
+      $("redo").onclick = function(ev){ ev.preventDefault(); rf.click(); };
+      rf.onchange = async function(){ var f = rf.files && rf.files[0]; if (!f) return; try { run(await shrink(f)); } catch(e){ $("st").textContent = e.message; } };
+    }
     setTimeout(function(){ $("maker").scrollIntoView({block:"start"}); }, 100);
   }
   // Competition entry (only works with a paid colouring page order).
