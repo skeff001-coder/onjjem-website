@@ -2,7 +2,8 @@
 // Runs until 1 November. Never on the printables page itself.
 (function(){
   if (new Date() >= new Date("2026-11-01T00:00:00Z")) return;
-  if (/printables/.test(location.pathname)) return;
+  // Not on the colouring page itself, the giveaway page or the homepages (they have their own banners), so the two competitions never mix.
+  if (/printables|giveaway/.test(location.pathname) || /^\/(us\/?)?(index\.html)?$/.test(location.pathname)) return;
   var US = /^\/us(\/|$)/.test(location.pathname) || /region=us/.test(location.search);
   var href = US ? "/us/printables" : "/printables", price = US ? "$2.99" : "£1.99", w = US ? "coloring" : "colouring";
   var ga = function(a){ try { gtag("event", "printable_promo", { action: a }); } catch(e){} };
@@ -12,7 +13,7 @@
   function show(){
     try { if (sessionStorage.getItem("onjjem_prp")) return; sessionStorage.setItem("onjjem_prp","1"); } catch(e){}
     var d = document.createElement("div"); d.className = "prp"; d.setAttribute("role","dialog");
-    d.innerHTML = '<button class="x" aria-label="Close">×</button><div class="pi"><img src="/pr-promo.webp?v=3" alt=""><div><span class="k">🏆 HALLOWEEN COMPETITION</span><h3><span class="em">🎃</span> Win their artwork on a ' + (US ? 'photo' : 'magic') + ' mug!</h3><p>Plus a ' + (US ? '$50' : '£40') + ' gift card! Get your family\'s ' + w + ' page for ' + price + ', colour it in and send it back. Closes Sat 31 Oct, 6pm UK.</p></div></div><a class="b" href="' + href + '">🖍️ Enter now</a>';
+    d.innerHTML = '<button class="x" aria-label="Close">×</button><div class="pi"><img src="/pr-promo.webp?v=3" alt=""><div><span class="k">🏆 HALLOWEEN ' + w.toUpperCase() + ' CHAMPIONSHIP</span><h3><span class="em">🎃</span> Win their artwork on a ' + (US ? 'photo' : 'magic') + ' mug!</h3><p>Plus a ' + (US ? '$50' : '£40') + ' gift card! Get your family\'s ' + w + ' page for ' + price + ', colour it in and send it back. Closes Sat 31 Oct, 6pm UK.</p></div></div><a class="b" href="' + href + '">🖍️ Enter now</a>';
     document.body.appendChild(d);
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.classList.add("in"); }); });
     ga("shown");
