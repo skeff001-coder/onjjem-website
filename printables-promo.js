@@ -13,7 +13,7 @@
   function show(){
     try { if (sessionStorage.getItem("onjjem_prp")) return; sessionStorage.setItem("onjjem_prp","1"); } catch(e){}
     var d = document.createElement("div"); d.className = "prp"; d.setAttribute("role","dialog");
-    d.innerHTML = '<button class="x" aria-label="Close">×</button><div class="pi"><img src="/pr-promo.webp?v=3" alt=""><div><span class="k">🏆 HALLOWEEN COMPETITION</span><h3><span class="em">🎃</span> Win their artwork on a beautiful ceramic mug!</h3><p>Plus surprise prizes worth over ' + (US ? '$120' : '£100') + '! Get your family\'s ' + w + ' page for ' + price + ', colour it in and send it back. Closes Mon 2 Nov, 8pm.</p></div></div><a class="b" href="' + href + '">🖍️ Enter now</a>';
+    d.innerHTML = '<button class="x" aria-label="Close">×</button><div class="pi"><img src="/pr-promo.webp?v=3" alt=""><div><span class="k">🏆 HALLOWEEN COMPETITION</span><h3><span class="em">🎃</span> Win their artwork on a beautiful ceramic mug!</h3><p>Plus surprise prizes worth over ' + (US ? '$90' : '£70') + '! Get your family\'s ' + w + ' page for ' + price + ', colour it in and send it back. Closes Mon 2 Nov, 8pm.</p></div></div><a class="b" href="' + href + '">🖍️ Enter now</a>';
     document.body.appendChild(d);
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.classList.add("in"); }); });
     ga("shown");
