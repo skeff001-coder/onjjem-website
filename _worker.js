@@ -6,7 +6,12 @@ export default {
     const isBot = /bot|crawler|spider|slurp|facebookexternalhit|Google-InspectionTool|Mediapartners-Google|APIs-Google/i.test(request.headers.get('user-agent') || '');
 
     if (url.pathname === '/api/pc-ready') {
-      return new Response(JSON.stringify({ ready: !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY) }), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+      let ready = !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY);
+      if (!ready) {
+        // Otherwise the Railway server must know the colouring page (new builds answer 400 "Bad link"; old ones 404).
+        try { const pr = await fetch('https://onjjem-production-5ef8.up.railway.app/api/printable-download?session_id=x'); ready = pr.status === 400; } catch (e) {}
+      }
+      return new Response(JSON.stringify({ ready }), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
     }
     // Colouring page checkout, drawing and competition run here on Cloudflare.
     if (PB_ROUTES.includes(url.pathname) && request.method === 'POST' && env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY) {
