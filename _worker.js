@@ -357,7 +357,7 @@ async function handlePB(path, request, env) {
         'payment_method_types[0]': 'card',
         'line_items[0][quantity]': '1',
         'line_items[0][price_data][currency]': us ? 'usd' : 'gbp',
-        'line_items[0][price_data][unit_amount]': us ? '299' : '199',
+        'line_items[0][price_data][unit_amount]': us ? '149' : '99',
         'line_items[0][price_data][product_data][name]': (xm ? 'Christmas ' : 'Halloween ') + (us ? 'coloring' : 'colouring') + ' page of your photo + FREE ' + (xm ? 'Halloween' : 'Christmas') + ' page (instant download)',
         'metadata[sku]': 'printable-coloring',
         'metadata[theme]': xm ? 'christmas' : 'halloween',
@@ -397,7 +397,7 @@ async function handlePB(path, request, env) {
         html: pbWrap('<h2 style="margin:0 0 10px">Here are your ' + col + ' pages! 🎃🎄</h2><p>Thank you for your order. Your Halloween page and your FREE Christmas page are attached. To print: open the file, tap Share, then Print, on ' + (us ? 'Letter' : 'A4') + ' paper. Print as many copies as you like.</p><div style="border:2px solid #C9960C;border-radius:12px;padding:12px 14px;margin:14px 0"><b>🏆 The ONJJEM ' + (us ? 'Coloring' : 'Colouring') + ' Championship</b><br>Your order includes one entry. When it is ' + col.replace('ing', 'ed') + ' in, send us a photo of your masterpiece. Our judges crown ONE champion, who wins a surprise prize package worth over ' + (us ? '$120' : '£100') + ', including a ' + (us ? '$60' : '£50') + ' gift card! Closes Mon 2 Nov, 8pm UK.<br><a href="' + link + '" style="color:#8E2DE2;font-weight:700">Enter the Championship →</a></div><p>Love it? We can print your family as a cartoon on a blanket, mug or canvas: <a href="https://onjjem.com' + (us ? '/us/' : '/') + '">onjjem.com</a></p><p style="font-size:12px;color:#888">Any problems? Just reply to this email.</p>'),
         attachments: files.map((f) => ({ filename: f.filename, content: f.base64 })),
       });
-      await pbResend(env, { to: PB_ADMIN, subject: '🎨 Colouring page sold (' + (us ? '$2.99' : '£1.99') + '): ' + email, html: pbWrap('<p>New colouring page order from <b>' + pbEsc(email) + '</b> (' + (us ? 'US' : 'UK') + ').</p>') }).catch(() => {});
+      await pbResend(env, { to: PB_ADMIN, subject: '🎨 Colouring page sold (' + (us ? '$1.49' : '99p') + '): ' + email, html: pbWrap('<p>New colouring page order from <b>' + pbEsc(email) + '</b> (' + (us ? 'US' : 'UK') + ').</p>') }).catch(() => {});
       return pbJson({ ok: true });
     }
 
