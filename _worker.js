@@ -10,6 +10,16 @@ export default {
     if (url.pathname === '/api/pc-ready') {
       const ready = !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY);
       const missing = ['STRIPE_SECRET_KEY', 'GEMINI_API_KEY', 'RESEND_API_KEY'].filter((k) => !env[k]);
+      // ?ai=1: tiny test call to Google AI (reports only the status and error text, never the key).
+      if (url.searchParams.get('ai') && env.GEMINI_API_KEY) {
+        let ai = {};
+        try {
+          const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }] }) });
+          const j = await r.json().catch(() => ({}));
+          ai = { status: r.status, error: j.error ? String(j.error.message || '').slice(0, 200) : null };
+        } catch (e) { ai = { error: String(e && e.message) }; }
+        return new Response(JSON.stringify({ ready, missing, ai }), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+      }
       return new Response(JSON.stringify({ ready, missing }), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
     }
     // Colouring page checkout, drawing and competition run here on Cloudflare.
