@@ -277,7 +277,8 @@ const PB_PROMPT =
   "Halloween costumes that suit them (a witch hat, a pumpkin outfit, a friendly " +
   "vampire cape, cat ears, a superhero cape). They must stay recognisable to " +
   "their family: same number of people and pets, same hairstyles, glasses, " +
-  "ages and breeds. Around them add simple Halloween things to colour in: " +
+  "ages and breeds. Never add any person or animal that is not in the photo. " +
+  "Around them add simple Halloween things to colour in: " +
   "smiling jack-o'-lanterns, friendly bats, a big moon, sweets and a cute " +
   "haunted house. Thick, clean, smooth, closed outlines with big areas to " +
   "colour, suitable for children aged 3 to 10 using crayons. Portrait " +
@@ -357,7 +358,7 @@ async function handlePB(path, request, env) {
         'payment_method_types[0]': 'card',
         'line_items[0][quantity]': '1',
         'line_items[0][price_data][currency]': us ? 'usd' : 'gbp',
-        'line_items[0][price_data][unit_amount]': us ? '299' : '99', // TEMP TEST PRICE: change back to '199'
+        'line_items[0][price_data][unit_amount]': us ? '299' : '199',
         'line_items[0][price_data][product_data][name]': (xm ? 'Christmas ' : 'Halloween ') + (us ? 'coloring' : 'colouring') + ' page of your photo + FREE ' + (xm ? 'Halloween' : 'Christmas') + ' page (instant download)',
         'metadata[sku]': 'printable-coloring',
         'metadata[theme]': xm ? 'christmas' : 'halloween',
