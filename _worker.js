@@ -357,7 +357,7 @@ async function handlePB(path, request, env) {
         'payment_method_types[0]': 'card',
         'line_items[0][quantity]': '1',
         'line_items[0][price_data][currency]': us ? 'usd' : 'gbp',
-        'line_items[0][price_data][unit_amount]': us ? '299' : '199',
+        'line_items[0][price_data][unit_amount]': us ? '299' : '99', // TEMP TEST PRICE: change back to '199'
         'line_items[0][price_data][product_data][name]': (xm ? 'Christmas ' : 'Halloween ') + (us ? 'coloring' : 'colouring') + ' page of your photo + FREE ' + (xm ? 'Halloween' : 'Christmas') + ' page (instant download)',
         'metadata[sku]': 'printable-coloring',
         'metadata[theme]': xm ? 'christmas' : 'halloween',
