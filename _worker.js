@@ -1,5 +1,7 @@
 export default {
-  async fetch(request, env) {
+  async fetch(request, env0) {
+    // Accept the same variable names Railway used, so copied keys work as they are.
+    const env = Object.assign({}, env0, { STRIPE_SECRET_KEY: env0.STRIPE_SECRET_KEY || env0.STRIPE_KEY_TEMP, GEMINI_API_KEY: env0.GEMINI_API_KEY || env0.AI_INTEGRATIONS_GEMINI_API_KEY });
     const url = new URL(request.url);
     // Search engines and link previews crawl from the USA. Never send them to
     // the US shop, or Google lists the US page for UK searches.
