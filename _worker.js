@@ -264,7 +264,7 @@ function formatOrderEmail(order) {
 // Needs these Cloudflare secrets: STRIPE_SECRET_KEY, GEMINI_API_KEY, RESEND_API_KEY.
 // If STRIPE_SECRET_KEY is missing these routes fall through to the Railway backend.
 const PB_ROUTES = ['/api/printable-checkout', '/api/printable-draw', '/api/printable-email', '/api/contest-entry'];
-const PB_CLOSES = Date.parse('2026-11-02T20:00:00Z');
+const PB_CLOSES = Date.parse('2026-10-31T18:00:00Z');
 const PB_ADMIN = 'Skeff001@yahoo.com';
 
 const PB_PROMPT =
@@ -394,7 +394,7 @@ async function handlePB(path, request, env) {
       await pbResend(env, {
         to: email,
         subject: (b.theme === 'christmas' ? '🎄 Your Christmas ' : '🎃 Your Halloween ') + col + ' page is ready (plus a free ' + (b.theme === 'christmas' ? 'Halloween' : 'Christmas') + ' one)',
-        html: pbWrap('<h2 style="margin:0 0 10px">Here are your ' + col + ' pages! 🎃🎄</h2><p>Thank you for your order. Your Halloween page and your FREE Christmas page are attached. To print: open the file, tap Share, then Print, on ' + (us ? 'Letter' : 'A4') + ' paper. Print as many copies as you like.</p><div style="border:2px solid #C9960C;border-radius:12px;padding:12px 14px;margin:14px 0"><b>🏆 The ONJJEM ' + (us ? 'Coloring' : 'Colouring') + ' Championship</b><br>Your order includes one entry. When it is ' + col.replace('ing', 'ed') + ' in, send us a photo of your masterpiece. Our judges crown ONE champion, who gets their artwork printed on a ' + (us ? 'photo' : 'magic') + ' mug, plus a ' + (us ? '$50' : '£40') + ' ONJJEM gift card! Closes Mon 2 Nov, 8pm UK.<br><a href="' + link + '" style="color:#8E2DE2;font-weight:700">Enter the Championship →</a></div><p>Love it? We can print your family as a cartoon on a blanket, mug or canvas: <a href="https://onjjem.com' + (us ? '/us/' : '/') + '">onjjem.com</a></p><p style="font-size:12px;color:#888">Any problems? Just reply to this email.</p>'),
+        html: pbWrap('<h2 style="margin:0 0 10px">Here are your ' + col + ' pages! 🎃🎄</h2><p>Thank you for your order. Your Halloween page and your FREE Christmas page are attached. To print: open the file, tap Share, then Print, on ' + (us ? 'Letter' : 'A4') + ' paper. Print as many copies as you like.</p><div style="border:2px solid #C9960C;border-radius:12px;padding:12px 14px;margin:14px 0"><b>🏆 The ONJJEM ' + (us ? 'Coloring' : 'Colouring') + ' Championship</b><br>Your order includes one entry. When it is ' + col.replace('ing', 'ed') + ' in, send us a photo of your masterpiece. Our judges crown ONE champion, who gets their artwork printed on a ' + (us ? 'photo' : 'magic') + ' mug, plus a ' + (us ? '$50' : '£40') + ' ONJJEM gift card! Closes Sat 31 Oct, 6pm UK. Champion crowned at 9pm on Halloween night!<br><a href="' + link + '" style="color:#8E2DE2;font-weight:700">Enter the Championship →</a></div><p>Love it? We can print your family as a cartoon on a blanket, mug or canvas: <a href="https://onjjem.com' + (us ? '/us/' : '/') + '">onjjem.com</a></p><p style="font-size:12px;color:#888">Any problems? Just reply to this email.</p>'),
         attachments: files.map((f) => ({ filename: f.filename, content: f.base64 })),
       });
       await pbResend(env, { to: PB_ADMIN, subject: '🎨 Colouring page sold (' + (us ? '$2.99' : '£1.99') + '): ' + email, html: pbWrap('<p>New colouring page order from <b>' + pbEsc(email) + '</b> (' + (us ? 'US' : 'UK') + ').</p>') }).catch(() => {});
@@ -415,10 +415,10 @@ async function handlePB(path, request, env) {
       await pbResend(env, {
         to: PB_ADMIN,
         subject: '🏆 Colouring competition entry: ' + name + (child ? ' (' + child + ')' : '') + ' · ' + (us ? 'US' : 'UK'),
-        html: pbWrap('<p><b>New colouring competition entry</b></p><p>Entered by <b>' + pbEsc(name) + '</b> (' + pbEsc(email) + ')<br>Artist: ' + pbEsc(child || '-') + '<br>Country: ' + (us ? 'US' : 'UK') + '</p><p>Photo attached. Keep all entry emails in one folder to judge on Mon 2 Nov.</p>'),
+        html: pbWrap('<p><b>New colouring competition entry</b></p><p>Entered by <b>' + pbEsc(name) + '</b> (' + pbEsc(email) + ')<br>Artist: ' + pbEsc(child || '-') + '<br>Country: ' + (us ? 'US' : 'UK') + '</p><p>Photo attached. Keep all entry emails in one folder to judge on Halloween: entries close 6pm Sat 31 Oct, crown the champion at 9pm.</p>'),
         attachments: [{ filename: 'entry-' + name.replace(/[^A-Za-z0-9]/g, '') + '.' + ext, content: m[2] }],
       });
-      if (email) await pbResend(env, { to: email, subject: "You're entered in the ONJJEM colouring competition! 🏆", html: pbWrap('<h2 style="margin:0 0 10px">You\'re in, ' + pbEsc(name.split(' ')[0]) + '! 🖍️</h2><p>We have your entry. Good luck to your little artist! We pick the best colouring after Mon 2 Nov and email the winner by Thu 5 Nov.</p><p>The champion gets their artwork printed on a ' + (us ? 'photo' : 'magic') + ' mug, plus a ' + (us ? '$50' : '£40') + ' ONJJEM gift card.</p>') }).catch(() => {});
+      if (email) await pbResend(env, { to: email, subject: "You're entered in the ONJJEM colouring competition! 🏆", html: pbWrap('<h2 style="margin:0 0 10px">You\'re in, ' + pbEsc(name.split(' ')[0]) + '! 🖍️</h2><p>We have your entry. Good luck to your little artist! We pick the best colouring and crown the champion at 9pm on Halloween night (Sat 31 Oct).</p><p>The champion gets their artwork printed on a ' + (us ? 'photo' : 'magic') + ' mug, plus a ' + (us ? '$50' : '£40') + ' ONJJEM gift card.</p>') }).catch(() => {});
       return pbJson({ ok: true, already: false });
     }
     return pbJson({ error: 'Not found' }, 404);
