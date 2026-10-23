@@ -33,6 +33,7 @@
 // Giveaway banner: shows on main pages until Sun 1 Nov 2026, 8pm UK (20:00 UTC).
 (function(){
   if (new Date() >= new Date("2026-11-01T20:00:00Z")) return;
+  if (new Date() < new Date("2026-10-31T18:00:00Z")) return; // Halloween Colouring Championship banner has priority until it closes
   try { if (sessionStorage.getItem('onjjem_gw_closed')) return; } catch(e){}
   var us=/^\/us(\/|$)/.test(location.pathname)||/region=us/.test(location.search);
   var b=document.createElement('div');
@@ -235,6 +236,6 @@ var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_revie
 </script>
 <script src="/halloween-decor.js?v=20261021a" defer></script>
 <script src="/reviews-strip.js?v=20261011b" defer></script>
-<script src="/printables-promo.js?v=13" defer></script>
+<script src="/printables-promo.js?v=14" defer></script>
 </body>
 </html>
