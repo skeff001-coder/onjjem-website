@@ -312,11 +312,13 @@ async function pbPaidSession(env, sid) {
 }
 class PbErr extends Error { constructor(status, msg) { super(msg); this.status = status; } }
 
+const pbText = (html) => String(html || '').replace(/<br\s*\/?>(?!\n)/gi, '\n').replace(/<\/(p|h2|div)>/gi, '\n\n').replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>/gi, '$2 ($1)').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/\n{3,}/g, '\n\n').trim();
 async function pbResend(env, payload) {
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + env.RESEND_API_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify(Object.assign({ from: 'ONJJEM <hello@onjjem.com>' }, payload)),
+    // A plain-text copy and a reply-to address help emails land in the inbox, not spam.
+    body: JSON.stringify(Object.assign({ from: 'ONJJEM <hello@onjjem.com>', reply_to: 'hello@onjjem.com', text: pbText(payload.html) }, payload)),
   });
   if (!r.ok) throw new Error('Email failed: ' + (await r.text()).slice(0, 200));
 }
