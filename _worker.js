@@ -8,7 +8,20 @@ export default {
     const isBot = /bot|crawler|spider|slurp|facebookexternalhit|Google-InspectionTool|Mediapartners-Google|APIs-Google/i.test(request.headers.get('user-agent') || '');
 
     if (url.pathname === '/api/pc-ready') {
-      const ready = !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY);
+      let ready = !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY);
+      // Pause the colouring page by itself if Google's AI is refusing calls (e.g. spend cap reached).
+      if (ready && !url.searchParams.get('ai')) {
+        const now = Date.now();
+        if (!globalThis.__aiCheck || now - globalThis.__aiCheck.at > 5 * 60 * 1000) {
+          let ok = true;
+          try {
+            const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }], generationConfig: { maxOutputTokens: 5 } }) });
+            ok = r.status !== 429 && r.status !== 403 && r.status !== 401;
+          } catch (e) { ok = true; }
+          globalThis.__aiCheck = { at: now, ok };
+        }
+        ready = globalThis.__aiCheck.ok;
+      }
       const missing = ['STRIPE_SECRET_KEY', 'GEMINI_API_KEY', 'RESEND_API_KEY'].filter((k) => !env[k]);
       // ?ai=1: tiny test call to Google AI (reports only the status and error text, never the key).
       if (url.searchParams.get('ai') && env.GEMINI_API_KEY) {
