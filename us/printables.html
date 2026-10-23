@@ -99,6 +99,9 @@
   .sticky{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(20,7,31,.94);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.12);z-index:30}
   .sticky .btn{padding:13px;font-size:16px}
   .cd{font-weight:900;color:var(--o)}
+  .tp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 6px}
+  .tp button{padding:14px 8px;border-radius:14px;border:2px solid #eadff0;background:#fbf8fd;font-weight:900;font-size:16px;cursor:pointer;color:#2a0d3d;font-family:inherit}
+  .tp button.on{border-color:#FF962A;background:#fff5ea}
   .hero{background:linear-gradient(135deg,#FFD24A,#FF962A);color:#2a0d3d;border-radius:20px;text-align:center;padding:16px 14px 14px;margin:12px 0 14px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
   .hero-k{font-weight:900;font-size:12px;letter-spacing:.1em}
   .hero-big{font-size:25px;font-weight:900;line-height:1.1;margin:6px 0 4px}
@@ -115,14 +118,14 @@
 <div class="w">
   <a href="/" class="back" id="backLink">&larr; ONJJEM shop</a>
   <div class="hero">
-    <div class="hero-k">🏆 COLORING COMPETITION</div>
+    <div class="hero-k">🏆 THE ONJJEM COLORING CHAMPIONSHIP</div>
     <div class="hero-big">WIN A PRIZE WORTH<span>OVER $120</span></div>
-    <div class="hero-s">Includes a $60 gift card · Closes Mon 2 Nov</div>
+    <div class="hero-s">Includes a $60 gift card · ONE champion crowned · Closes Mon 2 Nov</div>
   </div>
   <div class="steps">
-    <div><i>1</i><p><b>Upload a photo</b> of anyone: kids, grandparents or pets. We draw it as a coloring page.<small>$2.99, plus a FREE Christmas page</small></p></div>
-    <div><i>2</i><p><b>Print it and color it in</b> 🖍️</p></div>
-    <div><i>3</i><p><b>Send us a photo</b> of your finished coloring. The best one wins!</p></div>
+    <div><i>1</i><p><b>Pick Halloween 🎃 or Christmas 🎄 and upload a photo</b> of anyone: kids, grandparents or pets. We draw it as a coloring page.<small>$2.99, and you get the other theme FREE too</small></p></div>
+    <div><i>2</i><p><b>Colour it in your very best!</b> Crayons, pens, glitter, anything goes 🖍️</p></div>
+    <div><i>3</i><p><b>Enter the arena:</b> send us a photo of your masterpiece. Our judges crown ONE champion on creativity, color and effort 🏆<small>Winner announced by Thu 5 Nov</small></p></div>
   </div>
 
   <div class="ex2">
@@ -142,6 +145,9 @@
       <img id="thumb" alt="Your photo" style="width:150px;height:150px;object-fit:cover;border-radius:14px;border:3px solid #FF962A">
       <p style="font-weight:800;margin:8px 0 2px">✅ Photo added</p>
       <p class="trust" style="margin:0 0 12px">After you pay, we draw their coloring page in about 30 seconds. It appears right here to download, and we email you a copy.</p>
+      <p style="font-weight:800;margin:0 0 8px">Which page first?</p>
+      <div class="tp" id="tp"><button type="button" class="on" data-t="halloween">🎃 Halloween</button><button type="button" data-t="christmas">🎄 Christmas</button></div>
+      <p class="trust" style="margin:0 0 12px">Whichever you pick, you also get the other one FREE.</p>
       <button class="btn go" id="buy"></button>
       <p class="trust">🔒 Apple Pay, Google Pay or card · personalised digital download, drawn straight after payment</p>
       <button class="btn ghost" id="again">Use a different photo</button>
@@ -163,8 +169,8 @@
       </div>
       <p class="trust">On iPhone: tap Download, then Share → Print. Or press and hold the picture and tap Save to Photos. We've emailed you a copy too.</p>
       <div id="contest" class="ctest">
-        <h3 style="margin:0 0 4px">🏆 Enter the coloring competition</h3>
-        <p class="trust" style="margin:0 0 10px">Once it's colored in, send us a photo. The best coloring wins a surprise prize package worth over $120, including a $60 gift card. Closes Mon 2 Nov, 8pm UK. You can come back here later from your email.</p>
+        <h3 style="margin:0 0 4px">🏆 Enter the Coloring Championship</h3>
+        <p class="trust" style="margin:0 0 10px">Colour it in your very best, then show us your masterpiece! Our judges crown ONE champion on creativity, color and effort. The champion wins a surprise prize package worth over $120, including a $60 gift card. Closes Mon 2 Nov, 8pm UK. You can come back here later from your email.</p>
         <form id="cform">
           <label>Your first name<input name="name" autocomplete="given-name" required></label>
           <label>Artist's first name <small>(optional, for the winner's announcement)</small><input name="child" autocomplete="off"></label>
@@ -185,7 +191,7 @@
   <div class="faq">
     <details><summary>What do I get?</summary><p id="faqGet"></p></details>
     <details><summary>When is the free Christmas page sent?</summary><p>In early December we'll email you a Christmas coloring page made from the same photo, free. Nothing to do: it just arrives.</p></details>
-    <details><summary>Competition rules</summary><p>Promoter: ONJJEM (onjjem.com), UK. Each coloring page order includes one free entry: upload a photo of the colored-in page from your download page or email by 8pm UK time, Monday 2 November 2026. Open to UK and US residents; the person entering must be 18+ (a parent or carer). This is a judged competition, not a prize draw: we pick the best coloring on creativity, colour and effort, and our decision is final. The winner is emailed by Thursday 5 November and receives a surprise prize package worth over $120 at our shop prices, posted free: one 11oz ceramic mug printed with their winning colored artwork, plus one pin badge, one sticker, one fridge magnet, one postcard, one temporary tattoo and one Christmas greeting card, each printed with a cartoon of the family that we make from the photo used for their coloring page (the same image on all six; no alternative images), plus an ONJJEM gift card worth £50 (UK) or $60 (US), valid until 31 March 2027. No cash alternative. With permission we may share the winning artwork and artist's first name.</p></details>
+    <details><summary>Competition rules</summary><p>Promoter: ONJJEM (onjjem.com), UK. Each coloring page order includes one free entry: upload a photo of the colored-in page from your download page or email by 8pm UK time, Monday 2 November 2026. Open to UK and US residents; the person entering must be 18+ (a parent or carer). This is a judged competition, not a prize draw: our judges pick the champion, the best coloring on creativity, colour and effort, and our decision is final. The winner is emailed by Thursday 5 November and receives a surprise prize package worth over $120 at our shop prices, posted free: one 11oz ceramic mug printed with their winning colored artwork, plus one pin badge, one sticker, one fridge magnet, one postcard, one temporary tattoo and one Christmas greeting card, each printed with a cartoon of the family that we make from the photo used for their coloring page (the same image on all six; no alternative images), plus an ONJJEM gift card worth £50 (UK) or $60 (US), valid until 31 March 2027. No cash alternative. With permission we may share the winning artwork and artist's first name.</p></details>
     <details><summary>Can I cancel?</summary><p>Each page is personalised and drawn the moment you pay, so it can't be cancelled or exchanged. If your download doesn't come through, email hello@onjjem.com and we'll send it.</p></details>
   </div>
 </div>
@@ -217,7 +223,8 @@
   }
   // The checkout opens by itself as soon as the colouring-page server is ready.
   if (!q.get("paid")) { pausedUI(); try { fetch("/api/pc-ready", {cache:"no-store"}).then(function(r){ return r.json(); }).then(function(j){ if (j && j.ready) unpause(); }).catch(function(){}); } catch(e){} }
-  var photo = null;
+  var photo = null, theme = "halloween", tpb = document.querySelectorAll("#tp button");
+  tpb.forEach(function(bt){ bt.onclick = function(){ theme = bt.getAttribute("data-t"); tpb.forEach(function(x){ x.className = (x === bt) ? "on" : ""; }); }; });
   $("buy").textContent = "Pay " + price + " & draw my page →";
   $("pick").onclick = function(){ $("file").click(); };
   $("again").onclick = function(){ $("file").click(); };
@@ -233,9 +240,9 @@
     if (!photo) return; $("buy").disabled = true; $("st").textContent = "Taking you to secure checkout…";
     try { gtag("event","begin_checkout",{currency:cur,value:val,items:[{item_id:"printable-coloring",item_name:"Halloween colouring page",price:val}]}); } catch(e){}
     try {
-      var r = await fetch("/api/printable-checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({photo:photo,region:US?"us":"uk",page:location.pathname})});
+      var r = await fetch("/api/printable-checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({photo:photo,region:US?"us":"uk",page:location.pathname,theme:theme})});
       var j = {}; try { j = await r.json(); } catch(_) {} if (!r.ok || !j.url) throw new Error(j.error || "Checkout couldn't start just now. Please try again in a minute.");
-      try { localStorage.setItem("pc_pending", JSON.stringify({sid:j.id,photo:photo,t:Date.now()})); } catch(e){}
+      try { localStorage.setItem("pc_pending", JSON.stringify({sid:j.id,photo:photo,theme:theme,t:Date.now()})); } catch(e){}
       location.href = j.url;
     } catch(err){ $("st").textContent = err.message; $("buy").disabled = false; }
   };
@@ -271,34 +278,36 @@
     $("step1").style.display = "none"; $("sticky").style.display = "none";
     try { if (!sessionStorage.getItem("pr_"+sid)) { sessionStorage.setItem("pr_"+sid,"1"); gtag("event","purchase",{transaction_id:sid,currency:cur,value:val}); } } catch(e){}
     var msgs = ["Thank you! Drawing your pages… ✏️","Picking their costumes… 🧙","Carving the pumpkins… 🎃","Adding friendly bats… 🦇","Inking the outlines… 🖊️","Adding the Christmas tree… 🎄","Nearly ready… ✨"], tmr = null;
-    var run = async function(ph){
+    var run = async function(ph, pth){
       $("st").innerHTML = ""; $("done").style.display = "none"; $("load").style.display = "block"; $("barI").style.width = "5%";
       var i = 0, pct = 5; clearInterval(tmr); tmr = setInterval(function(){ i = Math.min(i+1, msgs.length-1); pct = Math.min(95, pct+8); $("loadTxt").textContent = msgs[i]; $("barI").style.width = pct+"%"; }, 4500);
       try {
-        var res = await Promise.all([drawOne(sid,ph,"halloween"), drawOne(sid,ph,"christmas").catch(function(){ return null; })]);
+        var T = {halloween:{n:"Halloween",e:"🎃"}, christmas:{n:"Christmas",e:"🎄"}}, main = (pth === "christmas") ? "christmas" : "halloween", other = (main === "christmas") ? "halloween" : "christmas";
+        var fn = function(t){ return t + "-" + (US ? "coloring" : "colouring") + "-page.png"; };
+        var res = await Promise.all([drawOne(sid,ph,main), drawOne(sid,ph,other).catch(function(){ return null; })]);
         clearInterval(tmr);
-        var hu = URL.createObjectURL(res[0]); $("doneImg").src = hu; $("doneImg").style.display = ""; $("dl").href = hu; $("dl").setAttribute("download", prefix + ".png"); $("dl").style.display = "";
-        if (res[1]) { var xu = URL.createObjectURL(res[1]); $("xmasImg").src = xu; $("xdl").href = xu; $("xdl").setAttribute("download", US ? "christmas-coloring-page.png" : "christmas-colouring-page.png"); $("xmasBox").style.display = "block"; }
+        var hu = URL.createObjectURL(res[0]); $("doneImg").src = hu; $("doneImg").style.display = ""; $("dl").href = hu; $("dl").setAttribute("download", fn(main)); $("dl").textContent = "⬇️ Download " + T[main].n + " page"; $("dl").style.display = "";
+        if (res[1]) { var xu = URL.createObjectURL(res[1]); $("xmasImg").src = xu; $("xdl").href = xu; $("xdl").setAttribute("download", fn(other)); $("xdl").textContent = "⬇️ Download " + T[other].n + " page"; $("xmasBox").querySelector("h3").textContent = T[other].e + " Your FREE " + T[other].n + " page"; $("xmasBox").style.display = "block"; }
         $("more").href = location.pathname; $("load").style.display = "none"; $("done").style.display = "block";
         try { localStorage.removeItem("pc_pending"); } catch(e){}
-        var files = [{filename: prefix + ".png", base64: await blobB64(res[0])}];
-        if (res[1]) files.push({filename: US ? "christmas-coloring-page.png" : "christmas-colouring-page.png", base64: await blobB64(res[1])});
-        fetch("/api/printable-email",{method:"POST",headers:JH,body:JSON.stringify({session_id:sid,files:files})}).catch(function(){});
+        var files = [{filename: fn(main), base64: await blobB64(res[0])}];
+        if (res[1]) files.push({filename: fn(other), base64: await blobB64(res[1])});
+        fetch("/api/printable-email",{method:"POST",headers:JH,body:JSON.stringify({session_id:sid,files:files,theme:main})}).catch(function(){});
       } catch(err){
         clearInterval(tmr); $("load").style.display = "none";
         $("st").innerHTML = (err && err.stop ? (err.message || "") : "Something went wrong drawing your page.") + ' <a href="#" id="retry" style="font-weight:800;color:#E8287F">Tap here to try again</a>, or email <a href="mailto:hello@onjjem.com">hello@onjjem.com</a> and we will sort it.';
-        var rt = $("retry"); if (rt) rt.onclick = function(ev){ ev.preventDefault(); run(ph); };
+        var rt = $("retry"); if (rt) rt.onclick = function(ev){ ev.preventDefault(); run(ph,pth); };
       }
     };
     var pend = null; try { pend = JSON.parse(localStorage.getItem("pc_pending") || "null"); } catch(e){}
-    if (pend && pend.sid === sid && pend.photo) run(pend.photo);
+    if (pend && pend.sid === sid && pend.photo) run(pend.photo, pend.theme);
     else {
       // Different phone or browser: show the competition entry, and let them choose the photo again to redraw.
       $("doneImg").style.display = "none"; $("dl").style.display = "none"; $("xmasBox").style.display = "none"; $("done").style.display = "block";
       $("st").innerHTML = 'Welcome back! If you need your pages again, <a href="#" id="redo" style="font-weight:800;color:#E8287F">choose your photo here</a> and we will redraw them.';
       var rf = document.createElement("input"); rf.type = "file"; rf.accept = "image/*"; rf.hidden = true; document.body.appendChild(rf);
       $("redo").onclick = function(ev){ ev.preventDefault(); rf.click(); };
-      rf.onchange = async function(){ var f = rf.files && rf.files[0]; if (!f) return; try { run(await shrink(f)); } catch(e){ $("st").textContent = e.message; } };
+      rf.onchange = async function(){ var f = rf.files && rf.files[0]; if (!f) return; try { run(await shrink(f), "halloween"); } catch(e){ $("st").textContent = e.message; } };
     }
     setTimeout(function(){ $("maker").scrollIntoView({block:"start"}); }, 100);
   }

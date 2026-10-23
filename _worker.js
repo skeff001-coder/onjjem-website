@@ -6,11 +6,7 @@ export default {
     const isBot = /bot|crawler|spider|slurp|facebookexternalhit|Google-InspectionTool|Mediapartners-Google|APIs-Google/i.test(request.headers.get('user-agent') || '');
 
     if (url.pathname === '/api/pc-ready') {
-      let ready = !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY);
-      if (!ready) {
-        // Otherwise the Railway server must know the colouring page (new builds answer 400 "Bad link"; old ones 404).
-        try { const pr = await fetch('https://onjjem-production-5ef8.up.railway.app/api/printable-download?session_id=x'); ready = pr.status === 400; } catch (e) {}
-      }
+      const ready = !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY);
       return new Response(JSON.stringify({ ready }), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
     }
     // Colouring page checkout, drawing and competition run here on Cloudflare.
@@ -351,6 +347,7 @@ async function handlePB(path, request, env) {
       const photo = String(b.photo || '');
       if (!/^data:image\/[a-z+]+;base64,.+$/s.test(photo) || photo.length > 8000000) return pbJson({ error: 'Please choose a photo (JPG or PNG).' }, 400);
       const us = b.region === 'us';
+      const xm = b.theme === 'christmas';
       const base = b.page && /^\/[a-z0-9/._-]*$/i.test(b.page) ? b.page : (us ? '/us/printables' : '/printables');
       const s = await pbStripe(env, 'POST', '/checkout/sessions', {
         mode: 'payment',
@@ -358,8 +355,9 @@ async function handlePB(path, request, env) {
         'line_items[0][quantity]': '1',
         'line_items[0][price_data][currency]': us ? 'usd' : 'gbp',
         'line_items[0][price_data][unit_amount]': us ? '299' : '199',
-        'line_items[0][price_data][product_data][name]': us ? 'Halloween coloring page of your photo + FREE Christmas page (instant download)' : 'Halloween colouring page of your photo + FREE Christmas page (instant download)',
+        'line_items[0][price_data][product_data][name]': (xm ? 'Christmas ' : 'Halloween ') + (us ? 'coloring' : 'colouring') + ' page of your photo + FREE ' + (xm ? 'Halloween' : 'Christmas') + ' page (instant download)',
         'metadata[sku]': 'printable-coloring',
+        'metadata[theme]': xm ? 'christmas' : 'halloween',
         'payment_intent_data[metadata][sku]': 'printable-coloring',
         'custom_text[submit][message]': 'Instant download: we draw your Halloween page plus a FREE Christmas page straight after you pay (about 30 seconds) and email you both. Keep the page open until they appear.',
         success_url: 'https://onjjem.com' + base + '?paid=1&session_id={CHECKOUT_SESSION_ID}',
@@ -392,8 +390,8 @@ async function handlePB(path, request, env) {
       const link = 'https://onjjem.com' + (us ? '/us/printables' : '/printables') + '?paid=1&session_id=' + encodeURIComponent(b.session_id) + '#contest';
       await pbResend(env, {
         to: email,
-        subject: '🎃 Your Halloween ' + col + ' page is ready (plus a free Christmas one)',
-        html: pbWrap('<h2 style="margin:0 0 10px">Here are your ' + col + ' pages! 🎃🎄</h2><p>Thank you for your order. Your Halloween page and your FREE Christmas page are attached. To print: open the file, tap Share, then Print, on ' + (us ? 'Letter' : 'A4') + ' paper. Print as many copies as you like.</p><div style="border:2px solid #C9960C;border-radius:12px;padding:12px 14px;margin:14px 0"><b>🏆 ' + (us ? 'Coloring' : 'Colouring') + ' competition</b><br>Your order includes one entry. When it is ' + col.replace('ing', 'ed') + ' in, send us a photo of it. The best one wins a surprise prize package worth over ' + (us ? '$120' : '£100') + ', including a ' + (us ? '$60' : '£50') + ' gift card! Closes Mon 2 Nov, 8pm UK.<br><a href="' + link + '" style="color:#8E2DE2;font-weight:700">Enter the competition →</a></div><p>Love it? We can print your family as a cartoon on a blanket, mug or canvas: <a href="https://onjjem.com' + (us ? '/us/' : '/') + '">onjjem.com</a></p><p style="font-size:12px;color:#888">Any problems? Just reply to this email.</p>'),
+        subject: (b.theme === 'christmas' ? '🎄 Your Christmas ' : '🎃 Your Halloween ') + col + ' page is ready (plus a free ' + (b.theme === 'christmas' ? 'Halloween' : 'Christmas') + ' one)',
+        html: pbWrap('<h2 style="margin:0 0 10px">Here are your ' + col + ' pages! 🎃🎄</h2><p>Thank you for your order. Your Halloween page and your FREE Christmas page are attached. To print: open the file, tap Share, then Print, on ' + (us ? 'Letter' : 'A4') + ' paper. Print as many copies as you like.</p><div style="border:2px solid #C9960C;border-radius:12px;padding:12px 14px;margin:14px 0"><b>🏆 The ONJJEM ' + (us ? 'Coloring' : 'Colouring') + ' Championship</b><br>Your order includes one entry. When it is ' + col.replace('ing', 'ed') + ' in, send us a photo of your masterpiece. Our judges crown ONE champion, who wins a surprise prize package worth over ' + (us ? '$120' : '£100') + ', including a ' + (us ? '$60' : '£50') + ' gift card! Closes Mon 2 Nov, 8pm UK.<br><a href="' + link + '" style="color:#8E2DE2;font-weight:700">Enter the Championship →</a></div><p>Love it? We can print your family as a cartoon on a blanket, mug or canvas: <a href="https://onjjem.com' + (us ? '/us/' : '/') + '">onjjem.com</a></p><p style="font-size:12px;color:#888">Any problems? Just reply to this email.</p>'),
         attachments: files.map((f) => ({ filename: f.filename, content: f.base64 })),
       });
       await pbResend(env, { to: PB_ADMIN, subject: '🎨 Colouring page sold (' + (us ? '$2.99' : '£1.99') + '): ' + email, html: pbWrap('<p>New colouring page order from <b>' + pbEsc(email) + '</b> (' + (us ? 'US' : 'UK') + ').</p>') }).catch(() => {});
