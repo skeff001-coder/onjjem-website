@@ -9,7 +9,8 @@ export default {
 
     if (url.pathname === '/api/pc-ready') {
       const ready = !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY);
-      return new Response(JSON.stringify({ ready }), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+      const missing = ['STRIPE_SECRET_KEY', 'GEMINI_API_KEY', 'RESEND_API_KEY'].filter((k) => !env[k]);
+      return new Response(JSON.stringify({ ready, missing }), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
     }
     // Colouring page checkout, drawing and competition run here on Cloudflare.
     if (PB_ROUTES.includes(url.pathname) && request.method === 'POST' && env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY) {
