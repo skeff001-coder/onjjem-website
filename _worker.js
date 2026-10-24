@@ -7,6 +7,16 @@ export default {
     // the US shop, or Google lists the US page for UK searches.
     const isBot = /bot|crawler|spider|slurp|facebookexternalhit|Google-InspectionTool|Mediapartners-Google|APIs-Google/i.test(request.headers.get('user-agent') || '');
 
+    // One-time setup: creates the WINNER15 code (15% off, one use per customer). Does nothing if it already exists.
+    if (url.pathname === '/api/make-winner15' && env.STRIPE_SECRET_KEY) {
+      try {
+        const ex = await pbStripe(env, 'GET', '/promotion_codes?code=WINNER15&limit=1');
+        if (ex.data && ex.data.length) return pbJson({ ok: true, already: true, active: ex.data[0].active });
+        const c = await pbStripe(env, 'POST', '/coupons', { percent_off: '15', duration: 'once', name: 'Giveaway entrants 15% off' });
+        const pc = await pbStripe(env, 'POST', '/promotion_codes', { coupon: c.id, code: 'WINNER15', 'restrictions[first_time_transaction]': 'true' });
+        return pbJson({ ok: true, created: pc.code });
+      } catch (e) { return pbJson({ ok: false, error: String(e && e.message).slice(0, 200) }, 500); }
+    }
     if (url.pathname === '/api/pc-ready') {
       let ready = !!(env.STRIPE_SECRET_KEY && env.GEMINI_API_KEY && env.RESEND_API_KEY);
       // Pause the colouring page by itself if Google's AI is refusing calls (e.g. spend cap reached).
