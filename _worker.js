@@ -12,8 +12,12 @@ export default {
       try {
         const ex = await pbStripe(env, 'GET', '/promotion_codes?code=WINNER15&limit=1');
         if (ex.data && ex.data.length) return pbJson({ ok: true, already: true, active: ex.data[0].active });
-        const c = await pbStripe(env, 'POST', '/coupons', { percent_off: '15', duration: 'once', name: 'Giveaway entrants 15% off' });
-        const pc = await pbStripe(env, 'POST', '/promotion_codes', { coupon: c.id, code: 'WINNER15', 'restrictions[first_time_transaction]': 'true' });
+        let cid = 'WINNER15-COUPON';
+        try { await pbStripe(env, 'GET', '/coupons/' + cid); }
+        catch (e) { await pbStripe(env, 'POST', '/coupons', { id: cid, percent_off: '15', duration: 'once', name: 'Giveaway entrants 15% off' }); }
+        let pc;
+        try { pc = await pbStripe(env, 'POST', '/promotion_codes', { 'promotion[type]': 'coupon', 'promotion[coupon]': cid, code: 'WINNER15', 'restrictions[first_time_transaction]': 'true' }); }
+        catch (e) { pc = await pbStripe(env, 'POST', '/promotion_codes', { coupon: cid, code: 'WINNER15', 'restrictions[first_time_transaction]': 'true' }); }
         return pbJson({ ok: true, created: pc.code });
       } catch (e) { return pbJson({ ok: false, error: String(e && e.message).slice(0, 200) }, 500); }
     }
