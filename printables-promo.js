@@ -12,7 +12,7 @@
   document.head.appendChild(css);
   function show(){
     var d = document.createElement("div"); d.className = "prp"; d.setAttribute("role","dialog");
-    d.innerHTML = '<button class="x" aria-label="Close">×</button><div class="pi"><img src="/pr-promo.webp?v=3" alt=""><div><span class="k">🏆 HALLOWEEN ' + w.toUpperCase() + ' CHAMPIONSHIP</span><h3><span class="em">🎃</span> Win their artwork on a ' + (US ? 'photo' : 'magic') + ' mug!</h3><p>Plus a ' + (US ? '$60' : '£50') + ' gift card! Get your family\'s ' + w + ' page for ' + price + ', colour it in and send it back. Closes Sat 31 Oct, 6pm UK.</p></div></div><a class="b" href="' + href + '">🖍️ Enter now</a>';
+    d.innerHTML = '<button class="x" aria-label="Close">×</button><div class="pi"><img src="/pr-promo.webp?v=3" alt=""><div><span class="k">🏆 HALLOWEEN ' + w.toUpperCase() + ' CHAMPIONSHIP</span><h3><span class="em">🎃</span> Win a ' + (US ? '$60' : '£50') + ' gift card!</h3><p>Plus their artwork on a ' + (US ? 'photo' : 'magic') + ' mug! Get your family\'s ' + w + ' page for ' + price + ', colour it in and send it back. Closes Sat 31 Oct, 6pm UK.</p></div></div><a class="b" href="' + href + '">🖍️ Enter now</a>';
     document.body.appendChild(d);
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.classList.add("in"); }); });
     ga("shown");
