@@ -253,9 +253,28 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
 
 // ── Instant free cartoon (straight after upload, no buying needed) ──────────
 // onDone({ addCartoon: true, confirmedCartoonBase64 }) when they choose to use it.
-function ONJJEM_quickCartoon(photoBase64, onDone) {
+function ONJJEM_quickCartoon(photoBase64, onDone, chosen) {
+  // Normal pages: ask Classic or Royal first (seasonal pages keep their own style).
+  if (!window.ONJJEM_CARTOON_STYLE && chosen === undefined) {
+    const pick = document.createElement("div");
+    pick.className = "cartoon-preview-overlay";
+    pick.innerHTML = `<div class="cartoon-preview-card">
+      <div class="cartoon-preview-title">Choose your cartoon style ✨</div>
+      <button class="cartoon-btn-primary" data-s="" style="width:100%;margin-top:10px">✨ Classic cartoon</button>
+      <button class="cartoon-btn-primary" data-s="royal" style="width:100%;margin-top:10px">👑 Royal portrait</button>
+      <p class="cartoon-email-note" style="margin-top:8px">Royal: crowns, velvet robes and a palace, for pets and people!</p>
+      <button class="cartoon-btn-secondary" data-s="x" style="width:100%;margin-top:6px">Cancel</button></div>`;
+    document.body.appendChild(pick);
+    pick.querySelectorAll("button").forEach((b) => b.onclick = () => {
+      const v = b.getAttribute("data-s"); pick.remove();
+      if (v === "x") return;
+      try { gtag("event", "cartoon_style", { style: v || "classic" }); } catch (e) {}
+      ONJJEM_quickCartoon(photoBase64, onDone, v);
+    });
+    return;
+  }
   const mimeType = ONJJEM_toDataUrlParts(photoBase64);
-  const style = window.ONJJEM_CARTOON_STYLE || undefined;
+  const style = window.ONJJEM_CARTOON_STYLE || chosen || undefined;
   const free = window.ONJJEM_CARTOON_FREE || window.ONJJEM_REGION === "us";
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
