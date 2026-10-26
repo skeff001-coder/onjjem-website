@@ -112,9 +112,10 @@ function ONJJEM_showPhotoPreview(photoBase64, onProceed) {
 function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
   // Pages can set window.ONJJEM_CARTOON_STYLE = "halloween" (or "christmas")
   // for a seasonal cartoon.
-  const style = window.ONJJEM_CARTOON_STYLE || undefined;
+  let style = window.ONJJEM_CARTOON_STYLE || undefined;
   const isHalloween = style === "halloween";
   const isChristmas = style === "christmas";
+  const canPick = !style; // seasonal pages keep their own style
   let previewId;
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
@@ -124,6 +125,10 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
       <div class="cartoon-preview-title">${isHalloween ? "See Them as a Halloween Cartoon! 🎃" : isChristmas ? "See Them as a Christmas Cartoon! 🎄" : "See Yourself as a Cartoon! 🎨"}</div>
       <p class="cartoon-email-note cartoon-highlight">${isHalloween ? "We'll turn your photo into a cute Halloween cartoon, with a costume, pumpkins and a spooky moonlit night, for just £1.99." : isChristmas ? "We'll turn your photo into a cosy Christmas cartoon, with a Santa hat, fairy lights and falling snow, for just £1.99." : "Turn everyone in your photo into their own unique cartoon character — for just £1.99."}</p>
       <p class="cartoon-email-note">Free to preview first. No obligation, no risk — just tap below and see the magic.</p>
+      ${canPick ? `<div data-role="stylepick" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0 4px">
+        <button type="button" data-style="" class="cartoon-btn-secondary" style="border:2px solid #F3D078;font-weight:800">✨ Classic</button>
+        <button type="button" data-style="royal" class="cartoon-btn-secondary" style="font-weight:800">👑 Royal</button>
+      </div><p class="cartoon-email-note" style="margin:0 0 4px;font-size:12px">Royal: crowns, velvet robes and a palace, for pets and people!</p>` : ""}
       <button class="cartoon-btn-primary cartoon-btn-glow" data-role="generate" style="width:100%; margin-top:10px;">✨ Show Me My Cartoon! ✨</button>
       <div style="margin-top: 10px;">
         <button class="cartoon-btn-secondary" data-role="skip" style="width:100%">No Thanks, Just My Order</button>
@@ -136,6 +141,11 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
     overlay.remove();
     onProceed(null);
   });
+  overlay.querySelectorAll('[data-role="stylepick"] button').forEach((btn) => btn.addEventListener("click", () => {
+    style = btn.getAttribute("data-style") || undefined;
+    overlay.querySelectorAll('[data-role="stylepick"] button').forEach((x) => { x.style.border = x === btn ? "2px solid #F3D078" : ""; });
+    try { gtag("event", "cartoon_style", { style: style || "classic" }); } catch (e) {}
+  }));
 
   overlay.querySelector('[data-role="generate"]').addEventListener("click", async () => {
     const card = overlay.querySelector(".cartoon-preview-card");
