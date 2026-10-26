@@ -115,7 +115,9 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
   let style = window.ONJJEM_CARTOON_STYLE || undefined;
   const isHalloween = style === "halloween";
   const isChristmas = style === "christmas";
-  const canPick = !style; // seasonal pages keep their own style
+  const canPick = true; // Classic (or the page's seasonal style) vs Royal
+  const baseLabel = isHalloween ? "🎃 Halloween" : isChristmas ? "🎄 Christmas" : "✨ Classic";
+  const baseStyle = style || "";
   let previewId;
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
@@ -126,7 +128,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
       <p class="cartoon-email-note cartoon-highlight">${isHalloween ? "We'll turn your photo into a cute Halloween cartoon, with a costume, pumpkins and a spooky moonlit night, for just £1.99." : isChristmas ? "We'll turn your photo into a cosy Christmas cartoon, with a Santa hat, fairy lights and falling snow, for just £1.99." : "Turn everyone in your photo into their own unique cartoon character — for just £1.99."}</p>
       <p class="cartoon-email-note">Free to preview first. No obligation, no risk — just tap below and see the magic.</p>
       ${canPick ? `<div data-role="stylepick" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0 4px">
-        <button type="button" data-style="" class="cartoon-btn-secondary" style="border:2px solid #F3D078;font-weight:800">✨ Classic</button>
+        <button type="button" data-style="${baseStyle}" class="cartoon-btn-secondary" style="border:2px solid #F3D078;font-weight:800">${baseLabel}</button>
         <button type="button" data-style="royal" class="cartoon-btn-secondary" style="font-weight:800">👑 Royal</button>
       </div><p class="cartoon-email-note" style="margin:0 0 4px;font-size:12px">Royal: crowns, velvet robes and a palace, for pets and people!</p>` : ""}
       <button class="cartoon-btn-primary cartoon-btn-glow" data-role="generate" style="width:100%; margin-top:10px;">✨ Show Me My Cartoon! ✨</button>
@@ -255,12 +257,14 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
 // onDone({ addCartoon: true, confirmedCartoonBase64 }) when they choose to use it.
 function ONJJEM_quickCartoon(photoBase64, onDone, chosen) {
   // Normal pages: ask Classic or Royal first (seasonal pages keep their own style).
-  if (!window.ONJJEM_CARTOON_STYLE && chosen === undefined) {
+  if (chosen === undefined) {
+    const ps = window.ONJJEM_CARTOON_STYLE || "";
+    const pl = ps === "halloween" ? "🎃 Halloween cartoon" : ps === "christmas" ? "🎄 Christmas cartoon" : "✨ Classic cartoon";
     const pick = document.createElement("div");
     pick.className = "cartoon-preview-overlay";
     pick.innerHTML = `<div class="cartoon-preview-card">
       <div class="cartoon-preview-title">Choose your cartoon style ✨</div>
-      <button class="cartoon-btn-primary" data-s="" style="width:100%;margin-top:10px">✨ Classic cartoon</button>
+      <button class="cartoon-btn-primary" data-s="${ps}" style="width:100%;margin-top:10px">${pl}</button>
       <button class="cartoon-btn-primary" data-s="royal" style="width:100%;margin-top:10px">👑 Royal portrait</button>
       <p class="cartoon-email-note" style="margin-top:8px">Royal: crowns, velvet robes and a palace, for pets and people!</p>
       <button class="cartoon-btn-secondary" data-s="x" style="width:100%;margin-top:6px">Cancel</button></div>`;
@@ -274,7 +278,8 @@ function ONJJEM_quickCartoon(photoBase64, onDone, chosen) {
     return;
   }
   const mimeType = ONJJEM_toDataUrlParts(photoBase64);
-  const style = window.ONJJEM_CARTOON_STYLE || chosen || undefined;
+  const style = chosen || undefined;
+  window.ONJJEM_LAST_STYLE = style;
   const free = window.ONJJEM_CARTOON_FREE || window.ONJJEM_REGION === "us";
   const overlay = document.createElement("div");
   overlay.className = "cartoon-preview-overlay";
@@ -343,7 +348,7 @@ async function ONJJEM_shareCartoon(src) {
 
 // The full-quality (unwatermarked) version of a preview, made at checkout time.
 async function ONJJEM_finalCartoon(photoBase64, previewId) {
-  const r = await fetch(`${API_BASE}/api/cartoonify`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ base64Image: photoBase64, mimeType: ONJJEM_toDataUrlParts(photoBase64), watermark: false, style: window.ONJJEM_CARTOON_STYLE || undefined, previewId }) });
+  const r = await fetch(`${API_BASE}/api/cartoonify`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ base64Image: photoBase64, mimeType: ONJJEM_toDataUrlParts(photoBase64), watermark: false, style: window.ONJJEM_LAST_STYLE || window.ONJJEM_CARTOON_STYLE || undefined, previewId }) });
   const d = await r.json();
   if (!r.ok || !d.base64Image) throw new Error("the cartoon couldn't be prepared");
   return d.base64Image;
