@@ -29,7 +29,7 @@ export default {
         try {
           const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }] }) });
           const j = await r.json().catch(() => ({}));
-          ai = { status: r.status, error: j.error ? String(j.error.message || '').slice(0, 200) : null };
+          ai = { status: r.status, error: j.error ? String(j.error.message || '').replace(/AIza[0-9A-Za-z_-]+/g, '[key hidden]').slice(0, 200) : null };
         } catch (e) { ai = { error: String(e && e.message) }; }
         return new Response(JSON.stringify({ ready, missing, ai }), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
       }
