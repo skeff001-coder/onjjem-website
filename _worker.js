@@ -15,7 +15,7 @@ export default {
         if (!globalThis.__aiCheck || now - globalThis.__aiCheck.at > 5 * 60 * 1000) {
           let ok = true;
           try {
-            const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }], generationConfig: { maxOutputTokens: 5 } }) });
+            const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + (env.CARTOON_MODEL || 'gemini-3.1-flash-image') + ':generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }], }) });
             ok = r.status !== 429 && r.status !== 403 && r.status !== 401;
           } catch (e) { ok = true; }
           globalThis.__aiCheck = { at: now, ok };
@@ -27,7 +27,7 @@ export default {
       if (url.searchParams.get('ai') && env.GEMINI_API_KEY) {
         let ai = {};
         try {
-          const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }] }) });
+          const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + (env.CARTOON_MODEL || 'gemini-3.1-flash-image') + ':generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }] }) });
           const j = await r.json().catch(() => ({}));
           ai = { status: r.status, error: j.error ? String(j.error.message || '').replace(/AIza[0-9A-Za-z_-]+/g, '[key hidden]').slice(0, 200) : null };
         } catch (e) { ai = { error: String(e && e.message) }; }
