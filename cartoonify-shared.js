@@ -54,6 +54,7 @@
 })();
 
 // Pages can set window.ONJJEM_CARTOON_FREE = true to include the cartoon at no charge.
+(function(){ var n = Date.now(); if (n >= Date.parse("2026-11-01T00:00:00Z") && n < Date.parse("2026-12-25T00:00:00Z")) window.ONJJEM_CARTOON_FREE = true; })();
 function ONJJEM_freeText(html) {
   if (!window.ONJJEM_CARTOON_FREE) return html;
   return html

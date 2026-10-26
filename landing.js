@@ -77,10 +77,21 @@ function money(p) { return (ONJJEM_isUS() ? "$" : "£") + Number(p).toFixed(2); 
 function ONJJEM_cur() { return ONJJEM_isUS() ? "USD" : "GBP"; }
 function ONJJEM_home() { return ONJJEM_isUS() ? "/us/" : "/"; }
 function ONJJEM_deliveryWord() { return ONJJEM_isUS() ? "free US shipping" : "free UK delivery"; }
+// Christmas special: the cartoon is free on every UK gift from 1 Nov to 24 Dec.
+function ONJJEM_xmasFree() { const t = Date.now(); return t >= Date.parse("2026-11-01T00:00:00Z") && t < Date.parse("2026-12-25T00:00:00Z"); }
+if (ONJJEM_xmasFree()) window.ONJJEM_CARTOON_FREE = true;
 // The cartoon is free in the US shop and on Christmas sweatshirts.
-function ONJJEM_cartoonFee(sku, item) { return ONJJEM_isUS() || String(sku || "").startsWith("XSWEAT-") || (item && item.cartoonFree) || (!item && window.ONJJEM_CARTOON_FREE) ? 0 : 1.99; }
+function ONJJEM_cartoonFee(sku, item) { if (ONJJEM_xmasFree()) return 0; return ONJJEM_isUS() || String(sku || "").startsWith("XSWEAT-") || (item && item.cartoonFree) || (!item && window.ONJJEM_CARTOON_FREE) ? 0 : 1.99; }
 
 function ONJJEM_offerBarHtml() {
+  const t = Date.now(), us = ONJJEM_isUS();
+  if (t >= Date.parse("2026-11-01T00:00:00Z") && t < Date.parse("2026-12-25T00:00:00Z")) {
+    const last = Date.parse(us ? "2026-12-10T23:59:59-05:00" : "2026-12-12T23:59:59Z");
+    const free = us ? "Cartoon always FREE" : "FREE Christmas cartoon on every gift";
+    const msg = t <= last ? `🎄 ${free} · Order by ${us ? "December 10" : "12 December"} for Christmas delivery`
+      : `🎄 Too late for delivery? <a href="${us ? "/us/gift-cards" : "/gift-cards"}" style="color:inherit;text-decoration:underline">Send a gift card instantly</a>`;
+    return `<div class="offer-bar">${msg}</div>`;
+  }
   if (!ONJJEM_PROMO.active) return "";
   return `<div class="offer-bar">${ONJJEM_PROMO.headline} — use code <code>${esc(ONJJEM_PROMO.code)}</code></div>`;
 }
