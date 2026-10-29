@@ -251,7 +251,7 @@ var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_revie
   });
   // Header chips and links from other pages (/#cat-...): open that room the same way.
   function openRoom(id) {
-    id = ({ "cat-walls": "cat-living", "cat-kids": "cat-clothing", "cat-desk": "cat-games", "cat-halloween": "cat-christmas" })[id] || id;
+    id = ({ "cat-walls": "cat-living", "cat-kids": "cat-clothing", "cat-desk": "cat-games" })[id] || id;
     var row = document.querySelector('.rm-row[data-sec="' + id + '"]');
     if (!row) return;
     if (!row.classList.contains("on")) row.click();
@@ -275,8 +275,6 @@ var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_revie
   if (/^#cat-/.test(location.hash)) setTimeout(function () { openRoom(location.hash.slice(1)); }, 50);
 })();
 </script>
-<script src="/halloween-decor.js?v=99" defer></script>
 <script src="/reviews-strip.js?v=20261011b" defer></script>
-<script src="/printables-promo.js?v=19" defer></script>
 </body>
 </html>

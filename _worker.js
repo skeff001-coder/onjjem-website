@@ -373,6 +373,7 @@ async function handlePB(path, request, env) {
   try {
     const b = await request.json();
     if (path === '/api/printable-checkout') {
+      return pbJson({ error: 'Sorry, this has finished.' }, 400); // Halloween dropped 29 Oct
       const photo = String(b.photo || '');
       if (!/^data:image\/[a-z+]+;base64,.+$/s.test(photo) || photo.length > 8000000) return pbJson({ error: 'Please choose a photo (JPG or PNG).' }, 400);
       const us = b.region === 'us';

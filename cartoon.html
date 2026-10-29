@@ -86,7 +86,6 @@
   </div>
   <button class="upload-btn" id="pick">📸 Try it with my photo →</button>
   <div class="ticks"><span>✅ No sign-up</span><span>✅ No card needed</span><span>✅ Pets, family, ornaments</span></div>
-  <a id="halloween-link" class="hw-link" href="/halloween" style="display:none">🎃 Want a <b>Halloween</b> cartoon instead? Tap here →</a>
   <div class="rv-strip"></div>
 </div>
 <div id="gifts">
@@ -115,19 +114,8 @@
       '<a href="/us/blanket">🛋️ Blanket<span>from $49.99</span></a>' +
       '<a href="/us/tapestry">🖼️ Wall tapestry<span>from $44.99</span></a>' +
       '<a href="/us/prints">📸 Print<span>from $19.99</span></a>' +
-      '<a href="/us/halloween">🎃 Halloween<span>from $24.99</span></a>' +
       '<a href="/us/christmas">🎄 Christmas<span>from $24.99</span></a>';
   });
-})();
-</script>
-<script>
-// Until Halloween is over, offer the Halloween-style cartoon (one bio link does both).
-(function () {
-  var a = document.getElementById("halloween-link");
-  if (!a || new Date() >= new Date("2026-11-01T00:00:00")) return;
-  a.href = "/halloween" + location.search;
-  a.style.display = "block";
-  a.onclick = function () { try { gtag("event", "halloween_link_click", { where: "cartoon_page" }); } catch (e) {} };
 })();
 </script>
 <script>const API_BASE = "https://onjjem-production-5ef8.up.railway.app";</script>
@@ -203,6 +191,5 @@
 </script>
 <script src="/reviews-strip.js?v=20261011b" defer></script>
 <script src="/giveaway-banner.js?v=20261016g" defer></script>
-<script src="/printables-promo.js?v=19" defer></script>
 </body>
 </html>

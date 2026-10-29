@@ -14,7 +14,7 @@ const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
 const ONJJEM_PROMO = {
   active: false,
   code: "XMAS15",
-  headline: "🎃 Halloween cartoons are here! Plus 15% off everything",
+  headline: "Plus 15% off everything",
   small: "Enter the code at checkout. Ends 30 November."
 };
 
@@ -118,21 +118,6 @@ function ONJJEM_reviewsHtml() {
 }
 
 
-// ── Halloween decorations (cobwebs + dangling spiders), until 1 November ──
-function ONJJEM_spookyHtml() {
-  return ""; // Halloween dropped 29 Oct
-  if (new Date() >= new Date("2026-11-01T00:00:00")) return "";
-  if (/^\/(us\/)?(index\.html)?$/.test(location.pathname)) return ""; // keep the homepage clean
-  const web = (cls) => `<svg class="hw-web ${cls}" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="rgba(240,240,240,0.8)" stroke-width="1.1">
-    <path d="M0 0L100 8M0 0L88 40M0 0L60 70M0 0L32 92M0 0L8 100"/>
-    <path d="M22 2Q19 9 20 18Q13 16 7 21Q5 13 2 22"/><path d="M45 4Q40 18 40 34Q27 33 15 42Q11 27 4 45"/>
-    <path d="M70 6Q62 26 61 50Q42 50 24 64Q17 44 6 68"/><path d="M95 8Q85 34 82 63Q57 64 31 87Q23 62 8 92"/></g></svg>`;
-  const spider = (cls) => `<span class="hw-spider ${cls}" aria-hidden="true"><i></i><svg viewBox="0 0 40 40"><g stroke="#1a1a1a" stroke-width="2.4" fill="none" stroke-linecap="round">
-    <path d="M14 18L5 12L2 4M14 21L4 20L1 26M15 24L6 29L5 37M26 18L35 12L38 4M26 21L36 20L39 26M25 24L34 29L35 37"/></g>
-    <ellipse cx="20" cy="22" rx="8" ry="9" fill="#111"/><circle cx="20" cy="12" r="5.5" fill="#111"/>
-    <circle cx="17.8" cy="11.3" r="1.5" fill="#ff8a1c"/><circle cx="22.2" cy="11.3" r="1.5" fill="#ff8a1c"/></svg></span>`;
-  return web("hw-web-l") + web("hw-web-r") + spider("hw-sp1") + spider("hw-sp2");
-}
 // ── Gift search: live suggestions from the first few letters ("mag" → magnets) ──
 const ONJJEM_GIFTS_UK = [
   ["Fridge magnets", "/magnets", "magnet fridge photo grid acrylic"],
@@ -150,7 +135,6 @@ const ONJJEM_GIFTS_UK = [
   ["Photo mouse mats", "/mousemat", "mouse mat mousepad desk computer"],
   ["Coasters, tea towels & aprons", "/household.html", "coaster tea towel apron kitchen"],
   ["Photo water bottles", "/water-bottle", "water bottle flask drink steel"],
-  ["Halloween cartoon gifts", "/halloween", "halloween spooky witch pumpkin costume trick treat"],
   ["Kids football tees", "/football", "football soccer kit shirt kids"],
   ["Kids t-shirts, jigsaws & cards", "/kids.html", "kids children tshirt tee shirt jigsaw puzzle card"],
   ["Cartoon stickers", "/stickers", "sticker cartoon decal"],
@@ -173,7 +157,6 @@ const ONJJEM_GIFTS_US = [
   ["Photo mugs", "/us/mug", "mug cup coffee tea"],
   ["Tumblers & water bottles", "/us/tumbler", "tumbler bottle water drink straw"],
   ["Photo mouse mats", "/us/mousemat", "mouse mat mousepad desk"],
-  ["Halloween T-shirts & gifts", "/us/halloween", "halloween spooky witch pumpkin costume trick treat"],
   ["Trick-or-treat pillowcase", "/us/pillowcase", "pillowcase pillow candy trick treat"],
   ["Photo T-shirts & hoodies", "/us/tshirts", "tshirt tee shirt hoodie kids baby adult"],
   ["Photo golf balls", "/us/golf", "golf ball"],
@@ -251,17 +234,17 @@ function ONJJEM_searchHtml() {
 function ONJJEM_headerHtml() {
   if (ONJJEM_isUS()) return `
   ${ONJJEM_offerBarHtml()}
-  <header class="l-header">${ONJJEM_spookyHtml()}
+  <header class="l-header">
     <a href="/us/" class="l-logo">ONJJEM</a>
     <nav class="l-nav"><a href="/?uk=1" class="region-pill" title="Go to the UK shop"><img src="/flag-uk.svg" alt="" width="26" height="13">UK<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/us/#cat-tapestries">🏔️ Tapestries</a><a href="/us/#cat-home">🛋️ Blankets &amp; home</a><a href="/us/#cat-walls">📸 Prints &amp; posters</a><a href="/us/halloween">🎃 Halloween</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-christmas">🎄 Christmas</a>
+    <a href="/us/#cat-tapestries">🏔️ Tapestries</a><a href="/us/#cat-home">🛋️ Blankets &amp; home</a><a href="/us/#cat-walls">📸 Prints &amp; posters</a><a href="/us/#cat-clothing">T-shirts &amp; hoodies</a><a href="/us/#cat-sports">Golf &amp; pickleball</a><a href="/us/#cat-christmas">🎄 Christmas</a>
   </nav>`;
   return `
   ${ONJJEM_offerBarHtml()}
-  <header class="l-header">${ONJJEM_spookyHtml()}
+  <header class="l-header">
     <a href="/" class="l-logo">ONJJEM</a>
     <nav class="l-nav"><a href="/us/" class="region-pill" title="Go to the US shop"><img src="/flag-us.svg" alt="" width="25" height="13">US<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
@@ -487,7 +470,6 @@ const ONJJEM_TEXT_THEMES = [
   { name: "Classic", bg: "#ffffff", fg: "#111111" },
   { name: "Gold", bg: "#141414", fg: "#e8c75a" },
   { name: "Pink", bg: "#ffd6e5", fg: "#b0144f" },
-  { name: "Halloween", bg: "#2b1240", fg: "#ff9a2e" },
   { name: "Christmas", bg: "#b3121f", fg: "#ffffff" },
   { name: "Mint", bg: "#d8f3e6", fg: "#0f5a3c" }
 ];
@@ -592,7 +574,7 @@ function ONJJEM_renderLanding(P) {
   ${ONJJEM_headerHtml()}
   <main>
     <section class="wrap l-hero">
-      ${P.cartoon && window.ONJJEM_CARTOON_STYLE ? `<div class="quick-cta"><button type="button" class="btn quick-cta-btn" id="quickCartoonBtn">${window.ONJJEM_CARTOON_STYLE === "christmas" ? "🎄 See YOUR Christmas cartoon FREE" : "🎃 See YOUR Halloween cartoon FREE"}</button><div class="quick-cta-sub">Pick a photo of your kids, family or pet. Ready in seconds, nothing to pay.</div></div>` : ""}
+      ${P.cartoon && window.ONJJEM_CARTOON_STYLE ? `<div class="quick-cta"><button type="button" class="btn quick-cta-btn" id="quickCartoonBtn">${window.ONJJEM_CARTOON_STYLE === "christmas" ? "🎄 See YOUR Christmas cartoon FREE" : "✨ See YOUR cartoon FREE"}</button><div class="quick-cta-sub">Pick a photo of your kids, family or pet. Ready in seconds, nothing to pay.</div></div>` : ""}
       <div class="l-hero-img"><img src="${P.heroImg}" alt="${esc(P.heroAlt || P.title)}"></div>
       <div>
         <div class="l-kicker">${esc(P.kicker)}</div>
@@ -667,7 +649,6 @@ function ONJJEM_renderLanding(P) {
           ${P.cartoon ? `<li>🎁 <strong>FREE gift</strong>: choose a cartoon and we'll email it to you to keep as a wallpaper</li>` : ""}
           <li>🔒 <strong>Secure checkout</strong> by Stripe: card, Apple Pay or Google Pay</li>
           <li>🚚 ${ONJJEM_isUS() ? "Free US shipping, made in the USA" : "Free UK delivery"} · arrives damaged? Replaced free</li>
-          ${!ONJJEM_isUS() && new Date() < new Date("2026-10-25T00:00:00") ? `<li>🎃 <strong>Order by 24 October</strong> for Halloween delivery</li>` : ""}
           <li>👋 A small UK family business</li>
         </ul>
         ${P.confirmText ? `<label class="ft-note" style="display:flex;gap:.5rem;align-items:flex-start;text-align:left;margin:0 0 .75rem;cursor:pointer"><input type="checkbox" id="confirmBox" style="margin-top:.2rem;flex:none;width:1.1rem;height:1.1rem"><span>${P.confirmText}</span></label>` : ""}
