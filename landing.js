@@ -86,6 +86,7 @@ function ONJJEM_cartoonFee(sku, item) { if (ONJJEM_xmasFree()) return 0; return 
 function ONJJEM_offerBarHtml() {
   const t = Date.now(), us = ONJJEM_isUS();
   if (!us && t < Date.parse("2026-12-01T00:00:00Z")) {
+    if (/^\/(index\.html)?$/.test(location.pathname)) return "";
     const xm = t >= Date.parse("2026-11-01T00:00:00Z") ? " · 🎄 FREE Christmas cartoon" : "";
     return `<div class="offer-bar">🖤 Black Friday: 15% off canvases, mugs, prints &amp; cushions, taken off at checkout · Ends Mon 30 Nov${xm}</div>`;
   }
@@ -119,6 +120,7 @@ function ONJJEM_reviewsHtml() {
 
 // ── Halloween decorations (cobwebs + dangling spiders), until 1 November ──
 function ONJJEM_spookyHtml() {
+  return ""; // Halloween dropped 29 Oct
   if (new Date() >= new Date("2026-11-01T00:00:00")) return "";
   if (/^\/(us\/)?(index\.html)?$/.test(location.pathname)) return ""; // keep the homepage clean
   const web = (cls) => `<svg class="hw-web ${cls}" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="rgba(240,240,240,0.8)" stroke-width="1.1">
@@ -265,7 +267,7 @@ function ONJJEM_headerHtml() {
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/#cat-living">🛋️ Home</a><a href="/#cat-walls">🖼️ Wall art</a><a href="/#cat-kitchen">☕ Mugs</a><a href="/#cat-clothing">👕 Clothing</a><a href="/#cat-kids">🧸 Children's Corner</a><a href="/cards">🎉 Giant cards</a><a href="/#cat-games">🃏 Games</a><a href="/#cat-desk">👜 Bags</a><a href="/halloween">🎃 Halloween</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/gift-cards.html">🎁 Gift cards</a>
+    <a href="/#cat-christmas">🎄 Christmas</a><a href="/#cat-living">🛋️ Home &amp; wall art</a><a href="/#cat-kitchen">☕ Mugs</a><a href="/#cat-clothing">👕 Clothing &amp; kids</a><a href="/#cat-games">🎉 Cards &amp; more</a><a href="/gift-cards.html">🎁 Gift cards</a>
   </nav>`;
 }
 
@@ -580,6 +582,7 @@ function ONJJEM_renderLanding(P) {
   const app = document.getElementById("app");
   const opts = P.options;
   let selected = Math.max(0, opts.findIndex(o => o.default));
+  try { const pk = new URLSearchParams(location.search).get("pick"); const pi = pk ? opts.findIndex(o => o.sku === pk) : -1; if (pi >= 0) selected = pi; } catch (e) {}
   let photo = null;
   let early = null; // instant free cartoon made straight after upload: { forPhoto, previewId, previewSrc }
 
