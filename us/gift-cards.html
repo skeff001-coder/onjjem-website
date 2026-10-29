@@ -60,8 +60,8 @@
   <p>Let them choose their own personalized photo gift: mugs, blankets, tapestries, prints and more, made in the USA with free shipping.</p>
 </div>
 
-<div id="gcBonus" style="display:none;max-width:640px;margin:0 auto 18px;padding:14px 16px;border-radius:14px;background:linear-gradient(90deg,#1a7a3a,#2fa35a);color:#fff;text-align:center;font:700 16px/1.45 system-ui,sans-serif">🎄 Christmas bonus: buy a $50 or bigger gift card and get an extra $10 bonus code, free!<br><span style="font-weight:400;font-size:13px">Until 24 December. The bonus code arrives in the same email.</span></div>
-<script>(function(){var t=Date.now();if(t>=Date.parse("2026-11-20T00:00:00Z")&&t<Date.parse("2026-12-25T00:00:00Z"))document.getElementById("gcBonus").style.display="block";})();</script>
+<div id="gcBonus" style="display:none;max-width:640px;margin:0 auto 18px;padding:14px 16px;border-radius:14px;background:linear-gradient(90deg,#1a7a3a,#2fa35a);color:#fff;text-align:center;font:700 16px/1.45 system-ui,sans-serif">🎄 Christmas bonus: buy a $100 gift card, get an extra <b>$20</b> free!<br>Buy $50 or more, get an extra $10 free!<br><span style="font-weight:400;font-size:13px">Until 24 December. The bonus code arrives in the same email.</span></div>
+<script>(function(){var t=Date.now();if(t>=Date.parse("2026-10-29T00:00:00Z")&&t<Date.parse("2026-12-25T00:00:00Z"))document.getElementById("gcBonus").style.display="block";})();</script>
 <div class="products" id="products"></div>
 
 <div style="max-width:700px;margin:0 auto 2.5rem;padding:0 1.5rem;color:#ccc;font-size:0.9rem;line-height:1.7">
@@ -80,9 +80,9 @@ const API_BASE = "https://onjjem-production-5ef8.up.railway.app";
 const ITEMS = [
   { sku: "us-giftcard-10", amount: 10, desc: "A little treat: perfect for a photo print. Emailed instantly as a unique code." },
   { sku: "us-giftcard-25", amount: 25, desc: "Covers a photo mug or a mouse mat. Emailed instantly as a unique code." },
-  { sku: "us-giftcard-50", amount: 50, desc: "Our most popular: a fleece blanket or a wall tapestry. Emailed instantly." },
+  { sku: "us-giftcard-50", amount: 50, desc: "Our most popular: a fleece blanket or a wall tapestry. Until Dec 24: plus a $10 bonus code free!" },
   { sku: "us-giftcard-75", amount: 75, desc: "Enough for a big tapestry or a cozy photo throw. Emailed instantly." },
-  { sku: "us-giftcard-100", amount: 100, desc: "The ultimate treat for a family photo lover. Emailed instantly as a unique code." }
+  { sku: "us-giftcard-100", amount: 100, desc: "The ultimate treat for a family photo lover. Until Dec 24: get an extra $20 bonus code free! Emailed instantly." }
 ];
 const grid = document.getElementById("products");
 ITEMS.forEach(function (item, i) {
