@@ -1027,7 +1027,12 @@ function ONJJEM_renderLanding(P) {
       await ONJJEM_Basket.add({ sku: o.sku, name: o.name, price: o.price, cartoon, cartoonFree: !!window.ONJJEM_CARTOON_FREE, photo: print, thumb, page: location.pathname });
       onjjemGa("event", "add_to_cart", { currency: ONJJEM_cur(), value: o.price, items: [{ item_id: o.sku, item_name: o.name, price: o.price }] });
       status.textContent = "";
-      ONJJEM_showAddedToast(thumb, o.name);
+      // UK: offer a matching mug with the same picture on wall art, blankets and cushions.
+      let mugOffer = null;
+      if (!ONJJEM_isUS() && /^(H-BLA|canvas|cushion|hanger|art-print|poster|CLASSIC-POST)/.test(String(o.sku || ""))) {
+        mugOffer = { photo: await ONJJEM_limitSize(source, 2000), thumb };
+      }
+      ONJJEM_showAddedToast(thumb, o.name, mugOffer);
     } catch (err) {
       status.style.color = "#ffb4a8";
       status.textContent = "Sorry, that didn't add (" + (err && err.message ? err.message : "please try again") + ").";
@@ -1169,11 +1174,11 @@ function ONJJEM_updateBasketButton(items) {
   document.body.classList.toggle("has-basket", items.length > 0);
 }
 
-function ONJJEM_showAddedToast(thumb, name) {
+function ONJJEM_showAddedToast(thumb, name, mugOffer) {
   const t = document.createElement("div");
   t.className = "cartoon-preview-overlay";
   ONJJEM_Basket.load().then(items => {
-    const n = items.length, next = ONJJEM_bundlePercent(n + 1), now = ONJJEM_bundlePercent(n);
+    const n = items.filter(i => i.sku !== "mug-addon").length, next = ONJJEM_bundlePercent(n + 1), now = ONJJEM_bundlePercent(n);
     const nudge = next > now ? `Add ${n === 1 ? "one more gift to save 10%" : "one more gift to save 12%"} on everything 🎁` : `You're saving ${now}% on your whole basket 🎉`;
     t.innerHTML = `
       <div class="cartoon-preview-card" style="text-align:center">
@@ -1181,12 +1186,26 @@ function ONJJEM_showAddedToast(thumb, name) {
         <div class="cartoon-preview-title">Added to your basket 🧺</div>
         <p class="cartoon-email-note">${esc(name)}</p>
         <p class="cartoon-email-note" style="font-weight:700;color:#F3D078">${nudge}</p>
+        ${mugOffer ? `<div style="border:1px solid rgba(243,208,120,.5);border-radius:12px;padding:10px;margin:0.4rem 0 0.6rem">
+          <div style="font-weight:800">☕ Add a matching mug with the same picture?</div>
+          <div class="cartoon-email-note" style="margin:4px 0 8px">£11.99 (normally £13.99), in the same parcel</div>
+          <button class="cartoon-btn-primary" data-a="mug" style="width:100%">Yes, add the mug</button>
+        </div>` : ""}
         <button class="cartoon-btn-primary" data-a="more" style="width:100%;margin-top:0.4rem">Add another gift</button>
         <button class="cartoon-btn-secondary" data-a="basket" style="width:100%;margin-top:0.5rem">View basket &amp; checkout (${n})</button>
       </div>`;
     document.body.appendChild(t);
     t.querySelector('[data-a="more"]').onclick = () => { t.remove(); location.href = ONJJEM_isUS() ? "/us/" : "/tiktok"; };
     t.querySelector('[data-a="basket"]').onclick = () => { t.remove(); ONJJEM_openBasket(); };
+    const mb = t.querySelector('[data-a="mug"]');
+    if (mb) mb.onclick = async () => {
+      mb.disabled = true; mb.textContent = "Adding…";
+      try {
+        await ONJJEM_Basket.add({ sku: "mug-addon", name: "Matching Photo Mug (11oz)", price: 11.99, cartoon: false, photo: mugOffer.photo, thumb: mugOffer.thumb, page: location.pathname });
+        try { onjjemGa("event", "add_to_cart", { currency: "GBP", value: 11.99, items: [{ item_id: "mug-addon", item_name: "Matching mug", price: 11.99 }] }); } catch (e) {}
+        t.remove(); ONJJEM_openBasket();
+      } catch (e) { mb.textContent = "Sorry, try again"; mb.disabled = false; }
+    };
   });
 }
 
@@ -1196,9 +1215,9 @@ async function ONJJEM_openBasket() {
   const panel = document.createElement("div");
   panel.id = "basketPanel"; panel.className = "cartoon-preview-overlay";
   const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
-  const pct = ONJJEM_bundlePercent(items.length);
+  const pct = ONJJEM_bundlePercent(items.filter(i => i.sku !== "mug-addon").length);
   // Low-margin gifts (golf balls) count towards the deal but aren't discounted themselves.
-  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
+  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-|mug-addon$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   const disc = Math.round(eligibleSub * pct) / 100;
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
   panel.innerHTML = `
