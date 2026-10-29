@@ -61,10 +61,8 @@
 </div>
 
 <div id="gcBonus" style="display:none;max-width:640px;margin:0 auto 18px;padding:14px 16px;border-radius:14px;color:#fff;text-align:center;font:700 16px/1.45 system-ui,sans-serif"></div>
-<script>(function(){var t=Date.now(),el=document.getElementById("gcBonus"),h="";
-if(t<Date.parse("2026-12-01T00:00:00Z")){h='🖤 Black Friday: buy a $100 gift card, get an extra <b>$20</b> bonus code free!'+(t>=Date.parse("2026-11-20T00:00:00Z")?'<br>Or buy $50 or more, get an extra $10 free.':'')+'<br><span style="font-weight:400;font-size:13px">Ends Mon 30 Nov. The bonus code arrives in the same email.</span>';el.style.background="#111";el.style.border="2px solid #FFC83D";}
-else if(t<Date.parse("2026-12-25T00:00:00Z")){h='🎄 Christmas bonus: buy a $50 or bigger gift card and get an extra $10 bonus code, free!<br><span style="font-weight:400;font-size:13px">Until 24 December. The bonus code arrives in the same email.</span>';el.style.background="linear-gradient(90deg,#1a7a3a,#2fa35a)";}
-if(h){el.innerHTML=h;el.style.display="block";}})();</script>
+<script>(function(){var t=Date.now(),el=document.getElementById("gcBonus");
+if(t<Date.parse("2026-12-01T00:00:00Z")){el.innerHTML='🖤 Black Friday: buy a $100 gift card, get an extra <b>$20</b> bonus code free!<br><span style="font-weight:400;font-size:13px">$100 cards only. Ends Mon 30 Nov. The bonus code arrives in the same email.</span>';el.style.background="#111";el.style.border="2px solid #FFC83D";el.style.display="block";}})();</script>
 <div class="products" id="products"></div>
 
 <div style="max-width:700px;margin:0 auto 2.5rem;padding:0 1.5rem;color:#ccc;font-size:0.9rem;line-height:1.7">
