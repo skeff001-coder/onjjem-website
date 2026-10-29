@@ -88,6 +88,8 @@ function ONJJEM_offerBarHtml() {
   if (t >= Date.parse("2026-11-01T00:00:00Z") && t < Date.parse("2026-12-25T00:00:00Z")) {
     const last = Date.parse(us ? "2026-12-10T23:59:59-05:00" : "2026-12-12T23:59:59Z");
     const free = us ? "Cartoon always FREE" : "FREE Christmas cartoon on every gift";
+    const bf = !us && t >= Date.parse("2026-11-27T00:00:00Z") && t < Date.parse("2026-12-01T00:00:00Z");
+    if (bf) return `<div class="offer-bar">🖤 Black Friday: 15% off canvases, mugs, prints & cushions, taken off automatically at checkout · Ends Mon 30 Nov</div>`;
     const msg = t <= last ? `🎄 ${free} · Order by ${us ? "December 10" : "12 December"} for Christmas delivery`
       : `🎄 Too late for delivery? <a href="${us ? "/us/gift-cards" : "/gift-cards"}" style="color:inherit;text-decoration:underline">Send a gift card instantly</a>`;
     return `<div class="offer-bar">${msg}</div>`;
