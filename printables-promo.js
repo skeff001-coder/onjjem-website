@@ -1,6 +1,7 @@
 // Halloween Colouring Championship promo: a bottom pop-up on every page view, plus a top bar.
 // Runs until entries close (Sat 31 Oct, 6pm UK). Never on the colouring page or giveaway page.
 (function(){
+  return; // Halloween promotion dropped 29 Oct: Black Friday takes over.
   if (new Date() >= new Date("2026-10-31T18:00:00Z")) return; // Championship closes Sat 31 Oct, 6pm UK
   // Top priority until Halloween: on every page except the colouring page itself and the giveaway entry form.
   if (/printables|giveaway/.test(location.pathname)) return;

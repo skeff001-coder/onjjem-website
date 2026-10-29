@@ -33,7 +33,6 @@
 // Giveaway banner: shows on main pages until Sun 1 Nov 2026, 8pm UK (20:00 UTC).
 (function(){
   if (new Date() >= new Date("2026-11-01T20:00:00Z")) return;
-  if (new Date() < new Date("2026-10-31T18:00:00Z")) return; // Halloween Colouring Championship banner has priority until it closes
   try { if (sessionStorage.getItem('onjjem_gw_closed')) return; } catch(e){}
   var us=/^\/us(\/|$)/.test(location.pathname)||/region=us/.test(location.search);
   var b=document.createElement('div');
@@ -100,7 +99,6 @@
     <div class="home-top-text">
       <h2>Turn your photo into a cartoon, FREE ✨</h2>
       <p>See your kids, family or pet as a cartoon in seconds. No sign-up. Love it? Put it on a blanket, tapestry, canvas or mug. Made in the USA, free shipping.</p>
-      <a href="/us/printables" style="display:flex;gap:10px;align-items:center;margin:0 0 12px;padding:10px 12px;border-radius:14px;background:linear-gradient(90deg,#E8287F,#FF8A1C);color:#fff;text-decoration:none;font-weight:800" onclick="try{gtag('event','printable_promo',{action:'us_hero'})}catch(e){}"><span style="font-size:26px">🖍️</span><span>NEW: Your kids as a Halloween coloring page. Color it in and win a $60 gift card 🏆 Only $1.49 →</span></a>
       <a class="btn home-btn" href="/cartoon?region=us" onclick="try{gtag('event','us_hero_cartoon',{where:'button'})}catch(e){}">🎨 Make my free cartoon</a> <a class="btn home-btn" href="#cat-home" style="margin-top:.5rem;background:transparent;border:2px solid #d4af37;color:#d4af37">Shop blankets &amp; home</a>
     </div>
   </section>
@@ -205,7 +203,7 @@
 
 <div id="ftr"></div>
 <script>window.ONJJEM_REGION = "us";</script>
-<script src="/landing.js?v=20261029n"></script>
+<script src="/landing.js?v=20261029p"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();
@@ -236,6 +234,6 @@ var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_revie
 </script>
 <script src="/halloween-decor.js?v=20261021a" defer></script>
 <script src="/reviews-strip.js?v=20261011b" defer></script>
-<script src="/printables-promo.js?v=18" defer></script>
+<script src="/printables-promo.js?v=19" defer></script>
 </body>
 </html>

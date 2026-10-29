@@ -49,7 +49,6 @@
 // Giveaway banner: shows on main pages until Sun 1 Nov 2026, 8pm UK (20:00 UTC).
 (function(){
   if (new Date() >= new Date("2026-11-01T20:00:00Z")) return;
-  if (new Date() < new Date("2026-10-31T18:00:00Z")) return; // Halloween Colouring Championship banner has priority until it closes
   try { if (sessionStorage.getItem('onjjem_gw_closed')) return; } catch(e){}
   var us=/^\/us(\/|$)/.test(location.pathname)||/region=us/.test(location.search);
   var b=document.createElement('div');
@@ -58,6 +57,17 @@
     '<button aria-label="Close" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:20px;cursor:pointer">×</button>';
   b.querySelector('a').onclick=function(){try{gtag('event','giveaway_banner_click');}catch(e){}};
   b.querySelector('button').onclick=function(){b.remove();try{sessionStorage.setItem('onjjem_gw_closed','1')}catch(e){}};
+  (document.body||document.documentElement).insertBefore(b,document.body.firstChild);
+})();
+</script>
+<script>
+// Black Friday (UK): 15% off canvases, mugs, prints & cushions, automatic at checkout, until Mon 30 Nov.
+(function(){
+  if (new Date() >= new Date("2026-12-01T00:00:00Z")) return;
+  var b=document.createElement('a'); b.href='/canvas';
+  b.setAttribute('style','display:block;position:relative;z-index:51;background:#111;color:#fff;font:800 16px/1.35 system-ui,sans-serif;text-align:center;padding:12px 14px;text-decoration:none;border-bottom:3px solid #FFC83D');
+  b.innerHTML='🖤 <span style="color:#FFC83D">BLACK FRIDAY STARTS NOW</span> · 15% off canvases, mugs, prints &amp; cushions · No code needed · Ends Mon 30 Nov <u>Shop →</u>';
+  b.onclick=function(){try{gtag('event','bf_banner_click');}catch(e){}};
   (document.body||document.documentElement).insertBefore(b,document.body.firstChild);
 })();
 </script>
@@ -79,7 +89,6 @@
   <section class="wrap" id="shop">
     <h2 class="lx-shop">What would you like to make?</h2>
     <div class="rm-list" id="rmList">
-      <a class="rm-row rm-new" href="/printables"><span class="rm-ico">🖍️</span><span class="rm-txt"><b>Halloween colouring page of your kids <em class="lx-new">NEW</em></b><small>Colour it in and win a £50 gift card 🏆</small></span><span class="rm-p">£1.49 ›</span></a>
       <a class="rm-row rm-new" href="/#cat-halloween" data-sec="cat-halloween"><span class="rm-ico">🎃</span><span class="rm-txt"><b>Halloween</b><small>Cartoon packs, trick-or-treat bags · until 31 Oct</small></span><span class="rm-p">from £5.99 ›</span></a>
       <a class="rm-row rm-new" href="/calendar"><span class="rm-ico">📅</span><span class="rm-txt"><b>2027 Photo Calendar <em class="lx-new">NEW</em></b><small>For Jan–Dec 2027 · 12 of your photos</small></span><span class="rm-p">£24.99 ›</span></a>
       <a class="rm-row" href="/#cat-living" data-sec="cat-living"><span class="rm-ico">🛋️</span><span class="rm-txt"><b>Home</b><small>Blankets, cushions, towels, frames</small></span><span class="rm-p">from £22.99 ›</span></a>
@@ -210,7 +219,7 @@
 </main>
 
 <div id="ftr"></div>
-<script src="/landing.js?v=20261029n"></script>
+<script src="/landing.js?v=20261029p"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();
@@ -285,6 +294,6 @@ var rv = document.getElementById("reviews"); if (rv) rv.outerHTML = ONJJEM_revie
 </script>
 <script src="/halloween-decor.js?v=20261021a" defer></script>
 <script src="/reviews-strip.js?v=20261011b" defer></script>
-<script src="/printables-promo.js?v=18" defer></script>
+<script src="/printables-promo.js?v=19" defer></script>
 </body>
 </html>
