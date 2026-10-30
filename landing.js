@@ -1225,7 +1225,7 @@ async function ONJJEM_openBasket() {
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
   panel.innerHTML = `
     <div class="cartoon-preview-card basket-card">
-      <div class="cartoon-preview-title">Your basket 🧺</div>
+      <div class="cartoon-preview-title">Your basket 🧺</div><p class="cartoon-email-note" style="margin:-0.3rem 0 0.6rem">Jemzi's keeping it safe for you 💛</p>
       ${items.length ? items.map(i => `
         <div class="basket-row">
           <img src="${i.thumb}" alt="">
@@ -1242,7 +1242,7 @@ async function ONJJEM_openBasket() {
         ${pct ? `<p class="cartoon-email-note" style="font-size:0.8rem">Your bundle discount is applied instead of promo codes.</p>` : ""}
         ${nextPct > pct ? `<p class="cartoon-email-note" style="color:#F3D078;font-weight:700">Add ${items.length === 1 ? "1 more gift to save 10%" : "1 more gift to save 12%"} 🎁</p>` : ""}
         ${!ONJJEM_isUS() && Date.now() < Date.parse("2026-12-13T00:00:00Z") ? `<p class="cartoon-email-note" style="margin:0.5rem 0 0;font-weight:700;color:#9fe6b4">🎄 Order by 12 December for Christmas delivery</p>` : ""}
-        <p class="cartoon-email-note" style="margin:0.35rem 0 0;font-size:0.82rem">✓ Free delivery &nbsp;✓ We check every photo before printing &nbsp;✓ Apple Pay</p>
+        <p class="cartoon-email-note" style="margin:0.35rem 0 0;font-size:0.82rem">✓ Free delivery &nbsp;✓ Jemzi checks every photo before printing &nbsp;✓ Apple Pay</p>
         <button class="cartoon-btn-primary" id="basketCheckout" style="width:100%;margin-top:0.5rem;font-size:1.1rem">Checkout securely →</button>
         ${ONJJEM_remindHtml("remindBasket")}
         <div id="basketStatus" class="cartoon-email-note" style="min-height:1.2em;margin-top:0.4rem"></div>

@@ -43,6 +43,7 @@
 @media (prefers-reduced-motion:reduce){.lx-shop{animation:none}}
 .rm-ico{font-size:1.9rem}
 .cat-bar{display:none}
+.jz-pick{display:inline-block;background:linear-gradient(90deg,#d4af37,#f3d36b);color:#2a1a05;font:800 .72rem/1 system-ui,sans-serif;padding:.3rem .55rem;border-radius:20px;margin-bottom:.35rem;letter-spacing:.02em}
 .jz-hi{display:flex;align-items:center;gap:.8rem;max-width:520px;margin:.9rem auto 0;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:18px;padding:.5rem .9rem .5rem .5rem}.jz-hi img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none;background:#fff}.jz-hi p{margin:0;font-size:1rem;line-height:1.35;color:#F6EBD4}.jz-hi b{color:#f3d36b;font-family:"Playfair Display",Georgia,serif;font-size:1.12rem}
 /* One category per row: picture on the left, name on the right, clear gap between each */
 #rmList{display:flex;flex-direction:column;gap:14px}
@@ -90,14 +91,15 @@
     <img src="/jemzi.webp" alt="" width="130" height="130" style="display:block;margin:0 auto .4rem;border-radius:50%">
     <h2>🎉 Thank you! Jemzi's on it, your order is in.</h2>
     <p>You'll get a confirmation email shortly. We'll print your gift and post it with free delivery.</p>
-    <p style="margin-top:0.6rem"><strong>A thank-you from us:</strong> use code <strong>THANKYOU15</strong> for 15% off your next gift. It's printed on the note in your parcel too.</p>
+    <p style="margin-top:0.6rem"><strong>A thank-you from Jemzi:</strong> your JemCode <strong>THANKYOU15</strong> for 15% off your next gift. It's printed on the note in your parcel too.</p>
+    <p style="margin-top:0.4rem">📸 When it arrives, share a photo with <strong>#JemziSpotted</strong> and tag us. We love seeing your gifts!</p>
   </div></div>
 
   <section class="wrap" id="shop">
     <div class="jz-hi"><img src="/jemzi.webp" alt="Jemzi the ONJJEM hedgehog" width="120" height="120"><p><b>Hi, I'm Jemzi!</b> Pick a gift and I'll help make it yours 💛</p></div>
     <h1 class="lx-shop" style="margin-top:0.4rem">What would you like to make?</h1>
     <div class="rm-list" id="rmList">
-      <a class="rm-row" href="/#cat-walls" data-sec="cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span class="rm-ico">🖼️</span><span class="rm-txt"><b>Wall Art</b><small>Printed, framed, bespoke</small></span><span class="rm-p">from £3.99 ›</span></a>
+      <a class="rm-row" href="/#cat-walls" data-sec="cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span class="rm-ico">🖼️</span><span class="rm-txt"><b>Wall Art</b><small>The Jemstone Collection</small></span><span class="rm-p">from £3.99 ›</span></a>
       <a class="rm-row" href="/#cat-living" data-sec="cat-living"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><span class="rm-ico">🛋️</span><span class="rm-txt"><b>Living</b><small>Cosy &amp; personal</small></span><span class="rm-p">from £14.99 ›</span></a>
       <a class="rm-row" href="/#cat-kitchen" data-sec="cat-kitchen"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><span class="rm-ico">☕</span><span class="rm-txt"><b>Kitchen</b><small>Everyday favourites</small></span><span class="rm-p">from £7.49 ›</span></a>
       <a class="rm-row" href="/#cat-clothing" data-sec="cat-clothing"><img src="/cat-kids.webp" alt="" loading="lazy"><span class="rm-ico">👕</span><span class="rm-txt"><b>Clothing &amp; Kids</b><small>Stickers, badges &amp; more</small></span><span class="rm-p">from £5.99 ›</span></a>
@@ -114,22 +116,22 @@
 
 
   <section class="wrap home-sec" id="cat-walls">
-    <div class="home-sec-head"><h2>🖼️ Wall Art</h2><a href="#shop">All rooms ↑</a></div>
+    <div class="home-sec-head"><h2>💎 The Jemstone Collection</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
-        <a class="tile" href="/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>NEW: Photo canvases, ready to hang</h3><div class="t-price">From £24.99</div></div></a>
+        <a class="tile" href="/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>NEW: Photo canvases, ready to hang</h3><div class="t-price">From £24.99</div></div></a>
         <a class="tile" href="/scenic-prints"><img src="/prints-hero-scenic.webp" alt="" loading="lazy"><div class="t-body"><h3>Scenic fine art prints: your photo or a landscape</h3><div class="t-price">From £15.49</div></div></a>
         <a class="tile" href="/poster-hanger"><img src="/hanger-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>NEW: Wooden poster hangers</h3><div class="t-price">From £24.99</div></div></a>
         <a class="tile" href="/photo-tiles"><img src="/products/framed-photo-tiles.webp" alt="" loading="lazy"><div class="t-body"><h3>Peel &amp; Go photo frames</h3><div class="t-price">From £22.99</div></div></a>
         <a class="tile" href="/poster-sale"><img src="/posters-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Giant posters &amp; wall stickers</h3><div class="t-price">From £15.49</div></div></a>
         <a class="tile" href="/prints"><img src="/prints-postcards.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo prints &amp; postcards</h3><div class="t-price">From £3.99</div></div></a>
-        <a class="tile" href="/calendar"><img src="/xmas-calendar-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>2027 photo calendar: 12 of your photos</h3><div class="t-price">£24.99</div></div></a>
+        <a class="tile" href="/calendar"><img src="/xmas-calendar-tile.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>2027 photo calendar: 12 of your photos</h3><div class="t-price">£24.99</div></div></a>
     </div>
   </section>
 
   <section class="wrap home-sec" id="cat-living">
     <div class="home-sec-head"><h2>🛋️ Living</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
-        <a class="tile" href="/blanket"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><div class="t-body"><h3>Luxury photo throws</h3><div class="t-price">From £47.99</div></div></a>
+        <a class="tile" href="/blanket"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>Luxury photo throws</h3><div class="t-price">From £47.99</div></div></a>
         <a class="tile" href="/cushions"><img src="/cushion-mockup.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Cushions</h3><div class="t-price">From £23.49</div></div></a>
         <a class="tile" href="/cushions"><img src="/towel-mockup.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Towels</h3><div class="t-price">£24.99</div></div></a>
         <a class="tile" href="/mousemat"><img src="/mousemat-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo mouse mats</h3><div class="t-price">£14.99</div></div></a>
@@ -140,9 +142,9 @@
   <section class="wrap home-sec" id="cat-kitchen">
     <div class="home-sec-head"><h2>☕ Kitchen</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
-        <a class="tile" href="/mug"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><div class="t-body"><h3>✨ Magic Reveal mugs &amp; photo mugs</h3><div class="t-price">From £13.99</div></div></a>
+        <a class="tile" href="/mug"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>✨ Magic Reveal mugs &amp; photo mugs</h3><div class="t-price">From £13.99</div></div></a>
         <a class="tile" href="/baby-reveal"><img src="/baby-reveal-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Baby reveal mug: it's a boy or girl</h3><div class="t-price">£19.99</div></div></a>
-        <a class="tile" href="/chopping-board"><img src="/xmas-board-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>NEW: Photo glass chopping boards</h3><div class="t-price">£29.99</div></div></a>
+        <a class="tile" href="/chopping-board"><img src="/xmas-board-tile.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>NEW: Photo glass chopping boards</h3><div class="t-price">£29.99</div></div></a>
         <a class="tile" href="/household.html"><img src="/coasters-mockup.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Coasters, tea towels &amp; aprons</h3><div class="t-price">From £10.99</div></div></a>
         <a class="tile" href="/magnets"><img src="/products/IMG_8533.webp" alt="" loading="lazy"><div class="t-body"><h3>Fridge magnets</h3><div class="t-price">From £7.49</div></div></a>
         <a class="tile" href="/water-bottle"><img src="/bottle-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo water bottles</h3><div class="t-price">From £22.99</div></div></a>
@@ -166,7 +168,7 @@
   <section class="wrap home-sec" id="cat-christmas">
     <div class="home-sec-head"><h2>🎄 Christmas Gift Shop</h2><a href="#shop">All rooms ↑</a></div>
     <div class="tiles">
-        <div class="xm-sub">⭐ Stocking fillers under £15</div>
+        <div class="xm-sub">⭐ Jemmies: stocking fillers under £15</div>
         <a class="tile" href="/christmas?pick=magnet-fridge-3x2"><img src="/xmas-magnet-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>Christmas cartoon fridge magnets</h3><div class="t-price">From £7.49</div></div></a>
         <a class="tile" href="/christmas"><img src="/products/xmas-bauble.jpg" alt="" loading="lazy"><div class="t-body"><h3>Photo bauble for the tree</h3><div class="t-price">£12.99</div></div></a>
         <a class="tile" href="/christmas?pick=magic-mug"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><div class="t-body"><h3>✨ Magic mug: pour in hot chocolate, your photo appears</h3><div class="t-price">£13.99</div></div></a>
@@ -213,7 +215,7 @@
 </main>
 
 <div id="ftr"></div>
-<script src="/landing.js?v=20261030g"></script>
+<script src="/landing.js?v=20261030h"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();
