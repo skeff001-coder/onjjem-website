@@ -302,11 +302,14 @@ function ONJJEM_readPhoto(file) {
 
 // Lay 1–9 photos out as a grid (print-ready). Square by default; pass ratio [w,h]
 // for other shapes (e.g. playing cards [2,3]). Fewer photos repeat to fill the grid.
-// Pet bandana: Prodigi's print area is ONE WIDE STRIP (10158x3306 px, about 3.07:1) and the printed
+// Pet bandana: Prodigi's print area is ONE WIDE STRIP (about 3.1-3.2:1, see table below) and the printed
 // triangle fills it: full width along the top, point at the bottom centre. So the file must be that exact
 // shape; any other shape makes Prodigi zoom (fill) or shrink (fit) it. Photo goes in the triangle, name in a band on top.
-async function ONJJEM_bandana(src, words, forPrint) {
-  const im = await ONJJEM_loadImg(src), W = forPrint ? 7000 : 2400, H = Math.round(W * 3306 / 10158), c = document.createElement("canvas"); c.width = W; c.height = H;
+// Print area per size from Prodigi (GET /v4.0/products/{sku}, GB variant). Small still to confirm: using Medium's shape until then.
+const ONJJEM_BANDANA_AREA = { "bandana-l": [10158, 3306], "bandana-m": [9447, 2952], "bandana-s": [9447, 2952] };
+async function ONJJEM_bandana(src, words, forPrint, sku) {
+  const area = ONJJEM_BANDANA_AREA[sku] || ONJJEM_BANDANA_AREA["bandana-m"];
+  const im = await ONJJEM_loadImg(src), W = forPrint ? 7000 : 2400, H = Math.round(W * area[1] / area[0]), c = document.createElement("canvas"); c.width = W; c.height = H;
   const g = c.getContext("2d");
   const cover = (x, y, w, h) => { const r = Math.max(w / im.width, h / im.height), sw = w / r, sh = h / r; g.drawImage(im, (im.width - sw) / 2, Math.max(0, (im.height - sh) * 0.3), sw, sh, x, y, w, h); };
   // Soft blurred copy of the photo fills the sides (shrink then stretch: works on iPhone, where canvas blur filters do not).
@@ -886,7 +889,7 @@ function ONJJEM_renderLanding(P) {
   async function finalize(src, words, forPrint) {
     const o = opts[selected];
     let out = src;
-    if (o.bandana) return ONJJEM_bandana(out, words, forPrint);
+    if (o.bandana) return ONJJEM_bandana(out, words, forPrint, o.sku);
     const r = targetRatio(o);
     if (r && !o.wrap) out = await ONJJEM_cropTo(out, r[0], r[1]);
     out = await ONJJEM_addCaption(out, words, capPos);
