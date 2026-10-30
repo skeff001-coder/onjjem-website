@@ -122,6 +122,7 @@ function ONJJEM_reviewsHtml() {
 const ONJJEM_GIFTS_UK = [
   ["Fridge magnets", "/magnets", "magnet fridge photo grid acrylic"],
   ["The Cosy JemBox (blanket, cushion & mug)", "/jembox", "jembox bundle box set blanket cushion mug gift set"],
+  ["Your Own Jemzi poster (your photos with Jemzi)", "/your-jemzi", "jemzi hedgehog collage poster kids nursery photos"],
   ["Glass chopping boards", "/chopping-board", "chopping cutting board glass kitchen chef cheese"],
   ["✨ Magic Reveal mug (colour-changing)", "/mug", "mug cup magic colour color changing heat reveal tea coffee"],
   ["Photo mugs", "/mug", "mug cup tea coffee photo 11oz 15oz"],
@@ -298,6 +299,32 @@ function ONJJEM_readPhoto(file) {
 
 // Lay 1–9 photos out as a grid (print-ready). Square by default; pass ratio [w,h]
 // for other shapes (e.g. playing cards [2,3]). Fewer photos repeat to fill the grid.
+// "Your Own Jemzi": up to 5 of the customer's photos as polaroids fanned above Jemzi's spikes (A3/A2 portrait).
+async function ONJJEM_buildJemzi(dataUrls, xmas) {
+  const W = 2480, H = 3508, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const g = c.getContext("2d");
+  const [bg, hog] = await Promise.all([ONJJEM_loadImg(xmas ? "/jemzi-tpl-bg-xmas.jpg" : "/jemzi-tpl-bg.jpg"), ONJJEM_loadImg(xmas ? "/jemzi-tpl-xmas.webp" : "/jemzi-tpl.webp")]);
+  g.drawImage(bg, 0, 0, W, H);
+  const imgs = await Promise.all(dataUrls.slice(0, 5).map(ONJJEM_loadImg));
+  const n = imgs.length;
+  const slots = { 1: [[0.5, 0.17, 0]], 2: [[0.33, 0.19, -7], [0.67, 0.19, 7]], 3: [[0.22, 0.24, -12], [0.5, 0.15, 0], [0.78, 0.24, 12]],
+    4: [[0.17, 0.28, -15], [0.38, 0.16, -5], [0.62, 0.16, 5], [0.83, 0.28, 15]],
+    5: [[0.15, 0.31, -16], [0.31, 0.18, -8], [0.5, 0.13, 0], [0.69, 0.18, 8], [0.85, 0.31, 16]] }[n] || [];
+  const cw = n <= 2 ? 820 : n === 3 ? 720 : 620, ch = cw * 1.18, pad = cw * 0.06;
+  imgs.forEach((im, i) => {
+    const [fx, fy, deg] = slots[i];
+    g.save(); g.translate(W * fx, H * fy); g.rotate(deg * Math.PI / 180);
+    g.shadowColor = "rgba(40,20,5,.35)"; g.shadowBlur = 40; g.shadowOffsetY = 18;
+    g.fillStyle = "#fffdf8"; g.fillRect(-cw / 2, -ch / 2, cw, ch); g.shadowColor = "transparent";
+    const s = cw - pad * 2, r = Math.max(s / im.width, s / im.height), sw = s / r, sh = s / r;
+    g.drawImage(im, (im.width - sw) / 2, (im.height - sh) / 2, sw, sh, -cw / 2 + pad, -ch / 2 + pad, s, s);
+    g.restore();
+  });
+  const hw = W * 0.86, hh = hw * hog.height / hog.width;
+  g.drawImage(hog, (W - hw) / 2, H - hh - H * 0.03, hw, hh);
+  return c.toDataURL("image/jpeg", 0.92);
+}
+
 function ONJJEM_buildCollage(dataUrls, ratio) {
   const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });
   return Promise.all(dataUrls.map(load)).then(imgs => {
@@ -829,9 +856,9 @@ function ONJJEM_renderLanding(P) {
     document.querySelectorAll(".orientBtn").forEach(x => x.style.borderColor = x.dataset.o === orient ? "var(--gold)" : "");
     if (!photos.length) document.getElementById("captionWrap").style.display = "none";
     if (!photos.length) { photo = null; box.classList.remove("has-photo"); box.innerHTML = emptyBox(); showCartoonBtn(); return; }
-    if (isMulti() && photos.length > 1) {
-      box.innerHTML = `<div class="u-text">Building your collage…</div>`;
-      photo = await ONJJEM_buildCollage(photos.slice(0, opts[selected].multi), opts[selected].ratio);
+    if (isMulti() && (photos.length > 1 || opts[selected].jemzi)) {
+      box.innerHTML = `<div class="u-text">${opts[selected].jemzi ? "Jemzi is arranging your photos…" : "Building your collage…"}</div>`;
+      photo = opts[selected].jemzi ? await ONJJEM_buildJemzi(photos.slice(0, opts[selected].multi), opts[selected].jemzi === "xmas") : await ONJJEM_buildCollage(photos.slice(0, opts[selected].multi), opts[selected].ratio);
     } else {
       photo = photos[0];
     }
