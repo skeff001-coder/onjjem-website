@@ -305,8 +305,8 @@ function ONJJEM_readPhoto(file) {
 // Pet bandana: Prodigi's print area is ONE WIDE STRIP (about 3.1-3.2:1, see table below) and the printed
 // triangle fills it: full width along the top, point at the bottom centre. So the file must be that exact
 // shape; any other shape makes Prodigi zoom (fill) or shrink (fit) it. Photo goes in the triangle, name in a band on top.
-// Print area per size from Prodigi (GET /v4.0/products/{sku}, GB variant). Small still to confirm: using Medium's shape until then.
-const ONJJEM_BANDANA_AREA = { "bandana-l": [10158, 3306], "bandana-m": [9447, 2952], "bandana-s": [9447, 2952] };
+// Print area per size from Prodigi (GET /v4.0/products/{sku}, GB variant), checked 30 Oct 2026.
+const ONJJEM_BANDANA_AREA = { "bandana-l": [10158, 3306], "bandana-m": [9447, 2952], "bandana-s": [7500, 2244] };
 async function ONJJEM_bandana(src, words, forPrint, sku) {
   const area = ONJJEM_BANDANA_AREA[sku] || ONJJEM_BANDANA_AREA["bandana-m"];
   const im = await ONJJEM_loadImg(src), W = forPrint ? 7000 : 2400, H = Math.round(W * area[1] / area[0]), c = document.createElement("canvas"); c.width = W; c.height = H;
