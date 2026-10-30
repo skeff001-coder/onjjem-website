@@ -26,7 +26,7 @@
   gtag('config', 'G-3L30Q5L3MW');
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Fredoka:wght@600;700&family=Bungee&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Fredoka:wght@600;700&family=Bungee&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="/landing.css?v=20261016b">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a" media="print" onload="this.media='all'">
 <style>
@@ -34,6 +34,17 @@
 .rm-row{display:flex;align-items:center;gap:12px;background:var(--card,#2c2c2c);border:1px solid var(--line,#444);border-radius:12px;padding:12px 14px;color:#fff;text-decoration:none}
 .rm-row.on{border-color:var(--gold,#d4af37);background:#33301f}
 .rm-new{border-color:var(--gold,#d4af37)}
+/* Friendly, colourful headings (Fredoka), with a playful Bungee style just for the Kids row */
+.lx-shop{font-family:'Fredoka','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700;font-size:clamp(1.7rem,7vw,2.3rem);letter-spacing:.01em;background:linear-gradient(90deg,#FFD24A,#FF8A3D 45%,#FF5FA2);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
+.rm-txt b{font-family:'Fredoka','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700;font-size:1.22rem;letter-spacing:.01em;color:#FFF3D6}
+.rm-xmas .rm-txt b{font-size:1.4rem;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35),0 0 12px rgba(255,200,61,.45)}
+.rm-row[data-sec="cat-living"] .rm-txt b{color:#FFD9A8}
+.rm-row[data-sec="cat-kitchen"] .rm-txt b{color:#FFE08A}
+.rm-row[data-sec="cat-giftcards"] .rm-txt b{color:#FFB7D5}
+.rm-row[data-sec="cat-games"] .rm-txt b{color:#B9E6FF}
+.rm-row[data-sec="cat-clothing"] .rm-txt b{font-family:'Bungee','Fredoka',system-ui,sans-serif;font-weight:400;font-size:1.12rem;letter-spacing:.02em;background:linear-gradient(90deg,#FF5F5F,#FFB03B,#FFE14D,#5FD97A,#4FB3FF,#B57BFF);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.45))}
+.rm-ico{font-size:1.9rem}
+
 .rm-xmas{background:linear-gradient(90deg,#7a1414,#14532d);border:2px solid #FFC83D;padding:16px 14px}.rm-xmas b{font-size:1.15rem}.rm-xmas small{color:#ffe9b0}
 #cat-christmas .tiles .xm-sub{grid-column:1/-1;font-weight:800;color:#FFC83D;font-size:1rem;margin:.6rem 0 -.2rem}
 .rm-ico{font-size:1.5rem;width:2rem;text-align:center;flex:none}
