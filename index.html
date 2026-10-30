@@ -42,17 +42,19 @@
 @media (prefers-reduced-motion:reduce){.lx-shop{animation:none}}
 .rm-ico{font-size:1.9rem}
 .cat-bar{display:none}
-/* Picture cards (like the US homepage) */
-#rmList{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-#rmList .rm-row{flex-direction:column;align-items:stretch;padding:0;gap:0;overflow:hidden;border-radius:16px;text-align:center}
-#rmList .rm-row img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
-#rmList .rm-xmas{grid-column:1/-1;padding:0}
-#rmList .rm-xmas img{aspect-ratio:2/1}
+/* One category per row: picture on the left, name on the right, clear gap between each */
+#rmList{display:flex;flex-direction:column;gap:14px}
+#rmList .rm-row{flex-direction:row;align-items:center;padding:0;gap:0;overflow:hidden;border-radius:16px;min-height:112px;border:1px solid rgba(212,175,55,.35);background:#232323}
+#rmList .rm-row img{width:112px;height:112px;flex:none;object-fit:cover;display:block}
 #rmList .rm-ico{display:none}
-#rmList .rm-txt{padding:.65rem .6rem .1rem}
-#rmList .rm-p{padding:.15rem .6rem .75rem;font-size:.82rem}
-#rmList .home-sec{grid-column:1/-1}
-@media(min-width:800px){#rmList{grid-template-columns:repeat(3,1fr)}}
+#rmList .rm-txt{padding:0 .4rem 0 1rem;text-align:left}
+#rmList .rm-txt b{font-size:1.35rem}
+#rmList .rm-txt small{font-size:.92rem;margin-top:4px}
+#rmList .rm-p{padding:0 1rem 0 .3rem;font-size:.85rem}
+#rmList .rm-xmas{border:2px solid #FFC83D;background:linear-gradient(90deg,#7a1414,#14532d)}
+#rmList .rm-xmas img{width:128px;height:128px}
+#rmList .home-sec{margin-top:-4px}
+
 
 
 .rm-xmas{background:linear-gradient(90deg,#7a1414,#14532d);border:2px solid #FFC83D;padding:16px 14px}.rm-xmas b{font-size:1.15rem}.rm-xmas small{color:#ffe9b0}
@@ -91,11 +93,11 @@
   <section class="wrap" id="shop">
     <h1 class="lx-shop" style="margin-top:0.9rem">What would you like to make?</h1>
     <div class="rm-list" id="rmList">
-      <a class="rm-row rm-new rm-xmas" href="/#cat-christmas" data-sec="cat-christmas"><img src="/xmas-wide.webp?v=2" alt="" fetchpriority="high"><span class="rm-ico">🎄</span><span class="rm-txt"><b>Christmas</b><small>Gifts to treasure</small></span><span class="rm-p">from £5.99 ›</span></a>
+      <a class="rm-row rm-new rm-xmas" href="/#cat-christmas" data-sec="cat-christmas"><img src="/cat-christmas.webp" alt="" fetchpriority="high"><span class="rm-ico">🎄</span><span class="rm-txt"><b>Christmas</b><small>Gifts to treasure</small></span><span class="rm-p">from £5.99 ›</span></a>
       <a class="rm-row" href="/#cat-living" data-sec="cat-living"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><span class="rm-ico">🛋️</span><span class="rm-txt"><b>Home</b><small>Cosy &amp; personal</small></span><span class="rm-p">from £3.99 ›</span></a>
       <a class="rm-row" href="/#cat-kitchen" data-sec="cat-kitchen"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><span class="rm-ico">☕</span><span class="rm-txt"><b>Kitchen</b><small>Everyday favourites</small></span><span class="rm-p">from £7.49 ›</span></a>
       <a class="rm-row" href="/#cat-clothing" data-sec="cat-clothing"><img src="/cat-kids.webp" alt="" loading="lazy"><span class="rm-ico">👕</span><span class="rm-txt"><b>Clothing</b><small>Wear your photo</small></span><span class="rm-p">from £5.99 ›</span></a>
-      <a class="rm-row" href="/#cat-games" data-sec="cat-games"><img src="/home/greeting-cards.webp?v=1" alt="" loading="lazy"><span class="rm-ico">🎉</span><span class="rm-txt"><b>Fun</b><small>Cards &amp; games</small></span><span class="rm-p">from £5.99 ›</span></a>
+      <a class="rm-row" href="/#cat-games" data-sec="cat-games"><img src="/home/cards.webp?v=2" alt="" loading="lazy"><span class="rm-ico">🎉</span><span class="rm-txt"><b>Fun</b><small>Cards &amp; games</small></span><span class="rm-p">from £5.99 ›</span></a>
       <a class="rm-row" href="/#cat-giftcards" data-sec="cat-giftcards"><img src="/products/gift-card-onjjem-sq.webp" alt="" loading="lazy"><span class="rm-ico">🎁</span><span class="rm-txt"><b>Gift Cards</b><small>Sent in minutes</small></span><span class="rm-p">from £5 ›</span></a>
     </div>
     <div id="rmOpen"></div>
