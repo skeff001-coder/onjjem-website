@@ -1032,6 +1032,19 @@ function ONJJEM_renderLanding(P) {
     const collage = isMulti() && photos.length > 1; // cartoons are for single photos
     if (P.cartoon && !collage && !isTextDesign && !isPresetDesign && typeof ONJJEM_showPhotoPreview === "function") {
       ONJJEM_showPhotoPreview(photo, cartoonOpts => then(cartoonOpts));
+    } else if (opts[selected].jemzi || opts[selected].hideJemzi) {
+      // Jemzi designs: show the finished design big, and only continue once they're happy.
+      finalize(photo, isTextDesign ? "" : capText.value, false).then(img => {
+        const ov = document.createElement("div"); ov.className = "cartoon-preview-overlay";
+        ov.innerHTML = `<div class="cartoon-preview-card" style="text-align:center"><div class="cartoon-preview-title">${opts[selected].hideJemzi ? "Here's your Jemzsaw! Can you spot Jemzi? 🦔" : "Here's your Jemzi! 💛"}</div>
+          <img src="${img}" alt="Your design" style="width:100%;max-height:62vh;object-fit:contain;border-radius:10px;background:#fff;margin:.4rem 0 .7rem">
+          <p class="cartoon-email-note">This is exactly how it will be printed.</p>
+          <button class="cartoon-btn-primary" data-a="ok" style="width:100%">Love it, continue →</button>
+          <button class="cartoon-btn-secondary" data-a="no" style="width:100%;margin-top:.5rem">Change my photos</button></div>`;
+        document.body.appendChild(ov);
+        ov.querySelector('[data-a="ok"]').onclick = () => { ov.remove(); then(null); };
+        ov.querySelector('[data-a="no"]').onclick = () => { ov.remove(); box.scrollIntoView({ behavior: "smooth", block: "center" }); };
+      });
     } else {
       then(null);
     }
