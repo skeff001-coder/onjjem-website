@@ -43,8 +43,12 @@
 @media (prefers-reduced-motion:reduce){.lx-shop{animation:none}}
 .rm-ico{font-size:1.9rem}
 .cat-bar{display:none}
+.jz-tap{display:inline-block;margin-left:.2rem;color:#f3d36b;font-weight:700;font-size:.85rem;animation:jzp 1.6s ease-in-out infinite}@keyframes jzp{50%{opacity:.45}}
+.jz-help{max-width:520px;margin:.5rem auto 0;background:#232323;border:1px solid rgba(212,175,55,.35);border-radius:16px;padding:.8rem}.jz-q{margin:0 0 .5rem;font-family:"Playfair Display",Georgia,serif;font-weight:700;color:#F6EBD4;font-size:1.1rem;text-align:center}
+.jz-chips{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center}.jz-chips a{background:#2e2a20;border:1px solid rgba(212,175,55,.4);color:#F6EBD4;text-decoration:none;border-radius:20px;padding:.45rem .75rem;font-size:.9rem}
+.jz-search{display:flex;gap:.4rem;margin-top:.7rem}.jz-search input{flex:1;min-width:0;padding:.7rem .8rem;border-radius:12px;border:1px solid #555;background:#1b1b1b;color:#fff;font-size:1rem}.jz-search button{background:linear-gradient(90deg,#d4af37,#f3d36b);border:0;border-radius:12px;padding:0 1rem;font-weight:800;color:#2a1a05}
 .jz-pick{display:inline-block;background:linear-gradient(90deg,#d4af37,#f3d36b);color:#2a1a05;font:800 .72rem/1 system-ui,sans-serif;padding:.3rem .55rem;border-radius:20px;margin-bottom:.35rem;letter-spacing:.02em}
-.jz-hi{display:flex;align-items:center;gap:.8rem;max-width:520px;margin:.9rem auto 0;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:18px;padding:.5rem .9rem .5rem .5rem}.jz-hi img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none;background:#fff}.jz-hi p{margin:0;font-size:1rem;line-height:1.35;color:#F6EBD4}.jz-hi b{color:#f3d36b;font-family:"Playfair Display",Georgia,serif;font-size:1.12rem}
+.jz-hi{width:100%;font:inherit;text-align:left;cursor:pointer;display:flex;align-items:center;gap:.8rem;max-width:520px;margin:.9rem auto 0;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:18px;padding:.5rem .9rem .5rem .5rem}.jz-hi img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none;background:#fff}.jz-hi p{margin:0;font-size:1rem;line-height:1.35;color:#F6EBD4}.jz-hi b{color:#f3d36b;font-family:"Playfair Display",Georgia,serif;font-size:1.12rem}
 /* One category per row: picture on the left, name on the right, clear gap between each */
 #rmList{display:flex;flex-direction:column;gap:14px}
 #rmList .rm-row{flex-direction:row;align-items:center;padding:0;gap:0;overflow:hidden;border-radius:16px;min-height:112px;border:1px solid rgba(212,175,55,.35);background:#232323}
@@ -96,7 +100,23 @@
   </div></div>
 
   <section class="wrap" id="shop">
-    <div class="jz-hi"><img src="/jemzi.webp" alt="Jemzi the ONJJEM hedgehog" width="120" height="120"><p><b>Hi, I'm Jemzi!</b> Pick a gift and I'll help make it yours 💛</p></div>
+    <button type="button" class="jz-hi" id="jzHi" aria-expanded="false" aria-controls="jzHelp"><img src="/jemzi.webp" alt="Jemzi the ONJJEM hedgehog" width="120" height="120"><p><b>Hi, I'm Jemzi!</b> How can I help you today? <span class="jz-tap">Tap me 💛</span></p></button>
+    <div class="jz-help" id="jzHelp" hidden>
+      <p class="jz-q">Who's the gift for?</p>
+      <div class="jz-chips">
+        <a href="/blanket">👵 Nan &amp; Grandad</a><a href="/mug">👩 Mum</a><a href="/canvas">👨 Dad</a><a href="/#cat-clothing">🧒 The kids</a>
+        <a href="/mug?pick=magic-mug">🐶 Pet lovers</a><a href="/jembox">💑 Someone special</a><a href="/#cat-christmas">⭐ Under £15</a><a href="/gift-cards.html">🎁 Not sure? Jemzcard</a>
+      </div>
+      <form class="jz-search" onsubmit="var v=this.q.value.trim();if(!v)return false;try{gtag('event','jemzi_help',{action:'search',label:v})}catch(e){};var g=document.getElementById('gsearch');if(g){g.value=v;ONJJEM_search({type:'submit',preventDefault:function(){}});ONJJEM_search({type:'input'});g.scrollIntoView({behavior:'smooth',block:'center'});}return false;">
+        <input name="q" type="search" placeholder="Or type: mug, blanket, canvas…" enterkeyhint="search" autocomplete="off"><button type="submit">Find</button>
+      </form>
+    </div>
+    <script>
+    (function(){var b=document.getElementById('jzHi'),h=document.getElementById('jzHelp');if(!b||!h)return;
+      b.addEventListener('click',function(){var open=h.hidden;h.hidden=!open;b.setAttribute('aria-expanded',open);try{gtag('event','jemzi_help',{action:open?'open':'close'})}catch(e){};if(open)setTimeout(function(){h.scrollIntoView({behavior:'smooth',block:'nearest'})},50);});
+      h.querySelectorAll('.jz-chips a').forEach(function(a){a.addEventListener('click',function(){try{gtag('event','jemzi_help',{action:'chip',label:a.textContent})}catch(e){}});});
+    })();
+    </script>
     <h1 class="lx-shop" style="margin-top:0.4rem">What would you like to make?</h1>
     <div class="rm-list" id="rmList">
       <a class="rm-row" href="/#cat-walls" data-sec="cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span class="rm-ico">🖼️</span><span class="rm-txt"><b>Wall Art</b><small>The Jemstone Collection</small></span><span class="rm-p">from £3.99 ›</span></a>
