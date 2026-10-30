@@ -121,6 +121,7 @@ function ONJJEM_reviewsHtml() {
 // ── Gift search: live suggestions from the first few letters ("mag" → magnets) ──
 const ONJJEM_GIFTS_UK = [
   ["Fridge magnets", "/magnets", "magnet fridge photo grid acrylic"],
+  ["The Cosy JemBox (blanket, cushion & mug)", "/jembox", "jembox bundle box set blanket cushion mug gift set"],
   ["Glass chopping boards", "/chopping-board", "chopping cutting board glass kitchen chef cheese"],
   ["✨ Magic Reveal mug (colour-changing)", "/mug", "mug cup magic colour color changing heat reveal tea coffee"],
   ["Photo mugs", "/mug", "mug cup tea coffee photo 11oz 15oz"],
@@ -1215,13 +1216,13 @@ async function ONJJEM_openBasket() {
   const sub = items.reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   const pct = ONJJEM_bundlePercent(items.filter(i => i.sku !== "mug-addon").length);
   // Low-margin gifts (golf balls) count towards the deal but aren't discounted themselves.
-  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-|mug-addon$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
+  const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-|mug-addon$|cosy-bundle$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
   // Black Friday (UK, until 30 Nov): 15% off canvases, mugs, prints, posters, cushions; the bundle % still applies to the other gifts.
   const BF_ON = !ONJJEM_isUS() && Date.now() < Date.parse("2026-12-01T00:00:00Z");
   const bfOk = sku => /^(canvas-|mug-11oz$|mug-15oz$|magic-mug$|art-print-|poster-|cushion-|CLASSIC-POST)/.test(String(sku || ""));
   const bfSub = BF_ON ? items.filter(i => bfOk(i.sku)).reduce((a, i) => a + i.price, 0) : 0;
   const bfDisc = Math.round(bfSub * 15) / 100;
-  const disc = bfDisc ? bfDisc + Math.round(items.filter(i => !bfOk(i.sku) && !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-|mug-addon$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0) * pct) / 100 : Math.round(eligibleSub * pct) / 100;
+  const disc = bfDisc ? bfDisc + Math.round(items.filter(i => !bfOk(i.sku) && !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-|mug-addon$|cosy-bundle$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0) * pct) / 100 : Math.round(eligibleSub * pct) / 100;
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
   panel.innerHTML = `
     <div class="cartoon-preview-card basket-card">
