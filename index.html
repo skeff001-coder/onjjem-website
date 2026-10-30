@@ -44,6 +44,7 @@
 .rm-row[data-sec="cat-games"] .rm-txt b{color:#B9E6FF}
 .rm-row[data-sec="cat-clothing"] .rm-txt b{font-family:'Bungee','Fredoka',system-ui,sans-serif;font-weight:400;font-size:1.12rem;letter-spacing:.02em;background:linear-gradient(90deg,#FF5F5F,#FFB03B,#FFE14D,#5FD97A,#4FB3FF,#B57BFF);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.45))}
 .rm-ico{font-size:1.9rem}
+.cat-bar{display:none}
 
 .rm-xmas{background:linear-gradient(90deg,#7a1414,#14532d);border:2px solid #FFC83D;padding:16px 14px}.rm-xmas b{font-size:1.15rem}.rm-xmas small{color:#ffe9b0}
 #cat-christmas .tiles .xm-sub{grid-column:1/-1;font-weight:800;color:#FFC83D;font-size:1rem;margin:.6rem 0 -.2rem}
@@ -65,8 +66,8 @@
   try { if (sessionStorage.getItem('onjjem_gw_closed')) return; } catch(e){}
   var us=/^\/us(\/|$)/.test(location.pathname)||/region=us/.test(location.search);
   var b=document.createElement('div');
-  b.setAttribute('style','position:relative;z-index:50;background:linear-gradient(90deg,#E8287F,#FF8A1C);color:#fff;font:700 15px/1.35 system-ui,sans-serif;text-align:center;padding:11px 40px 11px 14px');
-  b.innerHTML='🎁 <b>GIVEAWAY:</b> win a '+(us?'$50':'£40')+' gift card + your photo printed free! <a href="/giveaway#enter" style="color:#fff;text-decoration:underline">Enter free →</a>'+
+  b.setAttribute('style','position:relative;z-index:50;background:linear-gradient(90deg,#E8287F,#FF8A1C);color:#fff;font:700 14px/1.3 system-ui,sans-serif;text-align:center;padding:8px 36px 8px 12px');
+  b.innerHTML='🎁 Win a '+(us?'$50':'£40')+' gift card, free to enter <a href="/giveaway#enter" style="color:#fff;text-decoration:underline">Enter →</a>'+
     '<button aria-label="Close" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:20px;cursor:pointer">×</button>';
   b.querySelector('a').onclick=function(){try{gtag('event','giveaway_banner_click');}catch(e){}};
   b.querySelector('button').onclick=function(){b.remove();try{sessionStorage.setItem('onjjem_gw_closed','1')}catch(e){}};
@@ -78,8 +79,8 @@
 (function(){
   if (new Date() >= new Date("2026-12-01T00:00:00Z")) return;
   var b=document.createElement('a'); b.href='/canvas';
-  b.setAttribute('style','display:block;position:relative;z-index:51;background:#111;color:#fff;font:800 16px/1.35 system-ui,sans-serif;text-align:center;padding:12px 14px;text-decoration:none;border-bottom:3px solid #FFC83D');
-  b.innerHTML='🖤 <span style="color:#FFC83D">BLACK FRIDAY STARTS NOW</span> · 15% off canvases, mugs, prints &amp; cushions · No code needed · Ends Mon 30 Nov <u>Shop →</u>';
+  b.setAttribute('style','display:block;position:relative;z-index:51;background:#111;color:#fff;font:800 14px/1.3 system-ui,sans-serif;text-align:center;padding:8px 12px;text-decoration:none;border-bottom:3px solid #FFC83D');
+  b.innerHTML='🖤 <span style="color:#FFC83D">BLACK FRIDAY</span> · 15% off, no code needed <u>Shop →</u>';
   b.onclick=function(){try{gtag('event','bf_banner_click');}catch(e){}};
   (document.body||document.documentElement).insertBefore(b,document.body.firstChild);
 })();
@@ -93,14 +94,8 @@
     <p style="margin-top:0.6rem"><strong>A thank-you from us:</strong> use code <strong>THANKYOU15</strong> for 15% off your next gift. It's printed on the note in your parcel too.</p>
   </div></div>
 
-  <section class="wrap lx-hero">
-    <div class="lx-kicker">Personalised gifts · Made in the UK</div>
-    <h1 class="lx-h1">Your photos, made into beautiful gifts</h1>
-    <p class="lx-sub">Blankets, wall art, cushions, mugs and more, made from any photo. Free UK delivery.</p>
-  </section>
-
   <section class="wrap" id="shop">
-    <h2 class="lx-shop">What would you like to make?</h2>
+    <h1 class="lx-shop" style="margin-top:0.9rem">Your photos, made into gifts</h1>
     <div class="rm-list" id="rmList">
       <a class="rm-row rm-new rm-xmas" href="/#cat-christmas" data-sec="cat-christmas"><span class="rm-ico">🎄</span><span class="rm-txt"><b>Christmas Gift Shop</b><small>Stocking fillers, baubles, posters, magnets, sweatshirts</small></span><span class="rm-p">from £5.99 ›</span></a>
       <a class="rm-row" href="/#cat-living" data-sec="cat-living"><span class="rm-ico">🛋️</span><span class="rm-txt"><b>Home &amp; Wall Art</b><small>Blankets, canvases, cushions, posters, prints</small></span><span class="rm-p">from £3.99 ›</span></a>
