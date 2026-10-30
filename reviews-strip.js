@@ -20,7 +20,7 @@
     var q = el.querySelector(".rv-q"), i = Math.floor(Math.random() * R.length);
     function show() {
       var r = R[i % R.length];
-      q.innerHTML = "“" + r[0] + "”<span class=\"rv-who\">" + r[1] + " · bought a " + r[2] + "</span>";
+      q.innerHTML = "“" + r[0] + "”<span class=\"rv-who\">" + r[1] + " · bought " + (/s$/.test(r[2]) ? "" : "a ") + r[2] + "</span>";
       q.style.opacity = 1;
     }
     show();
