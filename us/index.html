@@ -28,6 +28,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="/landing.css?v=20261030b">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a" media="print" onload="this.media='all'">
+<style>
+.jz-hi{width:100%;font:inherit;text-align:left;cursor:pointer;display:flex;align-items:center;gap:.8rem;max-width:520px;margin:.9rem auto 0;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:18px;padding:.5rem .9rem .5rem .5rem}.jz-hi img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none;background:#fff}.jz-hi p{margin:0;font-size:1rem;line-height:1.35;color:#F6EBD4}.jz-hi b{color:#f3d36b;font-family:"Playfair Display",Georgia,serif;font-size:1.12rem}
+.jz-tap{display:inline-block;margin-left:.2rem;color:#f3d36b;font-weight:700;font-size:.85rem;animation:jzp 1.6s ease-in-out infinite}@keyframes jzp{50%{opacity:.45}}
+.jz-help{max-width:520px;margin:.5rem auto 0;background:#232323;border:1px solid rgba(212,175,55,.35);border-radius:16px;padding:.8rem;text-align:center}.jz-q{margin:0 0 .5rem;font-family:"Playfair Display",Georgia,serif;font-weight:700;color:#F6EBD4;font-size:1.1rem}
+.jz-chips{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center}.jz-chips a{background:#2e2a20;border:1px solid rgba(212,175,55,.4);color:#F6EBD4;text-decoration:none;border-radius:20px;padding:.45rem .75rem;font-size:.9rem}
+.jz-search{display:flex;gap:.4rem;margin-top:.7rem}.jz-search input{flex:1;min-width:0;padding:.7rem .8rem;border-radius:12px;border:1px solid #555;background:#1b1b1b;color:#fff;font-size:1rem}.jz-search button{background:linear-gradient(90deg,#d4af37,#f3d36b);border:0;border-radius:12px;padding:0 1rem;font-weight:800;color:#2a1a05}
+.lx-shop{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(1.6rem,6.5vw,2.1rem);text-align:center;background:linear-gradient(100deg,#8a6a1f 0%,#d4af37 22%,#fff1b8 42%,#e8c75a 58%,#a67c1e 80%,#f3dc8a 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:goldShine 6s linear infinite}@keyframes goldShine{to{background-position:200% center}}
+.cat-card span{font-family:'Playfair Display',Georgia,serif;color:#F6EBD4;font-size:1.05rem}
+.cat-card{border:1px solid rgba(212,175,55,.35)}
+.jz-pick{display:inline-block;background:linear-gradient(90deg,#d4af37,#f3d36b);color:#2a1a05;font:800 .72rem/1 system-ui,sans-serif;padding:.3rem .55rem;border-radius:20px;margin-bottom:.35rem}
+</style>
 </head>
 <body>
 <div id="hdr"></div>
@@ -40,21 +51,36 @@
   </div></div>
 
 
-  <section class="wrap" style="text-align:center;padding-top:14px">
-    <h1 style="margin:0 0 6px;font-size:1.7rem;line-height:1.2">Personalized photo gifts, made in the USA</h1>
-    <p style="margin:0 auto;max-width:520px;color:var(--muted,#c9c9c9)">Blankets, wall tapestries, canvases, mugs and more from any photo. Free US shipping.</p>
+  <section class="wrap" style="text-align:center;padding-top:6px">
+    <button type="button" class="jz-hi" id="jzHi" aria-expanded="false" aria-controls="jzHelp"><img src="/jemzi.webp" alt="Jemzi the ONJJEM hedgehog" width="120" height="120"><p><b>Hi, I'm Jemzi!</b> How can I help you today? <span class="jz-tap">Tap me 💛</span></p></button>
+    <div class="jz-help" id="jzHelp" hidden>
+      <p class="jz-q">Who's the gift for?</p>
+      <div class="jz-chips">
+        <a href="/us/blanket">👵 Grandma &amp; Grandpa</a><a href="/us/mug">👩 Mom</a><a href="/us/golf">👨 Dad</a><a href="/us/tshirts">🧒 The kids</a>
+        <a href="/us/canvas">🐶 Pet lovers</a><a href="/us/tapestry">💑 Someone special</a><a href="/us/christmas">🎄 Christmas</a><a href="/us/gift-cards">🎁 Not sure? Jemzcard</a>
+      </div>
+      <form class="jz-search" onsubmit="var v=this.q.value.trim();if(!v)return false;try{gtag('event','jemzi_help',{action:'search',label:v})}catch(e){};var g=document.getElementById('gsearch');if(g){g.value=v;ONJJEM_search({type:'submit',preventDefault:function(){}});ONJJEM_search({type:'input'});g.scrollIntoView({behavior:'smooth',block:'center'});}return false;">
+        <input name="q" type="search" placeholder="Or type: mug, blanket, tapestry…" enterkeyhint="search" autocomplete="off"><button type="submit">Find</button>
+      </form>
+    </div>
+    <script>
+    (function(){var b=document.getElementById('jzHi'),h=document.getElementById('jzHelp');if(!b||!h)return;
+      b.addEventListener('click',function(){var open=h.hidden;h.hidden=!open;b.setAttribute('aria-expanded',open);try{gtag('event','jemzi_help',{action:open?'open':'close'})}catch(e){};if(open)setTimeout(function(){h.scrollIntoView({behavior:'smooth',block:'nearest'})},50);});
+    })();
+    </script>
     <div class="rv-strip"></div>
   </section>
 
   <section class="wrap home-shop" id="shop">
-    <h2 class="home-h2">Shop by category</h2>
+    <h2 class="home-h2 lx-shop">What would you like to make?</h2>
     <div class="cat-grid">
       <a class="cat-card wide" href="#cat-tapestries"><img src="/tapestry-hero-scenic.webp" alt="" fetchpriority="high"><span>Wall tapestries: your photo or scenery</span></a>
       <a class="cat-card" href="#cat-home"><img src="/cat-home-us.webp" alt="" loading="lazy"><span>Blankets, tapestries &amp; home</span></a>
       <a class="cat-card" href="#cat-walls"><img src="/cat-poster.webp" alt="" loading="lazy"><span>Prints &amp; posters</span></a>
       <a class="cat-card" href="#cat-clothing"><img src="/cat-kids.webp" alt="" loading="lazy"><span>T-shirts &amp; hoodies</span></a>
       <a class="cat-card" href="#cat-sports"><img src="/cat-sports.webp" alt="" loading="lazy"><span>Sports &amp; games</span></a>
-      <a class="cat-card" href="#cat-christmas"><img src="/cat-christmas.webp" alt="" loading="lazy"><span>Christmas</span></a>
+      <a class="cat-card" href="#cat-christmas"><img src="/jemzi-xmas.webp" alt="" loading="lazy" style="background:#fff"><span>Christmas</span></a>
+      <a class="cat-card" href="/us/gift-cards"><img src="/products/us-gift-card-sq.webp" alt="" loading="lazy"><span>Jemzcard gift cards</span></a>
     </div>
     <p class="home-deal">Save 10% on 2 gifts · 12% on 3 or more</p>
   </section>
@@ -72,7 +98,7 @@
   <section class="wrap home-sec home-sec-main" id="cat-tapestries">
     <div class="home-sec-head"><h2>🏔️ Wall tapestries</h2><a href="#shop">All categories ↑</a></div>
     <div class="tiles">
-        <a class="tile" href="/us/tapestry"><img src="/tapestry-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>Your photo, pet or family on a tapestry</h3><div class="t-price">From $44.99</div></div></a>
+        <a class="tile" href="/us/tapestry"><img src="/tapestry-hero.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>Your photo, pet or family on a tapestry</h3><div class="t-price">From $44.99</div></div></a>
         <a class="tile" href="/us/tapestry"><img src="/products/designs/tap-cliffs-1-thumb.webp" alt="" loading="lazy"><div class="t-body"><h3>Scenery tapestries: cliffs, Alps, Santorini &amp; more</h3><div class="t-price">From $44.99</div></div></a>
     </div>
   </section>
@@ -80,7 +106,7 @@
   <section class="wrap home-sec" id="cat-home">
     <div class="home-sec-head"><h2>🛋️ Blankets, tapestries &amp; home décor</h2><a href="#shop">All categories ↑</a></div>
     <div class="tiles">
-        <a class="tile" href="/us/blanket"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><div class="t-body"><h3>Photo fleece blankets</h3><div class="t-price">From $49.99</div></div></a>
+        <a class="tile" href="/us/blanket"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>Photo fleece blankets</h3><div class="t-price">From $49.99</div></div></a>
         <a class="tile" href="/us/bedspread"><img src="/us/bedspread-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo bedspreads, Twin to King</h3><div class="t-price">From $119.99</div></div></a>
         <a class="tile" href="/us/shower-curtain"><img src="/us/curtain-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Shower curtains: beach designs or your photo</h3><div class="t-price">From $79.99</div></div></a>
         <a class="tile" href="/us/tote"><img src="/tote-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Woven photo tote bags</h3><div class="t-price">$50.99</div></div></a>
@@ -92,7 +118,7 @@
   <section class="wrap home-sec" id="cat-walls">
     <div class="home-sec-head"><h2>📸 Photo prints &amp; posters</h2><a href="#shop">All categories ↑</a></div>
     <div class="tiles">
-        <a class="tile" href="/us/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>NEW: Photo canvases, ready to hang</h3><div class="t-price">From $64.99</div></div></a>
+        <a class="tile" href="/us/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>NEW: Photo canvases, ready to hang</h3><div class="t-price">From $64.99</div></div></a>
         <a class="tile" href="/us/poster-hanger"><img src="/hanger-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>NEW: Wooden poster hangers</h3><div class="t-price">From $39.99</div></div></a>
         <a class="tile" href="/us/prints"><img src="/prints-real.webp" alt="" loading="lazy"><div class="t-body"><h3>Photo prints 8×10″ to 16×20″</h3><div class="t-price">From $19.99</div></div></a>
         <a class="tile" href="/us/prints"><img src="/us/poster-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Giant posters up to 24×36″</h3><div class="t-price">From $39.99</div></div></a>
@@ -103,7 +129,7 @@
   <section class="wrap home-sec" id="cat-gifts">
     <div class="home-sec-head"><h2>☕ Mugs, tumblers &amp; desk gifts</h2><a href="#shop">All categories ↑</a></div>
     <div class="tiles">
-        <a class="tile" href="/us/mug"><img src="/us/mug-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo mugs</h3><div class="t-price">From $24.99</div></div></a>
+        <a class="tile" href="/us/mug"><img src="/us/mug-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>Photo mugs</h3><div class="t-price">From $24.99</div></div></a>
         <a class="tile" href="/us/tumbler"><img src="/us/tumbler-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Tumblers &amp; water bottles</h3><div class="t-price">From $32.99</div></div></a>
         <a class="tile" href="/us/mousemat"><img src="/mousemat-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo mouse mats</h3><div class="t-price">$22.99</div></div></a>
         <a class="tile" href="/us/gift-cards"><img src="/products/us-gift-card-sq.webp" alt="" loading="lazy"><div class="t-body"><h3>🎁 Gift cards (emailed instantly)</h3><div class="t-price">From $10</div></div></a>
