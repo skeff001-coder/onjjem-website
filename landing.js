@@ -140,7 +140,7 @@ const ONJJEM_GIFTS_UK = [
   ["Kids t-shirts, jigsaws & cards", "/kids.html", "kids children tshirt tee shirt jigsaw puzzle card"],
   ["Cartoon stickers", "/stickers", "sticker cartoon decal"],
   ["Photo pin badges", "/badges", "badge pin button"],
-  ["Photo tattoos & iron-on patches", "/frames-gifts.html", "tattoo patch iron on"],
+  ["Temporary photo tattoos & patches", "/frames-gifts.html", "tattoo tattoos temporary patch iron on"],
   ["Christmas sweatshirts", "/christmas-sweatshirt", "christmas xmas jumper sweatshirt family"],
   ["Christmas baubles & Santa sacks", "/christmas", "christmas xmas bauble santa sack stocking ornament"],
   ["Your dog on a Christmas bauble", "/bauble", "bauble dog pet ornament christmas tree"],
