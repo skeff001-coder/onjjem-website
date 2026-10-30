@@ -121,6 +121,7 @@ function ONJJEM_reviewsHtml() {
 // ── Gift search: live suggestions from the first few letters ("mag" → magnets) ──
 const ONJJEM_GIFTS_UK = [
   ["Fridge magnets", "/magnets", "magnet fridge photo grid acrylic"],
+  ["Glass chopping boards", "/chopping-board", "chopping cutting board glass kitchen chef cheese"],
   ["✨ Magic Reveal mug (colour-changing)", "/mug", "mug cup magic colour color changing heat reveal tea coffee"],
   ["Photo mugs", "/mug", "mug cup tea coffee photo 11oz 15oz"],
   ["Luxury photo throws (fleece blankets)", "/blanket", "blanket throw fleece sofa bed cosy"],
@@ -471,7 +472,15 @@ const ONJJEM_TEXT_THEMES = [
   { name: "Gold", bg: "#141414", fg: "#e8c75a" },
   { name: "Pink", bg: "#ffd6e5", fg: "#b0144f" },
   { name: "Christmas", bg: "#b3121f", fg: "#ffffff" },
-  { name: "Mint", bg: "#d8f3e6", fg: "#0f5a3c" }
+  { name: "Mint", bg: "#d8f3e6", fg: "#0f5a3c" },
+  { name: "Red & white", bg: "#c8102e", fg: "#ffffff" },
+  { name: "Navy & white", bg: "#0b1f4b", fg: "#ffffff" },
+  { name: "Royal blue", bg: "#034694", fg: "#ffffff" },
+  { name: "Sky blue", bg: "#6cabdd", fg: "#ffffff" },
+  { name: "Claret & blue", bg: "#7a263a", fg: "#9fd3f3" },
+  { name: "Black & white", bg: "#111111", fg: "#ffffff" },
+  { name: "Green & white", bg: "#00843d", fg: "#ffffff" },
+  { name: "Gold & black", bg: "#fdb913", fg: "#111111" }
 ];
 const ONJJEM_TEXT_FONTS = [
   { name: "Bold", css: "800 {px}px -apple-system, 'Helvetica Neue', Arial, sans-serif" },
@@ -623,6 +632,7 @@ function ONJJEM_renderLanding(P) {
         <input type="file" id="photoInput" accept="image/*" style="display:none">
         ${P.makerHtml ? `<div id="makerWrap">${P.makerHtml}</div>` : ""}
         <div class="upload" id="uploadBox" role="button" tabindex="0"${P.designsOnly ? ' style="display:none"' : ""}></div>
+        ${P.textButton ? `<button type="button" class="btn btn-ghost" id="typeBtn" style="width:100%;margin-top:0.6rem">✏️ ${esc(P.textButton)}</button>` : ""}
         ${P.designs ? `<div id="designWrap" style="display:none;margin-top:0.9rem">
           <span style="font-weight:700;display:block;margin-bottom:0.45rem">${esc(P.designsLabel || "…or pick one of our designs 👇")}</span>
           <div class="design-grid">${P.designs.map((d, i) => `<button type="button" class="design-tile" data-d="${i}"><img src="${d.thumb}" alt="${esc(d.name)}" loading="lazy"${P.designAspect ? ` style="aspect-ratio:${P.designAspect}"` : ""}><span>${esc(d.name)}</span></button>`).join("")}</div>
