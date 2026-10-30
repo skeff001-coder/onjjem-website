@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="/jemzi-64.png"><link rel="apple-touch-icon" href="/apple-touch-icon-jemzi.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalised Pet Bandanas | ONJJEM</title>
+<meta name="description" content="Your pet's face, cartoon or name on a soft dog bandana. Small, medium or large. From £17.99, made in the UK, free delivery.">
+<link rel="canonical" href="https://onjjem.com/pet-bandana">
+<meta property="og:title" content="Personalised Pet Bandanas | ONJJEM">
+<meta property="og:description" content="Your pet's face, cartoon or name on a soft dog bandana. Small, medium or large. From £17.99, made in the UK, free delivery.">
+<meta property="og:image" content="https://onjjem.com/bandana-hero.jpg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('notrack') === '1') localStorage.setItem('onjjem_notrack', '1');
+    if (q.get('notrack') === '0') localStorage.removeItem('onjjem_notrack');
+    if (localStorage.getItem('onjjem_notrack')) window['ga-disable-G-3L30Q5L3MW'] = true;
+  } catch (e) {}
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<link rel="stylesheet" href="/landing.css?v=20261030b">
+<link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.ONJJEM_CARTOON_STYLE = "christmas";
+window.PAGE = {
+  kicker: "🐾 For the furry family",
+  title: "Their own personalised bandana",
+  sub: "Your dog's (or cat's!) face, a Christmas cartoon of them, or their name on a soft polyester bandana. Perfect for Christmas photos, walks and showing off.",
+  heroImg: "/bandana-hero.jpg",
+  heroAlt: "Personalised pet bandana with a dog's face and name",
+  ticks: [
+    "Their photo, a free Christmas cartoon, or their name",
+    "Soft polyester, three sizes",
+    "Made in the UK with free delivery",
+    "Order by 12 December for Christmas"
+  ],
+  cta: "Make their bandana",
+  optionWord: "their bandana",
+  orderTitle: "Make your pet's bandana",
+  cartoon: true,
+  textButton: "Or just type their name",
+  photoHint: "A close-up of their face works best. Keep the face in the middle and top of the picture.",
+  captionLabel: "Add their name? e.g. Biscuit",
+  options: [
+    { sku: "bandana-s", ratio: [591, 374], name: "Small bandana (15×9.5cm print)", note: "Cats, puppies and small dogs", price: 17.99 },
+    { sku: "bandana-m", ratio: [866, 551], name: "Medium bandana (22×14cm print)", note: "Most dogs: spaniels, terriers, beagles", price: 17.99, badge: "POPULAR", default: true },
+    { sku: "bandana-l", ratio: [1102, 669], name: "Large bandana (28×17cm print)", note: "Big dogs: labradors, retrievers, shepherds", price: 19.99 }
+  ],
+  faq: [
+    ["Which size should I choose?", "Small for cats, puppies and small breeds, medium for most dogs, and large for big breeds like labradors."],
+    ["How is my picture placed?", "The bandana is a triangle, so keep the face or name in the middle and towards the top. The preview shows the printed area."],
+    ["Can I use a Christmas cartoon?", "Yes. Tap the cartoon button for a free preview of them as a Christmas cartoon. From 1 November it's free."],
+    ["Is it washable?", "Yes, hand wash cool and let it air dry."],
+    ["What if something's wrong?", "Email hello@onjjem.com with a photo and we'll put it right with a replacement or refund."]
+  ]
+};
+</script>
+<script src="/landing.js?v=20261030m"></script>
+<script src="/cartoonify-shared.js?v=20261026x"></script>
+</body>
+</html>

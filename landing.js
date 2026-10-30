@@ -124,6 +124,7 @@ const ONJJEM_GIFTS_UK = [
   ["The Cosy JemBox (blanket, cushion & mug)", "/jembox", "jembox bundle box set blanket cushion mug gift set"],
   ["Your Own Jemzi poster (your photos with Jemzi)", "/your-jemzi", "jemzi hedgehog collage poster kids nursery photos"],
   ["Jemzsaw: find-Jemzi photo jigsaw", "/jemzsaw", "jemzsaw jigsaw puzzle game family hedgehog jemzi"],
+  ["Personalised pet bandana", "/pet-bandana", "pet dog cat bandana scarf collar puppy"],
   ["Glass chopping boards", "/chopping-board", "chopping cutting board glass kitchen chef cheese"],
   ["✨ Magic Reveal mug (colour-changing)", "/mug", "mug cup magic colour color changing heat reveal tea coffee"],
   ["Photo mugs", "/mug", "mug cup tea coffee photo 11oz 15oz"],
