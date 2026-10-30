@@ -302,30 +302,33 @@ function ONJJEM_readPhoto(file) {
 
 // Lay 1–9 photos out as a grid (print-ready). Square by default; pass ratio [w,h]
 // for other shapes (e.g. playing cards [2,3]). Fewer photos repeat to fill the grid.
-// Pet bandana: Prodigi prints a square file but only the triangle below the tie line shows.
-// Fill the triangle with the photo (face near the top middle) and put the name inside it.
+// Pet bandana: Prodigi's print area is ONE WIDE STRIP (10158x3306 px, about 3.07:1) and the printed
+// triangle fills it: full width along the top, point at the bottom centre. So the file must be that exact
+// shape; any other shape makes Prodigi zoom (fill) or shrink (fit) it. Photo goes in the triangle, name in a band on top.
 async function ONJJEM_bandana(src, words, forPrint) {
-  const im = await ONJJEM_loadImg(src), W = forPrint ? 3600 : 2400, c = document.createElement("canvas"); c.width = c.height = W;
+  const im = await ONJJEM_loadImg(src), W = forPrint ? 7000 : 2400, H = Math.round(W * 3306 / 10158), c = document.createElement("canvas"); c.width = W; c.height = H;
   const g = c.getContext("2d");
   const cover = (x, y, w, h) => { const r = Math.max(w / im.width, h / im.height), sw = w / r, sh = h / r; g.drawImage(im, (im.width - sw) / 2, Math.max(0, (im.height - sh) * 0.3), sw, sh, x, y, w, h); };
-  g.filter = "blur(40px)"; cover(0, 0, W, W); g.filter = "none";
-  const top = W * 0.33, apex = W * 0.70;
-  // Fit the photo by height so faces stay whole; the blurred copy fills the sides.
-  const hasName = !!(words && words.trim()), pTop = top + (hasName ? W * 0.075 : 0);
-  { const h = apex - pTop + W * 0.02, w = Math.min(W * 0.96, h * im.width / im.height); g.save(); g.shadowColor = "rgba(0,0,0,.35)"; g.shadowBlur = 30; cover((W - w) / 2, pTop, w, h); g.restore(); }
-  if (words && words.trim()) {
-    g.fillStyle = "rgba(20,20,20,.85)"; g.fillRect(0, top - W * 0.01, W, W * 0.085);
-    const t = words.trim().toUpperCase(); let fs = W * 0.06; g.font = `900 ${fs}px system-ui,-apple-system,Arial,sans-serif`;
-    while (g.measureText(t).width > W * 0.7 && fs > W * 0.03) { fs -= 4; g.font = `900 ${fs}px system-ui,-apple-system,Arial,sans-serif`; }
+  // Soft blurred copy of the photo fills the sides (shrink then stretch: works on iPhone, where canvas blur filters do not).
+  { const s = document.createElement("canvas"); s.width = Math.max(8, Math.round(W / 60)); s.height = Math.max(3, Math.round(H / 60));
+    const sg = s.getContext("2d"), r = Math.max(s.width / im.width, s.height / im.height), sw = s.width / r, sh = s.height / r;
+    sg.drawImage(im, (im.width - sw) / 2, Math.max(0, (im.height - sh) * 0.3), sw, sh, 0, 0, s.width, s.height);
+    g.imageSmoothingEnabled = true; g.imageSmoothingQuality = "high"; g.drawImage(s, 0, 0, W, H); }
+  const hasName = !!(words && words.trim()), bandH = hasName ? H * 0.17 : 0, pTop = bandH + H * 0.02, bottom = H * 0.97;
+  // Fit the photo by height so faces stay whole.
+  { const h = bottom - pTop, w = Math.min(W * 0.9, h * im.width / im.height); g.save(); g.shadowColor = "rgba(0,0,0,.35)"; g.shadowBlur = W / 80; cover((W - w) / 2, pTop, w, h); g.restore(); }
+  if (hasName) {
+    g.fillStyle = "rgba(20,20,20,.85)"; g.fillRect(0, 0, W, bandH);
+    const t = words.trim().toUpperCase(); let fs = bandH * 0.62; g.font = `900 ${fs}px system-ui,-apple-system,Arial,sans-serif`;
+    while (g.measureText(t).width > W * 0.6 && fs > bandH * 0.2) { fs -= 4; g.font = `900 ${fs}px system-ui,-apple-system,Arial,sans-serif`; }
     g.textAlign = "center"; g.textBaseline = "middle"; g.lineJoin = "round";
-    g.lineWidth = fs * 0.18; g.strokeStyle = "rgba(0,0,0,.75)"; g.strokeText(t, W / 2, top + W * 0.033); g.fillStyle = "#fff"; g.fillText(t, W / 2, top + W * 0.033);
+    g.lineWidth = fs * 0.18; g.strokeStyle = "rgba(0,0,0,.75)"; g.strokeText(t, W / 2, bandH / 2); g.fillStyle = "#fff"; g.fillText(t, W / 2, bandH / 2);
   }
   if (!forPrint) {
     // Preview: show only the printed triangle.
-    g.globalCompositeOperation = "destination-in"; g.beginPath(); g.moveTo(W * 0.04, top); g.lineTo(W * 0.96, top); g.lineTo(W / 2, apex); g.closePath(); g.fill();
-    g.globalCompositeOperation = "destination-over"; g.fillStyle = "#f4f1ea"; g.fillRect(0, 0, W, W); g.globalCompositeOperation = "source-over";
-    const out = document.createElement("canvas"); out.width = W; out.height = W * 0.48; out.getContext("2d").drawImage(c, 0, -top + W * 0.06);
-    return out.toDataURL("image/jpeg", 0.9);
+    g.globalCompositeOperation = "destination-in"; g.beginPath(); g.moveTo(0, 0); g.lineTo(W, 0); g.lineTo(W / 2, H); g.closePath(); g.fill();
+    g.globalCompositeOperation = "destination-over"; g.fillStyle = "#f4f1ea"; g.fillRect(0, 0, W, H); g.globalCompositeOperation = "source-over";
+    return c.toDataURL("image/jpeg", 0.9);
   }
   return c.toDataURL("image/jpeg", 0.93);
 }
