@@ -302,6 +302,34 @@ function ONJJEM_readPhoto(file) {
 
 // Lay 1–9 photos out as a grid (print-ready). Square by default; pass ratio [w,h]
 // for other shapes (e.g. playing cards [2,3]). Fewer photos repeat to fill the grid.
+// Pet bandana: Prodigi prints a square file but only the triangle below the tie line shows.
+// Fill the triangle with the photo (face near the top middle) and put the name inside it.
+async function ONJJEM_bandana(src, words, forPrint) {
+  const im = await ONJJEM_loadImg(src), W = 2400, c = document.createElement("canvas"); c.width = c.height = W;
+  const g = c.getContext("2d");
+  const cover = (x, y, w, h) => { const r = Math.max(w / im.width, h / im.height), sw = w / r, sh = h / r; g.drawImage(im, (im.width - sw) / 2, Math.max(0, (im.height - sh) * 0.3), sw, sh, x, y, w, h); };
+  g.filter = "blur(40px)"; cover(0, 0, W, W); g.filter = "none";
+  const top = W * 0.33, apex = W * 0.70;
+  // Fit the photo by height so faces stay whole; the blurred copy fills the sides.
+  const hasName = !!(words && words.trim()), pTop = top + (hasName ? W * 0.075 : 0);
+  { const h = apex - pTop + W * 0.02, w = Math.min(W * 0.96, h * im.width / im.height); g.save(); g.shadowColor = "rgba(0,0,0,.35)"; g.shadowBlur = 30; cover((W - w) / 2, pTop, w, h); g.restore(); }
+  if (words && words.trim()) {
+    g.fillStyle = "rgba(20,20,20,.85)"; g.fillRect(0, top - W * 0.01, W, W * 0.085);
+    const t = words.trim().toUpperCase(); let fs = W * 0.06; g.font = `900 ${fs}px system-ui,-apple-system,Arial,sans-serif`;
+    while (g.measureText(t).width > W * 0.7 && fs > W * 0.03) { fs -= 4; g.font = `900 ${fs}px system-ui,-apple-system,Arial,sans-serif`; }
+    g.textAlign = "center"; g.textBaseline = "middle"; g.lineJoin = "round";
+    g.lineWidth = fs * 0.18; g.strokeStyle = "rgba(0,0,0,.75)"; g.strokeText(t, W / 2, top + W * 0.033); g.fillStyle = "#fff"; g.fillText(t, W / 2, top + W * 0.033);
+  }
+  if (!forPrint) {
+    // Preview: show only the printed triangle.
+    g.globalCompositeOperation = "destination-in"; g.beginPath(); g.moveTo(W * 0.04, top); g.lineTo(W * 0.96, top); g.lineTo(W / 2, apex); g.closePath(); g.fill();
+    g.globalCompositeOperation = "destination-over"; g.fillStyle = "#f4f1ea"; g.fillRect(0, 0, W, W); g.globalCompositeOperation = "source-over";
+    const out = document.createElement("canvas"); out.width = W; out.height = W * 0.48; out.getContext("2d").drawImage(c, 0, -top + W * 0.06);
+    return out.toDataURL("image/jpeg", 0.9);
+  }
+  return c.toDataURL("image/jpeg", 0.93);
+}
+
 // Jemzsaw: crop the photo to the puzzle shape, then hide a small Jemzi somewhere in it to find.
 async function ONJJEM_hideJemzi(dataUrl, ratio) {
   const im = await ONJJEM_loadImg(dataUrl), hog = await ONJJEM_loadImg("/jemzi-tpl.webp");
@@ -855,6 +883,7 @@ function ONJJEM_renderLanding(P) {
   async function finalize(src, words, forPrint) {
     const o = opts[selected];
     let out = src;
+    if (o.bandana) return ONJJEM_bandana(out, words, forPrint);
     const r = targetRatio(o);
     if (r && !o.wrap) out = await ONJJEM_cropTo(out, r[0], r[1]);
     out = await ONJJEM_addCaption(out, words, capPos);
