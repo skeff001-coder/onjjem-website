@@ -1279,7 +1279,7 @@ function ONJJEM_showAddedToast(thumb, name, mugOffer) {
         <p class="cartoon-email-note" style="font-weight:700;color:#F3D078">${nudge}</p>
         ${mugOffer ? `<div style="border:1px solid rgba(243,208,120,.5);border-radius:12px;padding:10px;margin:0.4rem 0 0.6rem">
           <div style="font-weight:800">☕ Add a matching mug with the same picture?</div>
-          <div class="cartoon-email-note" style="margin:4px 0 8px">£11.99 (normally £13.99), in the same parcel</div>
+          <div class="cartoon-email-note" style="margin:4px 0 8px">£11.99 (normally £14.99), in the same parcel</div>
           <button class="cartoon-btn-primary" data-a="mug" style="width:100%">Yes, add the mug</button>
         </div>` : ""}
         <button class="cartoon-btn-primary" data-a="basket" style="width:100%;margin-top:0.4rem">Checkout now (${n} ${n === 1 ? "gift" : "gifts"}) →</button>
