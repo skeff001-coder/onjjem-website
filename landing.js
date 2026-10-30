@@ -305,7 +305,7 @@ function ONJJEM_readPhoto(file) {
 // Pet bandana: Prodigi prints a square file but only the triangle below the tie line shows.
 // Fill the triangle with the photo (face near the top middle) and put the name inside it.
 async function ONJJEM_bandana(src, words, forPrint) {
-  const im = await ONJJEM_loadImg(src), W = 2400, c = document.createElement("canvas"); c.width = c.height = W;
+  const im = await ONJJEM_loadImg(src), W = forPrint ? 3600 : 2400, c = document.createElement("canvas"); c.width = c.height = W;
   const g = c.getContext("2d");
   const cover = (x, y, w, h) => { const r = Math.max(w / im.width, h / im.height), sw = w / r, sh = h / r; g.drawImage(im, (im.width - sw) / 2, Math.max(0, (im.height - sh) * 0.3), sw, sh, x, y, w, h); };
   g.filter = "blur(40px)"; cover(0, 0, W, W); g.filter = "none";
