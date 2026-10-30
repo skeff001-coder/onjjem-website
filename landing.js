@@ -1260,7 +1260,8 @@ async function ONJJEM_openBasket() {
   panel.querySelector("#basketMore").onclick = () => { panel.remove(); if (!window.PAGE && !/^\/(us\/)?(index\.html)?$/.test(location.pathname)) location.href = ONJJEM_isUS() ? "/us/" : "/"; };
   const emptyBtn = panel.querySelector("#basketEmpty");
   if (emptyBtn) emptyBtn.onclick = async () => {
-    if (!confirm("Remove everything from your basket?")) return;
+    // No confirm(): in-app browsers (TikTok, Instagram, Facebook) block pop-ups, so ask with a second tap instead.
+    if (!emptyBtn.dataset.sure) { emptyBtn.dataset.sure = "1"; emptyBtn.textContent = "Tap again to empty your basket"; emptyBtn.style.color = "#ffb4a8"; return; }
     await ONJJEM_Basket.clear(); ONJJEM_openBasket();
   };
   panel.querySelectorAll(".basket-remove").forEach(b => b.onclick = async () => { await ONJJEM_Basket.remove(b.dataset.id); ONJJEM_openBasket(); });
