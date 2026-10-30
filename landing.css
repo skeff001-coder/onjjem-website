@@ -345,3 +345,6 @@ a { color: var(--gold); }
 .l-logo{font-family:'Playfair Display',Georgia,serif!important;font-weight:700!important;background:linear-gradient(100deg,#8a6a1f 0%,#d4af37 20%,#fff4c4 38%,#e8c75a 52%,#a67c1e 72%,#f6e08f 88%,#b8902a 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent!important;filter:drop-shadow(0 1px 0 rgba(0,0,0,.6)) drop-shadow(0 0 10px rgba(212,175,55,.25));animation:logoShine 5s linear infinite}
 @keyframes logoShine{to{background-position:220% center}}
 @media (prefers-reduced-motion:reduce){.l-logo{animation:none}}
+
+.l-logo{display:inline-flex!important;align-items:center;gap:.45rem}.l-jemzi{width:34px;height:34px;border-radius:50%;flex:none;filter:drop-shadow(0 0 6px rgba(212,175,55,.45));-webkit-text-fill-color:initial}
+@media (max-width:420px){.l-jemzi{width:30px;height:30px}}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" type="image/png" href="/jemzi-64.png"><link rel="apple-touch-icon" href="/apple-touch-icon-jemzi.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ONJJEM | Personalised Photo Blankets, Wall Art &amp; Gifts</title>
@@ -27,7 +28,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="/landing.css?v=20261030a">
+<link rel="stylesheet" href="/landing.css?v=20261030b">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a" media="print" onload="this.media='all'">
 <style>
 .rm-list{display:flex;flex-direction:column;gap:8px;margin:12px 0 4px}
@@ -42,6 +43,7 @@
 @media (prefers-reduced-motion:reduce){.lx-shop{animation:none}}
 .rm-ico{font-size:1.9rem}
 .cat-bar{display:none}
+.jz-hi{display:flex;align-items:center;gap:.8rem;max-width:520px;margin:.9rem auto 0;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:18px;padding:.5rem .9rem .5rem .5rem}.jz-hi img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none;background:#fff}.jz-hi p{margin:0;font-size:1rem;line-height:1.35;color:#F6EBD4}.jz-hi b{color:#f3d36b;font-family:"Playfair Display",Georgia,serif;font-size:1.12rem}
 /* One category per row: picture on the left, name on the right, clear gap between each */
 #rmList{display:flex;flex-direction:column;gap:14px}
 #rmList .rm-row{flex-direction:row;align-items:center;padding:0;gap:0;overflow:hidden;border-radius:16px;min-height:112px;border:1px solid rgba(212,175,55,.35);background:#232323}
@@ -85,13 +87,15 @@
 
 <main>
   <div class="wrap"><div class="success" id="success" style="display:none">
-    <h2>🎉 Thank you — your order is in!</h2>
+    <img src="/jemzi.webp" alt="" width="130" height="130" style="display:block;margin:0 auto .4rem;border-radius:50%">
+    <h2>🎉 Thank you! Jemzi's on it, your order is in.</h2>
     <p>You'll get a confirmation email shortly. We'll print your gift and post it with free delivery.</p>
     <p style="margin-top:0.6rem"><strong>A thank-you from us:</strong> use code <strong>THANKYOU15</strong> for 15% off your next gift. It's printed on the note in your parcel too.</p>
   </div></div>
 
   <section class="wrap" id="shop">
-    <h1 class="lx-shop" style="margin-top:0.9rem">What would you like to make?</h1>
+    <div class="jz-hi"><img src="/jemzi.webp" alt="Jemzi the ONJJEM hedgehog" width="120" height="120"><p><b>Hi, I'm Jemzi!</b> Pick a gift and I'll help make it yours 💛</p></div>
+    <h1 class="lx-shop" style="margin-top:0.4rem">What would you like to make?</h1>
     <div class="rm-list" id="rmList">
       <a class="rm-row" href="/#cat-walls" data-sec="cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span class="rm-ico">🖼️</span><span class="rm-txt"><b>Wall Art</b><small>Printed, framed, bespoke</small></span><span class="rm-p">from £3.99 ›</span></a>
       <a class="rm-row" href="/#cat-living" data-sec="cat-living"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><span class="rm-ico">🛋️</span><span class="rm-txt"><b>Living</b><small>Cosy &amp; personal</small></span><span class="rm-p">from £14.99 ›</span></a>
@@ -209,7 +213,7 @@
 </main>
 
 <div id="ftr"></div>
-<script src="/landing.js?v=20261030f"></script>
+<script src="/landing.js?v=20261030g"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();

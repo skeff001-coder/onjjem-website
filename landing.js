@@ -236,7 +236,7 @@ function ONJJEM_headerHtml() {
   if (ONJJEM_isUS()) return `
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">
-    <a href="/us/" class="l-logo">ONJJEM</a>
+    <a href="/us/" class="l-logo"><img src="/jemzi-64.png" alt="Jemzi the ONJJEM hedgehog" width="34" height="34" class="l-jemzi">ONJJEM</a>
     <nav class="l-nav"><a href="/?uk=1" class="region-pill" title="Go to the UK shop"><img src="/flag-uk.svg" alt="" width="26" height="13">UK<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
@@ -246,7 +246,7 @@ function ONJJEM_headerHtml() {
   return `
   ${ONJJEM_offerBarHtml()}
   <header class="l-header">
-    <a href="/" class="l-logo">ONJJEM</a>
+    <a href="/" class="l-logo"><img src="/jemzi-64.png" alt="Jemzi the ONJJEM hedgehog" width="34" height="34" class="l-jemzi">ONJJEM</a>
     <nav class="l-nav"><a href="/us/" class="region-pill" title="Go to the US shop"><img src="/flag-us.svg" alt="" width="25" height="13">US<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
