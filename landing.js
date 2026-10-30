@@ -1189,11 +1189,11 @@ function ONJJEM_showAddedToast(thumb, name, mugOffer) {
           <div class="cartoon-email-note" style="margin:4px 0 8px">£11.99 (normally £13.99), in the same parcel</div>
           <button class="cartoon-btn-primary" data-a="mug" style="width:100%">Yes, add the mug</button>
         </div>` : ""}
-        <button class="cartoon-btn-primary" data-a="more" style="width:100%;margin-top:0.4rem">Add another gift</button>
-        <button class="cartoon-btn-secondary" data-a="basket" style="width:100%;margin-top:0.5rem">View basket &amp; checkout (${n})</button>
+        <button class="cartoon-btn-primary" data-a="basket" style="width:100%;margin-top:0.4rem">Checkout now (${n} ${n === 1 ? "gift" : "gifts"}) →</button>
+        <button class="cartoon-btn-secondary" data-a="more" style="width:100%;margin-top:0.5rem">Keep shopping</button>
       </div>`;
     document.body.appendChild(t);
-    t.querySelector('[data-a="more"]').onclick = () => { t.remove(); location.href = ONJJEM_isUS() ? "/us/" : "/tiktok"; };
+    t.querySelector('[data-a="more"]').onclick = () => { t.remove(); };
     t.querySelector('[data-a="basket"]').onclick = () => { t.remove(); ONJJEM_openBasket(); };
     const mb = t.querySelector('[data-a="mug"]');
     if (mb) mb.onclick = async () => {
@@ -1216,7 +1216,12 @@ async function ONJJEM_openBasket() {
   const pct = ONJJEM_bundlePercent(items.filter(i => i.sku !== "mug-addon").length);
   // Low-margin gifts (golf balls) count towards the deal but aren't discounted themselves.
   const eligibleSub = items.filter(i => !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-|mug-addon$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0);
-  const disc = Math.round(eligibleSub * pct) / 100;
+  // Black Friday (UK, until 30 Nov): 15% off canvases, mugs, prints, posters, cushions; the bundle % still applies to the other gifts.
+  const BF_ON = !ONJJEM_isUS() && Date.now() < Date.parse("2026-12-01T00:00:00Z");
+  const bfOk = sku => /^(canvas-|mug-11oz$|mug-15oz$|magic-mug$|art-print-|poster-|cushion-|CLASSIC-POST)/.test(String(sku || ""));
+  const bfSub = BF_ON ? items.filter(i => bfOk(i.sku)).reduce((a, i) => a + i.price, 0) : 0;
+  const bfDisc = Math.round(bfSub * 15) / 100;
+  const disc = bfDisc ? bfDisc + Math.round(items.filter(i => !bfOk(i.sku) && !/^(US-(GOLF|CANDLE|TOTE)|xmas-sack$|trick-bag|FTEE-|mug-addon$)/.test(String(i.sku || ""))).reduce((a, i) => a + i.price + (i.cartoon ? ONJJEM_cartoonFee(i.sku, i) : 0), 0) * pct) / 100 : Math.round(eligibleSub * pct) / 100;
   const nextPct = ONJJEM_bundlePercent(items.length + 1);
   panel.innerHTML = `
     <div class="cartoon-preview-card basket-card">
@@ -1230,12 +1235,15 @@ async function ONJJEM_openBasket() {
         </div>`).join("") : `<p class="cartoon-email-note">Your basket is empty.</p>`}
       ${items.length ? `
         <div class="basket-sum"><span>Subtotal</span><span>${money(sub)}</span></div>
-        ${pct ? `<div class="basket-sum" style="color:#7ee2a0"><span>Bundle discount (${pct}%${eligibleSub < sub ? " off eligible gifts" : ""})</span><span>−${money(disc)}</span></div>` : ""}
+        ${bfDisc ? `<div class="basket-sum" style="color:#FFC83D"><span>🖤 Black Friday 15% off${pct ? " + bundle discount" : ""}</span><span>−${money(disc)}</span></div>` : ""}
+        ${pct && !bfDisc ? `<div class="basket-sum" style="color:#7ee2a0"><span>Bundle discount (${pct}%${eligibleSub < sub ? " off eligible gifts" : ""})</span><span>−${money(disc)}</span></div>` : ""}
         <div class="basket-sum"><span>${ONJJEM_isUS() ? "US shipping" : "UK delivery"}</span><span>FREE</span></div>
         <div class="basket-sum basket-total"><span>Total</span><span>${money(sub - disc)}</span></div>
         ${pct ? `<p class="cartoon-email-note" style="font-size:0.8rem">Your bundle discount is applied instead of promo codes.</p>` : ""}
         ${nextPct > pct ? `<p class="cartoon-email-note" style="color:#F3D078;font-weight:700">Add ${items.length === 1 ? "1 more gift to save 10%" : "1 more gift to save 12%"} 🎁</p>` : ""}
-        <button class="cartoon-btn-primary" id="basketCheckout" style="width:100%;margin-top:0.6rem">Checkout securely →</button>
+        ${!ONJJEM_isUS() && Date.now() < Date.parse("2026-12-13T00:00:00Z") ? `<p class="cartoon-email-note" style="margin:0.5rem 0 0;font-weight:700;color:#9fe6b4">🎄 Order by 12 December for Christmas delivery</p>` : ""}
+        <p class="cartoon-email-note" style="margin:0.35rem 0 0;font-size:0.82rem">✓ Free delivery &nbsp;✓ We check every photo before printing &nbsp;✓ Apple Pay</p>
+        <button class="cartoon-btn-primary" id="basketCheckout" style="width:100%;margin-top:0.5rem;font-size:1.1rem">Checkout securely →</button>
         ${ONJJEM_remindHtml("remindBasket")}
         <div id="basketStatus" class="cartoon-email-note" style="min-height:1.2em;margin-top:0.4rem"></div>
         <div style="margin-top:0.5rem;font-size:0.82rem;line-height:1.5;color:#cfc6b4;text-align:left">
