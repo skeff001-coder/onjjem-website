@@ -340,3 +340,8 @@ a { color: var(--gold); }
 .lx-strip-gift{background:rgba(212,175,55,0.08);border-color:rgba(212,175,55,0.35)}
 .lx-strip-new{background:linear-gradient(90deg,rgba(240,199,94,0.22),rgba(255,120,80,0.18));border-color:#f0c75e;font-size:1rem}
 .lx-new{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-style:normal;font-size:0.6rem;font-weight:800;background:#e23b3b;color:#fff;border-radius:6px;padding:0.15rem 0.35rem;margin-left:0.35rem;vertical-align:middle;letter-spacing:0.05em}
+
+/* Glistening gold ONJJEM logo */
+.l-logo{font-family:'Playfair Display',Georgia,serif!important;font-weight:700!important;background:linear-gradient(100deg,#8a6a1f 0%,#d4af37 20%,#fff4c4 38%,#e8c75a 52%,#a67c1e 72%,#f6e08f 88%,#b8902a 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent!important;filter:drop-shadow(0 1px 0 rgba(0,0,0,.6)) drop-shadow(0 0 10px rgba(212,175,55,.25));animation:logoShine 5s linear infinite}
+@keyframes logoShine{to{background-position:220% center}}
+@media (prefers-reduced-motion:reduce){.l-logo{animation:none}}

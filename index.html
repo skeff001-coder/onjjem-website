@@ -26,23 +26,20 @@
   gtag('config', 'G-3L30Q5L3MW');
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Fredoka:wght@600;700&family=Bungee&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Fredoka:wght@600;700&family=Bungee&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="/landing.css?v=20261016b">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/landing.css?v=20261030a">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a" media="print" onload="this.media='all'">
 <style>
 .rm-list{display:flex;flex-direction:column;gap:8px;margin:12px 0 4px}
 .rm-row{display:flex;align-items:center;gap:12px;background:var(--card,#2c2c2c);border:1px solid var(--line,#444);border-radius:12px;padding:12px 14px;color:#fff;text-decoration:none}
 .rm-row.on{border-color:var(--gold,#d4af37);background:#33301f}
 .rm-new{border-color:var(--gold,#d4af37)}
-/* Friendly, colourful headings (Fredoka), with a playful Bungee style just for the Kids row */
-.lx-shop{font-family:'Fredoka','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700;font-size:clamp(1.7rem,7vw,2.3rem);letter-spacing:.01em;background:linear-gradient(90deg,#FFD24A,#FF8A3D 45%,#FF5FA2);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
-.rm-txt b{font-family:'Fredoka','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700;font-size:1.22rem;letter-spacing:.01em;color:#FFF3D6}
-.rm-xmas .rm-txt b{font-size:1.4rem;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35),0 0 12px rgba(255,200,61,.45)}
-.rm-row[data-sec="cat-living"] .rm-txt b{color:#FFD9A8}
-.rm-row[data-sec="cat-kitchen"] .rm-txt b{color:#FFE08A}
-.rm-row[data-sec="cat-giftcards"] .rm-txt b{color:#FFB7D5}
-.rm-row[data-sec="cat-games"] .rm-txt b{color:#B9E6FF}
-.rm-row[data-sec="cat-clothing"] .rm-txt b{font-family:'Bungee','Fredoka',system-ui,sans-serif;font-weight:400;font-size:1.12rem;letter-spacing:.02em;background:linear-gradient(90deg,#FF5F5F,#FFB03B,#FFE14D,#5FD97A,#4FB3FF,#B57BFF);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.45))}
+/* Elegant gold headings */
+.lx-shop{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(1.6rem,6.5vw,2.1rem);letter-spacing:.01em;background:linear-gradient(100deg,#8a6a1f 0%,#d4af37 22%,#fff1b8 42%,#e8c75a 58%,#a67c1e 80%,#f3dc8a 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:goldShine 6s linear infinite}
+.rm-txt b{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.18rem;letter-spacing:.01em;color:#F6EBD4}
+.rm-xmas .rm-txt b{font-size:1.32rem;color:#fff}
+@keyframes goldShine{to{background-position:200% center}}
+@media (prefers-reduced-motion:reduce){.lx-shop{animation:none}}
 .rm-ico{font-size:1.9rem}
 .cat-bar{display:none}
 
@@ -59,21 +56,6 @@
 </style>
 </head>
 <body>
-<script>
-// Giveaway banner: shows on main pages until Sun 1 Nov 2026, 8pm UK (20:00 UTC).
-(function(){
-  if (new Date() >= new Date("2026-11-01T20:00:00Z")) return;
-  try { if (sessionStorage.getItem('onjjem_gw_closed')) return; } catch(e){}
-  var us=/^\/us(\/|$)/.test(location.pathname)||/region=us/.test(location.search);
-  var b=document.createElement('div');
-  b.setAttribute('style','position:relative;z-index:50;background:linear-gradient(90deg,#E8287F,#FF8A1C);color:#fff;font:700 14px/1.3 system-ui,sans-serif;text-align:center;padding:8px 36px 8px 12px');
-  b.innerHTML='🎁 Win a '+(us?'$50':'£40')+' gift card, free to enter <a href="/giveaway#enter" style="color:#fff;text-decoration:underline">Enter →</a>'+
-    '<button aria-label="Close" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:20px;cursor:pointer">×</button>';
-  b.querySelector('a').onclick=function(){try{gtag('event','giveaway_banner_click');}catch(e){}};
-  b.querySelector('button').onclick=function(){b.remove();try{sessionStorage.setItem('onjjem_gw_closed','1')}catch(e){}};
-  (document.body||document.documentElement).insertBefore(b,document.body.firstChild);
-})();
-</script>
 <script>
 // Black Friday (UK): 15% off canvases, mugs, prints & cushions, automatic at checkout, until Mon 30 Nov.
 (function(){
@@ -95,7 +77,7 @@
   </div></div>
 
   <section class="wrap" id="shop">
-    <h1 class="lx-shop" style="margin-top:0.9rem">Your photos, made into gifts</h1>
+    <h1 class="lx-shop" style="margin-top:0.9rem">What would you like to make?</h1>
     <div class="rm-list" id="rmList">
       <a class="rm-row rm-new rm-xmas" href="/#cat-christmas" data-sec="cat-christmas"><span class="rm-ico">🎄</span><span class="rm-txt"><b>Christmas Gift Shop</b><small>Stocking fillers, baubles, posters, magnets, sweatshirts</small></span><span class="rm-p">from £5.99 ›</span></a>
       <a class="rm-row" href="/#cat-living" data-sec="cat-living"><span class="rm-ico">🛋️</span><span class="rm-txt"><b>Home &amp; Wall Art</b><small>Blankets, canvases, cushions, posters, prints</small></span><span class="rm-p">from £3.99 ›</span></a>
