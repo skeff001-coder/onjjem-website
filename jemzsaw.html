@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="/jemzi-64.png"><link rel="apple-touch-icon" href="/apple-touch-icon-jemzi.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jemzsaw: The Find-Jemzi Photo Jigsaw | ONJJEM</title>
+<meta name="description" content="Your photo as a jigsaw, with Jemzi the hedgehog hidden somewhere in it. Can you find her? Made in the UK, free delivery.">
+<link rel="canonical" href="https://onjjem.com/jemzsaw">
+<meta property="og:title" content="Jemzsaw: The Find-Jemzi Photo Jigsaw | ONJJEM">
+<meta property="og:description" content="Your photo as a jigsaw, with Jemzi the hedgehog hidden somewhere in it. Can you find her? Made in the UK, free delivery.">
+<meta property="og:image" content="https://onjjem.com/jemzi.jpg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('notrack') === '1') localStorage.setItem('onjjem_notrack', '1');
+    if (q.get('notrack') === '0') localStorage.removeItem('onjjem_notrack');
+    if (localStorage.getItem('onjjem_notrack')) window['ga-disable-G-3L30Q5L3MW'] = true;
+  } catch (e) {}
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<link rel="stylesheet" href="/landing.css?v=20261030b">
+<link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.PAGE = {
+  kicker: "🧩 Only at ONJJEM",
+  title: "Jemzsaw: the Find-Jemzi jigsaw",
+  sub: "Your photo as a proper jigsaw, with a twist: Jemzi the hedgehog is hiding somewhere in the picture. Finish the puzzle, then race to find her. Brilliant for family Christmas afternoons.",
+  heroImg: "/jemzi.jpg",
+  heroAlt: "Jemzi the ONJJEM hedgehog",
+  ticks: [
+    "Jemzi hidden in a different spot on every puzzle",
+    "Comes in a box with your picture on the lid",
+    "Made in the UK with free delivery",
+    "Order by 12 December for Christmas"
+  ],
+  cta: "Make my Jemzsaw",
+  optionWord: "your Jemzsaw",
+  orderTitle: "Make your Jemzsaw",
+  photoHint: "Busy, colourful photos make the best hiding places for Jemzi! The preview shows where she's hiding.",
+  options: [
+    { sku: "jemzsaw-110", ratio: [250, 200], orient: false, hideJemzi: true, name: "Jemzsaw 110 pieces (25×20cm)", note: "Great for kids and quick family fun", price: 25.99, default: true, badge: "NEW" },
+    { sku: "jemzsaw-252", ratio: [375, 285], orient: false, hideJemzi: true, name: "Jemzsaw 252 pieces (37.5×28.5cm)", note: "A proper challenge for the whole family", price: 28.99 },
+    { sku: "jemzsaw-500", ratio: [530, 390], orient: false, hideJemzi: true, name: "Jemzsaw 500 pieces (53×39cm)", note: "For puzzle lovers. Good luck finding Jemzi!", price: 30.99 }
+  ],
+  faq: [
+    ["What's a Jemzsaw?", "A photo jigsaw with Jemzi, the little ONJJEM hedgehog, hidden somewhere in your picture. Do the puzzle, then find her."],
+    ["Can I see where she's hiding?", "Yes, the preview shows your finished puzzle. Change your photo and she moves to a new spot."],
+    ["Do I get a box?", "Yes, it comes in a box with your picture on the lid."],
+    ["Will it arrive for Christmas?", "Made to order in the UK. Order by 12 December to be safe. Delivery is free."],
+    ["What if something's wrong?", "Email hello@onjjem.com with a photo and we'll put it right with a replacement or refund."]
+  ]
+};
+</script>
+<script src="/landing.js?v=20261030k"></script>
+<script src="/cartoonify-shared.js?v=20261026x"></script>
+</body>
+</html>

@@ -123,6 +123,7 @@ const ONJJEM_GIFTS_UK = [
   ["Fridge magnets", "/magnets", "magnet fridge photo grid acrylic"],
   ["The Cosy JemBox (blanket, cushion & mug)", "/jembox", "jembox bundle box set blanket cushion mug gift set"],
   ["Your Own Jemzi poster (your photos with Jemzi)", "/your-jemzi", "jemzi hedgehog collage poster kids nursery photos"],
+  ["Jemzsaw: find-Jemzi photo jigsaw", "/jemzsaw", "jemzsaw jigsaw puzzle game family hedgehog jemzi"],
   ["Glass chopping boards", "/chopping-board", "chopping cutting board glass kitchen chef cheese"],
   ["✨ Magic Reveal mug (colour-changing)", "/mug", "mug cup magic colour color changing heat reveal tea coffee"],
   ["Photo mugs", "/mug", "mug cup tea coffee photo 11oz 15oz"],
@@ -299,6 +300,19 @@ function ONJJEM_readPhoto(file) {
 
 // Lay 1–9 photos out as a grid (print-ready). Square by default; pass ratio [w,h]
 // for other shapes (e.g. playing cards [2,3]). Fewer photos repeat to fill the grid.
+// Jemzsaw: crop the photo to the puzzle shape, then hide a small Jemzi somewhere in it to find.
+async function ONJJEM_hideJemzi(dataUrl, ratio) {
+  const im = await ONJJEM_loadImg(dataUrl), hog = await ONJJEM_loadImg("/jemzi-tpl.webp");
+  const rw = ratio[0], rh = ratio[1], W = 2400, H = Math.round(W * rh / rw);
+  const c = document.createElement("canvas"); c.width = W; c.height = H; const g = c.getContext("2d");
+  const r = Math.max(W / im.width, H / im.height), sw = W / r, sh = H / r;
+  g.drawImage(im, (im.width - sw) / 2, (im.height - sh) / 2, sw, sh, 0, 0, W, H);
+  const hw = W * 0.075, hh = hw * hog.height / hog.width;
+  const x = W * (0.1 + Math.random() * 0.8) - hw / 2, y = H * (0.15 + Math.random() * 0.7) - hh / 2;
+  g.save(); g.globalAlpha = 0.97; g.translate(x + hw / 2, y + hh / 2); g.rotate((Math.random() - 0.5) * 0.5); g.drawImage(hog, -hw / 2, -hh / 2, hw, hh); g.restore();
+  return c.toDataURL("image/jpeg", 0.93);
+}
+
 // "Your Own Jemzi": up to 5 of the customer's photos as polaroids fanned above Jemzi's spikes (A3/A2 portrait).
 async function ONJJEM_buildJemzi(dataUrls, xmas) {
   const W = 2480, H = 3508, c = document.createElement("canvas"); c.width = W; c.height = H;
@@ -862,6 +876,7 @@ function ONJJEM_renderLanding(P) {
     } else {
       photo = photos[0];
     }
+    if (opts[selected].hideJemzi && photo) photo = await ONJJEM_hideJemzi(photo, opts[selected].ratio);
     const n = isMulti() ? Math.min(photos.length, opts[selected].multi) : 1;
     box.classList.add("has-photo");
     document.getElementById("captionWrap").style.display = isTextDesign ? "none" : "block";
