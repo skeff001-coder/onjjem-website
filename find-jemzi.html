@@ -110,12 +110,6 @@
     </form>
   </div>
 
-  <div class="card hide" id="gift" style="text-align:center">
-    <h2>A thank-you from Jemzi 🦔</h2>
-    <p>15% off your next ONJJEM gift with code</p>
-    <div class="code">THANKYOU15</div>
-    <a class="btn go" href="/">See ONJJEM gifts →</a>
-  </div>
 
   <div class="terms">
     <b>Find Jemzi draw: the short rules</b>
@@ -150,7 +144,7 @@
   });
   function win(){
     if (done) return; done = true; track('jemzi_found');
-    ['win', 'draw', 'gift'].forEach(function(id){ document.getElementById(id).classList.remove('hide'); });
+    ['win', 'draw'].forEach(function(id){ document.getElementById(id).classList.remove('hide'); });
     confetti(); setTimeout(function(){ document.getElementById('win').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
   }
   function confetti(){
