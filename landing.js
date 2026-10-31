@@ -245,7 +245,7 @@ function ONJJEM_headerHtml() {
   <header class="l-header">
     ${atHome ? "" : `<a href="/us/" class="l-back" onclick="try{if(document.referrer&&new URL(document.referrer).host===location.host&&history.length>1){history.back();return false}}catch(e){}">‹ Back</a>`}
     <a href="/us/" class="l-logo"><img src="/jemzi-64.png" alt="Jemzi the ONJJEM hedgehog" width="34" height="34" class="l-jemzi">ONJJEM</a>
-    <div class="l-tagline">Your moments, beautifully made into gifts</div>
+    <div class="l-tagline">Personalised luxury for the moments that matter</div>
     <nav class="l-nav"><a href="/?uk=1" class="region-pill" title="Go to the UK shop"><img src="/flag-uk.svg" alt="" width="26" height="13">UK<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
@@ -257,7 +257,7 @@ function ONJJEM_headerHtml() {
   <header class="l-header">
     ${atHome ? "" : `<a href="/" class="l-back" onclick="try{if(document.referrer&&new URL(document.referrer).host===location.host&&history.length>1){history.back();return false}}catch(e){}">‹ Back</a>`}
     <a href="/" class="l-logo"><img src="/jemzi-64.png" alt="Jemzi the ONJJEM hedgehog" width="34" height="34" class="l-jemzi">ONJJEM</a>
-    <div class="l-tagline">Your moments, beautifully made into gifts</div>
+    <div class="l-tagline">Personalised luxury for the moments that matter</div>
     <nav class="l-nav"><a href="/us/" class="region-pill" title="Go to the US shop"><img src="/flag-us.svg" alt="" width="25" height="13">US<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
