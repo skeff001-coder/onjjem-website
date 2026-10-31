@@ -68,7 +68,7 @@
   <div class="hero">
     <img src="/jemzi-tpl-xmas.webp" alt="Jemzi the hedgehog in a Santa hat">
     <h1>Can you find Jemzi? 🔍</h1>
-    <p>Jemzi sneaked into Santa's workshop and hid on <b>3 presents</b> in your Santa sack. Tap each place you found him!</p>
+    <p>Jemzi sneaked into Santa's workshop and hid on <b>3 presents</b> in your Santa sack. Tap each place you found her!</p>
   </div>
 
   <div class="card" id="hunt">
@@ -83,7 +83,7 @@
 
   <div class="card" id="nosack">
     <h2>No Santa sack? Play here!</h2>
-    <p>Jemzi is hiding in this picture too. Tap him when you spot him.</p>
+    <p>Jemzi is hiding in this picture too. Tap her when you spot her.</p>
     <div class="puzzle" id="puzzle"><img src="/find-jemzi-puzzle.jpg" alt="A Christmas bauble picture with Jemzi hiding somewhere"><div class="ring" id="ring"></div></div>
     <div class="miss" id="miss"></div>
   </div>
@@ -145,7 +145,7 @@
   var pz = document.getElementById('puzzle'), ring = document.getElementById('ring'), miss = document.getElementById('miss'), tries = 0;
   pz.addEventListener('click', function(ev){
     var r = pz.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
-    if (Math.hypot(x - 0.79, y - 0.66) < 0.08) { ring.style.left = '79%'; ring.style.top = '66%'; ring.style.display = 'block'; miss.textContent = 'There he is! 🦔'; win(); }
+    if (Math.hypot(x - 0.79, y - 0.66) < 0.08) { ring.style.left = '79%'; ring.style.top = '66%'; ring.style.display = 'block'; miss.textContent = 'There she is! 🦔'; win(); }
     else { tries++; miss.textContent = tries > 2 ? 'Hint: look near the golden lights on the right ✨' : 'Not there… keep looking! 👀'; }
   });
   function win(){
