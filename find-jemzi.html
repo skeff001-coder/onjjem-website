@@ -83,7 +83,8 @@
     <div class="big">🎉 You found Jemzi! 🎉</div>
     <p>You're an <b>Official Jemzi Finder</b>. Type your name to get your certificate.</p>
     <input type="text" id="kid" maxlength="24" placeholder="Your first name" autocomplete="off">
-    <button class="btn gr" id="cert">⬇️ Get my certificate</button>
+    <button class="btn gr" id="cert">🏅 Make my certificate</button>
+    <div id="certOut"></div>
   </div>
 
   <div class="card hide" id="draw">
@@ -155,7 +156,19 @@
     g.fillStyle = '#3b2a1a'; g.font = '700 44px "Trebuchet MS",sans-serif';
     g.fillText('for finding Jemzi hiding at Christmas!', W / 2 - 120, 630);
     g.font = '600 36px "Trebuchet MS",sans-serif'; g.fillText('Signed, Jemzi 🦔 & the ONJJEM elves', W / 2 - 120, 790); g.fillText('Christmas 2026', W / 2 - 120, 845);
-    var a = document.createElement('a'); a.download = 'jemzi-finder-certificate.png'; a.href = c.toDataURL('image/png'); a.click(); track('jemzi_certificate');
+    // Show it on the page (iPhone Safari ignores automatic downloads), with Save/Share.
+    var url = c.toDataURL('image/png'), box = document.getElementById('certOut');
+    box.innerHTML = '<img src="' + url + '" alt="Official Jemzi Finder certificate" style="width:100%;border-radius:10px;margin-top:12px;box-shadow:0 6px 18px rgba(0,0,0,.2)">'
+      + '<button class="btn go" id="certSave" type="button">📲 Save or share certificate</button>'
+      + '<p class="small" style="margin-top:8px">Or press and hold the certificate, then tap <b>Save to Photos</b>.</p>';
+    document.getElementById('certSave').onclick = function () {
+      c.toBlob(function (blob) {
+        var file = new File([blob], 'jemzi-finder-certificate.png', { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: 'Official Jemzi Finder' }).catch(function(){}); }
+        else { var a = document.createElement('a'); a.download = 'jemzi-finder-certificate.png'; a.href = url; document.body.appendChild(a); a.click(); a.remove(); }
+      }, 'image/png');
+    };
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' }); track('jemzi_certificate');
   });
   document.getElementById('f').addEventListener('submit', async function(ev){
     ev.preventDefault(); var f = ev.target, m = document.getElementById('fmsg');
