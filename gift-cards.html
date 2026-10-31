@@ -183,6 +183,13 @@ ITEMS.forEach((item, i) => {
   grid.appendChild(card);
 });
 
+// Coming back from the payment page (Back button) restores the page as it was,
+// with the button still greyed out. Switch them all back on.
+window.addEventListener("pageshow", () => {
+  document.querySelectorAll(".buy-btn").forEach(b => { b.disabled = false; });
+  document.querySelectorAll("[data-status]").forEach(st => { st.textContent = ""; });
+});
+
 document.querySelectorAll(".buy-btn").forEach(btn => {
   btn.addEventListener("click", async () => {
     const i = btn.dataset.item;
@@ -190,7 +197,7 @@ document.querySelectorAll(".buy-btn").forEach(btn => {
     const sku = item.variants[0].sku;
     const status = document.querySelector(`[data-status="${i}"]`);
     const em = (document.getElementById("gnEmail").value || "").trim();
-    if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { status.textContent = "Please check their email address (or leave it blank)."; document.getElementById("gnEmail").focus(); return; }
+    if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { status.textContent = "⚠️ Please check their email address above (or leave it blank)."; status.style.color = "#ffb4a8"; document.getElementById("gnEmail").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
 
     btn.disabled = true;
     status.textContent = "Preparing checkout...";
