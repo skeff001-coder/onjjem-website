@@ -83,7 +83,11 @@ if(t<Date.parse("2026-12-01T00:00:00Z")){el.innerHTML='🖤 Black Friday: buy a 
 
 <div style="max-width:640px;margin:0 auto 18px;padding:14px 18px;border:1px solid #5a4d2e;border-radius:14px;background:#1C1A14;color:#F6EBD4;font-family:system-ui,sans-serif">
   <p style="margin:0 0 6px;font-weight:700">💳 Paying with a Jemz Platinum gift card? <span style="font-weight:400;color:#d9cfb8">(optional)</span></p>
-  <input id="gnCode" maxlength="40" autocapitalize="characters" placeholder="Gift card code, e.g. GIFTAB12CD" style="width:100%;box-sizing:border-box;padding:12px;border-radius:10px;border:1px solid #5a4d2e;background:#111;color:#fff;font-size:16px;text-transform:uppercase">
+  <div style="display:flex;gap:8px">
+    <input id="gnCode" maxlength="40" autocapitalize="characters" placeholder="Gift card code, e.g. GIFTAB12CD" style="flex:1;min-width:0;box-sizing:border-box;padding:12px;border-radius:10px;border:1px solid #5a4d2e;background:#111;color:#fff;font-size:16px;text-transform:uppercase">
+    <button type="button" id="gnApply" style="flex:none;padding:0 18px;border:0;border-radius:10px;background:#C9960C;color:#1a1205;font-weight:800;font-size:16px;cursor:pointer">Apply</button>
+  </div>
+  <p id="gnCodeMsg" style="margin:8px 0 0;font-weight:700;min-height:1px"></p>
   <p style="margin:6px 0 0;font-size:.8rem;color:#a89a7c">Gift card codes can be used here. Discount codes can't be used on gift cards.</p>
 </div>
 
@@ -162,6 +166,22 @@ let chosenVerse = "";
   Object.keys(VERSES).forEach((k) => chip(k, VERSES[k][0]));
   chip("", "No verse");
 })();
+let appliedCode = "", appliedValue = 0;
+(function () {
+  const inp = document.getElementById("gnCode"), btn = document.getElementById("gnApply"), msg = document.getElementById("gnCodeMsg");
+  inp.addEventListener("input", () => { appliedCode = ""; appliedValue = 0; msg.textContent = ""; });
+  btn.addEventListener("click", async () => {
+    const code = (inp.value || "").trim().toUpperCase();
+    if (!code) { msg.style.color = "#ffb4a8"; msg.textContent = "Type your gift card code first."; return; }
+    btn.disabled = true; msg.style.color = "#d9cfb8"; msg.textContent = "Checking…";
+    try {
+      const r = await fetch(`${API_BASE}/api/giftcode-check?code=${encodeURIComponent(code)}`); const j = await r.json();
+      if (j.ok) { appliedCode = code; appliedValue = j.amount; msg.style.color = "#7ee2a0"; msg.textContent = `✅ Applied: £${Number(j.amount).toFixed(2)} will come off when you tap Buy Now.`; }
+      else { appliedCode = ""; appliedValue = 0; msg.style.color = "#ffb4a8"; msg.textContent = "❌ " + (j.error || "That code isn't valid."); }
+    } catch (e) { msg.style.color = "#ffb4a8"; msg.textContent = "Couldn't check the code. Please try again."; }
+    btn.disabled = false;
+  });
+})();
 function giftNote() {
   const v = (id) => (document.getElementById(id).value || "").trim();
   return { to: v("gnTo"), from: v("gnFrom"), recipientEmail: v("gnEmail"), verse: chosenVerse, message: v("gnMsg") };
@@ -202,6 +222,7 @@ document.querySelectorAll(".buy-btn").forEach(btn => {
     const item = window.__items[i];
     const sku = item.variants[0].sku;
     const status = document.querySelector(`[data-status="${i}"]`);
+    if ((document.getElementById("gnCode").value || "").trim() && !appliedCode) { status.style.color = "#ffb4a8"; status.textContent = "⚠️ Tap Apply next to your gift card code first."; document.getElementById("gnCode").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     const em = (document.getElementById("gnEmail").value || "").trim();
     if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { status.textContent = "⚠️ Please check their email address above (or leave it blank)."; status.style.color = "#ffb4a8"; document.getElementById("gnEmail").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
 
@@ -215,7 +236,7 @@ document.querySelectorAll(".buy-btn").forEach(btn => {
         body: JSON.stringify({
           sku,
           giftNote: giftNote(),
-          giftCode: (document.getElementById("gnCode").value || "").trim(),
+          giftCode: appliedCode,
           successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: window.location.href
         })
