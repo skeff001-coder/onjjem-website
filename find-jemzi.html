@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="/jemzi-64.png"><link rel="apple-touch-icon" href="/apple-touch-icon-jemzi.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Jemzi! | ONJJEM</title>
+<meta name="description" content="Did you find Jemzi hiding on your presents? Get your Official Jemzi Finder certificate and enter the free Find Jemzi draw to win a personalised cartoon blanket.">
+<link rel="canonical" href="https://onjjem.com/find-jemzi">
+<meta property="og:title" content="🦔 Can you find Jemzi?">
+<meta property="og:description" content="Find Jemzi, get your certificate and enter the free draw to win a cartoon blanket.">
+<meta property="og:image" content="https://onjjem.com/jemzi-letter-postcard.jpg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L30Q5L3MW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  try { if (localStorage.getItem('onjjem_notrack')) window['ga-disable-G-3L30Q5L3MW'] = true; } catch (e) {}
+  gtag('config', 'G-3L30Q5L3MW');
+</script>
+<style>
+  :root { --red:#c8242f; --green:#1f6b3a; --cream:#fffaf0; --ink:#3b2a1a; --gold:#f3d078; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Trebuchet MS",system-ui,-apple-system,sans-serif; color:var(--ink);
+    background:radial-gradient(ellipse at top,#c8242f 0%,#8f141d 55%,#5c0b12 100%) fixed; min-height:100vh; }
+  .wrap { max-width:560px; margin:0 auto; padding:16px 16px 40px; }
+  .brand { text-align:center; color:var(--gold); letter-spacing:.2em; font-weight:800; font-size:13px; margin:6px 0 0; }
+  .hero { text-align:center; color:#fff; }
+  .hero img { width:190px; filter:drop-shadow(0 10px 18px rgba(0,0,0,.4)); margin-top:6px; }
+  h1 { font-size:34px; margin:4px 0 6px; }
+  .hero p { margin:0 auto; max-width:440px; font-size:17px; color:#ffe9e9; }
+  .card { background:var(--cream); border-radius:20px; padding:18px; margin-top:16px; box-shadow:0 10px 30px rgba(0,0,0,.25); }
+  .card h2 { margin:0 0 6px; font-size:22px; color:var(--red); }
+  .card p { margin:4px 0 10px; }
+  .spots { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .spot { border:3px dashed #d9c9a8; background:#fff; border-radius:16px; padding:14px 6px; text-align:center; font-weight:800; font-size:15px; cursor:pointer; color:var(--ink); }
+  .spot .e { font-size:34px; display:block; }
+  .spot.on { border:3px solid var(--green); background:#e9f7ee; }
+  .spot.on .t:after { content:" ✅"; }
+  .count { text-align:center; font-weight:800; color:var(--green); margin-top:10px; font-size:17px; }
+  .puzzle { position:relative; border-radius:14px; overflow:hidden; cursor:crosshair; }
+  .puzzle img { width:100%; display:block; }
+  .ring { position:absolute; width:22%; aspect-ratio:1; border:5px solid #ffd54a; border-radius:50%; transform:translate(-50%,-50%); display:none; box-shadow:0 0 0 4px rgba(0,0,0,.25); }
+  .miss { text-align:center; font-weight:700; color:#8f141d; min-height:22px; margin-top:6px; }
+  .hide { display:none; }
+  .win { text-align:center; }
+  .win .big { font-size:30px; font-weight:900; color:var(--green); margin:4px 0; }
+  input[type=text], input[type=email] { width:100%; padding:13px; border-radius:12px; border:2px solid #e2d6bd; font-size:17px; margin:6px 0; }
+  label.ck { display:flex; gap:8px; align-items:flex-start; font-size:14.5px; margin:8px 0; }
+  label.ck input { width:20px; height:20px; margin-top:1px; flex:0 0 auto; }
+  .btn { display:block; width:100%; text-align:center; border:0; border-radius:14px; padding:15px; font-size:18px; font-weight:900; cursor:pointer; text-decoration:none; margin-top:10px; }
+  .go { background:var(--red); color:#fff; }
+  .gr { background:var(--green); color:#fff; }
+  .code { display:inline-block; background:#fff; border:3px dashed var(--red); border-radius:12px; padding:8px 16px; font-size:24px; font-weight:900; letter-spacing:.1em; color:var(--red); margin:6px 0; }
+  .msg { font-weight:700; margin-top:8px; }
+  .small { font-size:12.5px; color:#6b5a48; }
+  .terms { color:#ffe1e1; font-size:12.5px; margin-top:22px; }
+  .terms a { color:var(--gold); }
+  .terms ol { padding-left:18px; }
+  canvas { display:none; }
+  #confetti { position:fixed; inset:0; pointer-events:none; display:block; }
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="wrap">
+  <div class="brand">ONJJEM · UK FAMILY BUSINESS</div>
+  <div class="hero">
+    <img src="/jemzi-tpl-xmas.webp" alt="Jemzi the hedgehog in a Santa hat">
+    <h1>Can you find Jemzi? 🔍</h1>
+    <p>Jemzi sneaked into Santa's workshop and hid on <b>3 presents</b> in your Santa sack. Tap each place you found him!</p>
+  </div>
+
+  <div class="card" id="hunt">
+    <h2>Where was Jemzi hiding?</h2>
+    <div class="spots">
+      <div class="spot" data-s="bauble"><span class="e">🎄</span><span class="t">Bauble</span></div>
+      <div class="spot" data-s="cards"><span class="e">🃏</span><span class="t">Playing cards</span></div>
+      <div class="spot" data-s="magnet"><span class="e">🧲</span><span class="t">Magnet</span></div>
+    </div>
+    <div class="count" id="count">Found 0 of 3</div>
+  </div>
+
+  <div class="card" id="nosack">
+    <h2>No Santa sack? Play here!</h2>
+    <p>Jemzi is hiding in this picture too. Tap him when you spot him.</p>
+    <div class="puzzle" id="puzzle"><img src="/find-jemzi-puzzle.jpg" alt="A Christmas bauble picture with Jemzi hiding somewhere"><div class="ring" id="ring"></div></div>
+    <div class="miss" id="miss"></div>
+  </div>
+
+  <div class="card win hide" id="win">
+    <div class="big">🎉 You found Jemzi! 🎉</div>
+    <p>You're an <b>Official Jemzi Finder</b>. Type your name to get your certificate.</p>
+    <input type="text" id="kid" maxlength="24" placeholder="Your first name" autocomplete="off">
+    <button class="btn gr" id="cert">⬇️ Get my certificate</button>
+  </div>
+
+  <div class="card hide" id="draw">
+    <h2>🎁 Free Find Jemzi draw</h2>
+    <p>Every Jemzi finder can be entered into our free draw to <b>win a personalised cartoon blanket</b> of the family or pet. Drawn Mon 1 February 2027.</p>
+    <p class="small"><b>Grown-ups:</b> please fill this in for your Jemzi finder.</p>
+    <form id="f" novalidate>
+      <input type="text" name="name" maxlength="60" placeholder="Grown-up's name" required>
+      <input type="email" name="email" maxlength="200" placeholder="Grown-up's email" required>
+      <input type="text" name="website" class="hide" tabindex="-1" autocomplete="off">
+      <label class="ck"><input type="checkbox" name="adult"> I'm 18 or over and live in the UK</label>
+      <label class="ck"><input type="checkbox" name="marketing"> Send me ONJJEM offers by email (optional, doesn't affect your chances)</label>
+      <button class="btn go" type="submit">Enter the draw</button>
+      <div class="msg" id="fmsg"></div>
+    </form>
+  </div>
+
+  <div class="card hide" id="gift" style="text-align:center">
+    <h2>A thank-you from Jemzi 🦔</h2>
+    <p>15% off your next ONJJEM gift with code</p>
+    <div class="code">THANKYOU15</div>
+    <a class="btn go" href="/">See ONJJEM gifts →</a>
+  </div>
+
+  <div class="terms">
+    <b>Find Jemzi draw: the short rules</b>
+    <ol>
+      <li>Free to enter and no purchase is necessary. Anyone can enter by finding Jemzi in the picture on this page.</li>
+      <li>Open to UK residents aged 18 or over, who can enter on behalf of a child. One entry per email address.</li>
+      <li>Closes 8pm UK time on Sunday 31 January 2027. One winner is picked at random on Monday 1 February 2027 and contacted by email. If they don't reply within 14 days, we'll draw again.</li>
+      <li>Prize: one personalised cartoon blanket made from a photo the winner sends us, delivered free in the UK. No cash alternative.</li>
+      <li>We use your details only to run the draw (and to send offers if you tick that box). See our <a href="/privacy.html">privacy policy</a>. Promoter: ONJJEM, hello@onjjem.com.</li>
+    </ol>
+  </div>
+</div>
+<canvas id="c"></canvas>
+<script>
+(function(){
+  var found = {}, done = false;
+  function track(e){ try{ gtag('event', e); }catch(x){} }
+  function count(){ var n = Object.keys(found).length; document.getElementById('count').textContent = n >= 3 ? 'All 3 found! 🎉' : 'Found ' + n + ' of 3'; if (n >= 3) win(); }
+  document.querySelectorAll('.spot').forEach(function(s){
+    s.addEventListener('click', function(){
+      var k = s.getAttribute('data-s');
+      if (found[k]) { delete found[k]; s.classList.remove('on'); } else { found[k] = 1; s.classList.add('on'); }
+      count();
+    });
+  });
+  // Free-entry picture: Jemzi is centred at 79% across, 66% down.
+  var pz = document.getElementById('puzzle'), ring = document.getElementById('ring'), miss = document.getElementById('miss'), tries = 0;
+  pz.addEventListener('click', function(ev){
+    var r = pz.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
+    if (Math.hypot(x - 0.79, y - 0.66) < 0.08) { ring.style.left = '79%'; ring.style.top = '66%'; ring.style.display = 'block'; miss.textContent = 'There he is! 🦔'; win(); }
+    else { tries++; miss.textContent = tries > 2 ? 'Hint: look near the golden lights on the right ✨' : 'Not there… keep looking! 👀'; }
+  });
+  function win(){
+    if (done) return; done = true; track('jemzi_found');
+    ['win', 'draw', 'gift'].forEach(function(id){ document.getElementById(id).classList.remove('hide'); });
+    confetti(); setTimeout(function(){ document.getElementById('win').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+  }
+  function confetti(){
+    var c = document.getElementById('confetti'), g = c.getContext('2d'); c.width = innerWidth; c.height = innerHeight;
+    var cols = ['#ffd54a', '#ffffff', '#2e9d55', '#ff6b6b', '#7cc6ff'], ps = [];
+    for (var i = 0; i < 160; i++) ps.push({ x: Math.random() * c.width, y: -20 - Math.random() * c.height, v: 2 + Math.random() * 4, s: 4 + Math.random() * 6, c: cols[i % cols.length], w: Math.random() * 6 });
+    var t = 0; (function f(){ g.clearRect(0, 0, c.width, c.height); ps.forEach(function(p){ p.y += p.v; p.x += Math.sin((t + p.w * 10) / 12); g.fillStyle = p.c; g.fillRect(p.x, p.y, p.s, p.s * 0.6); }); if (++t < 260) requestAnimationFrame(f); else g.clearRect(0, 0, c.width, c.height); })();
+  }
+  function load(src){ return new Promise(function(ok, no){ var i = new Image(); i.onload = function(){ ok(i); }; i.onerror = no; i.src = src; }); }
+  document.getElementById('cert').addEventListener('click', async function(){
+    var name = (document.getElementById('kid').value || '').trim().slice(0, 24) || 'A Super Finder';
+    var c = document.getElementById('c'), W = 1600, H = 1131; c.width = W; c.height = H; var g = c.getContext('2d');
+    g.fillStyle = '#fffaf0'; g.fillRect(0, 0, W, H);
+    g.strokeStyle = '#c8242f'; g.lineWidth = 26; g.strokeRect(30, 30, W - 60, H - 60);
+    g.strokeStyle = '#1f6b3a'; g.lineWidth = 6; g.setLineDash([22, 14]); g.strokeRect(70, 70, W - 140, H - 140); g.setLineDash([]);
+    try { var j = await load('/jemzi-tpl-xmas.webp'); var jw = 420, jh = jw * j.height / j.width; g.drawImage(j, W - jw - 110, H - jh - 110, jw, jh); } catch (e) {}
+    g.textAlign = 'center'; g.fillStyle = '#c8242f'; g.font = '900 92px "Trebuchet MS",sans-serif'; g.fillText('Official Jemzi Finder', W / 2 - 120, 250);
+    g.fillStyle = '#3b2a1a'; g.font = '700 46px "Trebuchet MS",sans-serif'; g.fillText('This certificate is proudly awarded to', W / 2 - 120, 360);
+    g.fillStyle = '#1f6b3a'; g.font = '900 120px "Trebuchet MS",sans-serif'; g.fillText(name, W / 2 - 120, 520, 1000);
+    g.fillStyle = '#3b2a1a'; g.font = '700 44px "Trebuchet MS",sans-serif';
+    g.fillText('for finding Jemzi hiding at Christmas!', W / 2 - 120, 630);
+    g.font = '600 36px "Trebuchet MS",sans-serif'; g.fillText('Signed, Jemzi 🦔 & the ONJJEM elves', W / 2 - 120, 790); g.fillText('Christmas 2026', W / 2 - 120, 845);
+    var a = document.createElement('a'); a.download = 'jemzi-finder-certificate.png'; a.href = c.toDataURL('image/png'); a.click(); track('jemzi_certificate');
+  });
+  document.getElementById('f').addEventListener('submit', async function(ev){
+    ev.preventDefault(); var f = ev.target, m = document.getElementById('fmsg');
+    if (!f.adult.checked) { m.textContent = 'Please tick the box to confirm you\'re 18+ and in the UK.'; return; }
+    var d = { name: f.name.value, email: f.email.value, child: (document.getElementById('kid').value || '').trim(), adult: true, uk: true, found: true, marketing: f.marketing.checked, website: f.website.value };
+    m.textContent = 'Entering…';
+    try {
+      var r = await fetch('/api/jemzi-entry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) });
+      var j = await r.json();
+      if (!r.ok) { m.textContent = j.error || 'Something went wrong, please try again.'; return; }
+      f.innerHTML = '<p style="font-size:19px;color:#1f6b3a;font-weight:900">🎉 You\'re in the draw! Good luck 🍀</p><p>' + (j.already ? '(You were already entered, one entry per email.)' : 'Check your email for confirmation.') + '</p>';
+      track('jemzi_entry');
+    } catch (e) { m.textContent = 'Something went wrong, please try again.'; }
+  });
+})();
+</script>
+</body>
+</html>
