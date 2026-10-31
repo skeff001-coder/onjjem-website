@@ -81,6 +81,12 @@ if(t<Date.parse("2026-12-01T00:00:00Z")){el.innerHTML='🖤 Black Friday: buy a 
   <p style="margin:6px 0 0;font-size:.8rem;color:#a89a7c">We'll email it to them the moment you pay, and send you a copy. Leave blank to have it sent to you, to forward or print.</p>
 </div>
 
+<div style="max-width:640px;margin:0 auto 18px;padding:14px 18px;border:1px solid #5a4d2e;border-radius:14px;background:#1C1A14;color:#F6EBD4;font-family:system-ui,sans-serif">
+  <p style="margin:0 0 6px;font-weight:700">💳 Paying with a Jemz Platinum gift card? <span style="font-weight:400;color:#d9cfb8">(optional)</span></p>
+  <input id="gnCode" maxlength="40" autocapitalize="characters" placeholder="Gift card code, e.g. GIFTAB12CD" style="width:100%;box-sizing:border-box;padding:12px;border-radius:10px;border:1px solid #5a4d2e;background:#111;color:#fff;font-size:16px;text-transform:uppercase">
+  <p style="margin:6px 0 0;font-size:.8rem;color:#a89a7c">Gift card codes can be used here. Discount codes can't be used on gift cards.</p>
+</div>
+
 <div class="products" id="products"></div>
 
 <footer>
@@ -209,13 +215,14 @@ document.querySelectorAll(".buy-btn").forEach(btn => {
         body: JSON.stringify({
           sku,
           giftNote: giftNote(),
+          giftCode: (document.getElementById("gnCode").value || "").trim(),
           successUrl: window.location.origin + "/?order=success&session_id={CHECKOUT_SESSION_ID}",
           cancelUrl: window.location.href
         })
       });
       const data = await res.json();
       if (data.url) window.location.href = data.url;
-      else { status.textContent = data.error || "Something went wrong"; btn.disabled = false; }
+      else { status.textContent = data.error || "Something went wrong"; status.style.color = "#ffb4a8"; btn.disabled = false; }
     } catch (err) {
       status.textContent = "Could not connect. Please try again.";
       btn.disabled = false;
