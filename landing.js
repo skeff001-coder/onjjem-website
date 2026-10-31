@@ -23,7 +23,6 @@ const ONJJEM_PROMO = {
 const ONJJEM_REVIEWS = [
   { name: "C. Murphy", bought: "Magic Reveal mug", text: "My Yorkshire terrier on the Magic mug is class in the cartoon style. Kids love it!" },
   { name: "W Taylor", bought: "Cartoon prints", text: "My cartoon style prints of my kids arrived in just 3 days, and the colours look brilliant. Will definitely buy again! Thanks ONJJEM" },
-  { name: "Kelly W.", bought: "Photo print", text: "I purchased a print of my children — fantastic quality, great value and super fast delivery. Will definitely be using ONJJEM again." },
   { name: "Niamh", bought: "Colour-changing mug", text: "Love the mug I ordered. Such a cute design and the heat-activated effect works perfectly. Really happy with it!" }
 ];
 // ─────────────────────────────────────────────────────────────────────────────
@@ -262,7 +261,7 @@ function ONJJEM_headerHtml() {
     ${ONJJEM_searchHtml()}
   </header>
   <nav class="cat-bar" aria-label="Gift categories">
-    <a href="/#cat-walls">🖼️ Wall art</a><a href="/#cat-living">🏡 Home &amp; Kitchen</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/#cat-clothing">👕 Clothing &amp; kids</a><a href="/#cat-pets">🐾 Jempetz</a><a href="/gift-cards.html">🎁 Gift cards</a>
+    <a href="/#cat-walls">🖼️ Wall art</a><a href="/#cat-living">🏡 Home &amp; Kitchen</a><a href="/#cat-deals">🏷️ Deals</a><a href="/#cat-christmas">🎄 Christmas</a><a href="/#cat-clothing">👕 Clothing &amp; kids</a><a href="/#cat-pets">🐾 Jempetz</a><a href="/gift-cards.html">🎁 Gift cards</a>
   </nav>`;
 }
 

@@ -4,7 +4,6 @@
 (function () {
   var R = [
     ["My Yorkshire terrier on the Magic mug is class in the cartoon style. Kids love it!", "C. Murphy", "Magic Reveal mug"],
-    ["Fantastic quality, great value and super fast delivery.", "Kelly W.", "photo print"],
     ["Arrived in just 3 days, and the colours look brilliant.", "W Taylor", "cartoon prints"],
     ["The heat-activated effect works perfectly. Really happy with it!", "Niamh", "colour-changing mug"]
   ];
