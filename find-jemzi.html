@@ -69,22 +69,12 @@
   <div class="hero">
     <img src="/jemzi-tpl-xmas.webp" alt="Jemzi the hedgehog in a Santa hat">
     <h1>Can you find Jemzi? 🔍</h1>
-    <p>Jemzi sneaked into Santa's workshop and hid on <b>3 presents</b> in your Santa sack. Tap each place you found her!</p>
-  </div>
-
-  <div class="card" id="hunt">
-    <h2>Where was Jemzi hiding?</h2>
-    <div class="spots">
-      <div class="spot" data-s="bauble"><span class="e">🎄</span><span class="t">Bauble</span></div>
-      <div class="spot" data-s="cards"><span class="e">🃏</span><span class="t">Playing cards</span></div>
-      <div class="spot" data-s="magnet"><span class="e">🧲</span><span class="t">Magnet</span></div>
-    </div>
-    <div class="count" id="count">Found 0 of 3</div>
+    <p>Jemzi is a very small hedgehog who loves to hide. She's tucked away somewhere in the Christmas picture below. Can you spot her?</p>
   </div>
 
   <div class="card" id="nosack">
-    <h2>No Santa sack? Play here!</h2>
-    <p>Jemzi is hiding in this picture too. Tap her when you spot her.</p>
+    <h2>Find Jemzi!</h2>
+    <p>Look very closely, she's tiny! Tap her when you spot her. She hides somewhere new every time.</p>
     <div class="puzzle" id="puzzle"><img src="/christmas-hero.jpg" alt="A Christmas picture with Jemzi hiding somewhere"><img class="hog" id="hog" src="/jemzi-tpl-xmas.webp" alt=""><div class="ring" id="ring"></div></div>
     <div class="miss" id="miss"></div>
   </div>
@@ -126,16 +116,8 @@
 <canvas id="c"></canvas>
 <script>
 (function(){
-  var found = {}, done = false;
+  var done = false;
   function track(e){ try{ gtag('event', e); }catch(x){} }
-  function count(){ var n = Object.keys(found).length; document.getElementById('count').textContent = n >= 3 ? 'All 3 found! 🎉' : 'Found ' + n + ' of 3'; if (n >= 3) win(); }
-  document.querySelectorAll('.spot').forEach(function(s){
-    s.addEventListener('click', function(){
-      var k = s.getAttribute('data-s');
-      if (found[k]) { delete found[k]; s.classList.remove('on'); } else { found[k] = 1; s.classList.add('on'); }
-      count();
-    });
-  });
   // Free-entry picture: Jemzi is centred at 79% across, 66% down.
   var pz = document.getElementById('puzzle'), ring = document.getElementById('ring'), miss = document.getElementById('miss'), tries = 0;
   // Jemzi hides somewhere different every visit, tiny and tilted.
