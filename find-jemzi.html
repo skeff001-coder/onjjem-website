@@ -40,7 +40,8 @@
   .count { text-align:center; font-weight:800; color:var(--green); margin-top:10px; font-size:17px; }
   .puzzle { position:relative; border-radius:14px; overflow:hidden; cursor:crosshair; }
   .puzzle img { width:100%; display:block; }
-  .ring { position:absolute; width:22%; aspect-ratio:1; border:5px solid #ffd54a; border-radius:50%; transform:translate(-50%,-50%); display:none; box-shadow:0 0 0 4px rgba(0,0,0,.25); }
+  .puzzle .hog { position:absolute; width:4.2%; transform:translate(-50%,-50%); pointer-events:none; opacity:.92; }
+  .ring { position:absolute; width:14%; aspect-ratio:1; border:5px solid #ffd54a; border-radius:50%; transform:translate(-50%,-50%); display:none; box-shadow:0 0 0 4px rgba(0,0,0,.25); }
   .miss { text-align:center; font-weight:700; color:#8f141d; min-height:22px; margin-top:6px; }
   .hide { display:none; }
   .win { text-align:center; }
@@ -84,7 +85,7 @@
   <div class="card" id="nosack">
     <h2>No Santa sack? Play here!</h2>
     <p>Jemzi is hiding in this picture too. Tap her when you spot her.</p>
-    <div class="puzzle" id="puzzle"><img src="/find-jemzi-puzzle.jpg" alt="A Christmas bauble picture with Jemzi hiding somewhere"><div class="ring" id="ring"></div></div>
+    <div class="puzzle" id="puzzle"><img src="/christmas-hero.jpg" alt="A Christmas picture with Jemzi hiding somewhere"><img class="hog" id="hog" src="/jemzi-tpl-xmas.webp" alt=""><div class="ring" id="ring"></div></div>
     <div class="miss" id="miss"></div>
   </div>
 
@@ -137,10 +138,15 @@
   });
   // Free-entry picture: Jemzi is centred at 79% across, 66% down.
   var pz = document.getElementById('puzzle'), ring = document.getElementById('ring'), miss = document.getElementById('miss'), tries = 0;
+  // Jemzi hides somewhere different every visit, tiny and tilted.
+  var hx = 0.08 + Math.random() * 0.84, hy = 0.1 + Math.random() * 0.8, hog = document.getElementById('hog');
+  hog.style.left = (hx * 100) + '%'; hog.style.top = (hy * 100) + '%';
+  hog.style.transform = 'translate(-50%,-50%) rotate(' + Math.round((Math.random() - 0.5) * 50) + 'deg)';
+  var area = (hy < 0.5 ? 'top' : 'bottom') + (hx < 0.34 ? ' left' : hx > 0.66 ? ' right' : ' middle');
   pz.addEventListener('click', function(ev){
     var r = pz.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
-    if (Math.hypot(x - 0.79, y - 0.66) < 0.08) { ring.style.left = '79%'; ring.style.top = '66%'; ring.style.display = 'block'; miss.textContent = 'There she is! 🦔'; win(); }
-    else { tries++; miss.textContent = tries > 2 ? 'Hint: look near the golden lights on the right ✨' : 'Not there… keep looking! 👀'; }
+    if (Math.hypot(x - hx, y - hy) < 0.045) { ring.style.left = (hx * 100) + '%'; ring.style.top = (hy * 100) + '%'; ring.style.display = 'block'; miss.textContent = 'There she is! 🦔'; win(); }
+    else { tries++; miss.textContent = tries > 4 ? 'Hint: look in the ' + area + ' of the picture ✨' : 'Not there… keep looking! 👀'; }
   });
   function win(){
     if (done) return; done = true; track('jemzi_found');
