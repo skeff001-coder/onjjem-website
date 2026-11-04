@@ -116,6 +116,19 @@
 @media (prefers-reduced-motion:reduce){.gw-promo .gw-btn{animation:none}}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap">
+<style>
+.jst{display:block;margin:1rem 0;border-radius:22px;overflow:hidden;text-decoration:none;color:#f6ebd4;background:radial-gradient(ellipse at 50% 0%,#2b2414 0%,#14110b 70%);border:2px solid #d4af37;box-shadow:0 0 0 4px rgba(212,175,55,.15),0 14px 34px rgba(0,0,0,.5);text-align:center;padding:1.1rem 1rem 1.2rem}
+.jst .jst-k{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:#d4af37;font-weight:800}
+.jst .jst-t{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:clamp(1.9rem,8vw,2.7rem);line-height:1.08;margin:.3rem 0 .3rem;background:linear-gradient(180deg,#fff6d6,#f5d78e 45%,#c9960c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.jst .jst-s{margin:0 auto .8rem;max-width:30rem;font-size:1rem;line-height:1.45;color:#e9dfc8}
+.jst .jst-g{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:6px;margin:0 0 .8rem}
+.jst .jst-g img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;border:1px solid rgba(212,175,55,.5)}
+.jst .jst-p{display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem .9rem;font-size:.85rem;color:#d9c9a3;margin-bottom:.4rem}
+.jst .jst-btn{display:inline-block;margin-top:.5rem;padding:.9rem 1.8rem;border-radius:99px;font-weight:900;font-size:1.05rem;color:#1d1406;background:linear-gradient(135deg,#f5d78e,#d4af37 50%,#f5d78e);box-shadow:0 5px 0 #8b6200}
+.rm-row.rm-jst{border:2px solid #d4af37;background:linear-gradient(90deg,rgba(212,175,55,.22),rgba(212,175,55,.05))}
+.rm-row.rm-jst b{color:#f5d78e;font-family:"Playfair Display",Georgia,serif;font-size:1.12rem}
+.jst-tag{margin:-.3rem 0 .8rem;color:#d9c9a3;font-size:.95rem}
+</style>
 </head>
 <body>
 <script>
@@ -158,10 +171,11 @@
       h.querySelectorAll('.jz-chips a').forEach(function(a){a.addEventListener('click',function(){try{gtag('event','jemzi_help',{action:'chip',label:a.textContent})}catch(e){}});});
     })();
     </script>
+    <a class="jst" href="/#cat-walls" onclick="try{gtag('event','jemstone_promo')}catch(e){};var r=document.querySelector('.rm-row[data-sec=&quot;cat-walls&quot;]');if(r){event.preventDefault();if(!r.classList.contains('on'))r.click();else r.scrollIntoView({behavior:'smooth'});}"><div class="jst-k">💎 Our signature range</div><div class="jst-t">The Jemstone Collection</div><p class="jst-s">Your favourite photos turned into wall art you'll treasure for a lifetime. Canvases, fine art prints and giant posters, made to order in the UK.</p><div class="jst-g"><img src="/canvas-hero.webp?v=1" alt="Photo canvas"><img src="/prints-hero-scenic.webp" alt="Fine art print"><img src="/posters-hero.webp?v=3" alt="Giant poster"></div><div class="jst-p"><span>✓ Museum-quality inks</span><span>✓ Ready to hang</span><span>✓ Free UK delivery</span><span>✓ 15% off for Black Friday</span></div><span class="jst-btn">Explore the Jemstone Collection 💎</span></a>
     <a class="gw-promo" href="/giftwrap" onclick="try{gtag('event','giftwrap_promo')}catch(e){}"><img src="/giftwrap-hero.webp" alt="Presents wrapped in paper covered in a dog's face"><div class="gw-b"><span class="gw-k">🎁 NEW FOR CHRISTMAS</span><div class="gw-t">Wrap it in your FACE! 😂</div><p class="gw-s">Your family, your dog or your Christmas cartoon printed all over the wrapping paper. They'll be laughing before they've even opened it.</p><div class="gw-p">From £12.99 · free UK delivery</div><span class="gw-btn">Make my wrapping paper 🎁</span></div></a>
     <h1 class="lx-shop" style="margin-top:0.4rem">What would you like to make?</h1>
     <div class="rm-list" id="rmList">
-      <a class="rm-row" href="/#cat-walls" data-sec="cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span class="rm-ico">🖼️</span><span class="rm-txt"><b>Wall Art</b><small>The Jemstone Collection</small></span><span class="rm-p">from £3.99 ›</span></a>
+      <a class="rm-row rm-jst" href="/#cat-walls" data-sec="cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span class="rm-ico">💎</span><span class="rm-txt"><b>The Jemstone Collection</b><small>Canvases, prints &amp; posters · our signature range</small></span><span class="rm-p">from £3.99 ›</span></a>
       <a class="rm-row" href="/#cat-living" data-sec="cat-living"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><span class="rm-ico">🏡</span><span class="rm-txt"><b>Home &amp; Kitchen</b><small>Throws, mugs, cushions &amp; more</small></span><span class="rm-p">from £7.49 ›</span></a>
       <a class="rm-row" href="/#cat-deals" data-sec="cat-deals"><img src="/jembox-hero.webp" alt="" loading="lazy"><span class="rm-ico">🏷️</span><span class="rm-txt"><b>Deals &amp; Bundles</b><small>Gift sets &amp; offers</small></span><span class="rm-p">save up to £20 ›</span></a>
       <a class="rm-row" href="/#cat-clothing" data-sec="cat-clothing"><img src="/cat-kids.webp" alt="" loading="lazy"><span class="rm-ico">👕</span><span class="rm-txt"><b>Clothing &amp; Kids</b><small>Stickers, badges, tattoos &amp; more</small></span><span class="rm-p">from £5.99 ›</span></a>
@@ -180,6 +194,7 @@
 
   <section class="wrap home-sec" id="cat-walls">
     <div class="home-sec-head"><h2>💎 The Jemstone Collection</h2><a href="#shop">All rooms ↑</a></div>
+    <p class="jst-tag">Our signature range: your photos as wall art made to last a lifetime. Museum-quality inks, ready to hang, free UK delivery.</p>
     <div class="tiles">
         <a class="tile" href="/your-jemzi"><img src="/jemzi.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>Your Own Jemzi: up to 5 of your photos with Jemzi</h3><div class="t-price">From £19.99</div></div></a>
         <a class="tile" href="/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>NEW: Photo canvases, ready to hang</h3><div class="t-price">From £24.99</div></div></a>
