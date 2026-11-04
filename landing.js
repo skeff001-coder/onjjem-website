@@ -667,28 +667,13 @@ function ONJJEM_renderLanding(P) {
   <main>
     <section class="wrap l-hero">
       ${P.cartoon && window.ONJJEM_CARTOON_STYLE ? `<div class="quick-cta"><button type="button" class="btn quick-cta-btn" id="quickCartoonBtn">${window.ONJJEM_CARTOON_STYLE === "christmas" ? "🎄 See YOUR Christmas cartoon FREE" : "✨ See YOUR cartoon FREE"}</button><div class="quick-cta-sub">Pick a photo of your kids, family or pet. Ready in seconds, nothing to pay.</div></div>` : ""}
-      <div class="l-hero-img"><img src="${P.heroImg}" alt="${esc(P.heroAlt || P.title)}"></div>
+      <div class="l-hero-img" style="max-height:30vh;overflow:hidden;border-radius:16px"><img src="${P.heroImg}" alt="${esc(P.heroAlt || P.title)}" style="width:100%;height:30vh;object-fit:cover"></div>
       <div>
         <div class="l-kicker">${esc(P.kicker)}</div>
         <h1>${esc(P.title)}</h1>
-        <p class="sub">${esc(P.sub)}</p>
         <div class="l-price">${opts.length > 1 ? "From " : ""}${money(fromPrice)} <small>· ${ONJJEM_deliveryWord()}</small></div>
-        <ul class="l-ticks">${P.ticks.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
-        <a href="#order" class="btn">${esc(P.cta || "Create yours now")}</a>
-        <div class="hero-trust"><span>👀 See it before you pay</span><span>🔒 Secure checkout</span><span>🚚 Free delivery</span>${P.cartoon ? "<span>🎁 Free cartoon to keep</span>" : ""}<span>👋 UK family business</span></div>
       </div>
     </section>
-
-    <section class="l-section wrap">
-      <h2>How it works</h2>
-      <div class="steps">
-        <div class="step"><div class="step-num">1</div><div><h3>Pick a photo</h3><p>Kids, family, couples, pets or a child's drawing.</p></div></div>
-        <div class="step"><div class="step-num">2</div><div><h3>${P.cartoon ? "Cartoon it (optional)" : "Choose your option"}</h3><p>${P.cartoon ? (ONJJEM_isUS() || window.ONJJEM_CARTOON_FREE ? "See your photo as a cartoon. It's FREE, or keep the original." : "See a free preview of your photo as a cartoon. Add it for £1.99, or keep the original.") : "Pick the size or style you want."}</p></div></div>
-        <div class="step"><div class="step-num">3</div><div><h3>We make it &amp; post it</h3><p>${ONJJEM_isUS() ? "Printed to order in the USA and shipped free." : "Printed to order in the UK and sent with free delivery."}</p></div></div>
-      </div>
-    </section>
-
-    ${ONJJEM_printAnythingHtml()}
 
     <section class="l-section wrap" id="order">
       <div class="order-box">
