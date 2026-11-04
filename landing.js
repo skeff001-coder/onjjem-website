@@ -737,13 +737,7 @@ function ONJJEM_renderLanding(P) {
         </div>
 
         <div class="order-total"><span>Total <small style="color:var(--muted)">(${ONJJEM_deliveryWord()})</small></span><strong id="total">${money(opts[selected].price)}</strong></div>
-        <ul class="trust-line">
-          <li>👀 <strong>See your design before you pay</strong>: what you see is what you get</li>
-          ${P.cartoon ? `<li>🎁 <strong>FREE gift</strong>: choose a cartoon and we'll email it to you to keep as a wallpaper</li>` : ""}
-          <li>🔒 <strong>Secure checkout</strong> by Stripe: card, Apple Pay or Google Pay</li>
-          <li>🚚 ${ONJJEM_isUS() ? "Free US shipping, made in the USA" : "Free UK delivery"} · arrives damaged? Replaced free</li>
-          <li>👋 A small UK family business</li>
-        </ul>
+        <p class="order-note" style="margin:0 0 0.75rem;text-align:center">👀 See your design before you pay · ${ONJJEM_isUS() ? "Free US shipping" : "Free UK delivery"} · 🔒 Apple Pay</p>
         ${P.confirmText ? `<label class="ft-note" style="display:flex;gap:.5rem;align-items:flex-start;text-align:left;margin:0 0 .75rem;cursor:pointer"><input type="checkbox" id="confirmBox" style="margin-top:.2rem;flex:none;width:1.1rem;height:1.1rem"><span>${P.confirmText}</span></label>` : ""}
         <button class="btn" id="basketBtn">🧺 Add to basket</button>
         <button class="btn btn-ghost" id="buyBtn" style="margin-top:0.5rem">Buy just this one now →</button>
