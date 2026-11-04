@@ -126,6 +126,7 @@ const ONJJEM_GIFTS_UK = [
   ["Jemzsaw: find-Jemzi photo jigsaw", "/jemzsaw", "jemzsaw jigsaw puzzle game family hedgehog jemzi"],
   ["Metal pet tag (name & phone)", "/pet-tag", "pet tag dog tag cat collar name id identity"],
   ["Personalised pet bandana", "/pet-bandana", "pet dog cat bandana scarf collar puppy"],
+  ["Face wrapping paper (your photo all over it)", "/giftwrap", "wrapping paper gift wrap christmas face wrap present paper roll"],
   ["Glass chopping boards", "/chopping-board", "chopping cutting board glass kitchen chef cheese"],
   ["✨ Magic Reveal mug (colour-changing)", "/mug", "mug cup magic colour color changing heat reveal tea coffee"],
   ["Photo mugs", "/mug", "mug cup tea coffee photo 11oz 15oz"],
@@ -339,6 +340,39 @@ async function ONJJEM_bandana(src, words, forPrint, sku) {
     return c.toDataURL("image/jpeg", 0.9);
   }
   return c.toDataURL("image/jpeg", 0.93);
+}
+
+// Face wrapping paper: one square "cell" (two round faces + gold stars on Christmas red) that repeats
+// seamlessly. The print file is just the cell; the server repeats it across the whole sheet/roll.
+const ONJJEM_WRAP_BG = { red: "#b3122e", green: "#14532d", navy: "#152a4e" };
+async function ONJJEM_giftwrapCell(src, words, bg) {
+  const im = await ONJJEM_loadImg(src), C = 1200, T = C / 2, c = document.createElement("canvas"); c.width = c.height = C;
+  const g = c.getContext("2d"); g.fillStyle = ONJJEM_WRAP_BG[bg] || ONJJEM_WRAP_BG.red; g.fillRect(0, 0, C, C);
+  const name = (words || "").trim();
+  const face = (cx, cy) => {
+    const r = T * (name ? 0.34 : 0.38), cyF = cy - (name ? T * 0.06 : 0);
+    g.save(); g.beginPath(); g.arc(cx, cyF, r + T * 0.03, 0, Math.PI * 2); g.fillStyle = "#fff"; g.shadowColor = "rgba(0,0,0,.35)"; g.shadowBlur = T * 0.04; g.fill(); g.restore();
+    g.save(); g.beginPath(); g.arc(cx, cyF, r, 0, Math.PI * 2); g.clip();
+    const k = Math.max((2 * r) / im.width, (2 * r) / im.height), w = im.width * k, h = im.height * k;
+    g.drawImage(im, cx - w / 2, cyF - r - Math.max(0, (h - 2 * r) * 0.25), w, h); g.restore();
+    if (name) { let fs = T * 0.13; g.font = `900 ${fs}px system-ui,-apple-system,Arial,sans-serif`; while (g.measureText(name).width > T * 0.9 && fs > T * 0.06) { fs -= 2; g.font = `900 ${fs}px system-ui,-apple-system,Arial,sans-serif`; }
+      g.textAlign = "center"; g.textBaseline = "middle"; g.fillStyle = "#fff"; g.fillText(name, cx, cyF + r + T * 0.13); }
+  };
+  const star = (x, y, r) => { g.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.42 : r; g.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); } g.closePath(); g.fillStyle = "#f5d78e"; g.fill(); };
+  const dot = (x, y, r) => { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fillStyle = "rgba(255,255,255,.85)"; g.fill(); };
+  face(T / 2, T / 2); face(T * 1.5, T * 1.5);
+  star(T * 1.5, T * 0.5, T * 0.2); star(T * 0.5, T * 1.5, T * 0.2);
+  [[0.15, 0.05], [0.85, 0.12], [0.5, 0.97], [0.05, 0.6], [0.95, 0.75]].forEach(([a, b], i) => { dot(T + a * T * 0.9 - T * 0.4, b * T, T * 0.025); dot(a * T, T + b * T * 0.9, T * 0.025); });
+  return c;
+}
+async function ONJJEM_giftwrap(src, words, forPrint, sheet, bg) {
+  const cell = await ONJJEM_giftwrapCell(src, words, bg);
+  if (forPrint) return cell.toDataURL("image/jpeg", 0.93);
+  // Preview: the sheet shape with the pattern repeated (about 3 cells across).
+  const W = 900, H = Math.round(W * sheet[1] / sheet[0]), c = document.createElement("canvas"); c.width = W; c.height = H;
+  const g = c.getContext("2d"), s = W / 3;
+  for (let y = 0; y < H; y += s) for (let x = 0; x < W; x += s) g.drawImage(cell, x, y, s, s);
+  return c.toDataURL("image/jpeg", 0.88);
 }
 
 // Jemzsaw: crop the photo to the puzzle shape, then hide a small Jemzi somewhere in it to find.
@@ -874,6 +908,7 @@ function ONJJEM_renderLanding(P) {
     const o = opts[selected];
     let out = src;
     if (o.bandana) return ONJJEM_bandana(out, words, forPrint, o.sku);
+    if (o.giftwrap) return ONJJEM_giftwrap(out, words, forPrint, o.giftwrap, o.wrapBg);
     const r = targetRatio(o);
     if (r && !o.wrap) out = await ONJJEM_cropTo(out, r[0], r[1]);
     out = await ONJJEM_addCaption(out, words, capPos);

@@ -103,6 +103,19 @@
 #rmOpen .home-sec{border-top:0;padding-top:.6rem}
 @media(min-width:800px){.rm-list{display:grid;grid-template-columns:1fr 1fr}}
 </style>
+<style>
+.gw-promo{display:block;position:relative;overflow:hidden;margin:1rem 0;border-radius:22px;text-decoration:none;color:#fff8e6;border:2px solid #d4af37;background:#8f1d1d;box-shadow:0 0 0 4px rgba(212,175,55,.18),0 14px 34px rgba(0,0,0,.45)}
+.gw-promo img{display:block;width:100%;aspect-ratio:1/0.62;object-fit:cover;object-position:center 65%}
+.gw-promo .gw-b{padding:.9rem 1rem 1.1rem;text-align:center;background:linear-gradient(180deg,#8f1d1d,#5a0d12)}
+.gw-promo .gw-k{display:inline-block;background:#1f6b3a;border:1px solid #d4af37;border-radius:99px;padding:.3rem .9rem;font-weight:800;font-size:.78rem;letter-spacing:.12em}
+.gw-promo .gw-t{font-family:"Mountains of Christmas","Playfair Display",Georgia,serif;font-weight:700;font-size:clamp(2.1rem,9vw,3.2rem);line-height:1.05;margin:.35rem 0 .2rem;color:#ffd66b;text-shadow:0 3px 0 rgba(0,0,0,.45)}
+.gw-promo .gw-s{font-size:1.02rem;line-height:1.45;margin:0 auto .6rem;max-width:30rem}
+.gw-promo .gw-p{font-weight:800;color:#ffd66b}
+.gw-promo .gw-btn{display:inline-block;margin-top:.6rem;padding:.9rem 1.8rem;border-radius:99px;font-weight:900;font-size:1.1rem;color:#2a0508;background:linear-gradient(135deg,#f5d78e,#d4af37 50%,#f5d78e);box-shadow:0 5px 0 #8b6200;animation:gwPulse 1.8s ease-in-out infinite}
+@keyframes gwPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@media (prefers-reduced-motion:reduce){.gw-promo .gw-btn{animation:none}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap">
 </head>
 <body>
 <script>
@@ -145,6 +158,7 @@
       h.querySelectorAll('.jz-chips a').forEach(function(a){a.addEventListener('click',function(){try{gtag('event','jemzi_help',{action:'chip',label:a.textContent})}catch(e){}});});
     })();
     </script>
+    <a class="gw-promo" href="/giftwrap" onclick="try{gtag('event','giftwrap_promo')}catch(e){}"><img src="/giftwrap-hero.webp" alt="Presents wrapped in paper covered in a dog's face"><div class="gw-b"><span class="gw-k">🎁 NEW FOR CHRISTMAS</span><div class="gw-t">Wrap it in your FACE! 😂</div><p class="gw-s">Your family, your dog or your Christmas cartoon printed all over the wrapping paper. They'll be laughing before they've even opened it.</p><div class="gw-p">From £12.99 · free UK delivery</div><span class="gw-btn">Make my wrapping paper 🎁</span></div></a>
     <h1 class="lx-shop" style="margin-top:0.4rem">What would you like to make?</h1>
     <div class="rm-list" id="rmList">
       <a class="rm-row" href="/#cat-walls" data-sec="cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span class="rm-ico">🖼️</span><span class="rm-txt"><b>Wall Art</b><small>The Jemstone Collection</small></span><span class="rm-p">from £3.99 ›</span></a>
@@ -236,6 +250,7 @@
 
   <section class="wrap home-sec" id="cat-christmas">
     <div class="home-sec-head"><h2>🎄 Christmas Gift Shop</h2><a href="#shop">All rooms ↑</a></div>
+    <a class="gw-promo" href="/giftwrap" onclick="try{gtag('event','giftwrap_promo')}catch(e){}"><img src="/giftwrap-hero.webp" alt="Presents wrapped in paper covered in a dog's face"><div class="gw-b"><span class="gw-k">🎁 NEW FOR CHRISTMAS</span><div class="gw-t">Wrap it in your FACE! 😂</div><p class="gw-s">Your family, your dog or your Christmas cartoon printed all over the wrapping paper. They'll be laughing before they've even opened it.</p><div class="gw-p">From £12.99 · free UK delivery</div><span class="gw-btn">Make my wrapping paper 🎁</span></div></a>
     <div class="xs-mount"></div>
     <div class="tiles">
         <div class="xm-sub">🦔 Jemzi's Christmas</div>
@@ -301,7 +316,7 @@
 </main>
 
 <div id="ftr"></div>
-<script src="/landing.js?v=20261104d"></script>
+<script src="/landing.js?v=20261104e"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();
