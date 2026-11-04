@@ -127,6 +127,7 @@ const ONJJEM_GIFTS_UK = [
   ["Metal pet tag (name & phone)", "/pet-tag", "pet tag dog tag cat collar name id identity"],
   ["Personalised pet bandana", "/pet-bandana", "pet dog cat bandana scarf collar puppy"],
   ["Face wrapping paper (your photo all over it)", "/giftwrap", "wrapping paper gift wrap christmas face wrap present paper roll"],
+  ["Photo phone cases (iPhone & Samsung)", "/phone-case", "phone case iphone samsung galaxy cover mobile"],
   ["Glass chopping boards", "/chopping-board", "chopping cutting board glass kitchen chef cheese"],
   ["✨ Magic Reveal mug (colour-changing)", "/mug", "mug cup magic colour color changing heat reveal tea coffee"],
   ["Photo mugs", "/mug", "mug cup tea coffee photo 11oz 15oz"],
@@ -826,7 +827,9 @@ function ONJJEM_renderLanding(P) {
       if (lbl) lbl.innerHTML = "👕 Choose " + esc(P.variantWord || "the T-shirt") + " size &amp; " + (ONJJEM_isUS() ? "color" : "colour");
     }
     if (o.sizes) sizeSel.innerHTML = `<option value="">Choose a size…</option>` + o.sizes.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
-    colourSel.innerHTML = o.colours.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
+    const keepC = colourSel.value;
+    colourSel.innerHTML = (o.pickColour ? `<option value="">${esc(o.pickColour)}</option>` : "") + o.colours.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
+    if (keepC && o.colours.some(x => x[0] === keepC)) colourSel.value = keepC;
     variantWrap.style.display = "block";
     const selEl = app.querySelectorAll(".option")[selected];
     if (selEl) selEl.after(variantWrap);
@@ -835,6 +838,7 @@ function ONJJEM_renderLanding(P) {
   function chosen() {
     const o = opts[selected];
     if (!o.skuPattern) return o;
+    if (o.pickColour && !colourSel.value) return null;
     const colour = o.colours.find(x => x[0] === colourSel.value) || o.colours[0];
     if (!o.sizes) return Object.assign({}, o, { sku: o.skuPattern.replace("{colour}", colour[0]), name: `${o.name} (${colour[1]})` });
     const size = o.sizes.find(x => x[0] === sizeSel.value);
@@ -1073,7 +1077,7 @@ function ONJJEM_renderLanding(P) {
   if (confirmBox) { basketBtn.disabled = true; buyBtn.disabled = true; confirmBox.addEventListener("change", () => { basketBtn.disabled = buyBtn.disabled = !confirmOk(); }); }
   function startFlow(then) {
     if (!confirmOk()) return;
-    if (!chosen()) { status.textContent = "Please choose a size first 👕"; variantWrap.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+    if (!chosen()) { status.textContent = P.chooseMsg || "Please choose a size first 👕"; variantWrap.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     if (!photo) { status.textContent = P.needPhotoMsg || "Please add your photo first 📸"; (P.designsOnly && designWrap ? designWrap : box).scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     status.textContent = "";
     if (earlyOk()) {
