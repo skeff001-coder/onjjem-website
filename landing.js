@@ -546,15 +546,20 @@ async function ONJJEM_mugWrap(dataUrl, aspect) {
   const ctx = c.getContext("2d");
   const s = Math.max(W / img.width, H / img.height);
   const seamless = window.PAGE && window.PAGE.wrapSeamless;
+  // Soft blurred background behind the two photos. Shrink-then-stretch blur, because
+  // canvas filters (ctx.filter = "blur") do nothing on iPhone Safari and left a sharp zoomed photo here.
+  const soft = (sx, sy, sw, sh, k) => {
+    const t = document.createElement("canvas"); t.width = Math.max(4, Math.round(W / k)); t.height = Math.max(4, Math.round(H / k));
+    const tg = t.getContext("2d"); tg.drawImage(img, sx, sy, sw, sh, 0, 0, t.width, t.height);
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; ctx.drawImage(t, 0, 0, W, H);
+  };
   if (seamless) {
-    // Designs with a plain background: stretch the design's own edge colours
-    // across the gaps, so the two copies sit on one continuous background.
-    ctx.drawImage(img, 0, 0, Math.max(2, img.width * 0.03), img.height, 0, 0, W, H);
-    ctx.filter = "blur(30px)"; ctx.drawImage(c, 0, 0); ctx.filter = "none";
+    // Designs with a plain background: stretch the design's own edge colours across the gaps.
+    soft(0, 0, Math.max(2, img.width * 0.03), img.height, 40);
   } else {
-    ctx.filter = "blur(40px) brightness(0.9)";
-    ctx.drawImage(img, (W - img.width * s) / 2, (H - img.height * s) / 2, img.width * s, img.height * s);
-    ctx.filter = "none";
+    const cw = W / s, ch = H / s;
+    soft(Math.max(0, (img.width - cw) / 2), Math.max(0, (img.height - ch) / 2), Math.min(img.width, cw), Math.min(img.height, ch), 220);
+    ctx.fillStyle = "rgba(0,0,0,0.1)"; ctx.fillRect(0, 0, W, H);
   }
   const ph = H * (seamless ? 1 : 0.9), pw = Math.min(ph * img.width / img.height, W * (seamless ? 0.5 : 0.46));
   const fh = pw * img.height / img.width;
