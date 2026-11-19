@@ -88,7 +88,7 @@ function ONJJEM_offerBarHtml() {
   if (!us && t < Date.parse("2026-12-01T00:00:00Z")) {
     if (/^\/(index\.html)?$/.test(location.pathname)) return "";
     const xm = t >= Date.parse("2026-11-01T00:00:00Z") ? " · 🎄 FREE Christmas cartoon" : "";
-    return `<div class="offer-bar">🚚 FREE UK delivery on everything · 🖤 Black Friday: 15% off canvases, mugs, prints &amp; cushions · 🛋️ HALF PRICE cushion with any blanket or wall art · 🎁 FREE £5 gift card with every order + a Christmas letter from Jemzi on orders £20+ · Ends 30 Nov${xm}</div>`;
+    return `<div class="offer-bar">🚚 FREE UK delivery on everything · 🖤 Black Friday: 15% off canvases, mugs, prints &amp; cushions · 🛋️ HALF PRICE 12″ cushion with any blanket or wall art · 🎁 FREE £5 gift card with every order + a Christmas letter from Jemzi on orders £20+ · Ends 30 Nov${xm}</div>`;
   }
   if (t >= Date.parse("2026-11-01T00:00:00Z") && t < Date.parse("2026-12-25T00:00:00Z")) {
     const last = Date.parse(us ? "2026-12-10T23:59:59-05:00" : "2026-12-12T23:59:59Z");
