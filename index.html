@@ -28,7 +28,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="/landing.css?v=20261031b">
+<link rel="stylesheet" href="/landing.css?v=20261119a">
 <link rel="stylesheet" href="/cartoonify-shared.css?v=20261005a" media="print" onload="this.media='all'">
 <style>
 .rm-list{display:flex;flex-direction:column;gap:8px;margin:12px 0 4px}
@@ -42,7 +42,7 @@
 @keyframes goldShine{to{background-position:200% center}}
 @media (prefers-reduced-motion:reduce){.lx-shop{animation:none}}
 .rm-ico{font-size:1.9rem}
-.cat-bar{display:none}
+
 .jz-tap{display:inline-block;margin-left:.2rem;color:#f3d36b;font-weight:700;font-size:.85rem;animation:jzp 1.6s ease-in-out infinite}@keyframes jzp{50%{opacity:.45}}
 .jz-help{max-width:520px;margin:.5rem auto 0;background:#232323;border:1px solid rgba(212,175,55,.35);border-radius:16px;padding:.8rem}.jz-q{margin:0 0 .5rem;font-family:"Playfair Display",Georgia,serif;font-weight:700;color:#F6EBD4;font-size:1.1rem;text-align:center}
 .jz-chips{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center}.jz-chips a{background:#2e2a20;border:1px solid rgba(212,175,55,.4);color:#F6EBD4;text-decoration:none;border-radius:20px;padding:.45rem .75rem;font-size:.9rem}
@@ -129,6 +129,16 @@
 .rm-row.rm-jst b{color:#f5d78e;font-family:"Playfair Display",Georgia,serif;font-size:1.12rem}
 .jst-tag{margin:-.3rem 0 .8rem;color:#d9c9a3;font-size:.95rem}
 </style>
+<style>
+.qk-sub{margin:.2rem 0 .8rem;color:#d9cfb8;font-size:.95rem}
+.qk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
+.qk-grid a{display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(212,175,55,.35);text-decoration:none;background:#232323}
+.qk-grid img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.qk-grid span{display:block;padding:.55rem .6rem;font-weight:800;color:#F6EBD4;font-size:.98rem}
+@media(min-width:800px){.qk-grid{grid-template-columns:repeat(4,1fr)}}
+.home-sec{scroll-margin-top:110px}
+.home-sec-head a.top-link{font-size:.85rem}
+</style>
 </head>
 <body>
 <script>
@@ -154,38 +164,18 @@
   </div></div>
 
   <section class="wrap" id="shop">
-    <button type="button" class="jz-hi" id="jzHi" aria-expanded="false" aria-controls="jzHelp"><img src="/jemzi.webp" alt="Jemzi the ONJJEM hedgehog" width="120" height="120"><p><b>Hi, I'm Jemzi!</b> How can I help you today? <span class="jz-tap">Tap me 💛</span></p></button>
-    <div class="jz-help" id="jzHelp" hidden>
-      <p class="jz-q">Who's the gift for?</p>
-      <div class="jz-chips">
-        <a href="/blanket">👵 Nan &amp; Grandad</a><a href="/mug">👩 Mum</a><a href="/canvas">👨 Dad</a><a href="/your-jemzi">🦔 The kids</a><a href="/find-jemzi">🎮 Play Find Jemzi</a>
-        <a href="/#cat-pets">🐶 Pet lovers</a><a href="/jembox">💑 Someone special</a><a href="/#cat-christmas">⭐ Under £15</a><a href="/gift-cards.html">💳 Not sure? Jemz Platinum</a>
-      </div>
-      <form class="jz-search" onsubmit="var v=this.q.value.trim();if(!v)return false;try{gtag('event','jemzi_help',{action:'search',label:v})}catch(e){};var g=document.getElementById('gsearch');if(g){g.value=v;ONJJEM_search({type:'submit',preventDefault:function(){}});ONJJEM_search({type:'input'});g.scrollIntoView({behavior:'smooth',block:'center'});}return false;">
-        <input name="q" type="search" placeholder="Or type: mug, blanket, canvas…" enterkeyhint="search" autocomplete="off"><button type="submit">Find</button>
-      </form>
-    </div>
-    <script>
-    (function(){var b=document.getElementById('jzHi'),h=document.getElementById('jzHelp');if(!b||!h)return;
-      b.addEventListener('click',function(){var open=h.hidden;h.hidden=!open;b.setAttribute('aria-expanded',open);try{gtag('event','jemzi_help',{action:open?'open':'close'})}catch(e){};if(open)setTimeout(function(){h.scrollIntoView({behavior:'smooth',block:'nearest'})},50);});
-      h.querySelectorAll('.jz-chips a').forEach(function(a){a.addEventListener('click',function(){try{gtag('event','jemzi_help',{action:'chip',label:a.textContent})}catch(e){}});});
-    })();
-    </script>
-    <a class="jst" href="/#cat-walls" onclick="try{gtag('event','jemstone_promo')}catch(e){};var r=document.querySelector('.rm-row[data-sec=&quot;cat-walls&quot;]');if(r){event.preventDefault();if(!r.classList.contains('on'))r.click();else r.scrollIntoView({behavior:'smooth'});}"><div class="jst-k">💎 Our signature range</div><div class="jst-t">The Jemstone Collection</div><p class="jst-s">Your favourite photos turned into wall art you'll treasure for a lifetime. Canvases, fine art prints and giant posters, made to order in the UK.</p><div class="jst-g"><img src="/canvas-hero.webp?v=1" alt="Photo canvas"><img src="/prints-hero-scenic.webp" alt="Fine art print"><img src="/posters-hero.webp?v=3" alt="Giant poster"></div><div class="jst-p"><span>✓ Museum-quality inks</span><span>✓ Ready to hang</span><span>✓ Free UK delivery</span><span>✓ 15% off for Black Friday</span></div><span class="jst-btn">Explore the Jemstone Collection 💎</span></a>
-    <a class="gw-promo" href="/giftwrap" onclick="try{gtag('event','giftwrap_promo')}catch(e){}"><img src="/giftwrap-hero.webp" alt="Presents wrapped in paper covered in a dog's face"><div class="gw-b"><span class="gw-k">🎁 NEW FOR CHRISTMAS</span><div class="gw-t">Wrap it in your FACE! 😂</div><p class="gw-s">Your family, your dog or your Christmas cartoon printed all over the wrapping paper. They'll be laughing before they've even opened it.</p><div class="gw-p">From £12.99 · free UK delivery</div><span class="gw-btn">Make my wrapping paper 🎁</span></div></a>
     <h1 class="lx-shop" style="margin-top:0.4rem">What would you like to make?</h1>
-    <div class="rm-list" id="rmList">
-      <a class="rm-row rm-jst" href="/#cat-walls" data-sec="cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span class="rm-ico">💎</span><span class="rm-txt"><b>The Jemstone Collection</b><small>Canvases, prints &amp; posters · our signature range</small></span><span class="rm-p">from £3.99 ›</span></a>
-      <a class="rm-row" href="/#cat-living" data-sec="cat-living"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><span class="rm-ico">🏡</span><span class="rm-txt"><b>Home &amp; Kitchen</b><small>Throws, mugs, cushions &amp; more</small></span><span class="rm-p">from £7.49 ›</span></a>
-      <a class="rm-row" href="/#cat-deals" data-sec="cat-deals"><img src="/jembox-hero.webp" alt="" loading="lazy"><span class="rm-ico">🏷️</span><span class="rm-txt"><b>Deals &amp; Bundles</b><small>Gift sets &amp; offers</small></span><span class="rm-p">save up to £20 ›</span></a>
-      <a class="rm-row" href="/#cat-clothing" data-sec="cat-clothing"><img src="/cat-kids.webp" alt="" loading="lazy"><span class="rm-ico">👕</span><span class="rm-txt"><b>Clothing &amp; Kids</b><small>Stickers, badges, tattoos &amp; more</small></span><span class="rm-p">from £5.99 ›</span></a>
-      <a class="rm-row" href="/#cat-pets" data-sec="cat-pets"><img src="/bandana-hero.webp" alt="" loading="lazy"><span class="rm-ico">🐾</span><span class="rm-txt"><b>Jempetz</b><small>Bandanas &amp; tags for pets</small></span><span class="rm-p">from £12.99 ›</span></a>
-      <a class="rm-row rm-new rm-xmas" href="/#cat-christmas" data-sec="cat-christmas"><img src="/jemzi-xmas.webp" alt="" loading="lazy"><span class="rm-ico">🎄</span><span class="rm-txt"><b>Christmas</b><small>Gifts to treasure · new Surprise Sack</small></span><span class="rm-p">from £5.99 ›</span></a>
-      <a class="rm-row" href="/cards"><img src="/cards-giant-sq.webp" alt="" loading="lazy"><span class="rm-ico">🎂</span><span class="rm-txt"><b>Birthday Cards</b><small>Giant A4 photo cards</small></span><span class="rm-p">from £5.99 ›</span></a>
-      <a class="rm-row" href="/#cat-giftcards" data-sec="cat-giftcards"><img src="/products/gift-card-onjjem-sq.webp" alt="" loading="lazy"><span class="rm-ico">🎁</span><span class="rm-txt"><b>Jemz Platinum</b><small>Gift card · emailed instantly</small></span><span class="rm-p">send now from £5 ›</span></a>
+    <p class="qk-sub">Tap a category to jump straight to it. Every gift is made with your photo, with free UK delivery.</p>
+    <div class="qk-grid">
+      <a href="#cat-walls"><img src="/canvas-hero.webp?v=1" alt="" fetchpriority="high"><span>🖼️ Wall art</span></a>
+      <a href="#cat-christmas"><img src="/jemzi-xmas.webp" alt="" loading="lazy"><span>🎄 Christmas</span></a>
+      <a href="#cat-living"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><span>🏡 Home &amp; Kitchen</span></a>
+      <a href="#cat-clothing"><img src="/cat-kids.webp" alt="" loading="lazy"><span>👕 Clothing &amp; Kids</span></a>
+      <a href="#cat-pets"><img src="/bandana-hero.webp" alt="" loading="lazy"><span>🐾 Pets</span></a>
+      <a href="#cat-deals"><img src="/jembox-hero.webp" alt="" loading="lazy"><span>🏷️ Deals &amp; Bundles</span></a>
+      <a href="/cards"><img src="/cards-giant-sq.webp" alt="" loading="lazy"><span>🎂 Birthday Cards</span></a>
+      <a href="#cat-giftcards"><img src="/products/gift-card-onjjem-sq.webp" alt="" loading="lazy"><span>🎁 Gift Cards</span></a>
     </div>
-    <a href="/find-jemzi" onclick="try{gtag('event','jemzi_game_link')}catch(e){}" style="display:flex;align-items:center;gap:10px;margin:12px 0 0;padding:9px 12px;border:1px solid rgba(212,175,55,.35);border-radius:12px;background:#232323;color:#F6EBD4;text-decoration:none;font-size:.92rem"><img src="/jemzi-64.png" alt="" width="34" height="34"><span style="flex:1">For the little ones: <b style="color:#f3d36b">play Find Jemzi</b> and win a £50 gift card</span><span style="color:#d4af37">›</span></a>
-    <div id="rmOpen"></div>
     <div class="lx-trust"><span>✓ See your design before you pay</span><span>✓ Free UK delivery</span><span>✓ Secure checkout</span><span>✓ Family business, UK</span></div>
     <div class="rv-strip"></div>
   </section>
@@ -193,7 +183,7 @@
 
 
   <section class="wrap home-sec" id="cat-walls">
-    <div class="home-sec-head"><h2>💎 The Jemstone Collection</h2><a href="#shop">All rooms ↑</a></div>
+    <div class="home-sec-head"><h2>💎 The Jemstone Collection</h2><a href="#shop" class="top-link">↑ All categories</a></div>
     <p class="jst-tag">Our signature range: your photos as wall art made to last a lifetime. Museum-quality inks, ready to hang, free UK delivery.</p>
     <div class="tiles">
         <a class="tile" href="/your-jemzi"><img src="/jemzi.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>Your Own Jemzi: up to 5 of your photos with Jemzi</h3><div class="t-price">From £19.99</div></div></a>
@@ -207,65 +197,8 @@
     </div>
   </section>
 
-  <section class="wrap home-sec" id="cat-living">
-    <div class="home-sec-head"><h2>🏡 Home &amp; Kitchen</h2><a href="#shop">All rooms ↑</a></div>
-    <div class="tiles">
-        <a class="tile" href="/jembox"><img src="/jembox-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>🎁 The Cosy JemBox: blanket + cushion + mug</h3><div class="t-price">£79.99 · save £8</div></div></a>
-        <a class="tile" href="/blanket"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>Luxury photo throws</h3><div class="t-price">From £47.99</div></div></a>
-        <a class="tile" href="/cushions"><img src="/cushion-mockup.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Cushions</h3><div class="t-price">From £23.49</div></div></a>
-        <a class="tile" href="/cushions"><img src="/towel-mockup.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Towels</h3><div class="t-price">£24.99</div></div></a>
-        <a class="tile" href="/phone-case"><img src="/phone-case-hero.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>📱 Photo phone cases: iPhone &amp; Samsung</h3><div class="t-price">From £19.99</div></div></a>
-        <a class="tile" href="/mousemat"><img src="/mousemat-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo mouse mats</h3><div class="t-price">£14.99</div></div></a>
-        <a class="tile" href="/mug"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>✨ Magic Reveal mugs &amp; photo mugs</h3><div class="t-price">From £12.99</div></div></a>
-        <a class="tile" href="/baby-reveal"><img src="/baby-reveal-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Baby reveal mug: it's a boy or girl</h3><div class="t-price">£16.99</div></div></a>
-        <a class="tile" href="/chopping-board"><img src="/xmas-board-tile.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>NEW: Photo glass chopping boards</h3><div class="t-price">£29.99</div></div></a>
-        <a class="tile" href="/household.html"><img src="/coasters-mockup.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Coasters, tea towels &amp; aprons</h3><div class="t-price">From £10.99</div></div></a>
-        <a class="tile" href="/magnets"><img src="/products/IMG_8533.webp" alt="" loading="lazy"><div class="t-body"><h3>Fridge magnets</h3><div class="t-price">From £7.49</div></div></a>
-        <a class="tile" href="/water-bottle"><img src="/bottle-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo water bottles</h3><div class="t-price">From £22.99</div></div></a>
-    </div>
-  </section>
-
-
-
-  <section class="wrap home-sec" id="cat-deals">
-    <div class="home-sec-head"><h2>🏷️ Deals &amp; Bundles</h2><a href="#shop">All rooms ↑</a></div>
-    <div class="tiles">
-        <a class="tile" href="/christmas?pick=jemzi-surprise-sack"><img src="/products/xmas-sack.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>The Christmas Surprise Sack: 8 personalised gifts in one</h3><div class="t-price">£79.99 · save £20</div></div></a>
-        <a class="tile" href="/jembox"><img src="/jembox-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>The Cosy JemBox: blanket + cushion + mug</h3><div class="t-price">£79.99 · save £8</div></div></a>
-        <a class="tile" href="/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">BLACK FRIDAY</span><h3>Photo canvases: 15% off, no code needed</h3><div class="t-price">From £24.99</div></div></a>
-        <a class="tile" href="/mug"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">BLACK FRIDAY</span><h3>Mugs, prints &amp; cushions: 15% off</h3><div class="t-price">From £12.99</div></div></a>
-        <a class="tile" href="/badges"><img src="/badges-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Photo pin badges: bigger packs, better value</h3><div class="t-price">5 for £12.99</div></div></a>
-        <a class="tile" href="/#cat-christmas"><img src="/xmas-magnet-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>Stocking fillers under £15 &amp; gifts under £30</h3><div class="t-price">From £5.99</div></div></a>
-    </div>
-  </section>
-
-  <section class="wrap home-sec" id="cat-clothing">
-    <div class="home-sec-head"><h2>👕 Clothing &amp; Kids</h2><a href="#shop">All rooms ↑</a></div>
-    <div class="tiles">
-        <a class="tile" href="/your-jemzi"><img src="/jemzi.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>Your Own Jemzi: up to 5 of your photos with Jemzi</h3><div class="t-price">From £19.99</div></div></a>
-        <a class="tile" href="/kids-clothing"><img src="/kids-hoodie-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>👕 Kids &amp; baby clothing: baby tees, bodysuits, hoodies, T-shirts, football tees</h3><div class="t-price">From £15.99</div></div></a>
-        <a class="tile" href="/tote"><img src="/tote-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo tote bags</h3><div class="t-price">£27.99</div></div></a>
-        <a class="tile" href="/stickers"><img src="/products/cartoonify-preview.jpeg" alt="" loading="lazy"><div class="t-body"><h3>Cartoon stickers</h3><div class="t-price">From £5.99</div></div></a>
-        <a class="tile" href="/badges"><img src="/badges-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Photo pin badges</h3><div class="t-price">From £7.49</div></div></a>
-        <a class="tile" href="/playing-cards"><img src="/home/cards.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Playing cards: your photo on the back</h3><div class="t-price">£15.99</div></div></a>
-        <a class="tile" href="/jemzsaw"><img src="/jemzi.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>🧩 Jemzsaw: photo jigsaw with Jemzi hidden inside</h3><div class="t-price">From £25.99</div></div></a>
-        <a class="tile" href="/kids.html"><img src="/home/jigsaw.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>Photo jigsaw puzzles</h3><div class="t-price">From £20.99</div></div></a>
-        <a class="tile" href="/frames-gifts.html"><img src="/products/tattoo-arm-sq.jpg" alt="" loading="lazy"><div class="t-body"><h3>Temporary tattoos: your photo, on skin</h3><div class="t-price">From £8.99</div></div></a>
-    </div>
-  </section>
-
-
-
-  <section class="wrap home-sec" id="cat-pets">
-    <div class="home-sec-head"><h2>🐾 Jempetz</h2><a href="#shop">All rooms ↑</a></div>
-    <div class="tiles">
-        <a class="tile" href="/pet-bandana"><img src="/bandana-hero.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>🐾 Personalised pet bandanas</h3><div class="t-price">From £17.99</div></div></a>
-        <a class="tile" href="/pet-tag"><img src="/products/pet-tags.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>🐾 Metal pet tags: name, number or photo</h3><div class="t-price">£12.99</div></div></a>
-    </div>
-  </section>
-
   <section class="wrap home-sec" id="cat-christmas">
-    <div class="home-sec-head"><h2>🎄 Christmas Gift Shop</h2><a href="#shop">All rooms ↑</a></div>
+    <div class="home-sec-head"><h2>🎄 Christmas Gift Shop</h2><a href="#shop" class="top-link">↑ All categories</a></div>
     <a class="gw-promo" href="/giftwrap" onclick="try{gtag('event','giftwrap_promo')}catch(e){}"><img src="/giftwrap-hero.webp" alt="Presents wrapped in paper covered in a dog's face"><div class="gw-b"><span class="gw-k">🎁 NEW FOR CHRISTMAS</span><div class="gw-t">Wrap it in your FACE! 😂</div><p class="gw-s">Your family, your dog or your Christmas cartoon printed all over the wrapping paper. They'll be laughing before they've even opened it.</p><div class="gw-p">From £12.99 · free UK delivery</div><span class="gw-btn">Make my wrapping paper 🎁</span></div></a>
     <div class="xs-mount"></div>
     <div class="tiles">
@@ -295,8 +228,66 @@
     </div>
   </section>
 
+  <section class="wrap home-sec" id="cat-living">
+    <div class="home-sec-head"><h2>🏡 Home &amp; Kitchen</h2><a href="#shop" class="top-link">↑ All categories</a></div>
+    <div class="tiles">
+        <a class="tile" href="/jembox"><img src="/jembox-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>🎁 The Cosy JemBox: blanket + cushion + mug</h3><div class="t-price">£79.99 · save £8</div></div></a>
+        <a class="tile" href="/blanket"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>Luxury photo throws</h3><div class="t-price">From £47.99</div></div></a>
+        <a class="tile" href="/cushions"><img src="/cushion-mockup.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Cushions</h3><div class="t-price">From £23.49</div></div></a>
+        <a class="tile" href="/cushions"><img src="/towel-mockup.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Towels</h3><div class="t-price">£24.99</div></div></a>
+        <a class="tile" href="/phone-case"><img src="/phone-case-hero.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>📱 Photo phone cases: iPhone &amp; Samsung</h3><div class="t-price">From £19.99</div></div></a>
+        <a class="tile" href="/mousemat"><img src="/mousemat-hero.webp?v=3" alt="" loading="lazy"><div class="t-body"><h3>Photo mouse mats</h3><div class="t-price">£14.99</div></div></a>
+        <a class="tile" href="/mug"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>✨ Magic Reveal mugs &amp; photo mugs</h3><div class="t-price">From £12.99</div></div></a>
+        <a class="tile" href="/baby-reveal"><img src="/baby-reveal-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Baby reveal mug: it's a boy or girl</h3><div class="t-price">£16.99</div></div></a>
+        <a class="tile" href="/chopping-board"><img src="/xmas-board-tile.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">💛 Jemzi's Pick</span><h3>NEW: Photo glass chopping boards</h3><div class="t-price">£29.99</div></div></a>
+        <a class="tile" href="/household.html"><img src="/coasters-mockup.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Coasters, tea towels &amp; aprons</h3><div class="t-price">From £10.99</div></div></a>
+        <a class="tile" href="/magnets"><img src="/products/IMG_8533.webp" alt="" loading="lazy"><div class="t-body"><h3>Fridge magnets</h3><div class="t-price">From £7.49</div></div></a>
+        <a class="tile" href="/water-bottle"><img src="/bottle-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo water bottles</h3><div class="t-price">From £22.99</div></div></a>
+    </div>
+  </section>
+
+
+
+  <section class="wrap home-sec" id="cat-deals">
+    <div class="home-sec-head"><h2>🏷️ Deals &amp; Bundles</h2><a href="#shop" class="top-link">↑ All categories</a></div>
+    <div class="tiles">
+        <a class="tile" href="/christmas?pick=jemzi-surprise-sack"><img src="/products/xmas-sack.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>The Christmas Surprise Sack: 8 personalised gifts in one</h3><div class="t-price">£79.99 · save £20</div></div></a>
+        <a class="tile" href="/jembox"><img src="/jembox-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>The Cosy JemBox: blanket + cushion + mug</h3><div class="t-price">£79.99 · save £8</div></div></a>
+        <a class="tile" href="/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">BLACK FRIDAY</span><h3>Photo canvases: 15% off, no code needed</h3><div class="t-price">From £24.99</div></div></a>
+        <a class="tile" href="/mug"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">BLACK FRIDAY</span><h3>Mugs, prints &amp; cushions: 15% off</h3><div class="t-price">From £12.99</div></div></a>
+        <a class="tile" href="/badges"><img src="/badges-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Photo pin badges: bigger packs, better value</h3><div class="t-price">5 for £12.99</div></div></a>
+        <a class="tile" href="/#cat-christmas"><img src="/xmas-magnet-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>Stocking fillers under £15 &amp; gifts under £30</h3><div class="t-price">From £5.99</div></div></a>
+    </div>
+  </section>
+
+  <section class="wrap home-sec" id="cat-clothing">
+    <div class="home-sec-head"><h2>👕 Clothing &amp; Kids</h2><a href="#shop" class="top-link">↑ All categories</a></div>
+    <div class="tiles">
+        <a class="tile" href="/your-jemzi"><img src="/jemzi.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>Your Own Jemzi: up to 5 of your photos with Jemzi</h3><div class="t-price">From £19.99</div></div></a>
+        <a class="tile" href="/kids-clothing"><img src="/kids-hoodie-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>👕 Kids &amp; baby clothing: baby tees, bodysuits, hoodies, T-shirts, football tees</h3><div class="t-price">From £15.99</div></div></a>
+        <a class="tile" href="/tote"><img src="/tote-hero.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Photo tote bags</h3><div class="t-price">£27.99</div></div></a>
+        <a class="tile" href="/stickers"><img src="/products/cartoonify-preview.jpeg" alt="" loading="lazy"><div class="t-body"><h3>Cartoon stickers</h3><div class="t-price">From £5.99</div></div></a>
+        <a class="tile" href="/badges"><img src="/badges-hero.jpg" alt="" loading="lazy"><div class="t-body"><h3>Photo pin badges</h3><div class="t-price">From £7.49</div></div></a>
+        <a class="tile" href="/playing-cards"><img src="/home/cards.webp?v=2" alt="" loading="lazy"><div class="t-body"><h3>Playing cards: your photo on the back</h3><div class="t-price">£15.99</div></div></a>
+        <a class="tile" href="/jemzsaw"><img src="/jemzi.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>🧩 Jemzsaw: photo jigsaw with Jemzi hidden inside</h3><div class="t-price">From £25.99</div></div></a>
+        <a class="tile" href="/kids.html"><img src="/home/jigsaw.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>Photo jigsaw puzzles</h3><div class="t-price">From £20.99</div></div></a>
+        <a class="tile" href="/frames-gifts.html"><img src="/products/tattoo-arm-sq.jpg" alt="" loading="lazy"><div class="t-body"><h3>Temporary tattoos: your photo, on skin</h3><div class="t-price">From £8.99</div></div></a>
+    </div>
+  </section>
+
+
+
+  <section class="wrap home-sec" id="cat-pets">
+    <div class="home-sec-head"><h2>🐾 Jempetz</h2><a href="#shop" class="top-link">↑ All categories</a></div>
+    <div class="tiles">
+        <a class="tile" href="/pet-bandana"><img src="/bandana-hero.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>🐾 Personalised pet bandanas</h3><div class="t-price">From £17.99</div></div></a>
+        <a class="tile" href="/pet-tag"><img src="/products/pet-tags.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>🐾 Metal pet tags: name, number or photo</h3><div class="t-price">£12.99</div></div></a>
+    </div>
+  </section>
+
+
   <section class="wrap home-sec" id="cat-giftcards">
-    <div class="home-sec-head"><h2>💳 Jemz Platinum: the ONJJEM gift card</h2><a href="#shop">All rooms ↑</a></div>
+    <div class="home-sec-head"><h2>💳 Jemz Platinum: the ONJJEM gift card</h2><a href="#shop" class="top-link">↑ All categories</a></div>
     <div class="tiles">
         <a class="tile" href="/gift-cards.html"><img src="/products/gift-card-onjjem-sq.webp" alt="" loading="lazy"><div class="t-body"><h3>Send a gift now: Jemz Platinum, emailed instantly so they can choose</h3><div class="t-price">From £5 · arrives in minutes</div></div></a>
     </div>
@@ -332,7 +323,7 @@
 </main>
 
 <div id="ftr"></div>
-<script src="/landing.js?v=20261107a"></script>
+<script src="/landing.js?v=20261119a"></script>
 <script>
 document.getElementById("hdr").innerHTML = ONJJEM_headerHtml();
 document.getElementById("ftr").innerHTML = ONJJEM_footerHtml();
@@ -360,53 +351,22 @@ var rv = document.getElementById("reviews"); if (rv) rv.innerHTML = ONJJEM_revie
     }).catch(function () {});
 })();
 
-// Simple room list: each room's gifts stay hidden until it's tapped.
+// All categories are always shown. Category links just scroll to the section.
 (function () {
-  var secs = document.querySelectorAll(".home-sec");
-  var holder = document.getElementById("rmOpen");
-  secs.forEach(function (sec) { sec.classList.add("rm-hide"); });
-  document.querySelectorAll(".rm-row[data-sec]").forEach(function (row) {
-    row.addEventListener("click", function (e) {
-      e.preventDefault();
-      var id = row.getAttribute("data-sec"), sec = document.getElementById(id), wasOpen = row.classList.contains("on");
-      document.querySelectorAll(".rm-row.on").forEach(function (r) { r.classList.remove("on"); });
-      secs.forEach(function (x) { x.classList.add("rm-hide"); });
-      if (wasOpen || !sec) return;
-      row.classList.add("on");
-      // Grid layout: open the room under the whole line of cards, not between two of them.
-      var after = row, nx = row.nextElementSibling;
-      while (nx && nx.classList.contains("rm-row") && nx.offsetTop === row.offsetTop) { after = nx; nx = nx.nextElementSibling; }
-      after.insertAdjacentElement("afterend", sec);
-      sec.classList.remove("rm-hide");
-      var back = sec.querySelector(".home-sec-head a"); if (back) back.style.display = "none";
-      try { gtag("event", "open_room", { room: id }); } catch (_) {}
-      setTimeout(function () { row.scrollIntoView({ behavior: "smooth", block: "start" }); }, 30);
-    });
-  });
-  // Header chips and links from other pages (/#cat-...): open that room the same way.
-  function openRoom(id) {
-    id = ({ "cat-kids": "cat-clothing", "cat-desk": "cat-living", "cat-games": "cat-clothing", "cat-kitchen": "cat-living", "cat-home": "cat-living" })[id] || id;
-    var row = document.querySelector('.rm-row[data-sec="' + id + '"]');
-    if (!row) return;
-    if (!row.classList.contains("on")) row.click();
-    // Scroll so the room's row sits just under the sticky header (retry while the page settles).
-    var go = function () {
-      var hdr = document.querySelector(".cat-bar"), off = hdr ? Math.max(0, hdr.getBoundingClientRect().bottom) + 8 : 8;
-      window.scrollTo(0, Math.max(0, row.getBoundingClientRect().top + window.pageYOffset - off));
-    };
-    [60, 300, 700].forEach(function (ms) { setTimeout(go, ms); });
+  var map = { "cat-kids": "cat-clothing", "cat-desk": "cat-living", "cat-games": "cat-clothing", "cat-kitchen": "cat-living", "cat-home": "cat-living" };
+  function go(id) {
+    id = map[id] || id; var sec = document.getElementById(id); if (!sec) return false;
+    var bar = document.querySelector(".cat-bar"), off = bar ? Math.max(0, bar.getBoundingClientRect().bottom) + 8 : 8;
+    window.scrollTo({ top: Math.max(0, sec.getBoundingClientRect().top + window.pageYOffset - off), behavior: "smooth" });
+    try { gtag("event", "open_room", { room: id }); } catch (_) {}
+    return true;
   }
-  window.addEventListener("hashchange", function () { if (/^#cat-/.test(location.hash)) openRoom(location.hash.slice(1)); });
-  var onChip = function (e) {
+  document.addEventListener("click", function (e) {
     var a = e.target && e.target.closest && e.target.closest('a[href^="/#cat-"], a[href^="#cat-"]');
-    if (!a || a.classList.contains("rm-row")) return;
-    var id = a.getAttribute("href").split("#")[1];
-    if (!document.querySelector('.rm-row[data-sec="' + id + '"]')) return;
-    e.preventDefault(); e.stopPropagation();
-    openRoom(id);
-  };
-  document.addEventListener("click", onChip, true);
-  if (/^#cat-/.test(location.hash)) setTimeout(function () { openRoom(location.hash.slice(1)); }, 50);
+    if (!a) return;
+    if (go(a.getAttribute("href").split("#")[1])) { e.preventDefault(); history.replaceState(null, "", "#" + a.getAttribute("href").split("#")[1]); }
+  }, true);
+  if (/^#cat-/.test(location.hash)) [80, 500].forEach(function (ms) { setTimeout(function () { go(location.hash.slice(1)); }, ms); });
 })();
 </script>
 <script src="/reviews-strip.js?v=3" defer></script>
