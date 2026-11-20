@@ -1,3 +1,6 @@
+// Funnel tracking for Google Analytics: photo_added (a photo was chosen) and begin_checkout (went to payment).
+(function(){try{var f=window.fetch;if(f&&!f.__onj){var w=function(u,o){try{var s=String((u&&u.url)||u);if(/\/api\/stripe\/(cart-)?checkout/.test(s)&&window.gtag)gtag('event','begin_checkout',{page:location.pathname});}catch(e){}return f.apply(this,arguments)};w.__onj=1;window.fetch=w;}
+document.addEventListener('change',function(e){var t=e.target;if(t&&t.type==='file'&&t.files&&t.files.length&&window.gtag)gtag('event','photo_added',{page:location.pathname});},true);}catch(e){}})();
 // ── ONJJEM landing page engine ───────────────────────────────────────────────
 // Used by mug.html, magnets.html, blanket.html (and the promo/reviews on
 // index.html + tiktok.html). Each product page sets window.PAGE = {...} and
