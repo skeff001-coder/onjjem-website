@@ -1057,7 +1057,6 @@ function ONJJEM_renderLanding(P) {
         quickMode = false;
         if (cartoonBtn && cartoonBtn.style.display !== "none") { box.scrollIntoView({ behavior: "smooth", block: "center" }); cartoonBtn.click(); }
       }
-      onjjemGa("event", "add_to_cart", { currency: ONJJEM_cur(), value: opts[selected].price, items: [{ item_id: opts[selected].sku, item_name: opts[selected].name, price: opts[selected].price }] });
     } catch (err) {
       photos = []; await refreshPhoto();
       status.textContent = err.message;
@@ -1099,7 +1098,9 @@ function ONJJEM_renderLanding(P) {
       return;
     }
     const collage = isMulti() && photos.length > 1; // cartoons are for single photos
-    if (P.cartoon && !collage && !isTextDesign && !isPresetDesign && typeof ONJJEM_showPhotoPreview === "function") {
+    // The photo is already shown on the page and the free cartoon has its own button above,
+    // so go straight on (the extra "Looks good" + cartoon pop-ups were losing buyers).
+    if (false && P.cartoon && !collage && !isTextDesign && !isPresetDesign && typeof ONJJEM_showPhotoPreview === "function") {
       ONJJEM_showPhotoPreview(photo, cartoonOpts => then(cartoonOpts));
     } else if (opts[selected].jemzi || opts[selected].hideJemzi) {
       // Jemzi designs: show the finished design big, and only continue once they're happy.
