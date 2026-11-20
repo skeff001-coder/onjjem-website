@@ -26,6 +26,7 @@ const ONJJEM_PROMO = {
 const ONJJEM_REVIEWS = [
   { name: "C. Murphy", bought: "Magic Reveal mug", text: "My Yorkshire terrier on the Magic mug is class in the cartoon style. Kids love it!" },
   { name: "W Taylor", bought: "Cartoon prints", text: "My cartoon style prints of my kids arrived in just 3 days, and the colours look brilliant. Will definitely buy again! Thanks ONJJEM" },
+  { name: "W Taylor", bought: "Christmas gifts", text: "Very professional, fast and friendly. Good communication, would recommend to anyone. Very happy with all my purchases. The Christmas deals are impressive quality at good prices." },
   { name: "Niamh", bought: "Colour-changing mug", text: "Love the mug I ordered. Such a cute design and the heat-activated effect works perfectly. Really happy with it!" }
 ];
 // ─────────────────────────────────────────────────────────────────────────────
