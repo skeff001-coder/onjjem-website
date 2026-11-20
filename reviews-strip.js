@@ -7,6 +7,8 @@
     ["Arrived in just 3 days, and the colours look brilliant.", "W Taylor", "cartoon prints"],
     ["The heat-activated effect works perfectly. Really happy with it!", "Niamh", "colour-changing mug"]
   ];
+  // US shop: only show reviews of products the US shop sells.
+  if (window.ONJJEM_REGION === "us" || /^\/us(\/|$)/.test(location.pathname)) R = R.filter(function (r) { return !/mug/i.test(r[2]); });
   var css = document.createElement("style");
   css.textContent =
     ".rv-strip{max-width:520px;margin:14px auto 0;text-align:center;min-height:3.2em;font-size:.92rem;line-height:1.4;color:#d9cfb8}" +
