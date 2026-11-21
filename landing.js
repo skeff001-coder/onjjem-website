@@ -781,7 +781,7 @@ function ONJJEM_renderLanding(P) {
 
     ${ONJJEM_reviewsHtml()}
 
-    <section class="l-section wrap" style="text-align:center"><a class="btn btn-ghost" href="/#gifts" style="max-width:420px">See all our gifts →</a></section>
+    <section class="l-section wrap" style="text-align:center"><a class="btn btn-ghost" href="${ONJJEM_isUS() ? "/us/" : "/#gifts"}" style="max-width:420px">See all our gifts →</a></section>
 
     ${P.faq && P.faq.length ? `
     <section class="l-section wrap faq">
