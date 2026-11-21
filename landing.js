@@ -106,12 +106,14 @@ function ONJJEM_offerBarHtml() {
 }
 
 function ONJJEM_reviewsHtml() {
-  if (!ONJJEM_REVIEWS.length) return "";
+  // US visitors only see reviews of things the US shop sells (no magic mug).
+  const list = ONJJEM_isUS() ? ONJJEM_REVIEWS.filter(r => !/magic/i.test(r.bought + " " + r.text)) : ONJJEM_REVIEWS;
+  if (!list.length) return "";
   return `
   <section class="l-section wrap">
     <h2>What customers say <span class="gold">★★★★★</span></h2>
     <div class="reviews">
-      ${ONJJEM_REVIEWS.map(r => `
+      ${list.map(r => `
         <div class="review">
           <div class="stars">★★★★★</div>
           <p>“${esc(r.text)}”</p>
