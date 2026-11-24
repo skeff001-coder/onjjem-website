@@ -64,26 +64,15 @@
 </head>
 <body>
 <a href="/" class="back">&larr; Back to Shop</a>
-<h1>Christmas giveaway: win a cartoon blanket of your family or pet</h1>
+<h1>Christmas giveaway: now closed</h1>
 <img class="hero" src="/xmas-giveaway.jpg?v=1" alt="Christmas giveaway: win a personalised cartoon blanket of your family or pet" width="1200" height="630">
-<div class="chips"><span>✅ Free to enter</span><span>🇬🇧 UK &amp; 🇺🇸 US</span><span>⏰ Ends Sun 22 Nov, 8pm</span><span>🎄 Free Christmas cartoon</span></div>
+<div class="chips"><span>✅ Free to enter</span><span>🇬🇧 UK &amp; 🇺🇸 US</span><span>🔒 Closed Sun 22 Nov</span><span>🎄 Free Christmas cartoon</span></div>
 <p class="trust"><span>🔒 We never ask for card or bank details</span><span>🇬🇧 UK family business</span><span>✉️ hello@onjjem.com</span></p>
 
 <div class="card form" id="enter">
-  <h2>Enter the Christmas giveaway</h2><p style="margin:0 0 4px;font-size:14px">Takes 30 seconds. One winner, picked at random after it closes, with the blanket delivered before Christmas.</p>
-  <p id="gwcount" style="display:none;margin:-4px 0 8px;color:#1a9d55;font-weight:700"></p>
-  <form id="gw" novalidate>
-    <label>Your first name<input name="name" required maxlength="60" autocomplete="given-name"></label>
-    <label>Email address <small>(to confirm your entry and contact the winner)</small><input name="email" type="email" required maxlength="200" autocomplete="email"></label>
-    <label>🎄 Get a FREE Christmas cartoon of your photo <small>(optional)</small><span style="display:block;font-weight:400;font-size:13px;color:#6b5675;margin-top:2px">Add a photo of your family, kids or pet and we'll email you a Christmas cartoon of it in a few minutes, yours to keep.</span><input name="photo" type="file" accept="image/*"></label>
-    <img id="gwprev" alt="" style="display:none;max-width:140px;max-height:140px;border-radius:12px;margin:-2px 0 6px;border:2px solid #F3D078">
-    <input type="hidden" name="country" value="GB">
-    <input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-    <label class="ck"><input type="checkbox" name="adult" required> I'm 18 or over and agree to the terms below</label>
-    <button type="submit" class="btn go" style="width:100%;border:0;cursor:pointer">Enter the giveaway 🎁</button>
-    <label class="ck" style="font-size:12px;margin-top:4px"><input type="checkbox" name="marketing"> Also send me ONJJEM offers, including our Black Friday deals (optional)</label>
-    <p id="gwmsg" style="margin:8px 0 0;font-weight:700"></p>
-  </form>
+  <h2>Thank you, this giveaway has closed 🎄</h2>
+  <p style="margin:0 0 10px">Entries closed on Sunday 22 November. The winner has been picked at random and contacted by email. Thank you to everyone who entered!</p>
+  <a class="btn go" href="/shop-christmas" style="display:block;text-align:center;text-decoration:none">Shop Christmas gifts 🎁</a>
 </div>
 
 <div class="card">
@@ -130,7 +119,7 @@
 </div>
 <script>
 (function(){
-  var f=document.getElementById('gw'), m=document.getElementById('gwmsg');
+  var f=document.getElementById('gw'), m=document.getElementById('gwmsg'); if(!f) return;
   try{ var tz=(Intl.DateTimeFormat().resolvedOptions().timeZone||''); if(/^America\//.test(tz)||/region=us/.test(location.search)) f.country.value='US'; }catch(e){}
   if (new Date() >= new Date('2026-11-22T20:00:00Z')) { f.innerHTML='<p><b>This giveaway has now closed.</b> Thanks to everyone who entered! The winner is being contacted by email.</p>'; return; }
   if (new Date() < new Date('2026-10-31T00:00:00Z')) { f.innerHTML='<p><b>🎄 Opens on Sunday 1 November.</b> Come back then to enter!</p><a class="btn go" href="/christmas">See our Christmas gifts →</a>'; return; }
