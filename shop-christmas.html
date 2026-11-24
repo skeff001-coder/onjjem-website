@@ -141,48 +141,43 @@
 </style>
 </head>
 <body>
-<script>
-// Black Friday (UK): 15% off canvases, mugs, prints & cushions, automatic at checkout, until Mon 30 Nov.
-(function(){
-  if (new Date() >= new Date("2026-12-01T00:00:00Z")) return;
-  var b=document.createElement('a'); b.href='/canvas';
-  b.setAttribute('style','display:block;position:relative;z-index:51;background:#111;color:#fff;font:800 14px/1.3 system-ui,sans-serif;text-align:center;padding:8px 12px;text-decoration:none;border-bottom:3px solid #FFC83D');
-  b.innerHTML='🖤 <span style="color:#FFC83D">BLACK FRIDAY</span> · 15% off + a FREE £5 gift card with every order <u>Shop →</u>';
-  b.onclick=function(){try{gtag('event','bf_banner_click');}catch(e){}};
-  (document.body||document.documentElement).insertBefore(b,document.body.firstChild);
-})();
-</script>
 <div id="hdr"></div>
 
 <main>
   <section class="wrap home-sec" id="cat-christmas">
     <div class="home-sec-head"><h2>🎄 Christmas Gift Shop</h2><a href="/" class="top-link">‹ All categories</a></div>
-    <a class="gw-promo" href="/giftwrap" onclick="try{gtag('event','giftwrap_promo')}catch(e){}"><img src="/giftwrap-hero.webp" alt="Presents wrapped in paper covered in a dog's face"><div class="gw-b"><span class="gw-k">🎁 NEW FOR CHRISTMAS</span><div class="gw-t">Wrap it in your FACE! 😂</div><p class="gw-s">Your family, your dog or your Christmas cartoon printed all over the wrapping paper. They'll be laughing before they've even opened it.</p><div class="gw-p">From £12.99 · free UK delivery</div><span class="gw-btn">Make my wrapping paper 🎁</span></div></a>
-    <div class="xs-mount"></div>
     <div class="tiles">
-        <div class="xm-sub">🦔 Jemzi's Christmas</div>
-        <a class="tile" href="/find-jemzi"><img src="/find-jemzi-puzzle.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">FREE GAME</span><h3>🎮 Find Jemzi! Spot her and win a £50 gift card</h3><div class="t-price">Free to play</div></div></a>
-        <div class="xm-sub">⭐ Jemmies: stocking fillers under £15</div>
-        <a class="tile" href="/pet-tag"><img src="/products/pet-tags.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>🐾 Metal pet tags: name, number or photo</h3><div class="t-price">£12.99</div></div></a>
+      <div class="xm-sub">⭐ Stocking fillers under £15</div>
+        <a class="tile" href="/christmas?pick=wud-sticker-small"><img src="/badges-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>Christmas cartoon stickers</h3><div class="t-price">£5.99</div></div></a>
         <a class="tile" href="/christmas?pick=magnet-fridge-3x2"><img src="/xmas-magnet-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>Christmas cartoon fridge magnets</h3><div class="t-price">From £7.49</div></div></a>
+        <a class="tile" href="/pet-tag"><img src="/products/pet-tags.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>🐾 Metal pet tags: name, number or photo</h3><div class="t-price">£12.99</div></div></a>
         <a class="tile" href="/christmas"><img src="/products/xmas-bauble.jpg" alt="" loading="lazy"><div class="t-body"><h3>Photo bauble for the tree</h3><div class="t-price">£12.99</div></div></a>
         <a class="tile" href="/christmas?pick=magic-mug"><img src="/magic-mug-still.jpg" alt="" loading="lazy"><div class="t-body"><h3>✨ Magic mug: pour in hot chocolate, your photo appears</h3><div class="t-price">£14.99</div></div></a>
-        <a class="tile" href="/christmas?pick=wud-sticker-small"><img src="/badges-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>Christmas cartoon stickers</h3><div class="t-price">£5.99</div></div></a>
-        <div class="xm-sub">🎁 Gifts under £30</div>
-        <a class="tile" href="/pet-bandana"><img src="/bandana-hero.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>🐾 Personalised pet bandanas</h3><div class="t-price">From £17.99</div></div></a>
-        <a class="tile" href="/jemzsaw"><img src="/jemzi.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>🧩 Jemzsaw: photo jigsaw with Jemzi hidden inside</h3><div class="t-price">From £25.99</div></div></a>
-        <a class="tile" href="/your-jemzi"><img src="/jemzi-xmas.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>Christmas Jemzi: up to 5 of your photos with Jemzi</h3><div class="t-price">From £19.99</div></div></a>
+      <div class="xm-sub">🎁 Gifts under £30</div>
         <a class="tile" href="/christmas?pick=poster-a2"><img src="/xmas-poster-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>Christmas cartoon posters: A3, A2 or giant A1</h3><div class="t-price">From £15.49</div></div></a>
+        <a class="tile" href="/pet-bandana"><img src="/bandana-hero.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW</span><h3>🐾 Personalised pet bandanas</h3><div class="t-price">From £17.99</div></div></a>
+        <a class="tile" href="/your-jemzi"><img src="/jemzi-xmas.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>Christmas Jemzi: up to 5 of your photos with Jemzi</h3><div class="t-price">From £19.99</div></div></a>
+        <a class="tile" href="/calendar"><img src="/xmas-calendar-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>2027 photo calendar: 12 of your photos</h3><div class="t-price">£24.99</div></div></a>
+        <a class="tile" href="/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>Family photo canvas · 15% off Black Friday</h3><div class="t-price">From £24.99</div></div></a>
+        <a class="tile" href="/jemzsaw"><img src="/jemzi.webp" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>🧩 Jemzsaw: photo jigsaw with Jemzi hidden inside</h3><div class="t-price">From £25.99</div></div></a>
         <a class="tile" href="/chopping-board"><img src="/xmas-board-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>NEW: Christmas cartoon glass chopping board</h3><div class="t-price">£29.99</div></div></a>
         <a class="tile" href="/christmas-sweatshirt"><img src="/christmas-sweatshirt-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>Matching family Christmas sweatshirts</h3><div class="t-price">£29.99</div></div></a>
-        <a class="tile" href="/christmas?pick=jemzi-surprise-sack"><img src="/jemzi-letter-postcard.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>🦔 Jemzi's Christmas Surprise Sack: 8 surprises + a find-Jemzi game</h3><div class="t-price">£79.99 · save £20</div></div></a>
         <a class="tile" href="/christmas?pick=xmas-sack"><img src="/products/xmas-sack.jpg" alt="" loading="lazy"><div class="t-body"><h3>Personalised Santa sack</h3><div class="t-price">£29.99</div></div></a>
-        <a class="tile" href="/calendar"><img src="/xmas-calendar-tile.webp" alt="" loading="lazy"><div class="t-body"><h3>2027 photo calendar: 12 of your photos</h3><div class="t-price">£24.99</div></div></a>
-        <div class="xm-sub">❤️ Big gifts they'll keep</div>
-        <a class="tile" href="/jembox"><img src="/jembox-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>🎁 The Cosy JemBox: blanket + cushion + mug</h3><div class="t-price">£79.99 · save £8</div></div></a>
+      <div class="xm-sub">❤️ Big gifts they'll keep</div>
         <a class="tile" href="/blanket"><img src="/products/IMG_8759.webp" alt="" loading="lazy"><div class="t-body"><h3>Snuggly photo blanket for Christmas Eve</h3><div class="t-price">From £47.99</div></div></a>
-        <a class="tile" href="/canvas"><img src="/canvas-hero.webp?v=1" alt="" loading="lazy"><div class="t-body"><h3>Family photo canvas · 15% off Black Friday</h3><div class="t-price">From £24.99</div></div></a>
+    </div>
+    <h2 class="xm-wrap-h" style="margin:1.6rem 0 .2rem;text-align:center">🎁 Wrap it up</h2>
+    <a class="gw-promo" href="/giftwrap" onclick="try{gtag('event','giftwrap_promo')}catch(e){}"><img src="/giftwrap-hero.webp" alt="Presents wrapped in paper covered in a dog's face"><div class="gw-b"><span class="gw-k">🎁 NEW FOR CHRISTMAS</span><div class="gw-t">Wrap it in your FACE! 😂</div><p class="gw-s">Your family, your dog or your Christmas cartoon printed all over the wrapping paper. They'll be laughing before they've even opened it.</p><div class="gw-p">From £12.99 · free UK delivery</div><span class="gw-btn">Make my wrapping paper 🎁</span></div></a>
+    <div class="tiles">
         <a class="tile" href="/gift-cards.html"><img src="/products/gift-card-onjjem-sq.webp" alt="" loading="lazy"><div class="t-body"><h3>Last-minute? Gift card by email</h3><div class="t-price">From £5</div></div></a>
+    </div>
+    <h2 class="xm-wrap-h" style="margin:1.6rem 0 .2rem;text-align:center">🦔 Bundles &amp; surprise sacks</h2>
+    <div class="xs-mount"></div>
+    <div class="tiles">
+        <a class="tile" href="/christmas?pick=jemzi-surprise-sack"><img src="/jemzi-letter-postcard.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">NEW · only at ONJJEM</span><h3>🦔 Jemzi's Christmas Surprise Sack: 8 surprises + a find-Jemzi game</h3><div class="t-price">£79.99 · save £20</div></div></a>
+        <a class="tile" href="/jembox"><img src="/jembox-hero.webp" alt="" loading="lazy"><div class="t-body"><h3>🎁 The Cosy JemBox: blanket + cushion + mug</h3><div class="t-price">£79.99 · save £8</div></div></a>
+      <div class="xm-sub">🎮 Free Christmas game</div>
+        <a class="tile" href="/find-jemzi"><img src="/find-jemzi-puzzle.jpg" alt="" loading="lazy"><div class="t-body"><span class="jz-pick">FREE GAME</span><h3>🎮 Find Jemzi! Spot her and win a £50 gift card</h3><div class="t-price">Free to play</div></div></a>
     </div>
   </section>
   <div class="wrap" style="text-align:center;margin:1.5rem auto"><a href="/" style="color:#d4af37;font-weight:800">‹ Back to all categories</a></div>
