@@ -194,7 +194,7 @@ function ONJJEM_showCartoonOffer(photoBase64, mimeType, onProceed) {
       const previewSrc = `data:${data.mimeType};base64,${data.base64Image}`;
       card.innerHTML = ONJJEM_freeText(`
         <div class="cartoon-preview-title">Here's your cartoon! ✨</div>
-        <img class="cartoon-preview-img" src="${previewSrc}" alt="Your cartoon preview" style="display:block; margin-bottom: 14px; border-radius: 12px;">
+        <img class="cartoon-preview-img" src="${previewSrc}" alt="Your cartoon preview" style="display:block; margin:0 auto 14px; border-radius: 12px; max-height:44vh; max-height:44svh; width:auto; max-width:100%; object-fit:contain;">
         <p class="cartoon-email-note" style="font-weight:700; color:#F3D078;">This exact cartoon can be printed on your gift today — watermark-free.</p>
         <p class="cartoon-email-note">For just £1.99, we'll add this full-quality artwork to your order instead of the plain photo. It's a genuinely one-of-a-kind piece, made just for you.</p>
         <button class="cartoon-btn-primary" data-role="yes" style="width:100%; margin-top:10px;">Yes — Add This Cartoon for £1.99</button>
@@ -306,7 +306,7 @@ function ONJJEM_quickCartoon(photoBase64, onDone, chosen) {
       if (!res.ok || !data.base64Image) throw new Error("preview failed");
       const src = `data:${data.mimeType};base64,${data.base64Image}`;
       card.innerHTML = `<div class="cartoon-preview-title">Here's your cartoon! ✨</div>
-        <img class="cartoon-preview-img" src="${src}" alt="Your cartoon preview" style="display:block;margin-bottom:12px;border-radius:12px">
+        <img class="cartoon-preview-img" src="${src}" alt="Your cartoon preview" style="display:block;margin:0 auto 12px;border-radius:12px;max-height:44vh;max-height:44svh;width:auto;max-width:100%;object-fit:contain">
         <button class="cartoon-btn-primary" data-role="use" style="width:100%">Put this cartoon on my gift${free ? " (FREE)" : " (+£1.99)"}</button>
         <button class="cartoon-btn-secondary" data-role="share" style="width:100%;margin-top:10px">📲 Share my cartoon</button>
         <button class="cartoon-btn-secondary" data-role="no" style="width:100%;margin-top:10px">Keep my original photo</button>`;
@@ -315,6 +315,11 @@ function ONJJEM_quickCartoon(photoBase64, onDone, chosen) {
       card.querySelector('[data-role="use"]').onclick = () => {
         close();
         onDone({ addCartoon: true, previewId: data.previewId, previewSrc: src });
+        // Take the customer straight to the buy buttons, so they know what to do next.
+        setTimeout(() => {
+          const b = document.getElementById("basketBtn") || document.getElementById("buyBtn");
+          if (b && b.scrollIntoView) b.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 700);
       };
     } catch (e) {
       card.innerHTML = `<div class="cartoon-preview-title">Couldn't make a preview</div><p class="cartoon-email-note">Please try again, or try a brighter photo with clear faces.</p><button class="cartoon-btn-primary" data-role="ok" style="width:100%">OK</button>`;
