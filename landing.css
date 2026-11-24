@@ -357,3 +357,10 @@ a { color: var(--gold); }
 .l-header .l-tagline{font-family:Georgia,"Playfair Display",serif;font-style:italic;color:#e8dcc0;font-size:.98rem;letter-spacing:.04em;margin:-.15rem 0 .55rem;text-align:center}
 @media (max-width:420px){.l-header .l-tagline{font-size:.88rem}}
 #hdr { display: contents; }
+
+.offers-card{max-width:620px;margin:0 auto;padding:16px 18px;border:1px solid rgba(212,175,55,.45);border-radius:16px;background:linear-gradient(180deg,#2a2416,#1f1f1f)}
+.offers-card .offers-title{font-weight:800;color:#F3D078;font-size:1.05rem;margin-bottom:6px;text-align:center}
+.offers-card ul{list-style:none;margin:0;padding:0}
+.offers-card li{color:#f0e6d0;font-size:.95rem;line-height:1.45;padding:6px 0;border-top:1px solid rgba(255,255,255,.07)}
+.offers-card li:first-child{border-top:0}
+.offers-card code{background:#1a1a1a;color:var(--gold);padding:.1rem .45rem;border-radius:4px;font-family:inherit;letter-spacing:1px}

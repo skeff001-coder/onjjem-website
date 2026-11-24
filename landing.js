@@ -245,14 +245,26 @@ function ONJJEM_searchHtml() {
     if (q) setTimeout(() => { const i = document.getElementById("gsearch"); if (i) { i.value = q; ONJJEM_search({ type: "input" }); } }, 50);
   });
 })();
+// The offers, shown as a tidy card further down the page (not on top of the header).
+function ONJJEM_offersCardHtml() {
+  if (window.__onjOffersShown) return "";
+  const bar = ONJJEM_offerBarHtml();
+  if (!bar) return "";
+  window.__onjOffersShown = true;
+  const inner = bar.replace(/^<div class="offer-bar">/, "").replace(/<\/div>$/, "");
+  let items = inner.split(" · ").map(x => x.trim()).filter(Boolean);
+  const ends = items.find(x => /^ends /i.test(x));
+  items = items.filter(x => x !== ends);
+  return `<section class="l-section wrap"><div class="offers-card"><div class="offers-title">🎁 This week's offers${ends ? ` <small style="font-weight:600;color:#d9cfb8">· ${ends.toLowerCase()}</small>` : ""}</div><ul>${items.map(x => `<li>${x}</li>`).join("")}</ul></div></section>`;
+}
+
 function ONJJEM_headerHtml() {
   const atHome = /^\/(us\/?)?(index\.html)?$/.test(location.pathname);
   if (ONJJEM_isUS()) return `
-  ${ONJJEM_offerBarHtml()}
   <header class="l-header">
     ${atHome ? "" : `<a href="/us/" class="l-back" onclick="try{if(document.referrer&&new URL(document.referrer).host===location.host&&history.length>1){history.back();return false}}catch(e){}">‹ Back</a>`}
     <a href="/us/" class="l-logo"><img src="/jemzi-64.png" alt="Jemzi the ONJJEM hedgehog" width="34" height="34" class="l-jemzi">ONJJEM</a>
-    <div class="l-tagline">Personalised luxury for the moments that matter</div>
+    <div class="l-tagline">Your photos, turned into gifts nobody else has</div>
     <nav class="l-nav"><a href="/?uk=1" class="region-pill" title="Go to the UK shop"><img src="/flag-uk.svg" alt="" width="26" height="13">UK<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
@@ -260,11 +272,10 @@ function ONJJEM_headerHtml() {
     <a href="/us/shop-tapestries">🏔️ Tapestries</a><a href="/us/shop-home">🛋️ Blankets &amp; home</a><a href="/us/shop-prints">📸 Prints &amp; posters</a><a href="/us/shop-mugs">☕ Mugs</a><a href="/us/shop-clothing">👕 T-shirts &amp; hoodies</a><a href="/us/shop-sports">⛳ Golf &amp; pickleball</a><a href="/us/shop-christmas">🎄 Christmas</a>
   </nav>`;
   return `
-  ${ONJJEM_offerBarHtml()}
   <header class="l-header">
     ${atHome ? "" : `<a href="/" class="l-back" onclick="try{if(document.referrer&&new URL(document.referrer).host===location.host&&history.length>1){history.back();return false}}catch(e){}">‹ Back</a>`}
     <a href="/" class="l-logo"><img src="/jemzi-64.png" alt="Jemzi the ONJJEM hedgehog" width="34" height="34" class="l-jemzi">ONJJEM</a>
-    <div class="l-tagline">Personalised luxury for the moments that matter</div>
+    <div class="l-tagline">Your photos, turned into gifts nobody else has</div>
     <nav class="l-nav"><a href="/us/" class="region-pill" title="Go to the US shop"><img src="/flag-us.svg" alt="" width="25" height="13">US<span class="rp-word"> shop</span></a></nav>
     ${ONJJEM_searchHtml()}
   </header>
@@ -274,13 +285,14 @@ function ONJJEM_headerHtml() {
 }
 
 function ONJJEM_footerHtml() {
-  if (ONJJEM_isUS()) return `
+  const offers = ONJJEM_offersCardHtml();
+  if (ONJJEM_isUS()) return offers + `
   <footer class="l-footer">
     <p style="margin-bottom:0.5rem">Personalized gifts, made to order in the USA · <a href="mailto:hello@onjjem.com">hello@onjjem.com</a></p>
 <p class="l-social" style="margin:0.4rem 0 0.7rem"><a href="https://www.tiktok.com/@onjjem123" target="_blank" rel="noopener">▶ Watch us on TikTok</a><a href="https://www.instagram.com/onjjemgifts" target="_blank" rel="noopener">📸 Instagram</a></p>
     <a href="/us/shipping">Shipping</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/?uk=1">🇬🇧 UK shop</a>
   </footer>`;
-  return `
+  return offers + `
   <footer class="l-footer">
     <p style="margin-bottom:0.5rem">Personalised gifts, handmade to order in the UK · <a href="mailto:hello@onjjem.com">hello@onjjem.com</a></p>
 <p class="l-social" style="margin:0.4rem 0 0.7rem"><a href="https://www.tiktok.com/@onjjem123" target="_blank" rel="noopener">▶ Watch us on TikTok</a><a href="https://www.instagram.com/onjjemgifts" target="_blank" rel="noopener">📸 Instagram</a></p>
@@ -779,6 +791,7 @@ function ONJJEM_renderLanding(P) {
       </div>
     </section>
 
+    ${ONJJEM_offersCardHtml()}
     ${ONJJEM_reviewsHtml()}
 
     <section class="l-section wrap" style="text-align:center"><a class="btn btn-ghost" href="${ONJJEM_isUS() ? "/us/" : "/#gifts"}" style="max-width:420px">See all our gifts →</a></section>
