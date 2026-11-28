@@ -1000,6 +1000,12 @@ function ONJJEM_renderLanding(P) {
     if (!can) return;
     if (earlyOk()) {
       box.innerHTML = `<img class="u-preview" src="${early.previewSrc}" alt="Your cartoon"><div class="u-text">✓ Your cartoon is on your gift</div><div class="u-hint">The preview mark won't be printed · tap to change photo</div>`;
+      // Show the cartoon on the actual gift (wrapping paper, mug, print…), not just the cartoon on its own.
+      const shownFor = early.previewSrc;
+      finalize(shownFor, isTextDesign ? "" : capText.value, false).then(img => {
+        const el = box.querySelector("img.u-preview");
+        if (el && earlyOk() && early.previewSrc === shownFor) { el.src = img; if (opts[selected].wrap) el.style.maxHeight = "140px"; if (P.round) el.style.borderRadius = "50%"; }
+      }).catch(() => {});
       cartoonBtn.textContent = "↩ Use my original photo instead";
       cartoonBtn.style.background = "transparent"; cartoonBtn.style.color = "var(--gold-light)"; cartoonBtn.style.border = "1px solid var(--gold)";
     } else {
